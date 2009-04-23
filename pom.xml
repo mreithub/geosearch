@@ -18,4 +18,9 @@
   <build>
     <finalName>geosearch</finalName>
   </build>
+  <scm>
+    <connection>scm:svn:https://fakeroot.at/svn/sepm/trunk</connection>
+    <developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk</developerConnection>
+    <url>https://fakeroot.at/svn/sepm</url>
+  </scm>
 </project>
