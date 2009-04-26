@@ -112,7 +112,10 @@
 		</section>
 
 		<section name="Projektabgrenzung">
-
+			<ul><li>
+				Es gibt noch keine Möglichkeit dass die Crawler automatisch (ohne API) Seiten durchsuchen und deren Inhalt also geospezifische Information erkennen
+				und in die Datenbank schreiben. (← erst ab diesem Zeitpunkt wäre es eine echte Suchmaschine)
+			</li></ul>
 		</section>
 		<section name="Arbeitsstruktur">
 
