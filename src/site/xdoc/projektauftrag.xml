@@ -17,6 +17,60 @@
 		<section name="Zielgruppe">
 		
 		</section>
+		<section name="Feature-Liste">
+			<subsection name="Suchen">
+				<ul>
+					<li><b>Suche nach/in einem Gebiet:</b><br />
+						 In einem Textfeld kann die Region (Stadt, Land, Straße...) eingegeben werden, in der gesucht werden soll
+						 beziehungsweise die gesucht werden soll. Die Suche in einem Gebiet kann kombiniert werden mit der Suche nach Tags.
+					</li>
+					<li><b>Suche nach Tags:</b><br />
+						In einem zweiten Textfeld kann nach Tags gesucht werden (z.B.: Events, Fotos, Lokale…). Dies kann in Kombination
+						mit einer Gebietssuche passieren. Bei jedem Suchvorgang (auch wenn nur ein Gebiet gesucht wird) wird eine TagCloud
+						erstellt, die dem Sucher Schlagwörter zu dem bereits Gesuchten anzeigt und dadurch eine präzisere Suche erlaubt. 
+					</li>
+					<li><b>Oder-Suche:</b><br />
+						<i>nice-to-have</i> Zusätzlich zur Und-verknüpften Suche
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="Anzeigen">
+				<p>
+					Die Suchergebnisse werden in einem bestimmten Bereich (Kartenausschnitt) dargestellt, dabei gibt es ein noch festzulegendes
+					Limit für die Anzahl der Ergebnisse, die angezeigt werden können, um die Übersichtlichkeit zu wahren. Gleichzeitig wird die
+					Gesamtanzahl der Treffer angezeigt gemeinsam mit der Anzahl der aktuell angezeigten Ergebnisse. Durch Hineinzoomen können
+					die Ergebnisse detaillierter angezeigt werden, durch Hinauszoomen bekommt man einen genaueren Überblick über die Treffer.
+				</p>
+				<p>
+					Zu jedem einzelnen Suchergebnis kann eine Detailansicht geöffnet werden, hier sind dann die konkret gefundenen Details, also
+					Fotos, Events,… zu sehen. Außerdem beinhaltet die Detailansicht einen Permalink, damit man den gefunden Inhalt auch direkt
+					aufrufen kann.
+				</p>
+				<p>nice to have: Share-Möglichkeiten der Suchtreffer z.B.: über Social Networks.</p>
+				<p>nice to have: Vote-Möglichkeit zur Bewertung der Treffer (es können Punkte vergeben werden und es gibt ein optionales Textfeld für Bemerkungen).</p>
+			</subsection>
+			<subsection name="API">
+				<p>
+					Die API ist das Herz der Applikation mit deren Hilfe die Daten an die Datenbank gesendet bzw. geschrieben werden können.
+					Der Zugriff auf die Datenbank funktionert mittels RPC und REST Protokoll.
+				</p>
+				<p>
+					nice to have: Es soll möglich sein, dass externe Seiten unsere Daten abfragen (und zum Beispiel auf ihrer eigenen Seite
+					anzeigen können), verändern und hinzufügen können. 
+				</p>
+			</subsection>
+			<subsection name="Crawler">
+				<p>
+					Der Crawler ist ein Interface, mit dessen Hilfe die Daten von den verschiedenen Websites (für jede Website gibt es einen eigenen
+					Crawler, der das Interface implementiert) geholt und in die Datenbank gespeichert werden können. Alle Daten bekommen einen Zeitstempel
+					und abhängig von der Information eine Gültigkeitsdauer. So lange die Information aktuell ist, wird sie direkt aus der Datenbank gelesen,
+					ist die Gültigkeitsdauer abgelaufen, werden die Daten von der Website neu geholt und in der Datenbank aktualisiert. Zu Beginn gibt es
+					eine Startapplikation, die die Daten in der Datenbank initialisiert. Ab diesem Zeitpunkt erhält sich die Datenbank quasi selbst, indem
+					sie durch User-Requests ihre Daten permanent auf Gültigkeit überprüft und gegebenenfalls aktualisiert.
+				</p>
+			</subsection>
+		</section>
+
 		<section name="Projektabgrenzung">
 
 		</section>
@@ -37,9 +91,6 @@
 		</section>
 		<section name="Risikoabschätzung">
 
-		</section>
-		<section name="Feature-Liste">
-		
 		</section>
 		<section name="Nichtfunktionale Anforderungen">
 
