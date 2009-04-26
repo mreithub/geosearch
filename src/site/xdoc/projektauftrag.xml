@@ -74,6 +74,42 @@
 				</p>
 			</subsection>
 		</section>
+		<section name="Verwendete Technologien">
+			<ul>
+				<li>
+					Kommunikation und Dokumentation
+					<ul>
+						<li>Google Docs</li>
+						<li>Laconica</li>
+						<li>Trac</li>
+						<li>Skype</li>
+						<li>SMS</li>
+					</ul>
+				</li><li>
+					Tools und Server
+					<ul>
+						<li>PostgreSQL Server (im Produktivbetrieb)</li>
+						<li>Apache Tomcat</li>
+						<li>Visual Paradigm</li>
+						<li>Eclipse</li>
+					</ul>
+				</li><li>
+					Source
+					<ul>
+						<li>Java Servlets (Seitenlogik)</li>
+						<li>Java Server Pages (View)</li>
+						<li>Java</li>
+						<li>Maven</li>
+						<li>Spring</li>
+						<li>Subversion</li>
+						<li>JUnit</li>
+						<li>Log4J</li>
+						<li>GWT (Google Web Toolkit)</li>
+						<li>Google Maps API</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
 
 		<section name="Projektabgrenzung">
 
