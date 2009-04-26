@@ -87,7 +87,23 @@
 		
 		</section>
 		<section name="Lieferkomponenten">
-
+			<p>Folgende Komponenten werden nach Fertigstellung des Projekts ausgeliefert bzw. zur Verfügung gestellt:</p>
+			<ul>
+				<li>Funktionale geographische Online-Suche, die entweder auf einem Server von uns oder auf einem Server des Kunden gehostet werden kann</li>
+				<li>Dokumente zur Anforderungsanalyse, Entwurf und Design</li>
+				<li>ein Benutzerhandbuch</li>
+				<li>ein technisches Handbuch (bzw. Installationshandbuch oder ähnliches)</li>
+			</ul>
+			<p>
+				Falls das Projekt auf einem von uns gehosteten Server läuft, erfolgt die Abnahme durch Funktionstests.
+				Falls das Projekt auf einem anderen Server laufen soll, ist zusätzlich das einmalige Aufsetzen dieses Servers erforderlich.
+			</p>
+			<p>Nicht im Kunden-Lieferumfang enthalten sind die folgenden Dokumente:</p>
+			<ul>
+				<li>Dokumente, die zur Erstellung von GeoSearch benötigt wurden (ER-Diagramme, Klassendiagramme etc.)</li>
+				<li>Entwickler-Tools (Eclipse, Projektmanagement-Tools etc.)</li>
+				<li>Interne Dokumente, die in erster Linie zur Koordination des Teams dienen</li>
+			</ul>
 		</section>
 		<section name="Risikoabschätzung">
 
