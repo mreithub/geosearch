@@ -359,8 +359,60 @@
 				</li></ul>
 			</subsection>
 		</section>
-		<section name="Funktionale Anforderungen">
-
+		<section name="Funktionale Anforderungen, wichtigste Anwendungsfälle">
+			<subsection name="User">
+				<img src="images/usecase/user.jpg" alt="Bild: Anwendungsfalldiagramm Benutzer" />
+				<ul>
+					<li><b>Suche in Gebiet:</b><br />
+						Der User kann in ein Textfeld das Gebiet (Stadt, Straße,…) eingeben in dem er suchen möchte,
+						beziehungsweise das er suchen möchte.
+					</li>
+					<li><b>Suche mit Tags:</b><br />
+						Der User kann in ein Textfeld Schlagwörter (Fotos, Lokale,…) eingeben nach denen er suchen
+						möchte. Die eingegebenen Schlagwörter werden mit den gespeicherten Tags in der Datenbank
+						verglichen um die Ergebnisse zu finden.
+					</li>
+					<li><b>Suchen mit TagCloud</b><br />
+						Bei jeder Suche, die der User durchführt, wird eine TagCloud erstellt, die verwandte
+						Suchebegriffe zur letzten Anfrage anzeigt. Mit der TagCloud kann der User nach ähnlichen
+						oder vertiefenden Schlagwörtern suchen.
+					</li>
+					<li><b>Suchen durch Zoomen</b><br />
+						Das Ergebnis der Suche wird in einem Kartenausschnitt dargestellt, durch hineinzoomen wird
+						der Kartenausschnitt verkleinert, was eine genauere Ansicht der Treffer ermöglicht. 
+					</li>
+					<li><b>Details zu den Suchergebnissen anzeigen</b><br />
+						Der Benutzer kann zu jedem Suchergebnis Details ansehen. Diese werden sichtbar sobald man
+						auf der Karte auf das entsprechende Suchergebnis klickt. Welche Details hier angezeigt
+						werden ist vom Typ des Eintrags abhängig. Bei einem Foto wird zum Beispiel das entsprechende
+						Bild dargestellt, bei einem Wikipedia-Eintrag der Text des Artikels.
+					</li>
+					<li><b>Quelle des Eintrags anzeigen</b><br />
+						Da zu jedem Eintrag in der Datenbank ein permanenter Link gespeichert wird (die Quelle der Daten),
+						kann der Benutzer direkt zur Quelle des Eintrags gelangen (z.B.: entsprechender Wikipedia-Artikel).
+					</li>
+					<li><b>Suchergebnis mit anderen Benutzern teilen</b><br />
+						<i>Nice to have</i>: Bei Bedarf können Suchergebnisse vom Benutzer mit bzw. an andere Personen
+						geteilt werden. Dies erfolgt im einfachsten Fall per Permalink bzw. Email-Versand, könnte aber
+						in weiterer Ausbaustufe auch z.B. per privater Nachricht auf Social-Networking Seiten etc. erfolgen.
+					</li>
+					<li><b>Suchergebnisse bewerten</b><br />
+						<i>Nice to have</i>: Der Benutzer soll die Möglichkeit haben, Suchergebnisse zu bewerten. Diese
+						Bewertungen fließen in weiterer Folge in zukünftige Suchen mit ein und können somit dazu beitragen
+						qualitativ höherwertige Ergebnisse zu erzielen.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="Externe Webseiten">
+				<img src="images/usecase/extern.jpg" alt="Bild: Anwendungsfalldiagramm Extene WebSite" />
+				<ul>
+					<li><b>Daten mittels API abfragen</b><br />
+						Anforderung: API soll eine REST und RPC Interface implementieren mit dessen hilfe Daten
+						zwischen intenen und externen Servern und der GUI ausgetauscht werden können. Die REST
+						Datenaustausch soll mit XML, und JSON funktionieren.
+					</li>
+				</ul>
+			</subsection>
 		</section>
 		<section name="grober Projektplan">
 			Die Ecktermine des Projekts werden wie folgt abgeschätzt:
@@ -379,14 +431,6 @@
 		</section>
 		<section name="Komponentendiagramm">
 			<img src="images/komponentendiagramm.jpg" alt="Bild: Komponentendiagramm" />
-		</section>
-		<section name="Anwendungsfälle">
-			<subsection name="User">
-				<img src="images/usecase/user.jpg" alt="Bild: Anwendungsfalldiagramm Benutzer" />
-			</subsection>
-			<subsection name="Externe Webseiten">
-				<img src="images/usecase/extern.jpg" alt="Bild: Anwendungsfalldiagramm Extene WebSite" />
-			</subsection>
 		</section>
 	</body>
 </document>
