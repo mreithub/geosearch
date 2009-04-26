@@ -3,13 +3,13 @@
 <!-- informations about this file:
 http://maven.apache.org/guides/mini/guide-site.html
 -->
-<project name="GeoSearch">
+<project name="geoSearch">
 	<body>
 		<links>
 			<item name="Trac" href="http://sepm.fakeroot.at/trac" />
 			<item name="Laconi.ca" href="http://laconica.fakeroot.at" />
 		</links>
-		<menu name="GeoSearch">
+		<menu name="geoSearch">
 			<item name="Installation" href="setup.html" />
 			<item name="About" href="index.html" />
 			<item name="Projektinformation" href="project-info.html" />

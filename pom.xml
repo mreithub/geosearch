@@ -9,7 +9,7 @@
   <artifactId>geosearch</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>geosearch Maven Webapp</name>
+  <name>geoSearch</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -32,7 +32,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>geosearch</finalName>
+    <finalName>geoSearch</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
