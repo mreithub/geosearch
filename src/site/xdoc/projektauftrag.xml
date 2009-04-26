@@ -19,7 +19,19 @@
 
 		</section>
 		<section name="Zielgruppe">
-		
+			<subsection name="Suchende USER (Hauptzielgruppe)">
+				<ul>
+					<li>Touristen: Jene Personen die in eine Stadt kommen, und einen Plan machen wollen, was sie in dieser Stadt so sehen können.</li>
+					<li>Stöberer: Personen die einfach nur interessiert was es in einer Stadt so gibt. Also ob man überhaupt dort hin fahren sollen, oder eher nicht.</li>
+					<li>Verzweifelte: Personen die plötzlich etwas in ihrer Umgebung suchen aber es nicht finden können. (zb. Person hat Hunger und will wissen, "Wo ist das nächste Gasthaus")</li>
+				</ul>
+			</subsection>
+			<subsection name="Web-Entwickler">
+				<ul><li>Homepage- oder Applikations- Entwickler die unsere Daten für eine eigene Applikationen verwenden wollen. (zb. Eine Firma möchte alle ihre Fillialen auf der eigenen Seite anzeigen.)</li></ul>
+			</subsection>
+			<subsection name="Content-Provider">
+				<ul><li>Anbieter von positionsspezifischen Daten, die gerne auf unserer Seite verlinkt wären (oder eventuell unseren Service für die Anzeige ihrer Kartendaten verwenden wollen)</li></ul>
+			</subsection>
 		</section>
 		<section name="Feature-Liste">
 			<subsection name="Suchen">
