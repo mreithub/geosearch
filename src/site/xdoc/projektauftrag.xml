@@ -174,6 +174,49 @@
 			</li></ul>
 		</section>
 		<section name="Arbeitsstruktur">
+			<table>
+				<tr><th>Rolle/n</th><th>Name</th><th>Matr.-Nr.</th><th>Kennz.</th><th>Email</th><th>Telefon</th></tr>
+				<tr>
+					<td>Teamkoordinator</td>
+					<td>Jürgen Brandstetter</td>
+					<td>0726015</td>
+					<td>532</td>
+					<td>j_brandstetter@weristin.at</td>
+					<td>+43 650/237 92 75</td>
+				</tr>
+				<tr>
+					<td>Technischer Architekt</td>
+					<td>Manuel Reithuber</td>
+					<td>0725031</td>
+					<td>534</td>
+					<td>manuel.reithuber@student.tuwien.ac.at</td>
+					<td>+43 680/123 83 26</td>
+				</tr>
+				<tr>
+					<td>Dokumentationsbeauftragte</td>
+					<td>Ruth Kendlbacher</td>
+					<td>0726383</td>
+					<td>533</td>
+					<td>e0726383@student.tuwien.ac.at</td>
+					<td>+43 699/122 922 68</td>
+				</tr>
+				<tr>
+					<td>Testbeauftragter</td>
+					<td>Mathias Kunter</td>
+					<td>0625658</td>
+					<td>533</td>
+					<td>e0625658@student.tuwien.ac.at</td>
+					<td>+43 664/219 11 11</td>
+				</tr>
+				<tr>
+					<td>Stf.TK<br />Stv.TA</td>
+					<td>Anca Cismasiu</td>
+					<td>0727280</td>
+					<td>532</td>
+					<td>e0727280@student.tuwien.ac.at</td>
+					<td>+43 676/402 83 75</td>
+				</tr>
+			</table>
 
 		</section>
 		<section name="Informationswesen">
