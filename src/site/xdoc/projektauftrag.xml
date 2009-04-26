@@ -19,7 +19,48 @@
 			Außerdem hat sich noch immer keine Standardabfrage für dieses Problem entwickelt, wodurch man für jede API eine eigenes Script schreiben muss.
 		</section>
 		<section name="Projektbeschreibung">
+			<subsection name="SUCHE und GUI">
+				Für einen Besucher der HP soll es möglichst einfach sein, jegliche Informationen zu einem spezifischen Ort zu finden, bzw. soll die Möglichkeit 
+				bestehen, in einem Bereich zu "stöbern". Dass heisst, von "UNS" oder dann in weiterer Folge von "USERN" vordefinierte Suchanfragen auszuwählen,
+				um sich schnell einen Überblick über eine Gegend zu verschaffen. Eine Beispiel hierzu wäre: Ein Button, auf dem steht "Freizeit". Wenn man nun
+				auf diesen Button klickt, erscheinen automatisch alle Events, Routen und Bilder auf der Karte.<br />
+				Damit die Applikation nicht nur eine reine Suchmaschine wird, soll es die Möglichkeit geben, angezeigte Inhalte zu bewerten und eigene zu erstellen.
+			</subsection>
 
+			<subsection name="API">
+				Um die Möglichkeit zu schaffen, dass andere Applikationen unsere Daten verwenden können, und um die Infrastruktur einfacher zu gestalten,
+				wird eine API geschrieben. Mithilfe dieser API soll das Lesen und Schreiben von Daten vereinfacht und standardisiert werden.<br />
+				Hierzu ein paar Beispiele:
+				<ul>
+					<li>
+						Falls eine Applikation (Homepage) Bilder von Orten anzeigen will, bekommt diese mittels unserer API alle Bilder von Panoramio,
+						Flickr, usw. (also alle unsere Datenbankeinträge in einem gewissen Umfeld) in einem Standardformat.
+					</li>
+					<li>
+						Gibt es eine Applikation (Homepage), die Datenbestände verwaltet und bei uns eintragen will (damit wir diese Seite nicht crawlen
+						müssen), ist dies auch mittels der API möglich.<br />
+						z.B.: <tt>hotels.com</tt> kann mittels API jegliche Änderung ihrer Daten automatisch an uns mittels API senden. So sind sind unsere
+						Daten noch aktueller und wir brauchen keinen Crawler für diese Seite schreiben.
+					</li>
+					<li>
+						Wir haben z.B. nur 3 Services, die wir bis jetzt Crawlen können. Kommt nun ein weiterer hinzu, ist das schreiben eines neuen Crawlers
+						einfacher, da standardisierte Schnittstellen vorliegen. Zusätzlich kann das Crawlen auf andere Server auslagern.
+					</li>
+					<li>
+						Eine Änderung der GUI (bzw. parallelbetrieb mehrerer oder sogar eine Client-Applikation) kann so einfach umgesetzt werden.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="BOTS (Crawler)">
+				Um einen großen Datenbestand zu ermöglichen, und diese Daten dann im Format unserer API in die Datenbank zu schreiben, muss für jeden Service,
+				der von uns aktiv abgerufen wird, ein eigener Crawler geschrieben werden. In weiterer Folge können diese Crawler immer komplizierter werden.
+				Außerdem können diese Crawler auf Quasi-Suchmaschinen erweitert werden, die automatisch Homepages durchsuchen und in unsere Datenbank (mittels API) schreiben.
+				Die zu Beginn der Projekts verwendeten Crawler werden in gewissen Zeitabständen jeden von uns unterstützen Service auf Updates überprüfen (periodic scans).
+				Später wird eventuell auf ein System umgestellt, das ähnlich wie caching Proxies die Daten genau auf Anfrage abholen.
+			</subsection>
+
+			Der Unteschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass ein grundlegendes Augenmerk auf Erweiterbarkeit und wiederverwendbarkeit gelegt wird.
+			Bei GoogleMaps werden nicht sehr viele Services eingebunden. Auch können externe Seiten nicht wieder auf die vorhandenen Daten zugreifen.
 		</section>
 		<section name="Zielgruppe">
 			<subsection name="Suchende USER (Hauptzielgruppe)">
