@@ -33,6 +33,16 @@
   </dependencies>
   <build>
     <finalName>geosearch</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.0</version>
+        <configuration>
+          <goals>install</goals>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
   <scm>
     <developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk</developerConnection>
