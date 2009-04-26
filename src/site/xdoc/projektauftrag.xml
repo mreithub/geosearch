@@ -147,7 +147,12 @@
     			</ul>
 		</section>
 		<section name="Besonderheiten">
-
+			<ul>
+				<li>Bei unserem Projekt handelt es sich um eine Webanwendung</li>
+				<li>Webserver notwendig (bereits vorhanden)</li>
+				<li>PostgreSQL (da es auf dem verwendeten Webserver bereits installiert ist)</li>
+				<li>Keine GUI per Java SWING (da Webanwendung)</li>
+			</ul>
 		</section>
 		<section name="Domänenmodell">
 		
