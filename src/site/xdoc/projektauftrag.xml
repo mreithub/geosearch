@@ -93,7 +93,47 @@
 
 		</section>
 		<section name="Nichtfunktionale Anforderungen">
-
+			<subsection name="Handhabung/Benutzbarkeit">
+				<ul>
+					<li>
+						Die Suchmaschine soll in Hinblick auf Aussehen und Handhabung an bereits bestehende Suchmaschinen und Kartendienste angelehnt
+						werden, sodass der User kaum Einarbeitungszeit benötigt, um mit dem System umgehen zu können.
+					</li>
+					<li>Die Website soll insgesamt übersichtlich gestaltet werden, sodass der User schnell die Information findet, die er sucht.</li>
+				</ul>
+			</subsection>
+			<subsection name="Leistung">
+				<ul><li>
+					Durch eine bei der Einführung des Programms durchgeführte Startapplikation zur Dateninitialisierung und darauf folgende permanente
+					Aktualisierung (durch Crawler und die Requests der User) der Datenbank, wird versucht die Antwortzeiten so gering wie möglich zu halten. 
+				</li></ul>
+			</subsection>
+			<subsection name="Erweiterbarkeit">
+				<ul><li>
+					Das Programm soll so geschrieben und gekapselt werden, dass etwaige Erweiterungen und Änderungen bereits berücksichtigt werden,
+					sodass es bei einem Ausbau des Projekts zu keinen großen Code-Änderungen mehr kommt.
+				</li></ul>
+			</subsection>
+			<subsection name="Wartbarkeit">
+				<ul><li>
+					Der Code soll so formatiert, kommentiert, dokumentiert und getestet werden, dass es zu keinen langen Einarbeitungszeiten kommt,
+					wenn Teile gewartet oder erweitert werden, v.a. auch von Personen, die mit der Projektentwicklung entweder gar nichts zu tun hatten
+					oder an dem zu ändernden Teil nicht hauptsächlich mitgewirkt haben. 
+				</li></ul>
+			</subsection>
+			<subsection name="Korrektheit">
+				<ul><li>
+					Die gesuchten Daten sollen auf der Karte korrekt angezeigt werden, das heißt, sie sollen genau ihrer Quelle entsprechen. Für die
+					Korrektheit der Quellen können wir keine Verantwortung übernehmen. Eventuell wird eine Bewertung eingebaut, sodass die User die
+					Möglichkeit haben, die Suchresultate zu bewerten, wodurch die Qualität der Informationen verbessert werden kann. 
+				</li></ul>
+			</subsection>
+			<subsection name="Sicherheit">
+				<ul><li>
+					Die Datenbank soll vor unsachgemäßen Anfragen gesichert werden (z.B. SQL injections, input form validation), sodass es zu keinem
+					ungewollten Datenverlust oder inkonsistenten Daten kommen kann.
+				</li></ul>
+			</subsection>
 		</section>
 		<section name="Funktionale Anforderungen">
 
