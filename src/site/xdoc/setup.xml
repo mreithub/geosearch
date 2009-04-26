@@ -1,0 +1,103 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
+		<title>Installation</title>
+	</properties>
+	<head>
+		<!-- xhtml head tag -->
+	</head>
+	<body>
+		<section name="Abhängigkeiten">
+			Wenn ihr die jeweilige Software noch nicht installiert habt, folgt einfach den folgenden Anleitungen:
+			Alle Anleitungen beziehen sich auf Windows.<br />
+			
+			Für Debian-basierte Linuxe gent's nämlich viel einfacher:<br />
+			<code>apt-get install maven subversion tomcat5.5</code><br />
+			eingeben (unter sid gibt's auch schon alternativ tomcat6)
+			<subsection name="Maven">
+				<p>
+					Einfach eines der Zip-Files von der <a href="http://maven.apache.org/download.html">Maven Download-Seite</a>
+					herunterladen und den Anleitungen unten auf der Seite folgen.<br />
+				</p>
+				
+				<p>
+					Danach sollte in einer <b>neu aufgemachten</b> (wichtig, weil die Variablen nur am Start eingelesen werden)
+					Eingabeaufforderung der Befehl <code>mvn --version</code> funktionieren (also die Version von maven und Java ausgeben).
+				</p>
+				
+				<p>Bei Problemen mit diesem Schritt meldet ihr euch einfach bei mir --Manuel</p>
+			</subsection>
+			<subsection name="Subversion">
+				<p>Maven braucht zum synchronisieren mit dem Subversion Repository den Subversion client.</p> 
+				
+				<p>Einfach <a href="http://www.sliksvn.com/en/download">hier</a> herunterladen und installieren.</p>
+				
+				<p>Bei Problemen mit diesem Schritt meldet ihr euch einfach bei mir --Manuel</p>
+			</subsection>
+			<subsection name="tomcat">
+				<p>Um die Seite lokal testen zu können, braucht ihr einen Java Application Server (in unserem Fall <a href="http://tomcat.apache.org">Tomcat</a></p>
+
+				<p>Ihr bekommt ihn <a href="http://tomcat.apache.org/download-60.cgi">hier</a> (am besten per "Windows Service Installer")</p>
+				
+				<p>Spätestens nach einem Neustart sollte der Tomcat auf <a href="http://localhost:8080/">http://localhost:8080/</a> lauschen.</p>
+				
+				<p>Bei Problemen mit diesem Schritt meldet ihr euch einfach bei mir --Manuel</p>
+			</subsection>
+		</section>
+		<section name="Subversion Checkout">
+			Zuerst braucht ihr mal den Quellcode des Projekts:
+			<ul>
+				<li>Einen Ordner erstellen, in dem das Projekt gespeichert werden soll</li>
+				<li>Mit dem Kommandozeilenterminal in den Ordner wechseln</li>
+				<li>folgendes eingeben:<br />
+					<code>svn checkout https://www.fakeroot.at/svn/sepm .</code><br />
+					Falls ihr das Projekt später in einem anderen Ordner haben wollt, einfach verschieben/umbenennen/...
+					(aber immer nur die ganze Working-Copy)
+				</li>
+			</ul>
+		</section>
+		<section name="Maven verwenden">
+			Erstmal vorweg: Maven ist ein Java-Programm und es macht von Exceptions gebrauch, wenn es Fehlermeldungen wirft.<br />
+			Dadurch wird ein Stack-Trace im Terminal ausgegeben, was die Fehlermeldung ein bisschen unübersichtlich macht.<br />
+			Trotzdem kann man leicht durch die Ausgabe von "<code>BUILD SUCCESSFUL</code> am Ende der Ausgabe erkennen, ob der Befehl
+			erfolgreich ausgeführt wurde.<br />
+			Im Fehlerfall müsst ihr einfach die Zeile mit [ERROR] am Anfang suchen, in der dann eine sinnvolle Fehlermeldung steht.
+			<subsection name="Eclipse Projekt erstellen">
+				<p>
+					Um von Maven automatisch ein Eclipse-Projekt erstellen zu lassen, gebt folgendes in der Eingabeaufforderung ein (im Working directory):<br />
+					<code>mvn eclipse:eclipse</code>
+				</p>
+				<p>Wenn das Projekt von Eclipse nicht automatisch gefunden wird:</p>
+				<ul>
+					<li>File/Import klicken und unter "General" "Existing Project into Workspace" auswählen.</li>
+					<li>Projektverzeichnis auswählen</li>
+					<li>unter "Projects" Projekte auswählen, die importiert werden sollen (automatisch sollten alle Kästchen aktiv sein)</li>
+					<li>"Finish" klicken</li>
+				</ul>
+			</subsection>
+			<subsection name="Maven Site Dokumentation erstellen">
+				<p>Die Doku erstellt man einfach per <code>mvn site</code>.</p>
+				<p>
+					Die Dokumentation wird unter <tt>src/site/</tt> in den folgenden Ordnern gespeichert:
+				</p>
+				<ul>
+					<li><tt><b>xdoc</b></tt>: XDoc-Files (wie dieses eines ist)</li>
+					<li>
+						<tt><b>resources</b></tt>: hier werden z.b. Bilder im Unterordner images gespeichert. 
+						Diese kann man dann einfach relativ zur Dokumenationsseite im Unterordner images einbinden (z.B.: <code>&lt;img src="images/foobar.png" /&gt;</code>
+					</li>
+				</ul>
+				<p><b>Wichtig:</b> Vor dem Committen einer Doku-Änderung sollte unbedingt <code>mvn site</code> aufgerufen werden, um nicht eventuell fehlerhafte Dokumentation ins Repository zu bekommen</p>
+			</subsection>
+			<subsection name="Sourcecode kompilieren">
+				<code>mvn compile</code>
+			</subsection>
+			<subsection name="Programm im Tomcat testen">
+				<code>mvn tomcat:deploy</code><br />
+				bzw.<br />
+				<code>mvn tomcat:redeploy</code>
+			</subsection>
+		</section>
+	</body>
+</document>

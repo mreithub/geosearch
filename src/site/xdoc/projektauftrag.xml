@@ -55,7 +55,7 @@
 					Der Zugriff auf die Datenbank funktionert mittels RPC und REST Protokoll.
 				</p>
 				<p>
-					nice to have: Es soll möglich sein, dass externe Seiten unsere Daten abfragen (und zum Beispiel auf ihrer eigenen Seite
+					<i>nice to have</i>: Es soll möglich sein, dass externe Seiten unsere Daten abfragen (und zum Beispiel auf ihrer eigenen Seite
 					anzeigen können), verändern und hinzufügen können. 
 				</p>
 			</subsection>
