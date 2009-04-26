@@ -176,6 +176,21 @@
 				und in die Datenbank schreiben. (← erst ab diesem Zeitpunkt wäre es eine echte Suchmaschine)
 			</li></ul>
 		</section>
+		<section name="grober Projektplan">
+			Die Ecktermine des Projekts werden wie folgt abgeschätzt:
+			<table>
+				<tr><th>Phase</th><th>Termin</th><th>Aufwand (h)</th></tr>
+				<tr><td>Projektstart</td><td>06.04.2009</td><td>40</td></tr>
+				<tr><td>Anforderungsanalyse</td><td>23.04.2009</td><td>60</td></tr>
+				<tr><td>Entwurf</td><td>08.05.2009</td><td>200</td></tr>
+				<tr><td>Alphaversion bzw. Prototyp erstellen</td><td>22.05.2009</td><td>200</td></tr>
+				<tr><td>Applikation erstellen + Modultests</td><td>05.06.2009</td><td>200</td></tr>
+				<tr><td>Systemtests abschließen</td><td>10.06.2009</td><td>50</td></tr>
+				<tr><td>Betaversion erstellen</td><td>14.06.2009</td><td>50</td></tr>
+				<tr><td>Feinschliff und abschließende Fehlerbehebung</td><td>19.06.2009</td><td>100</td></tr>
+				<tr><td>Projektabschluss</td><td>30.06.2009</td><td>40</td></tr>
+			</table>
+		</section>
 		<section name="Arbeitsstruktur">
 			<table>
 				<tr><th>Rolle/n</th><th>Name</th><th>Matr.-Nr.</th><th>Kennz.</th><th>Email</th><th>Telefon</th></tr>
@@ -244,28 +259,6 @@
 				<li>Keine GUI per Java SWING (da Webanwendung)</li>
 			</ul>
 		</section>
-		<section name="Domänenmodell">
-			<img src="images/domaenenmodell.jpg" alt="Bild: Domänenmodell" />
-		</section>
-		<section name="Lieferkomponenten">
-			<p>Folgende Komponenten werden nach Fertigstellung des Projekts ausgeliefert bzw. zur Verfügung gestellt:</p>
-			<ul>
-				<li>Funktionale geographische Online-Suche, die entweder auf einem Server von uns oder auf einem Server des Kunden gehostet werden kann</li>
-				<li>Dokumente zur Anforderungsanalyse, Entwurf und Design</li>
-				<li>ein Benutzerhandbuch</li>
-				<li>ein technisches Handbuch (bzw. Installationshandbuch oder ähnliches)</li>
-			</ul>
-			<p>
-				Falls das Projekt auf einem von uns gehosteten Server läuft, erfolgt die Abnahme durch Funktionstests.
-				Falls das Projekt auf einem anderen Server laufen soll, ist zusätzlich das einmalige Aufsetzen dieses Servers erforderlich.
-			</p>
-			<p>Nicht im Kunden-Lieferumfang enthalten sind die folgenden Dokumente:</p>
-			<ul>
-				<li>Dokumente, die zur Erstellung von GeoSearch benötigt wurden (ER-Diagramme, Klassendiagramme etc.)</li>
-				<li>Entwickler-Tools (Eclipse, Projektmanagement-Tools etc.)</li>
-				<li>Interne Dokumente, die in erster Linie zur Koordination des Teams dienen</li>
-			</ul>
-		</section>
 		<section name="Risikoabschätzung">
 			<ol>
 				<li>
@@ -315,6 +308,25 @@
 					<b>Verantwortlichkeit</b>: Team<br />
 				</li>
 			</ol>
+		</section>
+		<section name="Lieferkomponenten">
+			<p>Folgende Komponenten werden nach Fertigstellung des Projekts ausgeliefert bzw. zur Verfügung gestellt:</p>
+			<ul>
+				<li>Funktionale geographische Online-Suche, die entweder auf einem Server von uns oder auf einem Server des Kunden gehostet werden kann</li>
+				<li>Dokumente zur Anforderungsanalyse, Entwurf und Design</li>
+				<li>ein Benutzerhandbuch</li>
+				<li>ein technisches Handbuch (bzw. Installationshandbuch oder ähnliches)</li>
+			</ul>
+			<p>
+				Falls das Projekt auf einem von uns gehosteten Server läuft, erfolgt die Abnahme durch Funktionstests.
+				Falls das Projekt auf einem anderen Server laufen soll, ist zusätzlich das einmalige Aufsetzen dieses Servers erforderlich.
+			</p>
+			<p>Nicht im Kunden-Lieferumfang enthalten sind die folgenden Dokumente:</p>
+			<ul>
+				<li>Dokumente, die zur Erstellung von GeoSearch benötigt wurden (ER-Diagramme, Klassendiagramme etc.)</li>
+				<li>Entwickler-Tools (Eclipse, Projektmanagement-Tools etc.)</li>
+				<li>Interne Dokumente, die in erster Linie zur Koordination des Teams dienen</li>
+			</ul>
 		</section>
 		<section name="Nichtfunktionale Anforderungen">
 			<subsection name="Handhabung/Benutzbarkeit">
@@ -398,7 +410,7 @@
 					</li>
 					<li><b>Suchergebnisse bewerten</b><br />
 						<i>Nice to have</i>: Der Benutzer soll die Möglichkeit haben, Suchergebnisse zu bewerten. Diese
-						Bewertungen fließen in weiterer Folge in zukünftige Suchen mit ein und können somit dazu beitragen
+						Bewertungen fließen in weiterer Folge in zukünftige Suchen mit ein und können somit dazu beitragen,
 						qualitativ höherwertige Ergebnisse zu erzielen.
 					</li>
 				</ul>
@@ -414,20 +426,8 @@
 				</ul>
 			</subsection>
 		</section>
-		<section name="grober Projektplan">
-			Die Ecktermine des Projekts werden wie folgt abgeschätzt:
-			<table>
-				<tr><th>Phase</th><th>Termin</th><th>Aufwand (h)</th></tr>
-				<tr><td>Projektstart</td><td>06.04.2009</td><td>40</td></tr>
-				<tr><td>Anforderungsanalyse</td><td>23.04.2009</td><td>60</td></tr>
-				<tr><td>Entwurf</td><td>08.05.2009</td><td>200</td></tr>
-				<tr><td>Alphaversion bzw. Prototyp erstellen</td><td>22.05.2009</td><td>200</td></tr>
-				<tr><td>Applikation erstellen + Modultests</td><td>05.06.2009</td><td>200</td></tr>
-				<tr><td>Systemtests abschließen</td><td>10.06.2009</td><td>50</td></tr>
-				<tr><td>Betaversion erstellen</td><td>14.06.2009</td><td>50</td></tr>
-				<tr><td>Feinschliff und abschließende Fehlerbehebung</td><td>19.06.2009</td><td>100</td></tr>
-				<tr><td>Projektabschluss</td><td>30.06.2009</td><td>40</td></tr>
-			</table>
+		<section name="Domänenmodell">
+			<img src="images/domaenenmodell.jpg" alt="Bild: Domänenmodell" />
 		</section>
 		<section name="Komponentendiagramm">
 			<img src="images/komponentendiagramm.jpg" alt="Bild: Komponentendiagramm" />
