@@ -13,7 +13,10 @@
 	</head>
 	<body>
 		<section name="Ausgangssituation">
-		
+			Im Internet finden sich immer mehr Services, die ortsbezogene Daten, wie Bilder, Hotels, Sehenswürdigkeiten, Routen, usw. anzeigen. Leider
+			gibt es keine Möglichkeit, auf all diese Daten über nur eine Seite zuzugreifen, bzw. nur auf einer Seite(Map) anzuzeigen. Weiters ist es nur
+			bei manchen Services möglich, die Daten mittels API zu bekommen, was es leider schwierig macht, diese Daten in eigene Applikationen einzubinden.
+			Außerdem hat sich noch immer keine Standardabfrage für dieses Problem entwickelt, wodurch man für jede API eine eigenes Script schreiben muss.
 		</section>
 		<section name="Projektbeschreibung">
 
