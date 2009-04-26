@@ -5,7 +5,11 @@
 		<title>Projektauftrag</title>
 	</properties>
 	<head>
-		<!-- xhtml head tag -->
+		<style type="text/css">
+			ol li {
+				margin-bottom: 1em;
+			}
+		</style>
 	</head>
 	<body>
 		<section name="Ausgangssituation">
@@ -106,7 +110,54 @@
 			</ul>
 		</section>
 		<section name="Risikoabschätzung">
-
+			<ol>
+				<li>
+					<b>Beschreibung</b>: kurzfristige Verhinderung eines Teammitglieds<br />
+					<b>Art</b>: Allgemeines Risiko<br />
+					<b>Typisierung</b>: Kann immer auftreten. Mögliche Verhinderungsgründe sind zum Beispiel Krankheit und unvorhersehbare Ereignisse.<br />
+					<b>Priorisierung</b>: Mittel<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Hoch<br />
+					<b>Folgewirkung</b>: möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: keine. b) bei Eintritt: Koordination der Aufgaben an die anderen Teammitglieder bzw. Mehrarbeit für das restliche Team<br />
+					<b>Verantwortlichkeit</b>: Projektleiter<br />
+				</li><li>
+					<b>Beschreibung</b>: langfristige Verhinderung eines Teammitglieds<br />
+					<b>Art</b>: Allgemeines Risiko<br />
+					<b>Typisierung</b>: Kann immer auftreten.<br />
+					<b>Priorisierung</b>: Mittel<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
+					<b>Folgewirkung</b>: verzögerter Projektabschluss (Nummer 4)<br />
+					<b>Gegenmaßnahmen</b>: siehe Risiko 1<br />
+					<b>Verantwortlichkeit</b>: Projektleiter<br />
+				</li><li>
+					<b>Beschreibung</b>: APIs der Datenquellen-Anbieter funktionieren nicht wie vorgesehen.<br />
+					<b>Art</b>: Spezifisches Risiko<br />
+					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
+					<b>Priorisierung</b>: Hoch<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
+					<b>Folgewirkung</b>: alternativen Datenanbieter verwenden (Nummer 5), möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: alternativen Datenanbieter verwenden, Workaround verwenden<br />
+					<b>Verantwortlichkeit</b>: Team<br />
+				</li><li>
+					<b>Beschreibung</b>: Verzögerter Projektabschluss.<br />
+					<b>Art</b>: Allgemeines Risiko<br />
+					<b>Typisierung</b>: Auftritt am Ende des Projekts.<br />
+					<b>Priorisierung</b>: Hoch<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Mittel<br />
+					<b>Folgewirkung</b>: verspätete Abgabe.<br />
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitige Mehrarbeit. b) bei Eintritt: noch mehr Mehrarbeit.<br />
+					<b>Verantwortlichkeit</b>: Team<br />
+				</li><li>
+					<b>Beschreibung</b>: Es muss ein alternativer Datenanbieter verwendet werden, weil es Probleme mit einem vorgesehenen Datenanbieter gibt (z.B. der API-Zugriff auf dessen Daten funktioniert nicht wie erwartet)<br />
+					<b>Art</b>: Spezifisches Risiko<br />
+					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
+					<b>Priorisierung</b>: Hoch<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
+					<b>Folgewirkung</b>: es werden möglicherweise nicht all jene Daten über GeoSearch gefunden, die eigentlich gefunden werden sollten. Möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: keine.<br />
+					<b>Verantwortlichkeit</b>: Team<br />
+				</li>
+			</ol>
 		</section>
 		<section name="Nichtfunktionale Anforderungen">
 			<subsection name="Handhabung/Benutzbarkeit">
