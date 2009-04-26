@@ -380,5 +380,13 @@
 		<section name="Komponentendiagramm">
 			<img src="images/komponentendiagramm.jpg" alt="Bild: Komponentendiagramm" />
 		</section>
+		<section name="Anwendungsfälle">
+			<subsection name="User">
+				<img src="images/usecase/user.jpg" alt="Bild: Anwendungsfalldiagramm Benutzer" />
+			</subsection>
+			<subsection name="Externe Webseiten">
+				<img src="images/usecase/extern.jpg" alt="Bild: Anwendungsfalldiagramm Extene WebSite" />
+			</subsection>
+		</section>
 	</body>
 </document>
