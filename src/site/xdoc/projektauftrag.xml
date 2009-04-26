@@ -242,7 +242,7 @@
 			</ul>
 		</section>
 		<section name="Domänenmodell">
-		
+			<img src="images/domaenenmodell.jpg" alt="Bild: Domänenmodell" />
 		</section>
 		<section name="Lieferkomponenten">
 			<p>Folgende Komponenten werden nach Fertigstellung des Projekts ausgeliefert bzw. zur Verfügung gestellt:</p>
@@ -375,7 +375,7 @@
 			</table>
 		</section>
 		<section name="Komponentendiagramm">
-
+			<img src="images/komponentendiagramm.jpg" alt="Bild: Komponentendiagramm" />
 		</section>
 	</body>
 </document>
