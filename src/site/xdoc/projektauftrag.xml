@@ -27,7 +27,7 @@
 				</ul>
 			</subsection>
 			<subsection name="Web-Entwickler">
-				<ul><li>Homepage- oder Applikations- Entwickler die unsere Daten für eine eigene Applikationen verwenden wollen. (zb. Eine Firma möchte alle ihre Fillialen auf der eigenen Seite anzeigen.)</li></ul>
+				<ul><li>Homepage- oder Applikations- Entwickler, die unsere Daten für eine eigene Applikationen verwenden wollen. (zb. Eine Firma möchte alle ihre Fillialen auf der eigenen Seite anzeigen.)</li></ul>
 			</subsection>
 			<subsection name="Content-Provider">
 				<ul><li>Anbieter von positionsspezifischen Daten, die gerne auf unserer Seite verlinkt wären (oder eventuell unseren Service für die Anzeige ihrer Kartendaten verwenden wollen)</li></ul>
@@ -133,7 +133,18 @@
 
 		</section>
 		<section name="Informationswesen">
+			Die Gruppe trifft sich 1x wöchentlich intern (Donnerstags) und zusätzlich 1x pro Woche mit dem Tutor (Dienstags).<br />
+			Die Kommunikation im Team setzt sich folgendermaßen zusammen:
 
+    			<ul>
+    				<li>Laconica (http://laconica.fakeroot.at): Kurze Benachrichtigungen über den eigenen Arbeitsfortschritt</li>
+    				<li>Mail-Verteiler: für längere Nachrichten</li>
+    				<li>SMS bzw. Instant messenger: für kurzfristige Nachrichten (meist in Kombination mit anderen Verfahren</li>
+    				<li>Subversion: Quellcode-Repository. Zusätzlich wird bei jedem subversion-commit automatisch eine Nachricht im laconica veröffentlicht.</li>
+    				<li>Google Docs: Dokumente, an denen gleichzeitig gearbeitet wird (wie z.B.: Kontaktliste, ...)</li>
+    				<li>Maven Site: Projektdokumentation, wird per Subversion verteilt</li>
+    				<li>Trac: ToDo-Liste, Zeitmanagement</li>
+    			</ul>
 		</section>
 		<section name="Besonderheiten">
 
