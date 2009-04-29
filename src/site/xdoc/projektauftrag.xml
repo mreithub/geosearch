@@ -55,26 +55,29 @@
 				</ul>
 			</subsection>
 			<subsection name="BOTS (Crawler)">
-				Um einen großen Datenbestand zu ermöglichen, und diese Daten dann im Format unserer API in die Datenbank zu schreiben, muss für jeden Service,
-				der von uns aktiv abgerufen wird, ein eigener Crawler geschrieben werden. In weiterer Folge können diese Crawler immer komplizierter werden.
-				Außerdem können diese Crawler auf Quasi-Suchmaschinen erweitert werden, die automatisch Homepages durchsuchen und in unsere Datenbank (mittels API) schreiben.
-				Die zu Beginn der Projekts verwendeten Crawler werden in gewissen Zeitabständen jeden von uns unterstützen Service auf Updates überprüfen (periodic scans).
-				Später wird eventuell auf ein System umgestellt, das ähnlich wie caching Proxies die Daten genau auf Anfrage abholen.
+				Um einen großen Datenbestand zu ermöglichen, und dabei eine hohe Geschwindigkeit zu gewährleisten, ist es nötig dass schon bestehende Services von unseren Crawlern durchsucht und die gefunden Daten in unserer Datenbank gespeichert werden. In weiterer Folge können diese Crawler zu "echten" Suchmaschinen erweitert werden, die selbstständig erkennen welche Daten ortsbezogen sind und welche nicht.
+				Die zu Beginn des Projektes verwendet Crawler müssen für jeden Service eigenes geschrieben werden, da jeden API eines Services anders funktioniert. Das Crawlen wird Anfangs mittels regelmäßigen updaten (periodic scans) der jeweiligen Seiten (API der Seite) funktionieren. Im weiteren Ausbau des Projektes wird eventuell auf ein System umgestellt, das ähnlich wie caching Proxies, die Daten nur auf Anfrage abholt.  
 			</subsection>
-
-			Der Unteschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass ein grundlegendes Augenmerk auf Erweiterbarkeit und wiederverwendbarkeit gelegt wird.
-			Bei GoogleMaps werden nicht sehr viele Services eingebunden. Auch können externe Seiten nicht wieder auf die vorhandenen Daten zugreifen.
+			Der Unterschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass die angezeigt Daten möglichst aktuell sind und regenmäßig überprüft werden. So ist es möglich nach z.B. Events und Parties zu suchen. Weiters sind die meisten Seiten immer nur für eine gewisse Zielgruppe reduziert, wodurch man nie alles findet was man möchte. Eines der größten Vorteile ist die Weiterverwendbarkeit unserer Daten unter der Berücksichtigung dass man nun nur mehr eine API-docu lesen muss, um auf alles Service zugreifen zu können. 
 		</section>
 		<section name="Zielgruppe">
 			<subsection name="Suchende USER (Hauptzielgruppe)">
 				<ul>
-					<li>Touristen: Jene Personen die in eine Stadt kommen, und einen Plan machen wollen, was sie in dieser Stadt so sehen können.</li>
-					<li>Stöberer: Personen die einfach nur interessiert was es in einer Stadt so gibt. Also ob man überhaupt dort hin fahren sollen, oder eher nicht.</li>
-					<li>Verzweifelte: Personen die plötzlich etwas in ihrer Umgebung suchen aber es nicht finden können. (zb. Person hat Hunger und will wissen, "Wo ist das nächste Gasthaus")</li>
+					<li>Touristen: Jene Personen die in eine Stadt kommen, und einen Plan machen wollen, was sie in dieser Stadt tun können.</li>
+					<li>Touristen und Einwohner: Wo ist eine Straße oder Ort.</li>
+					<li>stöbernde Person: Personen die einfach nur interessiert was es in einer Stadt so gibt. Also ob man überhaupt dort hin fahren sollen, oder eher nicht.</li>
+					<li>Verzweifelte: Personen die plötzlich etwas in ihrer Umgebung suchen aber es nicht finden können. (z.B. Person hat Hunger und will wissen, "Wo ist das nächste Gasthaus")</li>
+					<li>Partygeher: Personen die in ihrer Nähe die nächstgelegene  Party oder Event suchen</li>
+					<li>Touristen: Will wissen wo die nächste Bushaltestelle ist, und wann ein Bus von dort weg fährt</li>
+					<li>CityBiker: Der CityBiker möchte wissen wo die nächste CityBikeStation ist, und wie vielen Bikes noch da sind <code>In späterer Ausbaustufe</code></li>
 				</ul>
 			</subsection>
 			<subsection name="Web-Entwickler">
-				<ul><li>Homepage- oder Applikations- Entwickler, die unsere Daten für eine eigene Applikationen verwenden wollen. (zb. Eine Firma möchte alle ihre Fillialen auf der eigenen Seite anzeigen.)</li></ul>
+				<ul>
+					<li>Web- oder Applikations- Entwickler, die unsere Daten für eine eigene Applikationen verwenden wollen. (z.B. Eine Firma möchte alle ihre Filialen auf der eigenen Seite anzeigen.)</li>
+					<li>Web-Entwickler die wollen dass ihre Daten bei uns gefunden werden.</li>
+					<li>Web-Entwickler die ihre Daten bei uns gefunden werden, aber diese auch selbst anzeigen können. Somit sparen sie sich den Aufwand selbst ein GoogleMapsMashup zu machen.</li>
+				</ul>
 			</subsection>
 			<subsection name="Content-Provider">
 				<ul><li>Anbieter von positionsspezifischen Daten, die gerne auf unserer Seite verlinkt wären (oder eventuell unseren Service für die Anzeige ihrer Kartendaten verwenden wollen)</li></ul>
