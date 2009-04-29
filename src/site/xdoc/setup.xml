@@ -50,7 +50,7 @@
 				<li>Einen Ordner erstellen, in dem das Projekt gespeichert werden soll</li>
 				<li>Mit dem Kommandozeilenterminal in den Ordner wechseln</li>
 				<li>folgendes eingeben:<br />
-					<code>svn checkout https://www.fakeroot.at/svn/sepm .</code><br />
+					<code>svn checkout https://www.fakeroot.at/svn/sepm/trunk .</code><br />
 					Falls ihr das Projekt später in einem anderen Ordner haben wollt, einfach verschieben/umbenennen/...
 					(aber immer nur die ganze Working-Copy)
 				</li>
