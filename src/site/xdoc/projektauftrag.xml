@@ -31,9 +31,15 @@
 			</subsection>
 
 			<subsection name="BOTS (Crawler)">
-        Um einen großen Datenbestand zu ermöglichen, und dabei eine hohe Geschwindigkeit zu gewährleisten, ist es nötig dass schon bestehende Services von unseren Crawlern durchsucht und die gefunden Daten in unserer Datenbank gespeichert werden. In weiterer Folge können diese Crawler zu "echten" Suchmaschinen erweitert werden, die selbstständig erkennen welche Daten ortsbezogen sind und welche nicht.
-        Die zu Beginn des Projektes verwendet Crawler müssen für jeden Service eigenes geschrieben werden, da jeden API eines Services anders funktioniert. Das Crawlen wird Anfangs mittels regelmäßigen updaten (periodic scans) der jeweiligen Seiten (API der Seite) funktionieren. Im weiteren Ausbau des Projektes wird eventuell auf ein System umgestellt, das ähnlich wie caching Proxies, die Daten nur auf Anfrage abholt.
-        Der Unterschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass die angezeigt Daten möglichst aktuell sind und regenmäßig überprüft werden. So ist es möglich nach z.B. Events und Parties zu suchen. Weiters sind die meisten Seiten immer nur für eine gewisse Zielgruppe reduziert, wodurch man nie alles findet was man möchte. Eines der größten Vorteile ist die Weiterverwendbarkeit unserer Daten unter der Berücksichtigung dass man nun nur mehr eine API-docu lesen muss, um auf alles Service zugreifen zu können.
+        Um einen großen Datenbestand zu ermöglichen, und dabei eine hohe Geschwindigkeit zu gewährleisten, ist es nötig dass schon bestehende Services von unseren Crawlern
+        durchsucht und die gefunden Daten in unserer Datenbank gespeichert werden. In weiterer Folge können diese Crawler zu "echten" Suchmaschinen erweitert werden, die
+        selbstständig erkennen welche Daten ortsbezogen sind und welche nicht. Die zu Beginn des Projektes verwendet Crawler müssen für jeden Service eigenes geschrieben
+        werden, da jeden API eines Services anders funktioniert. Das Crawlen wird Anfangs mittels regelmäßigen updaten (periodic scans) der jeweiligen Seiten (API der
+        Seite) funktionieren. Im weiteren Ausbau des Projektes wird eventuell auf ein System umgestellt, das ähnlich wie caching Proxies, die Daten nur auf Anfrage
+        abholt. Der Unterschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass die angezeigt Daten möglichst aktuell sind und regenmäßig überprüft werden. So ist
+        es möglich nach z.B. Events und Parties zu suchen. Weiters sind die meisten Seiten immer nur für eine gewisse Zielgruppe reduziert, wodurch man nie alles findet
+        was man möchte. Eines der größten Vorteile ist die Weiterverwendbarkeit unserer Daten unter der Berücksichtigung dass man nun nur mehr eine API-docu lesen muss,
+        um auf alles Service zugreifen zu können.
       </subsection>
 
       <subsection name="API">
