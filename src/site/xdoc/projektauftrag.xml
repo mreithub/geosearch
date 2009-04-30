@@ -16,18 +16,18 @@
 	</head>
 	<body>
 		<section name="Ausgangssituation">
-			Im Internet finden sich immer mehr Services, die ortsbezogene Daten, wie Bilder, Hotels, Sehenswürdigkeiten, Routen, usw. anzeigen. Leider
-			gibt es keine Möglichkeit, auf all diese Daten über nur eine Seite zuzugreifen, bzw. nur auf einer Seite(Map) anzuzeigen. Weiters ist es nur
-			bei manchen Services möglich, die Daten mittels API zu bekommen, was es leider schwierig macht, diese Daten in eigene Applikationen einzubinden.
-			Außerdem hat sich noch immer keine Standardabfrage für dieses Problem entwickelt, wodurch man für jede API eine eigenes Script schreiben muss.
+			Im Internet finden sich immer mehr Services, die ortsbezogene Daten wie z.B. Fotos, Sehenswürdigkeiten, Restaurants usw. anzeigen. Es gibt hierbei zwar
+		  auf diversen Seiten die Möglichkeit, nach diesen Daten einzeln zu suchen, eine zentrale Suche nach geographischen Daten ist allerdings des öfteren mühsam.
+      Unser Ziel ist es, verschiedenste geographische Daten über eine einzelne Webseite zugänglich zu machen, um diese auf einer Landkarte gesammelt anzeigen zu können.
 		</section>
 		<section name="Projektbeschreibung">
 			<subsection name="SUCHE und GUI">
-				Für einen Besucher der HP soll es möglichst einfach sein, jegliche Informationen zu einem spezifischen Ort zu finden, bzw. soll die Möglichkeit 
-				bestehen, in einem Bereich zu "stöbern". Dass heisst, von "UNS" oder dann in weiterer Folge von "USERN" vordefinierte Suchanfragen auszuwählen,
-				um sich schnell einen Überblick über eine Gegend zu verschaffen. Eine Beispiel hierzu wäre: Ein Button, auf dem steht "Freizeit". Wenn man nun
-				auf diesen Button klickt, erscheinen automatisch alle Events, Routen und Bilder auf der Karte.<br />
-				Damit die Applikation nicht nur eine reine Suchmaschine wird, soll es die Möglichkeit geben, angezeigte Inhalte zu bewerten und eigene zu erstellen.
+				Für einen Besucher der Homepage soll es möglichst einfach sein, verschiedene geographische Informationen zu einem spezifischen Ort bzw. zu einem spezifischen
+        Schlagwort zu finden. Das zu durchsuchende geographische Gebiet wird dabei durch eine Ortsangabe eingeschränkt, während die Suche nach den Objekten selbst über
+        Schlagwörter (Tags) erfolgt. Diese Tags sind für jedes zu suchende Objekt bekannt und ermöglichen das Auffinden der zu suchenden Informationen. Weiters soll es
+        möglich sein über ein einzelnes Suchergebnis auf andere, ähnliche Suchergebnisse zu gelangen. Dies wird über eine TagCloud realisiert, die Tags zu ähnlichen
+        Suchergebnissen beinhaltet.<br />
+				Ein <i>nice to have</i>-Feature ist die Möglichkeit, dass Benutzer die angezeigten Inhalte bewerten und eigene erstellen können.
 			</subsection>
 
 			<subsection name="API">
