@@ -21,7 +21,7 @@
       Unser Ziel ist es, verschiedenste geographische Daten über eine einzelne Webseite zugänglich zu machen, um diese auf einer Landkarte gesammelt anzeigen zu können.
 		</section>
 		<section name="Projektbeschreibung">
-			<subsection name="SUCHE und GUI">
+			<subsection name="Suche und GUI">
 				Für einen Besucher der Homepage soll es möglichst einfach sein, verschiedene geographische Informationen zu einem spezifischen Ort bzw. zu einem spezifischen
         Schlagwort zu finden. Das zu durchsuchende geographische Gebiet wird dabei durch eine Ortsangabe eingeschränkt, während die Suche nach den Objekten selbst über
         Schlagwörter (Tags) erfolgt. Diese Tags sind für jedes zu suchende Objekt bekannt und ermöglichen das Auffinden der zu suchenden Informationen. Weiters soll es
@@ -29,19 +29,24 @@
         Suchergebnissen beinhaltet.<br/>
 				Ein <i>nice to have</i>-Feature ist die Möglichkeit, dass Benutzer die angezeigten Inhalte bewerten und eigene erstellen können.
 			</subsection>
-			<subsection name="BOTS (Crawler)">
-        Um einen großen Datenbestand zu ermöglichen, und dabei eine hohe Geschwindigkeit zu gewährleisten, ist es nötig dass schon bestehende Services von unseren Crawlern
-        durchsucht und die gefunden Daten in unserer Datenbank gespeichert werden. In weiterer Folge können diese Crawler zu "echten" Suchmaschinen erweitert werden, die
-        selbstständig erkennen welche Daten ortsbezogen sind und welche nicht. Die zu Beginn des Projektes verwendet Crawler müssen für jeden Service eigenes geschrieben
-        werden, da jeden API eines Services anders funktioniert. Das Crawlen wird Anfangs mittels regelmäßigen updaten (periodic scans) der jeweiligen Seiten (API der
-        Seite) funktionieren. Im weiteren Ausbau des Projektes wird eventuell auf ein System umgestellt, das ähnlich wie caching Proxies, die Daten nur auf Anfrage
-        abholt. Der Unterschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass die angezeigt Daten möglichst aktuell sind und regenmäßig überprüft werden. So ist
-        es möglich nach z.B. Events und Parties zu suchen. Weiters sind die meisten Seiten immer nur für eine gewisse Zielgruppe reduziert, wodurch man nie alles findet
-        was man möchte. Eines der größten Vorteile ist die Weiterverwendbarkeit unserer Daten unter der Berücksichtigung dass man nun nur mehr eine API-docu lesen muss,
-        um auf alles Service zugreifen zu können.
+      <subsection name="Crawler und Datenbank">
+        Die Crawler haben die Aufgabe auf verschiedene ortsbezogene Daten aus unterschiedlichen Datenquellen zuzugreifen. Diese Quellen sind (momentan)
+        Wikipedia, Panoramio und LastFM, in einer späteren Ausbaustufe des Projektes können jedoch beliebige Datenquellen eingebunden werden.
+        Die durch die Crawler gewonnenen Daten werden mitsamt beschreibenden Tags in unserer Datenbank gespeichert, um
+        in weiterer Folge direkt über die Tags danach suchen zu können. Jeder Datenbank-Eintrag erhält außerdem einen Zeitstempel, der angibt bis wann der
+        Eintrag gültig ist. Ist die Gültigkeitsdauer abgelaufen, wird der entsprechende Eintrag bei einer Suchanfrage vom Crawler zuerst neu geladen, um ihn
+        zu aktualisieren.<br/>
+        Die verwendeten Crawler müssen für jede Datenquelle eigenes geschrieben werden, da die APIs der verwendeten Services unterschiedlich
+        sind. Als <i>nice to have</i>-Feature können diese Crawler später zu "echten" Suchmaschinen erweitert werden, die selbstständig erkennen
+        welche Daten ortsbezogen sind und welche nicht.<br/>
+        Der Unterschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass die angezeigten Daten möglichst
+        aktuell sind und regelmäßig von den Crawlern nachgeladen werden - so ist es z.B. möglich nach aktuellen Events und Veranstaltungen zu suchen.
+        Weiters sind die meisten Seiten immer nur für eine bestimmte Zielgruppe reduziert, wodurch man selten alles findet was man möchte. Ein großer
+        Vorteil ist die Wiederverwendbarkeit der geographischen Daten für andere Anbieter. Dies wird von uns durch eine einheitliche Schnittstelle zu unserer
+        Datenbank sichergestellt.
       </subsection>
 			<subsection name="API">
-        Mithilfe einer zentralen API soll das Lesen und Schreiben von Daten vereinfacht und standardisiert werden.<br/>
+        Mithilfe einer zentralen API wird das Lesen und Schreiben der Daten standardisiert abgewickelt.<br/>
         Hierzu ein paar Beispiele:
         <ul>
 					<li>
@@ -124,7 +129,7 @@
 					Der Zugriff auf die Datenbank funktionert mittels RPC und REST Protokoll.
 				</p>
 				<p>
-					<i>nice to have</i>: Es soll möglich sein, dass externe Seiten unsere Daten abfragen (und zum Beispiel auf ihrer eigenen Seite
+					<i>nice to have</i>-Feature: Es soll möglich sein, dass externe Seiten unsere Daten abfragen (und zum Beispiel auf ihrer eigenen Seite
 					anzeigen können), verändern und hinzufügen können. 
 				</p>
 			</subsection>
