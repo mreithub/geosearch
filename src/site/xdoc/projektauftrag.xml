@@ -99,7 +99,7 @@
 						 beziehungsweise die gesucht werden soll. Die Suche in einem Gebiet kann kombiniert werden mit der Suche nach Tags.
 					</li>
 					<li><b>Suche nach Tags:</b><br/>
-						In einem zweiten Textfeld kann nach Tags gesucht werden (z.B.: Events, Fotos, Lokale…). Dies kann in Kombination
+						In einem zweiten Textfeld kann nach Tags gesucht werden (z.B.: Events, Fotos, Lokale). Dies kann in Kombination
 						mit einer Gebietssuche passieren. Bei jedem Suchvorgang (auch wenn nur ein Gebiet gesucht wird) wird eine TagCloud
 						erstellt, die dem Sucher Schlagwörter zu dem bereits Gesuchten anzeigt und dadurch eine präzisere Suche erlaubt. 
 					</li>
@@ -117,7 +117,7 @@
 				</p>
 				<p>
 					Zu jedem einzelnen Suchergebnis kann eine Detailansicht geöffnet werden, hier sind dann die konkret gefundenen Details, also
-					Fotos, Events,… zu sehen. Außerdem beinhaltet die Detailansicht einen Permalink, damit man den gefunden Inhalt auch direkt
+					Fotos, Events etc. zu sehen. Außerdem beinhaltet die Detailansicht einen Permalink, damit man den gefunden Inhalt auch direkt
 					aufrufen kann.
 				</p>
 				<p>nice to have: Share-Möglichkeiten der Suchtreffer z.B.: über Social Networks.</p>
@@ -186,19 +186,32 @@
 				und in die Datenbank schreiben. (← erst ab diesem Zeitpunkt wäre es eine echte Suchmaschine)
 			</li></ul>
 		</section>
-		<section name="grober Projektplan">
+		<section name="Grober Projektplan">
 			Die Ecktermine des Projekts werden wie folgt abgeschätzt:
 			<table>
 				<tr><th>Phase</th><th>Termin</th><th>Aufwand (h)</th></tr>
 				<tr><td>Projektstart</td><td>06.04.2009</td><td>40</td></tr>
 				<tr><td>Anforderungsanalyse</td><td>23.04.2009</td><td>60</td></tr>
 				<tr><td>Entwurf</td><td>08.05.2009</td><td>200</td></tr>
-				<tr><td>Alphaversion bzw. Prototyp erstellen</td><td>22.05.2009</td><td>200</td></tr>
+				<tr>
+          <td><b>Meilenstein: Alphaversion bzw. Prototyp erstellen</b><br/>
+            Beinhaltet fertige GUI, Datenbank-Schema, Suchfunktion im Beta-Stadium (mit Testdaten, Anzeigen der Marker auf der Landkarte soll funktionieren)
+          </td><td>22.05.2009</td><td>200</td>
+        </tr>
 				<tr><td>Applikation erstellen + Modultests</td><td>05.06.2009</td><td>200</td></tr>
 				<tr><td>Systemtests abschließen</td><td>10.06.2009</td><td>50</td></tr>
-				<tr><td>Betaversion erstellen</td><td>14.06.2009</td><td>50</td></tr>
-				<tr><td>Feinschliff und abschließende Fehlerbehebung</td><td>19.06.2009</td><td>100</td></tr>
-				<tr><td>Projektabschluss</td><td>30.06.2009</td><td>40</td></tr>
+				<tr>
+          <td><b>Meilenstein: Betaversion erstellen</b><br/>
+            Beinhaltet das Hinzufügen und Aktualisieren der Daten über die jeweiligen Crawler
+        </td><td>14.06.2009</td><td>50</td></tr>
+				<tr>
+          <td><b>Meilenstein: Feinschliff und abschließende Fehlerbehebung</b><br/>
+            Eine de-facto fertige Version soll existieren.
+          </td><td>19.06.2009</td><td>100</td></tr>
+				<tr>
+          <td><b>Meilenstein: Projektabschluss</b><br/>
+            Das Projekt ist abgeschlossen und wird dem Kunden übergeben bzw. vorgeführt.
+          </td><td>30.06.2009</td><td>40</td></tr>
 			</table>
 		</section>
 		<section name="Arbeitsstruktur / Rollenverteilung">
@@ -207,7 +220,7 @@
 						Der Teamkoordinator ist für die interne Koordination, Kooperation und Kommunikation zuständig, er organisiert die Treffen zwischen den Gruppenmitgliedern und stellt in 
 						Rücksprache mit den anderen Verantwortlichen (also dem Technischen Architekten, der Dokumentationsverantwortlichen, dem Testbeauftragten, der Stellvertreterin) eine 
 						Agenda zusammen. Er hat den Gesamtüberblick über den Fortschritt des Projekts und kommuniziert Änderungen, Fehler etc. an das Team. Außerdem ist er auch für die 
-						Kommunikation nach „außen“ zuständig, er organisiert die Treffen mit dem Kunden, er hält die Präsentationen, er ist für Rücksprachen mit dem Kunden verantwortlich und 
+						Kommunikation nach "außen" zuständig, er organisiert die Treffen mit dem Kunden, er hält die Präsentationen, er ist für Rücksprachen mit dem Kunden verantwortlich und 
 						informiert über den Projektfortschritt. 
 				</p>
 			</subsection>
@@ -362,7 +375,6 @@
 			<ul>
 				<li>Funktionale geographische Online-Suche, die entweder auf einem Server von uns oder auf einem Server des Kunden gehostet werden kann</li>
 				<li>Dokumente zur Anforderungsanalyse, Entwurf und Design</li>
-				<li>ein Benutzerhandbuch</li>
 				<li>ein technisches Handbuch (bzw. Installationshandbuch oder ähnliches)</li>
 			</ul>
 			<p>
@@ -377,7 +389,7 @@
 			</ul>
 		</section>
 		<section name="Nichtfunktionale Anforderungen">
-			<subsection name="Handhabung/Benutzbarkeit">
+			<subsection name="Handhabung / Benutzbarkeit">
 				<ul>
 					<li>
 						Die Suchmaschine soll in Hinblick auf Aussehen und Handhabung an bereits bestehende Suchmaschinen und Kartendienste angelehnt
@@ -424,11 +436,11 @@
 				<img src="images/usecase/user.jpg" alt="Bild: Anwendungsfalldiagramm Benutzer"/>
 				<ul>
 					<li><b>Suche in Gebiet:</b><br/>
-						Der User kann in ein Textfeld das Gebiet (Stadt, Straße,…) eingeben in dem er suchen möchte,
+						Der User kann in ein Textfeld das Gebiet (Stadt, Straße, etc.) eingeben in dem er suchen möchte,
 						beziehungsweise das er suchen möchte.
 					</li>
 					<li><b>Suche mit Tags:</b><br/>
-						Der User kann in ein Textfeld Schlagwörter (Fotos, Lokale,…) eingeben nach denen er suchen
+						Der User kann in ein Textfeld Schlagwörter (Fotos, Lokale, etc.) eingeben nach denen er suchen
 						möchte. Die eingegebenen Schlagwörter werden mit den gespeicherten Tags in der Datenbank
 						verglichen um die Ergebnisse zu finden.
 					</li>
