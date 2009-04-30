@@ -26,10 +26,9 @@
         Schlagwort zu finden. Das zu durchsuchende geographische Gebiet wird dabei durch eine Ortsangabe eingeschränkt, während die Suche nach den Objekten selbst über
         Schlagwörter (Tags) erfolgt. Diese Tags sind für jedes zu suchende Objekt bekannt und ermöglichen das Auffinden der zu suchenden Informationen. Weiters soll es
         möglich sein über ein einzelnes Suchergebnis auf andere, ähnliche Suchergebnisse zu gelangen. Dies wird über eine TagCloud realisiert, die Tags zu ähnlichen
-        Suchergebnissen beinhaltet.<br />
+        Suchergebnissen beinhaltet.<br/>
 				Ein <i>nice to have</i>-Feature ist die Möglichkeit, dass Benutzer die angezeigten Inhalte bewerten und eigene erstellen können.
 			</subsection>
-
 			<subsection name="BOTS (Crawler)">
         Um einen großen Datenbestand zu ermöglichen, und dabei eine hohe Geschwindigkeit zu gewährleisten, ist es nötig dass schon bestehende Services von unseren Crawlern
         durchsucht und die gefunden Daten in unserer Datenbank gespeichert werden. In weiterer Folge können diese Crawler zu "echten" Suchmaschinen erweitert werden, die
@@ -41,30 +40,29 @@
         was man möchte. Eines der größten Vorteile ist die Weiterverwendbarkeit unserer Daten unter der Berücksichtigung dass man nun nur mehr eine API-docu lesen muss,
         um auf alles Service zugreifen zu können.
       </subsection>
-
-      <subsection name="API">
-        Mithilfe einer zentralen API soll das Lesen und Schreiben von Daten vereinfacht und standardisiert werden.<br />
+			<subsection name="API">
+        Mithilfe einer zentralen API soll das Lesen und Schreiben von Daten vereinfacht und standardisiert werden.<br/>
         Hierzu ein paar Beispiele:
         <ul>
-          <li>
+					<li>
             Falls eine Applikation (Homepage) Bilder von Orten anzeigen will, bekommt diese mittels unserer API alle Bilder von Panoramio,
             Flickr, usw. (also alle unsere Datenbankeinträge in einem gewissen Umfeld) in einem Standardformat.
           </li>
-          <li>
-            Gibt es eine Applikation (Homepage), die Datenbestände verwaltet und bei uns eintragen will, ist dies auch mittels der API möglich.<br />
+					<li>
+            Gibt es eine Applikation (Homepage), die Datenbestände verwaltet und bei uns eintragen will, ist dies auch mittels der API möglich.<br/>
             z.B.: <tt>hotels.com</tt> kann jegliche Änderung ihrer Daten automatisch an uns mittels API einspielen. So sind sind unsere
             Daten noch aktueller und wir brauchen keinen Crawler für diese Seite schreiben.
           </li>
-          <li>
+					<li>
             Wir haben z.B. nur 3 Services, die wir bis jetzt Crawlen können. Kommt nun ein weiterer hinzu, ist das Schreiben eines neuen Crawlers
             einfacher, da standardisierte Schnittstellen vorliegen. Zusätzlich kann das Crawlen auf andere Server auslagern.
           </li>
-          <li>
+					<li>
             Eine Änderung der GUI kann einfach umgesetzt werden.
           </li>
-        </ul>
-      </subsection>
-    </section>
+				</ul>
+			</subsection>
+		</section>
 		<section name="Zielgruppe">
 			<subsection name="Suchende USER (Hauptzielgruppe)">
 				<ul>
@@ -91,16 +89,16 @@
 		<section name="Feature-Liste">
 			<subsection name="Suchen">
 				<ul>
-					<li><b>Suche nach/in einem Gebiet:</b><br />
+					<li><b>Suche nach/in einem Gebiet:</b><br/>
 						 In einem Textfeld kann die Region (Stadt, Land, Straße...) eingegeben werden, in der gesucht werden soll
 						 beziehungsweise die gesucht werden soll. Die Suche in einem Gebiet kann kombiniert werden mit der Suche nach Tags.
 					</li>
-					<li><b>Suche nach Tags:</b><br />
+					<li><b>Suche nach Tags:</b><br/>
 						In einem zweiten Textfeld kann nach Tags gesucht werden (z.B.: Events, Fotos, Lokale…). Dies kann in Kombination
 						mit einer Gebietssuche passieren. Bei jedem Suchvorgang (auch wenn nur ein Gebiet gesucht wird) wird eine TagCloud
 						erstellt, die dem Sucher Schlagwörter zu dem bereits Gesuchten anzeigt und dadurch eine präzisere Suche erlaubt. 
 					</li>
-					<li><b>Oder-Suche:</b><br />
+					<li><b>Oder-Suche:</b><br/>
 						<i>nice-to-have</i> Zusätzlich zur Und-verknüpften Suche
 					</li>
 				</ul>
@@ -177,7 +175,6 @@
 				</li>
 			</ul>
 		</section>
-
 		<section name="Projektabgrenzung">
 			<ul><li>
 				Es gibt noch keine Möglichkeit dass die Crawler automatisch (ohne API) Seiten durchsuchen und deren Inhalt also geospezifische Information erkennen
@@ -199,7 +196,46 @@
 				<tr><td>Projektabschluss</td><td>30.06.2009</td><td>40</td></tr>
 			</table>
 		</section>
-		<section name="Arbeitsstruktur">
+		<section name="Arbeitsstruktur / Rollenverteilung">
+			<subsection name="Teamkoordinator">
+				<p>
+						Der Teamkoordinator ist für die interne Koordination, Kooperation und Kommunikation zuständig, er organisiert die Treffen zwischen den Gruppenmitgliedern und stellt in 
+						Rücksprache mit den anderen Verantwortlichen (also dem Technischen Architekten, der Dokumentationsverantwortlichen, dem Testbeauftragten, der Stellvertreterin) eine 
+						Agenda zusammen. Er hat den Gesamtüberblick über den Fortschritt des Projekts und kommuniziert Änderungen, Fehler etc. an das Team. Außerdem ist er auch für die 
+						Kommunikation nach „außen“ zuständig, er organisiert die Treffen mit dem Kunden, er hält die Präsentationen, er ist für Rücksprachen mit dem Kunden verantwortlich und 
+						informiert über den Projektfortschritt. 
+				</p>
+			</subsection>
+			<subsection name="Technischer Architekt">
+				<p>
+						Der Technische Architekt ist primär für die technischen Anforderungen an das Projekt und für das Design der Systemarchitektur verantwortlich. Er richtet die 
+						Entwicklungsumgebung für das Team ein und ist der erste Ansprechpartner für die Implementierung und den Entwurf. Gemeinsam mit dem Teamkoordinator teilt er die einzelnen 
+						Aufgaben bezüglich der Implementierung für die Teammitglieder ein und überwacht den Fortschritt, die Korrektheit und die technische Erfüllung der Anforderungen.
+				</p>
+			</subsection>
+			<subsection name="Dokumentationsbeauftragte">
+				<p>
+						Die Dokumentationsbeauftragte erstellt die Richtlinien für das Team bezüglich der Dokumentation. Weiters überprüft sie die Einhaltung der festgelegten Richtlinien in der Doku, sie 
+						sammelt und überwacht die Besprechungsprotokolle, sie hat die Übersicht über den Fortschritt der unterschiedlichen Dokumente und sie verteilt gemeinsam mit dem 
+						Teamkoordinator die Aufgaben in Bezug auf das Dokumentieren.
+				</p>
+			</subsection>
+			<subsection name="Testbeauftragter">
+				<p>
+						Der Testbeauftragte erstellt während dem Entwurfsprozess Testpläne und kommuniziert diese an das gesamte Team. Gemeinsam mit dem Teamkoordinator verteilt er die 
+						unterschiedlichen Testfälle an die Teammitglieder, die sie durchführen und dem Testbeauftragten Rückmeldung bezüglich des Erfolgs / Misserfolgs geben. Er erstellt basierend 
+						darauf Testberichte und macht vor allem dem Technischen Architekten Vorschläge in Hinblick auf Änderungen zur Verbesserung des Systems. Im Zuge des Testens ist er dafür 
+						verantwortlich, dass Testdaten für alle verfügbar sind.
+				</p>
+			</subsection>
+			<subsection name="Stellvertretende Teamkoordinatorin und Technische Architektin">
+				<p>
+						Sie vertritt den Teamkoordinator und den Technischen Architekten, wenn diese kurzfristig oder langfristig verhindert sind. In diesen Fällen übernimmt sie so gut wie möglich die 
+						Aufgaben, die diesen beiden Rollen zugeteilt sind, wenn möglich in Rücksprache mit dem eigentlichen Teamkoordinator beziehungsweise dem Technischen Architekten. Da 
+						temporäre Ausfälle auch unangekündigt und kurzfristig passieren können, soll sie immer darüber informiert sein, was der Teamkoordinator und der Technische Architekt planen 
+						und wie sie dabei vorgehen wollen, damit sie schnell einspringen kann und sofort die Rolle des Abwesenden übernehmen kann. 
+				</p>
+			</subsection>
 			<table>
 				<tr><th>Rolle/n</th><th>Name</th><th>Matr.-Nr.</th><th>Kennz.</th><th>Email</th><th>Telefon</th></tr>
 				<tr>
@@ -235,7 +271,7 @@
 					<td>+43 664/219 11 11</td>
 				</tr>
 				<tr>
-					<td>Stf.TK<br />Stv.TA</td>
+					<td>Stf.TK<br/>Stv.TA</td>
 					<td>Anca Cismasiu</td>
 					<td>0727280</td>
 					<td>532</td>
@@ -243,21 +279,20 @@
 					<td>+43 676/402 83 75</td>
 				</tr>
 			</table>
-
 		</section>
 		<section name="Informationswesen">
-			Die Gruppe trifft sich 1x wöchentlich intern (Donnerstags) und zusätzlich 1x pro Woche mit dem Tutor (Dienstags).<br />
+			Die Gruppe trifft sich 1x wöchentlich intern (Donnerstags) und zusätzlich 1x pro Woche mit dem Tutor (Dienstags).<br/>
 			Die Kommunikation im Team setzt sich folgendermaßen zusammen:
 
     			<ul>
-    				<li>Laconica (http://laconica.fakeroot.at): Kurze Benachrichtigungen über den eigenen Arbeitsfortschritt</li>
-    				<li>Mail-Verteiler: für längere Nachrichten</li>
-    				<li>SMS bzw. Instant messenger: für kurzfristige Nachrichten (meist in Kombination mit anderen Verfahren</li>
-    				<li>Subversion: Quellcode-Repository. Zusätzlich wird bei jedem subversion-commit automatisch eine Nachricht im laconica veröffentlicht.</li>
-    				<li>Google Docs: Dokumente, an denen gleichzeitig gearbeitet wird (wie z.B.: Kontaktliste, ...)</li>
-    				<li>Maven Site: Projektdokumentation, wird per Subversion verteilt</li>
-    				<li>Trac: ToDo-Liste, Zeitmanagement</li>
-    			</ul>
+				<li>Laconica (http://laconica.fakeroot.at): Kurze Benachrichtigungen über den eigenen Arbeitsfortschritt</li>
+				<li>Mail-Verteiler: für längere Nachrichten</li>
+				<li>SMS bzw. Instant messenger: für kurzfristige Nachrichten (meist in Kombination mit anderen Verfahren</li>
+				<li>Subversion: Quellcode-Repository. Zusätzlich wird bei jedem subversion-commit automatisch eine Nachricht im laconica veröffentlicht.</li>
+				<li>Google Docs: Dokumente, an denen gleichzeitig gearbeitet wird (wie z.B.: Kontaktliste, ...)</li>
+				<li>Maven Site: Projektdokumentation, wird per Subversion verteilt</li>
+				<li>Trac: ToDo-Liste, Zeitmanagement</li>
+			</ul>
 		</section>
 		<section name="Besonderheiten">
 			<ul>
@@ -270,50 +305,50 @@
 		<section name="Risikoabschätzung">
 			<ol>
 				<li>
-					<b>Beschreibung</b>: kurzfristige Verhinderung eines Teammitglieds<br />
-					<b>Art</b>: Allgemeines Risiko<br />
-					<b>Typisierung</b>: Kann immer auftreten. Mögliche Verhinderungsgründe sind zum Beispiel Krankheit und unvorhersehbare Ereignisse.<br />
-					<b>Priorisierung</b>: Mittel<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Hoch<br />
-					<b>Folgewirkung</b>: möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: keine. b) bei Eintritt: Koordination der Aufgaben an die anderen Teammitglieder bzw. Mehrarbeit für das restliche Team<br />
-					<b>Verantwortlichkeit</b>: Projektleiter<br />
+					<b>Beschreibung</b>: kurzfristige Verhinderung eines Teammitglieds<br/>
+					<b>Art</b>: Allgemeines Risiko<br/>
+					<b>Typisierung</b>: Kann immer auftreten. Mögliche Verhinderungsgründe sind zum Beispiel Krankheit und unvorhersehbare Ereignisse.<br/>
+					<b>Priorisierung</b>: Mittel<br/>
+					<b>Eintrittswahrscheinlichkeit</b>: Hoch<br/>
+					<b>Folgewirkung</b>: möglicherweise verzögerter Projektabschluss (Nummer 4)<br/>
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: keine. b) bei Eintritt: Koordination der Aufgaben an die anderen Teammitglieder bzw. Mehrarbeit für das restliche Team<br/>
+					<b>Verantwortlichkeit</b>: Projektleiter<br/>
 				</li><li>
-					<b>Beschreibung</b>: langfristige Verhinderung eines Teammitglieds<br />
-					<b>Art</b>: Allgemeines Risiko<br />
-					<b>Typisierung</b>: Kann immer auftreten.<br />
-					<b>Priorisierung</b>: Mittel<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: siehe Risiko 1<br />
-					<b>Verantwortlichkeit</b>: Projektleiter<br />
+					<b>Beschreibung</b>: langfristige Verhinderung eines Teammitglieds<br/>
+					<b>Art</b>: Allgemeines Risiko<br/>
+					<b>Typisierung</b>: Kann immer auftreten.<br/>
+					<b>Priorisierung</b>: Mittel<br/>
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br/>
+					<b>Folgewirkung</b>: verzögerter Projektabschluss (Nummer 4)<br/>
+					<b>Gegenmaßnahmen</b>: siehe Risiko 1<br/>
+					<b>Verantwortlichkeit</b>: Projektleiter<br/>
 				</li><li>
-					<b>Beschreibung</b>: APIs der Datenquellen-Anbieter funktionieren nicht wie vorgesehen.<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: alternativen Datenanbieter verwenden (Nummer 5), möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: alternativen Datenanbieter verwenden, Workaround verwenden<br />
-					<b>Verantwortlichkeit</b>: Team<br />
+					<b>Beschreibung</b>: APIs der Datenquellen-Anbieter funktionieren nicht wie vorgesehen.<br/>
+					<b>Art</b>: Spezifisches Risiko<br/>
+					<b>Typisierung</b>: Auftritt während der Entwicklung.<br/>
+					<b>Priorisierung</b>: Hoch<br/>
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br/>
+					<b>Folgewirkung</b>: alternativen Datenanbieter verwenden (Nummer 5), möglicherweise verzögerter Projektabschluss (Nummer 4)<br/>
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: alternativen Datenanbieter verwenden, Workaround verwenden<br/>
+					<b>Verantwortlichkeit</b>: Team<br/>
 				</li><li>
-					<b>Beschreibung</b>: Verzögerter Projektabschluss.<br />
-					<b>Art</b>: Allgemeines Risiko<br />
-					<b>Typisierung</b>: Auftritt am Ende des Projekts.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Mittel<br />
-					<b>Folgewirkung</b>: verspätete Abgabe.<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitige Mehrarbeit. b) bei Eintritt: noch mehr Mehrarbeit.<br />
-					<b>Verantwortlichkeit</b>: Team<br />
+					<b>Beschreibung</b>: Verzögerter Projektabschluss.<br/>
+					<b>Art</b>: Allgemeines Risiko<br/>
+					<b>Typisierung</b>: Auftritt am Ende des Projekts.<br/>
+					<b>Priorisierung</b>: Hoch<br/>
+					<b>Eintrittswahrscheinlichkeit</b>: Mittel<br/>
+					<b>Folgewirkung</b>: verspätete Abgabe.<br/>
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitige Mehrarbeit. b) bei Eintritt: noch mehr Mehrarbeit.<br/>
+					<b>Verantwortlichkeit</b>: Team<br/>
 				</li><li>
-					<b>Beschreibung</b>: Es muss ein alternativer Datenanbieter verwendet werden, weil es Probleme mit einem vorgesehenen Datenanbieter gibt (z.B. der API-Zugriff auf dessen Daten funktioniert nicht wie erwartet)<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: es werden möglicherweise nicht all jene Daten über GeoSearch gefunden, die eigentlich gefunden werden sollten. Möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: keine.<br />
-					<b>Verantwortlichkeit</b>: Team<br />
+					<b>Beschreibung</b>: Es muss ein alternativer Datenanbieter verwendet werden, weil es Probleme mit einem vorgesehenen Datenanbieter gibt (z.B. der API-Zugriff auf dessen Daten funktioniert nicht wie erwartet)<br/>
+					<b>Art</b>: Spezifisches Risiko<br/>
+					<b>Typisierung</b>: Auftritt während der Entwicklung.<br/>
+					<b>Priorisierung</b>: Hoch<br/>
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br/>
+					<b>Folgewirkung</b>: es werden möglicherweise nicht all jene Daten über GeoSearch gefunden, die eigentlich gefunden werden sollten. Möglicherweise verzögerter Projektabschluss (Nummer 4)<br/>
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: keine.<br/>
+					<b>Verantwortlichkeit</b>: Team<br/>
 				</li>
 			</ol>
 		</section>
@@ -381,42 +416,42 @@
 		</section>
 		<section name="Funktionale Anforderungen, wichtigste Anwendungsfälle">
 			<subsection name="User">
-				<img src="images/usecase/user.jpg" alt="Bild: Anwendungsfalldiagramm Benutzer" />
+				<img src="images/usecase/user.jpg" alt="Bild: Anwendungsfalldiagramm Benutzer"/>
 				<ul>
-					<li><b>Suche in Gebiet:</b><br />
+					<li><b>Suche in Gebiet:</b><br/>
 						Der User kann in ein Textfeld das Gebiet (Stadt, Straße,…) eingeben in dem er suchen möchte,
 						beziehungsweise das er suchen möchte.
 					</li>
-					<li><b>Suche mit Tags:</b><br />
+					<li><b>Suche mit Tags:</b><br/>
 						Der User kann in ein Textfeld Schlagwörter (Fotos, Lokale,…) eingeben nach denen er suchen
 						möchte. Die eingegebenen Schlagwörter werden mit den gespeicherten Tags in der Datenbank
 						verglichen um die Ergebnisse zu finden.
 					</li>
-					<li><b>Suchen mit TagCloud</b><br />
+					<li><b>Suchen mit TagCloud</b><br/>
 						Bei jeder Suche, die der User durchführt, wird eine TagCloud erstellt, die verwandte
 						Suchebegriffe zur letzten Anfrage anzeigt. Mit der TagCloud kann der User nach ähnlichen
 						oder vertiefenden Schlagwörtern suchen.
 					</li>
-					<li><b>Suchen durch Zoomen</b><br />
+					<li><b>Suchen durch Zoomen</b><br/>
 						Das Ergebnis der Suche wird in einem Kartenausschnitt dargestellt, durch hineinzoomen wird
 						der Kartenausschnitt verkleinert, was eine genauere Ansicht der Treffer ermöglicht. 
 					</li>
-					<li><b>Details zu den Suchergebnissen anzeigen</b><br />
+					<li><b>Details zu den Suchergebnissen anzeigen</b><br/>
 						Der Benutzer kann zu jedem Suchergebnis Details ansehen. Diese werden sichtbar sobald man
 						auf der Karte auf das entsprechende Suchergebnis klickt. Welche Details hier angezeigt
 						werden ist vom Typ des Eintrags abhängig. Bei einem Foto wird zum Beispiel das entsprechende
 						Bild dargestellt, bei einem Wikipedia-Eintrag der Text des Artikels.
 					</li>
-					<li><b>Quelle des Eintrags anzeigen</b><br />
+					<li><b>Quelle des Eintrags anzeigen</b><br/>
 						Da zu jedem Eintrag in der Datenbank ein permanenter Link gespeichert wird (die Quelle der Daten),
 						kann der Benutzer direkt zur Quelle des Eintrags gelangen (z.B.: entsprechender Wikipedia-Artikel).
 					</li>
-					<li><b>Suchergebnis mit anderen Benutzern teilen</b><br />
+					<li><b>Suchergebnis mit anderen Benutzern teilen</b><br/>
 						<i>Nice to have</i>: Bei Bedarf können Suchergebnisse vom Benutzer mit bzw. an andere Personen
 						geteilt werden. Dies erfolgt im einfachsten Fall per Permalink bzw. Email-Versand, könnte aber
 						in weiterer Ausbaustufe auch z.B. per privater Nachricht auf Social-Networking Seiten etc. erfolgen.
 					</li>
-					<li><b>Suchergebnisse bewerten</b><br />
+					<li><b>Suchergebnisse bewerten</b><br/>
 						<i>Nice to have</i>: Der Benutzer soll die Möglichkeit haben, Suchergebnisse zu bewerten. Diese
 						Bewertungen fließen in weiterer Folge in zukünftige Suchen mit ein und können somit dazu beitragen,
 						qualitativ höherwertige Ergebnisse zu erzielen.
@@ -424,9 +459,9 @@
 				</ul>
 			</subsection>
 			<subsection name="Externe Webseiten">
-				<img src="images/usecase/extern.jpg" alt="Bild: Anwendungsfalldiagramm Extene WebSite" />
+				<img src="images/usecase/extern.jpg" alt="Bild: Anwendungsfalldiagramm Extene WebSite"/>
 				<ul>
-					<li><b>Daten mittels API abfragen</b><br />
+					<li><b>Daten mittels API abfragen</b><br/>
 						Anforderung: API soll eine REST und RPC Interface implementieren mit dessen hilfe Daten
 						zwischen intenen und externen Servern und der GUI ausgetauscht werden können. Die REST
 						Datenaustausch soll mit XML, und JSON funktionieren.
@@ -435,10 +470,10 @@
 			</subsection>
 		</section>
 		<section name="Domänenmodell">
-			<img src="images/domaenenmodell.jpg" alt="Bild: Domänenmodell" />
+			<img src="images/domaenenmodell.jpg" alt="Bild: Domänenmodell"/>
 		</section>
 		<section name="Komponentendiagramm">
-			<img src="images/komponentendiagramm.jpg" alt="Bild: Komponentendiagramm" />
+			<img src="images/komponentendiagramm.jpg" alt="Bild: Komponentendiagramm"/>
 		</section>
 	</body>
 </document>
