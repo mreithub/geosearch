@@ -181,10 +181,31 @@
 			</ul>
 		</section>
 		<section name="Projektabgrenzung">
-			<ul><li>
-				Es gibt noch keine Möglichkeit dass die Crawler automatisch (ohne API) Seiten durchsuchen und deren Inhalt also geospezifische Information erkennen
-				und in die Datenbank schreiben. (← erst ab diesem Zeitpunkt wäre es eine echte Suchmaschine)
-			</li></ul>
+			<ul>
+				<li>
+					Ein Bewertungssystem, durch das die Wichtigkeit der einzelnen Einträge bestimmt werden kann (und so auch der Zoomfaktor,
+					am dem das Objekt angezeigt wird, wird erst später implementiert.<br />
+					Vorerst belassen wir es bei einer einfachen Beschränkung der Anzahl der angezeigten Objekte.
+				</li>
+				<li>
+					Ein Eintragen von Objekten durch externe Benutzer (via externer REST-API) wird beim Entwurf berücksichtigt, soll aber
+					erst später implementiert werden (da dafür eine Benutzerverwaltung und einige Webformulare implementiert werden müssten).
+				</li>
+				<li>
+					Das Projekt verwendet kein eigenes Kartenmaterial, es wird auf die von Google zur Verfügung gestellten Google Maps API aufgebaut.
+				</li>
+				<li>
+					Die suche beschränkt sich derzeit auf eine einfache Tagsuche (per '=' im SQL), da Volltextsuche zu performanceaufwendig wäre.
+					Später wird eventuell auf Basis von Sphinx (www.sphinxsearch.com) eine Volltextsuche eingebaut.
+				</li>
+				<li>
+					Das Projekt verlässt sich auf Google Maps zum finden der Orte. Die Tagsuche passiert nur im aktuell sichtbaren Kartenausschnitt.
+				</li>
+				<li>
+					Es gibt derzeit keine Möglichkeit dass die Crawler automatisch (ohne API) beliebige Webeiten nach z.B. Adressen oder Koordinaten
+					durchsuchen und deren Inhalt also geospezifische Information erkennen und in die Datenbank schreiben.
+				</li>
+			</ul>
 		</section>
 		<section name="Grober Projektplan">
 			Die Ecktermine des Projekts werden wie folgt abgeschätzt:
