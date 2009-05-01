@@ -13,6 +13,7 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="Installation" href="setup.html" />
 			<item name="About" href="index.html" />
 			<item name="Projektinformation" href="project-info.html" />
+			<item name="Deckblatt" href="deckblatt.html"/>
 			<item name="Projektauftrag" href="projektauftrag.html" />
 		</menu>
 	</body>
