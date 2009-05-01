@@ -1,4 +1,3 @@
-<<<<<<< .mine
 <document>
 	<properties>
 		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
@@ -19,479 +18,6 @@
 		<section name="Projektname">
 			geoSearch
 		</section>
-		<section name="Ausgangssituation">
-			Im Internet finden sich immer mehr Services, die ortsbezogene Daten, wie Bilder, Hotels, Sehenswürdigkeiten, Routen, usw. anzeigen. Leider
-			gibt es keine Möglichkeit, auf all diese Daten über nur eine Seite zuzugreifen, bzw. nur auf einer Seite(Map) anzuzeigen. Weiters ist es nur
-			bei manchen Services möglich, die Daten mittels API zu bekommen, was es leider schwierig macht, diese Daten in eigene Applikationen einzubinden.
-			Außerdem hat sich noch immer keine Standardabfrage für dieses Problem entwickelt, wodurch man für jede API eine eigenes Script schreiben muss.
-		</section>
-		<section name="Projektbeschreibung">
-			<subsection name="SUCHE und GUI">
-				Für einen Besucher der HP soll es möglichst einfach sein, jegliche Informationen zu einem spezifischen Ort zu finden, bzw. soll die Möglichkeit 
-				bestehen, in einem Bereich zu "stöbern". Dass heisst, von "UNS" oder dann in weiterer Folge von "USERN" vordefinierte Suchanfragen auszuwählen,
-				um sich schnell einen Überblick über eine Gegend zu verschaffen. Eine Beispiel hierzu wäre: Ein Button, auf dem steht "Freizeit". Wenn man nun
-				auf diesen Button klickt, erscheinen automatisch alle Events, Routen und Bilder auf der Karte.<br />
-				Damit die Applikation nicht nur eine reine Suchmaschine wird, soll es die Möglichkeit geben, angezeigte Inhalte zu bewerten und eigene zu erstellen.
-			</subsection>
-
-			<subsection name="API">
-				Um die Möglichkeit zu schaffen, dass andere Applikationen unsere Daten verwenden können, und um die Infrastruktur einfacher zu gestalten,
-				wird eine API geschrieben. Mithilfe dieser API soll das Lesen und Schreiben von Daten vereinfacht und standardisiert werden.<br />
-				Hierzu ein paar Beispiele:
-				<ul>
-					<li>
-						Falls eine Applikation (Homepage) Bilder von Orten anzeigen will, bekommt diese mittels unserer API alle Bilder von Panoramio,
-						Flickr, usw. (also alle unsere Datenbankeinträge in einem gewissen Umfeld) in einem Standardformat.
-					</li>
-					<li>
-						Gibt es eine Applikation (Homepage), die Datenbestände verwaltet und bei uns eintragen will (damit wir diese Seite nicht crawlen
-						müssen), ist dies auch mittels der API möglich.<br />
-						z.B.: <tt>hotels.com</tt> kann mittels API jegliche Änderung ihrer Daten automatisch an uns mittels API senden. So sind sind unsere
-						Daten noch aktueller und wir brauchen keinen Crawler für diese Seite schreiben.
-					</li>
-					<li>
-						Wir haben z.B. nur 3 Services, die wir bis jetzt Crawlen können. Kommt nun ein weiterer hinzu, ist das schreiben eines neuen Crawlers
-						einfacher, da standardisierte Schnittstellen vorliegen. Zusätzlich kann das Crawlen auf andere Server auslagern.
-					</li>
-					<li>
-						Eine Änderung der GUI (bzw. parallelbetrieb mehrerer oder sogar eine Client-Applikation) kann so einfach umgesetzt werden.
-					</li>
-				</ul>
-			</subsection>
-			<subsection name="BOTS (Crawler)">
-				Um einen großen Datenbestand zu ermöglichen, und diese Daten dann im Format unserer API in die Datenbank zu schreiben, muss für jeden Service,
-				der von uns aktiv abgerufen wird, ein eigener Crawler geschrieben werden. In weiterer Folge können diese Crawler immer komplizierter werden.
-				Außerdem können diese Crawler auf Quasi-Suchmaschinen erweitert werden, die automatisch Homepages durchsuchen und in unsere Datenbank (mittels API) schreiben.
-				Die zu Beginn der Projekts verwendeten Crawler werden in gewissen Zeitabständen jeden von uns unterstützen Service auf Updates überprüfen (periodic scans).
-				Später wird eventuell auf ein System umgestellt, das ähnlich wie caching Proxies die Daten genau auf Anfrage abholen.
-			</subsection>
-
-			Der Unteschied zu vorhandenen Services wie z.B. GoogleMaps ist, dass ein grundlegendes Augenmerk auf Erweiterbarkeit und wiederverwendbarkeit gelegt wird.
-			Bei GoogleMaps werden nicht sehr viele Services eingebunden. Auch können externe Seiten nicht wieder auf die vorhandenen Daten zugreifen.
-		</section>
-		<section name="Zielgruppe">
-			<subsection name="Suchende USER (Hauptzielgruppe)">
-				<ul>
-					<li>Touristen: Jene Personen die in eine Stadt kommen, und einen Plan machen wollen, was sie in dieser Stadt so sehen können.</li>
-					<li>Stöberer: Personen die einfach nur interessiert was es in einer Stadt so gibt. Also ob man überhaupt dort hin fahren sollen, oder eher nicht.</li>
-					<li>Verzweifelte: Personen die plötzlich etwas in ihrer Umgebung suchen aber es nicht finden können. (zb. Person hat Hunger und will wissen, "Wo ist das nächste Gasthaus")</li>
-				</ul>
-			</subsection>
-			<subsection name="Web-Entwickler">
-				<ul><li>Homepage- oder Applikations- Entwickler, die unsere Daten für eine eigene Applikationen verwenden wollen. (zb. Eine Firma möchte alle ihre Fillialen auf der eigenen Seite anzeigen.)</li></ul>
-			</subsection>
-			<subsection name="Content-Provider">
-				<ul><li>Anbieter von positionsspezifischen Daten, die gerne auf unserer Seite verlinkt wären (oder eventuell unseren Service für die Anzeige ihrer Kartendaten verwenden wollen)</li></ul>
-			</subsection>
-		</section>
-		<section name="Feature-Liste">
-			<subsection name="Suchen">
-				<ul>
-					<li><b>Suche nach/in einem Gebiet:</b><br />
-						 In einem Textfeld kann die Region (Stadt, Land, Straße...) eingegeben werden, in der gesucht werden soll
-						 beziehungsweise die gesucht werden soll. Die Suche in einem Gebiet kann kombiniert werden mit der Suche nach Tags.
-					</li>
-					<li><b>Suche nach Tags:</b><br />
-						In einem zweiten Textfeld kann nach Tags gesucht werden (z.B.: Events, Fotos, Lokale…). Dies kann in Kombination
-						mit einer Gebietssuche passieren. Bei jedem Suchvorgang (auch wenn nur ein Gebiet gesucht wird) wird eine TagCloud
-						erstellt, die dem Sucher Schlagwörter zu dem bereits Gesuchten anzeigt und dadurch eine präzisere Suche erlaubt. 
-					</li>
-					<li><b>Oder-Suche:</b><br />
-						<i>nice-to-have</i> Zusätzlich zur Und-verknüpften Suche
-					</li>
-				</ul>
-			</subsection>
-			<subsection name="Anzeigen">
-				<p>
-					Die Suchergebnisse werden in einem bestimmten Bereich (Kartenausschnitt) dargestellt, dabei gibt es ein noch festzulegendes
-					Limit für die Anzahl der Ergebnisse, die angezeigt werden können, um die Übersichtlichkeit zu wahren. Gleichzeitig wird die
-					Gesamtanzahl der Treffer angezeigt gemeinsam mit der Anzahl der aktuell angezeigten Ergebnisse. Durch Hineinzoomen können
-					die Ergebnisse detaillierter angezeigt werden, durch Hinauszoomen bekommt man einen genaueren Überblick über die Treffer.
-				</p>
-				<p>
-					Zu jedem einzelnen Suchergebnis kann eine Detailansicht geöffnet werden, hier sind dann die konkret gefundenen Details, also
-					Fotos, Events,… zu sehen. Außerdem beinhaltet die Detailansicht einen Permalink, damit man den gefunden Inhalt auch direkt
-					aufrufen kann.
-				</p>
-				<p>nice to have: Share-Möglichkeiten der Suchtreffer z.B.: über Social Networks.</p>
-				<p>nice to have: Vote-Möglichkeit zur Bewertung der Treffer (es können Punkte vergeben werden und es gibt ein optionales Textfeld für Bemerkungen).</p>
-			</subsection>
-			<subsection name="API">
-				<p>
-					Die API ist das Herz der Applikation mit deren Hilfe die Daten an die Datenbank gesendet bzw. geschrieben werden können.
-					Der Zugriff auf die Datenbank funktionert mittels RPC und REST Protokoll.
-				</p>
-				<p>
-					<i>nice to have</i>: Es soll möglich sein, dass externe Seiten unsere Daten abfragen (und zum Beispiel auf ihrer eigenen Seite
-					anzeigen können), verändern und hinzufügen können. 
-				</p>
-			</subsection>
-			<subsection name="Crawler">
-				<p>
-					Der Crawler ist ein Interface, mit dessen Hilfe die Daten von den verschiedenen Websites (für jede Website gibt es einen eigenen
-					Crawler, der das Interface implementiert) geholt und in die Datenbank gespeichert werden können. Alle Daten bekommen einen Zeitstempel
-					und abhängig von der Information eine Gültigkeitsdauer. So lange die Information aktuell ist, wird sie direkt aus der Datenbank gelesen,
-					ist die Gültigkeitsdauer abgelaufen, werden die Daten von der Website neu geholt und in der Datenbank aktualisiert. Zu Beginn gibt es
-					eine Startapplikation, die die Daten in der Datenbank initialisiert. Ab diesem Zeitpunkt erhält sich die Datenbank quasi selbst, indem
-					sie durch User-Requests ihre Daten permanent auf Gültigkeit überprüft und gegebenenfalls aktualisiert.
-				</p>
-			</subsection>
-		</section>
-		<section name="Verwendete Technologien">
-			<ul>
-				<li>
-					Kommunikation und Dokumentation
-					<ul>
-						<li>Google Docs</li>
-						<li>Laconica</li>
-						<li>Trac</li>
-						<li>Skype</li>
-						<li>SMS</li>
-					</ul>
-				</li><li>
-					Tools und Server
-					<ul>
-						<li>PostgreSQL Server (im Produktivbetrieb)</li>
-						<li>Apache Tomcat</li>
-						<li>Visual Paradigm</li>
-						<li>Eclipse</li>
-					</ul>
-				</li><li>
-					Source
-					<ul>
-						<li>Java Servlets (Seitenlogik)</li>
-						<li>Java Server Pages (View)</li>
-						<li>Java</li>
-						<li>Maven</li>
-						<li>Spring</li>
-						<li>Subversion</li>
-						<li>JUnit</li>
-						<li>Log4J</li>
-						<li>GWT (Google Web Toolkit)</li>
-						<li>Google Maps API</li>
-					</ul>
-				</li>
-			</ul>
-		</section>
-
-		<section name="Projektabgrenzung">
-			<ul><li>
-				Es gibt noch keine Möglichkeit dass die Crawler automatisch (ohne API) Seiten durchsuchen und deren Inhalt also geospezifische Information erkennen
-				und in die Datenbank schreiben. (← erst ab diesem Zeitpunkt wäre es eine echte Suchmaschine)
-			</li></ul>
-		</section>
-		<section name="grober Projektplan">
-			Die Ecktermine des Projekts werden wie folgt abgeschätzt:
-			<table>
-				<tr><th>Phase</th><th>Termin</th><th>Aufwand (h)</th></tr>
-				<tr><td>Projektstart</td><td>06.04.2009</td><td>40</td></tr>
-				<tr><td>Anforderungsanalyse</td><td>23.04.2009</td><td>60</td></tr>
-				<tr><td>Entwurf</td><td>08.05.2009</td><td>200</td></tr>
-				<tr><td>Alphaversion bzw. Prototyp erstellen</td><td>22.05.2009</td><td>200</td></tr>
-				<tr><td>Applikation erstellen + Modultests</td><td>05.06.2009</td><td>200</td></tr>
-				<tr><td>Systemtests abschließen</td><td>10.06.2009</td><td>50</td></tr>
-				<tr><td>Betaversion erstellen</td><td>14.06.2009</td><td>50</td></tr>
-				<tr><td>Feinschliff und abschließende Fehlerbehebung</td><td>19.06.2009</td><td>100</td></tr>
-				<tr><td>Projektabschluss</td><td>30.06.2009</td><td>40</td></tr>
-			</table>
-		</section>
-		<section name="Arbeitsstruktur">
-			<table>
-				<tr><th>Rolle/n</th><th>Name</th><th>Matr.-Nr.</th><th>Kennz.</th><th>Email</th><th>Telefon</th></tr>
-				<tr>
-					<td>Teamkoordinator</td>
-					<td>Jürgen Brandstetter</td>
-					<td>0726015</td>
-					<td>532</td>
-					<td>j_brandstetter@weristin.at</td>
-					<td>+43 650/237 92 75</td>
-				</tr>
-				<tr>
-					<td>Technischer Architekt</td>
-					<td>Manuel Reithuber</td>
-					<td>0725031</td>
-					<td>534</td>
-					<td>manuel.reithuber@student.tuwien.ac.at</td>
-					<td>+43 680/123 83 26</td>
-				</tr>
-				<tr>
-					<td>Dokumentationsbeauftragte</td>
-					<td>Ruth Kendlbacher</td>
-					<td>0726383</td>
-					<td>533</td>
-					<td>e0726383@student.tuwien.ac.at</td>
-					<td>+43 699/122 922 68</td>
-				</tr>
-				<tr>
-					<td>Testbeauftragter</td>
-					<td>Mathias Kunter</td>
-					<td>0625658</td>
-					<td>533</td>
-					<td>e0625658@student.tuwien.ac.at</td>
-					<td>+43 664/219 11 11</td>
-				</tr>
-				<tr>
-					<td>Stf.TK<br />Stv.TA</td>
-					<td>Anca Cismasiu</td>
-					<td>0727280</td>
-					<td>532</td>
-					<td>e0727280@student.tuwien.ac.at</td>
-					<td>+43 676/402 83 75</td>
-				</tr>
-			</table>
-
-		</section>
-		<section name="Informationswesen">
-			Die Gruppe trifft sich 1x wöchentlich intern (Donnerstags) und zusätzlich 1x pro Woche mit dem Tutor (Dienstags).<br />
-			Die Kommunikation im Team setzt sich folgendermaßen zusammen:
-
-    			<ul>
-    				<li>Laconica (http://laconica.fakeroot.at): Kurze Benachrichtigungen über den eigenen Arbeitsfortschritt</li>
-    				<li>Mail-Verteiler: für längere Nachrichten</li>
-    				<li>SMS bzw. Instant messenger: für kurzfristige Nachrichten (meist in Kombination mit anderen Verfahren</li>
-    				<li>Subversion: Quellcode-Repository. Zusätzlich wird bei jedem subversion-commit automatisch eine Nachricht im laconica veröffentlicht.</li>
-    				<li>Google Docs: Dokumente, an denen gleichzeitig gearbeitet wird (wie z.B.: Kontaktliste, ...)</li>
-    				<li>Maven Site: Projektdokumentation, wird per Subversion verteilt</li>
-    				<li>Trac: ToDo-Liste, Zeitmanagement</li>
-    			</ul>
-		</section>
-		<section name="Besonderheiten">
-			<ul>
-				<li>Bei unserem Projekt handelt es sich um eine Webanwendung</li>
-				<li>Webserver notwendig (bereits vorhanden)</li>
-				<li>PostgreSQL (da es auf dem verwendeten Webserver bereits installiert ist)</li>
-				<li>Keine GUI per Java SWING (da Webanwendung)</li>
-			</ul>
-		</section>
-		<section name="Risikoabschätzung">
-			<ol>
-				<li>
-					<b>Beschreibung</b>: kurzfristige Verhinderung eines Teammitglieds<br />
-					<b>Art</b>: Allgemeines Risiko<br />
-					<b>Typisierung</b>: Kann immer auftreten. Mögliche Verhinderungsgründe sind zum Beispiel Krankheit und unvorhersehbare Ereignisse.<br />
-					<b>Priorisierung</b>: Mittel<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Hoch<br />
-					<b>Folgewirkung</b>: möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: keine. b) bei Eintritt: Koordination der Aufgaben an die anderen Teammitglieder bzw. Mehrarbeit für das restliche Team<br />
-					<b>Verantwortlichkeit</b>: Projektleiter<br />
-				</li><li>
-					<b>Beschreibung</b>: langfristige Verhinderung eines Teammitglieds<br />
-					<b>Art</b>: Allgemeines Risiko<br />
-					<b>Typisierung</b>: Kann immer auftreten.<br />
-					<b>Priorisierung</b>: Mittel<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: siehe Risiko 1<br />
-					<b>Verantwortlichkeit</b>: Projektleiter<br />
-				</li><li>
-					<b>Beschreibung</b>: APIs der Datenquellen-Anbieter funktionieren nicht wie vorgesehen.<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: alternativen Datenanbieter verwenden (Nummer 5), möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: alternativen Datenanbieter verwenden, Workaround verwenden<br />
-					<b>Verantwortlichkeit</b>: Team<br />
-				</li><li>
-					<b>Beschreibung</b>: Verzögerter Projektabschluss.<br />
-					<b>Art</b>: Allgemeines Risiko<br />
-					<b>Typisierung</b>: Auftritt am Ende des Projekts.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Mittel<br />
-					<b>Folgewirkung</b>: verspätete Abgabe.<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitige Mehrarbeit. b) bei Eintritt: noch mehr Mehrarbeit.<br />
-					<b>Verantwortlichkeit</b>: Team<br />
-				</li><li>
-					<b>Beschreibung</b>: Es muss ein alternativer Datenanbieter verwendet werden, weil es Probleme mit einem vorgesehenen Datenanbieter gibt (z.B. der API-Zugriff auf dessen Daten funktioniert nicht wie erwartet)<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: es werden möglicherweise nicht all jene Daten über GeoSearch gefunden, die eigentlich gefunden werden sollten. Möglicherweise verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: keine.<br />
-					<b>Verantwortlichkeit</b>: Team<br />
-				</li><li>
-					<b>Beschreibung</b>: Die Gruppenmitglieder kommen mit den Technologien nicht zurecht<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: verzögerter Projektabschluss (Nummer 4)<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: rechtzeitiges kennenlernen der Technologien b) bei Eintritt: Mehrarbeit um das projekt doch rechtzeitig fertig zu haben<br />
-					<b>Verantwortlichkeit</b>: Team<br />
-				</li><li>
-					<b>Beschreibung</b>: Die Datenaktualisierungen erzeugen Inkonsistenz in der Datenbank<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt nach dem Einsatz.<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: Daten werden zweimal oder gar nicht angezeigt<br />
-					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Testen der Datenbank b) bei Eintritt: Wartung.<br />
-					<b>Verantwortlichkeit</b>: Team<br />
-				</li><li>
-					<b>Beschreibung</b>: Die API's der verschiedenen Services verandern sich<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt nach Einsatz<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Mittel<br />
-					<b>Folgewirkung</b>: Services werden nicht mehr (richtig) angezeigt<br />
-					<b>Gegenmaßnahmen</b>: Crawler verandern<br />
-					<b>Verantwortlichkeit</b>: Team<br />
-				</li><li>
-					<b>Beschreibung</b>: Team ist von der riesigen Datenmenge uberfordert<br />
-					<b>Art</b>: Spezifisches Risiko<br />
-					<b>Typisierung</b>: Auftritt nach Einsatz<br />
-					<b>Priorisierung</b>: Hoch<br />
-					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
-					<b>Folgewirkung</b>: Daten konnen nicht mehr in die Datenbank geschrieben, beziehungsweise aktualisiert werden<br />
-					<b>Gegenmaßnahmen</b>: keine<br />
-					<b>Verantwortlichkeit</b>: Team<br />
-				</li>
-				
-			</ol>
-		</section>
-		<section name="Lieferkomponenten">
-			<p>Folgende Komponenten werden nach Fertigstellung des Projekts ausgeliefert bzw. zur Verfügung gestellt:</p>
-			<ul>
-				<li>Funktionale geographische Online-Suche, die entweder auf einem Server von uns oder auf einem Server des Kunden gehostet werden kann</li>
-				<li>Dokumente zur Anforderungsanalyse, Entwurf und Design</li>
-				<li>ein technisches Handbuch (bzw. Installationshandbuch oder ähnliches)</li>
-			</ul>
-			<p>
-				Falls das Projekt auf einem von uns gehosteten Server läuft, erfolgt die Abnahme durch Funktionstests.
-				Falls das Projekt auf einem anderen Server laufen soll, ist zusätzlich das einmalige Aufsetzen dieses Servers erforderlich.
-			</p>
-			<p>Nicht im Kunden-Lieferumfang enthalten sind die folgenden Dokumente:</p>
-			<ul>
-				<li>Dokumente, die zur Erstellung von GeoSearch benötigt wurden (ER-Diagramme, Klassendiagramme etc.)</li>
-				<li>Entwickler-Tools (Eclipse, Projektmanagement-Tools etc.)</li>
-				<li>Interne Dokumente, die in erster Linie zur Koordination des Teams dienen</li>
-			</ul>
-		</section>
-		<section name="Nichtfunktionale Anforderungen">
-			<subsection name="Handhabung/Benutzbarkeit">
-				<ul>
-					<li>
-						Die Suchmaschine soll in Hinblick auf Aussehen und Handhabung an bereits bestehende Suchmaschinen und Kartendienste angelehnt
-						werden, sodass der User kaum Einarbeitungszeit benötigt, um mit dem System umgehen zu können.
-					</li>
-					<li>Die Website soll insgesamt übersichtlich gestaltet werden, sodass der User schnell die Information findet, die er sucht.</li>
-				</ul>
-			</subsection>
-			<subsection name="Leistung">
-				<ul><li>
-					Durch eine bei der Einführung des Programms durchgeführte Startapplikation zur Dateninitialisierung und darauf folgende permanente
-					Aktualisierung (durch Crawler und die Requests der User) der Datenbank, wird versucht die Antwortzeiten so gering wie möglich zu halten. 
-				</li></ul>
-			</subsection>
-			<subsection name="Erweiterbarkeit">
-				<ul><li>
-					Das Programm soll so geschrieben und gekapselt werden, dass etwaige Erweiterungen und Änderungen bereits berücksichtigt werden,
-					sodass es bei einem Ausbau des Projekts zu keinen großen Code-Änderungen mehr kommt.
-				</li></ul>
-			</subsection>
-			<subsection name="Wartbarkeit">
-				<ul><li>
-					Der Code soll so formatiert, kommentiert, dokumentiert und getestet werden, dass es zu keinen langen Einarbeitungszeiten kommt,
-					wenn Teile gewartet oder erweitert werden, v.a. auch von Personen, die mit der Projektentwicklung entweder gar nichts zu tun hatten
-					oder an dem zu ändernden Teil nicht hauptsächlich mitgewirkt haben. 
-				</li></ul>
-			</subsection>
-			<subsection name="Korrektheit">
-				<ul><li>
-					Die gesuchten Daten sollen auf der Karte korrekt angezeigt werden, das heißt, sie sollen genau ihrer Quelle entsprechen. Für die
-					Korrektheit der Quellen können wir keine Verantwortung übernehmen. Eventuell wird eine Bewertung eingebaut, sodass die User die
-					Möglichkeit haben, die Suchresultate zu bewerten, wodurch die Qualität der Informationen verbessert werden kann. 
-				</li></ul>
-			</subsection>
-			<subsection name="Sicherheit">
-				<ul><li>
-					Die Datenbank soll vor unsachgemäßen Anfragen gesichert werden (z.B. SQL injections, input form validation), sodass es zu keinem
-					ungewollten Datenverlust oder inkonsistenten Daten kommen kann.
-				</li></ul>
-			</subsection>
-		</section>
-		<section name="Funktionale Anforderungen, wichtigste Anwendungsfälle">
-			<subsection name="User">
-				<img src="images/usecase/user.jpg" alt="Bild: Anwendungsfalldiagramm Benutzer" />
-				<ul>
-					<li><b>Suche in Gebiet:</b><br />
-						Der User kann in ein Textfeld das Gebiet (Stadt, Straße,…) eingeben in dem er suchen möchte,
-						beziehungsweise das er suchen möchte.
-					</li>
-					<li><b>Suche mit Tags:</b><br />
-						Der User kann in ein Textfeld Schlagwörter (Fotos, Lokale,…) eingeben nach denen er suchen
-						möchte. Die eingegebenen Schlagwörter werden mit den gespeicherten Tags in der Datenbank
-						verglichen um die Ergebnisse zu finden.
-					</li>
-					<li><b>Suchen mit TagCloud</b><br />
-						Bei jeder Suche, die der User durchführt, wird eine TagCloud erstellt, die verwandte
-						Suchebegriffe zur letzten Anfrage anzeigt. Mit der TagCloud kann der User nach ähnlichen
-						oder vertiefenden Schlagwörtern suchen.
-					</li>
-					<li><b>Suchen durch Zoomen</b><br />
-						Das Ergebnis der Suche wird in einem Kartenausschnitt dargestellt, durch hineinzoomen wird
-						der Kartenausschnitt verkleinert, was eine genauere Ansicht der Treffer ermöglicht. 
-					</li>
-					<li><b>Details zu den Suchergebnissen anzeigen</b><br />
-						Der Benutzer kann zu jedem Suchergebnis Details ansehen. Diese werden sichtbar sobald man
-						auf der Karte auf das entsprechende Suchergebnis klickt. Welche Details hier angezeigt
-						werden ist vom Typ des Eintrags abhängig. Bei einem Foto wird zum Beispiel das entsprechende
-						Bild dargestellt, bei einem Wikipedia-Eintrag der Text des Artikels.
-					</li>
-					<li><b>Quelle des Eintrags anzeigen</b><br />
-						Da zu jedem Eintrag in der Datenbank ein permanenter Link gespeichert wird (die Quelle der Daten),
-						kann der Benutzer direkt zur Quelle des Eintrags gelangen (z.B.: entsprechender Wikipedia-Artikel).
-					</li>
-					<li><b>Suchergebnis mit anderen Benutzern teilen</b><br />
-						<i>Nice to have</i>: Bei Bedarf können Suchergebnisse vom Benutzer mit bzw. an andere Personen
-						geteilt werden. Dies erfolgt im einfachsten Fall per Permalink bzw. Email-Versand, könnte aber
-						in weiterer Ausbaustufe auch z.B. per privater Nachricht auf Social-Networking Seiten etc. erfolgen.
-					</li>
-					<li><b>Suchergebnisse bewerten</b><br />
-						<i>Nice to have</i>: Der Benutzer soll die Möglichkeit haben, Suchergebnisse zu bewerten. Diese
-						Bewertungen fließen in weiterer Folge in zukünftige Suchen mit ein und können somit dazu beitragen,
-						qualitativ höherwertige Ergebnisse zu erzielen.
-					</li>
-				</ul>
-			</subsection>
-			<subsection name="Externe Webseiten">
-				<img src="images/usecase/extern.jpg" alt="Bild: Anwendungsfalldiagramm Extene WebSite" />
-				<ul>
-					<li><b>Daten mittels API abfragen</b><br />
-						Anforderung: API soll eine REST und RPC Interface implementieren mit dessen hilfe Daten
-						zwischen intenen und externen Servern und der GUI ausgetauscht werden können. Die REST
-						Datenaustausch soll mit XML, und JSON funktionieren.
-					</li>
-				</ul>
-			</subsection>
-		</section>
-		<section name="Domänenmodell">
-			<img src="images/domaenenmodell.jpg" alt="Bild: Domänenmodell" />
-		</section>
-		<section name="Komponentendiagramm">
-			<img src="images/komponentendiagramm.jpg" alt="Bild: Komponentendiagramm" />
-		</section>
-	</body>
-</document>
-=======
-<document>
-	<properties>
-		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
-		<author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
-		<author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
-		<author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
-		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
-		<title>Projektauftrag</title>
-	</properties>
-	<head>
-		<style type="text/css">
-			ol li {
-				margin-bottom: 1em;
-			}
-		</style>
-	</head>
-	<body>
 		<section name="Ausgangssituation">
 			Im Internet finden sich immer mehr Services, die ortsbezogene Daten wie z.B. Fotos, Sehenswürdigkeiten, Restaurants usw. anzeigen. Es gibt hierbei zwar
 		  auf diversen Seiten die Möglichkeit, nach diesen Daten einzeln zu suchen, eine Suche nach unterschiedlichen geographischen Daten ist allerdings des öfteren mühsam.
@@ -865,6 +391,42 @@
 					<b>Folgewirkung</b>: es werden möglicherweise nicht all jene Daten über GeoSearch gefunden, die eigentlich gefunden werden sollten. Möglicherweise verzögerter Projektabschluss (Nummer 4)<br/>
 					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Verifizieren der APIs der Datenanbieter. b) bei Eintritt: keine.<br/>
 					<b>Verantwortlichkeit</b>: Team<br/>
+				</li><li>
+					<b>Beschreibung</b>: Die Gruppenmitglieder kommen mit den Technologien nicht zurecht<br />
+					<b>Art</b>: Spezifisches Risiko<br />
+					<b>Typisierung</b>: Auftritt während der Entwicklung.<br />
+					<b>Priorisierung</b>: Hoch<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
+					<b>Folgewirkung</b>: verzögerter Projektabschluss (Nummer 4)<br />
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: rechtzeitiges Kennenlernen der Technologien b) bei Eintritt: Mehrarbeit um das Projekt rechtzeitig fertig zu haben<br />
+					<b>Verantwortlichkeit</b>: Team<br />
+				</li><li>
+					<b>Beschreibung</b>: Die Datenaktualisierungen erzeugen Inkonsistenz in der Datenbank<br />
+					<b>Art</b>: Spezifisches Risiko<br />
+					<b>Typisierung</b>: Auftritt nach dem Einsatz.<br />
+					<b>Priorisierung</b>: Hoch<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
+					<b>Folgewirkung</b>: Daten werden zweimal oder gar nicht angezeigt<br />
+					<b>Gegenmaßnahmen</b>: a) zur Verminderung: frühzeitiges Testen der Datenbank b) bei Eintritt: Wartung.<br />
+					<b>Verantwortlichkeit</b>: Team<br />
+				</li><li>
+					<b>Beschreibung</b>: Die API's der verschiedenen Services verändern sich<br />
+					<b>Art</b>: Spezifisches Risiko<br />
+					<b>Typisierung</b>: Auftritt nach Einsatz<br />
+					<b>Priorisierung</b>: Hoch<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Mittel<br />
+					<b>Folgewirkung</b>: Services werden nicht mehr (richtig) angezeigt<br />
+					<b>Gegenmaßnahmen</b>: Crawler verändern<br />
+					<b>Verantwortlichkeit</b>: Team<br />
+				</li><li>
+					<b>Beschreibung</b>: Server ist von der riesigen Datenmenge überfordert<br />
+					<b>Art</b>: Spezifisches Risiko<br />
+					<b>Typisierung</b>: Auftritt nach Einsatz<br />
+					<b>Priorisierung</b>: Hoch<br />
+					<b>Eintrittswahrscheinlichkeit</b>: Niedrig<br />
+					<b>Folgewirkung</b>: Daten können nicht mehr in die Datenbank geschrieben, beziehungsweise aktualisiert werden<br />
+					<b>Gegenmaßnahmen</b>: keine<br />
+					<b>Verantwortlichkeit</b>: Team<br />
 				</li>
 			</ol>
 		</section>
@@ -992,4 +554,5 @@
 		</section>
 	</body>
 </document>
->>>>>>> .r53
+
+
