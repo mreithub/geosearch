@@ -11,6 +11,20 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>geoSearch</name>
 	<url>http://maven.apache.org</url>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>gwt-maven</id>
+			<url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<repositories>
+		<repository>
+			<id>gwt-maven</id>
+			<url>
+                http://gwt-maven.googlecode.com/svn/trunk/mavenrepo/
+            </url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -34,19 +48,19 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>1.6.4</version>
+			<version>${gwtVersion}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>1.6.4</version>
+			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-dev</artifactId>
-			<version>1.6.4</version>
+			<version>${gwtVersion}</version>
 			<classifier>${platform}-libs</classifier>
 			<type>zip</type>
 			<scope>provided</scope>
@@ -54,7 +68,7 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-dev</artifactId>
-			<version>1.6.4</version>
+			<version>${gwtVersion}</version>
 			<classifier>${platform}</classifier>
 			<scope>provided</scope>
 		</dependency>
@@ -62,6 +76,15 @@
 	<build>
 		<finalName>geoSearch</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -78,10 +101,47 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
 			</plugin>
+			<!--  configure the GWT-Maven plugin -->
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>1.0</version>
+				<groupId>com.totsp.gwt</groupId>
+				<artifactId>maven-googlewebtoolkit2-plugin</artifactId>
+				<version>2.0-RC1</version>
+				<configuration>
+					<logLevel>INFO</logLevel>
+					<compileTargets>
+						<value>at.fakeroot.sepm.geoSearch</value>
+					</compileTargets>
+					<runTarget>at.fakeroot.sepm.geoSearch/gwtTest.html</runTarget>
+					<style>DETAILED</style>
+					<noServer>false</noServer>
+					<extraJvmArgs>-Xmx512m</extraJvmArgs>
+<!--					<i18nConstantsWithLookup>false</i18nConstantsWithLookup>
+					<i18nConstantsNames>
+						<value>at.fakeroot.sepm.client.AppConstants</value>
+					</i18nConstantsNames>
+					<i18nMessagesNames>
+						<value>at.fakeroot.sepm.client.AppMessages</value>
+					</i18nMessagesNames>-->
+					<!--
+						this parameter is VERY important with automatic mode - has to
+						match the version in your declared deps
+					-->
+					<!--
+						if this is set incorrect, or left out and default does not match
+						(default is 1.5.3) you will have mysterious errors
+					-->
+					<gwtVersion>${gwtVersion}</gwtVersion>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+<!--							<goal>mergewebxml</goal>-->
+<!--							<goal>i18n</goal>-->
+							<goal>compile</goal>
+<!--							<goal>test</goal>-->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -131,4 +191,7 @@
 			</activation>
 		</profile>
 	</profiles>
+	<properties>
+		<gwtVersion>1.6.4</gwtVersion>
+	</properties>
 </project>
