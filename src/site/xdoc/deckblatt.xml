@@ -7,20 +7,16 @@
 		<!-- xhtml head tag -->
 	</head>
 	<body>
-			<section name="Projektname">
-				geoSearch
-			</section>
-			<section name="Gruppe">
-				SEPM07
-			</section>
-			<section name="GruppenMitglieder">
-				<ol>
+		<section name="geoSearch">
+			<subsection name="Gruppe SEPM07">
+				<ul>
 					<li>Jürgen Brandstetter</li>
 					<li>Manuel Reithuber</li>
 					<li>Mathias Kunter</li>
 					<li>Ruth Kendlbacher</li>
 					<li>Anca Cismasiu</li>
-				</ol>
-			</section>
+				</ul>
+			</subsection>
+		</section>
 	</body>
 </document>
