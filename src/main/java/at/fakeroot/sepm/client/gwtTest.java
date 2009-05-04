@@ -94,6 +94,8 @@ public class gwtTest implements EntryPoint {
     mapHoPa.add(myMap);
     myMap.addMapType(MapType.getEarthMap());
     myMap.addMapType(MapType.getPhysicalMap());
+    myMap.addMapType(MapType.getMarsElevationMap());
+    myMap.addMapType(MapType.getSkyVisibleMap());
     myMap.addControl(new LargeMapControl());
     myMap.addControl(new MenuMapTypeControl());
     myMap.addControl(new OverviewMapControl());
@@ -115,9 +117,11 @@ public class gwtTest implements EntryPoint {
 			
 			
 			final InfoWindowContent myTempCont = new InfoWindowContent(
-					new HTML("You Clicked: "+markerVePa.getWidgetCount()
+					new HTML("You Clicked: -----------------------------------------"+markerVePa.getWidgetCount()
 							+".) <br />Lat: "+event.getLatLng().getLatitude()
-							+" <br />Lng: "+event.getLatLng().getLongitude()));
+							+" <br />Lng: "+event.getLatLng().getLongitude()+
+							"<br /> <br /> <br /> <br /> <br /> <br />"+
+							"<br /> <br /> <br /> <br /> <br /> <br />"));
 			
 			tempMyNews.addClickHandler(new ClickHandler(){
 				public void onClick(ClickEvent arg0) {
