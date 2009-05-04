@@ -536,6 +536,26 @@
 				</ul>
 				
 				
+				<ul>
+				  <li><b><i>Identification summary</i></b>
+					<ul>
+					  <li><b>Titel: </b>Details zu den Suchergebnissen anzeigen</li>
+					  <li><b>Kurzbeschreibung: </b>Der User klickt auf ein gefundenes Ergebniss, und dann macht sich eine Kurzübersicht auf.</li>
+					  <li><b>Aktoren:</b> Besucher der Homepage</li>
+					  <li><b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0</li>
+					</ul>
+				  </li>
+				  <li><i><b>Scenario</b></i>
+					<ul>
+					  <li><b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Wenn er/sie dann auf das Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden.</li>
+					  <li><b>Alternativszenario:</b>Durch den Parmalink des Ergebnisses kann dieses Icon + Blase auch angezeigt werden.</li>
+					  <li><b>Fehlersituation:</b>Wird als Permalink ein Ergebniss (ID) verwendet die es nicht gibt, dann wird ein Fehler angezeigt.</li>
+					  <li><b>Vorbedingung:</b>Da Ergebniss muss in der DB vorliegen.</li>
+					</ul>
+				  </li>
+				  <li><b><i>Nonfunctional Constraints:</i></b> User soll nicht zu lange auf Ergebnisse warten müssen. (Polling Strategie finden)</li>
+				</ul>
+				
 				
 			</subsection>
 			<subsection name="Externe Webseiten">
