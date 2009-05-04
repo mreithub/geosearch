@@ -557,6 +557,26 @@
 				</ul>
 				
 				
+				<ul>
+				  <li><b><i>Identification summary</i></b>
+					<ul>
+					  <li><b>Titel:</b>Suchergebnis mit anderen Benutzern teilen (nice to have)</li>
+					  <li><b>Kurzbeschreibung:</b> Um die gefundenen Ergenissen auch anderen Menschen mitzuteilen bzw. um sie selbst zu speichern, kann man den Permalink per Mail, IM oder BookMarkSystem verteilen.</li>
+					  <li><b>Aktoren:</b> Suchender HomepageBesucher. Angesprochener AktionsPartner</li>
+					  <li><b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0</li>
+					</ul>
+				  </li>
+				  <li><i><b>Scenario</b></i>
+					<ul>
+					  <li><b>Beschreibung:Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Share</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man die Email von der Personen eingeben, bei der man glaub, sie hätte interesse an diesem Ergebniss.</b></li>
+					  <li><b>Alternativszenario:</b> Es kann auch per IM, Twitter, oder sonstigen BookMark-Systemen geteilt werden.</li>
+					  <li><b>Fehlersituation:</b>Falscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.</li>
+					  <li><b>Vorbedingung:</b>Da Ergebniss muss in der DB vorliegen.</li>
+					</ul>
+				  </li>
+				  <li><b><i>Nonfunctional Constraints:</i></b> </li>
+				</ul>
+				
 			</subsection>
 			<subsection name="Externe Webseiten">
 				<img src="images/usecase/extern.jpg" alt="Bild: Anwendungsfalldiagramm Extene WebSite"/>
