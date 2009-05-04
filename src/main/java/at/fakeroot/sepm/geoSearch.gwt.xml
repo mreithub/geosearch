@@ -10,6 +10,10 @@
       <inherits name='com.google.gwt.user.theme.standard.Standard'/>
       <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
       <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+      
+      <!-- Load the Google Maps GWT bindings from the gwt-google-apis project -->
+ 	  <!-- Added by projectCreator if you use the -addModule argument -->
+ 	  <inherits name="com.google.gwt.maps.GoogleMaps" />
 
       <!-- Specify the app entry point class.                         -->
       <entry-point class='at.fakeroot.sepm.client.gwtTest'/>
