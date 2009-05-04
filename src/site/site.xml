@@ -17,6 +17,7 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="Projektauftrag" href="projektauftrag.html" />
 			<item name="Skizzen" href="skizzen.html" />
 			<item name="Vorlagen" href="vorlagen.html" />
+			<item name="Datenbank" href="datenbank.html" />
 		</menu>
 	</body>
 </project>

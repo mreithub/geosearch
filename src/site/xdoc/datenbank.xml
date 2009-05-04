@@ -1,0 +1,14 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<title>Datenbank</title>
+	</properties>
+	<head>
+		<!-- xhtml head tag -->
+	</head>
+	<body>
+		<section name="Datenbankmodell">
+			<img src="images/datenbankmodell.png" />
+		</section>
+	</body>
+</document>
