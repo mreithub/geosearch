@@ -7,8 +7,27 @@
 		<!-- xhtml head tag -->
 	</head>
 	<body>
-		<section name="Datenbankmodell">
-			<img src="images/datenbankmodell.png" />
+		<section name="Datenbank">
+			<subsection name="Modell">
+				<img src="images/datenbankmodell.png" />
+			</subsection>
+			<subsection name="Einrichtung">
+				<p>
+					SQL-Files sind in <tt>/src/sql/</tt> sortiert nach ihren Abhängigkeiten.
+					d.h. Dateien, die mit 10 beginnen haben keine Abhängigkeiten, die mit 20
+					hängen von mindestens einem 10er ab, die mit 30 von mindestens einem 20er, ...
+				</p>
+				<p>
+					Zuerst müssen die files direkt im sql ordner ausgeführt werden, dann:
+					<ul>
+						<li>Dateien direkt im <tt>sql</tt> Ordner</li>
+						<li>Tabellen</li>
+						<li>Views</li>
+						<li>evtl. Daten</li>
+					</ul>
+				</p>
+			</subsection>
 		</section>
+		
 	</body>
 </document>
