@@ -1,0 +1,315 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
+		<author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+		<author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+		<title>Anwendungsfallbeschreibungen</title>
+	</properties>
+	<head>
+		<style type="text/css">
+			ol li {
+				margin-bottom: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<section name="Projektname">
+			geoSearch
+		</section>
+		<section name="Anwendungsfallbeschreibungen">
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche in Gebiet
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User sucht nach einem bestimmten Gebiet.
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 03.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User gibt in das Suchfeld ein Gebiet (Land, Stadt, Straße,…) ein, das er suchen möchte, wenn es gefunden wird, wird der dazugehörige Kartenausschnitt angezeigt. Gleichzeitig werden in einer TagCloud Begriffe angezeigt, die etwas mit der Suche zu tun haben.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>Das gesuchte Gebiet kann nicht gefunden werden. Der User wird darüber in Kenntnis gesetzt.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Das gefundene Gebiet wird dem User in einem Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Da die „Suche in einem Gebiet“ ein wichtiger Bestandteil des Programms ist, sollte sie so entworfen sein, dass mögliche Änderungen in der GoogleMaps API zu keinen schwerwiegenden Änderungen im eigenen Programm führen. Außerdem sollte der User nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche mit Tags
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>User sucht nach Tags
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 04.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User gibt in ein Textfeld die Tags ein nach denen er suchen möchte. Wenn es Treffer zu den gesuchten Tags gibt, wird ein Kartenausschnitt ausgewählt, der so skaliert ist, dass die gefundenen Treffer in diesem Kartenausschnitt angezeigt werden können (vorausgesetzt ein festgesetztes Limit für die Größe des Ausschnitts wird nicht überschritten). Gleichzeitig werden in einer TagCloud Begriffe angezeigt, die etwas mit der Suche zu tun haben.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>Zu den gesuchten Tags gibt es keinen Treffer. Der User wird darüber in Kenntnis gesetzt. Zu den gesuchten Tags gibt es mehrere Treffer, die zu weit voneinander entfernt sind um sie zusammen in einem Kartenausschnitt darzustellen. Eine nähere Auswahl durch den User ist nötig.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben. Es kann keine Verbindung zur Datenbank hergestellt werden, beziehungsweise die Crawler können nicht auf die externen Services (LastFM, Panoramio, Wikipedia) zugreifen. Es wird eine Fehlermeldung ausgegeben.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert und es kann durch die Crawler auf die externen Services (LastFM, Panoramio, Wikipedia) zugegriffen werden.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in einem Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Die „Suche mit Tags“ sollte so entworfen werden, dass mögliche Änderungen in der GoogleMaps-, LastFm-, Panoramio- und Wikipedia API zu keinen schwerwiegenden Änderungen im eigenen Programm führen. Außerdem sollte der User nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>      
+      
+      
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Details zu den Suchergebnissen anzeigen
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User klickt auf ein gefundenes Ergebniss, und dann macht sich eine Kurzübersicht auf.
+            </li>
+            <li>
+              <b>Aktoren:</b> Besucher der Homepage
+            </li>
+            <li>
+              <b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Wenn er/sie dann auf das Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden.
+            </li>
+            <li>
+              <b>Alternativszenario:</b>Durch den Parmalink des Ergebnisses kann dieses Icon + Blase auch angezeigt werden.
+            </li>
+            <li>
+              <b>Fehlersituation:</b>Wird als Permalink ein Ergebniss (ID) verwendet die es nicht gibt, dann wird ein Fehler angezeigt.
+            </li>
+            <li>
+              <b>Vorbedingung:</b>Da Ergebniss muss in der DB vorliegen.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> User soll nicht zu lange auf Ergebnisse warten müssen. (Polling Strategie finden)
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche mit der TagCloud
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User sucht über die TagCloud
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Mathias Kunter, 04.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>In der TagCloud werden nach jeder Suche Tags aufgelistet, die mit dem Suchergebnis zu tun haben. Je nach Relevanz sind die einzelnen Tags in unterschiedlicher Größe in der TagCloud dargestellt. Durch Anklicken eines Tags wird eine erneute Suche nach dem gewählten Begriff durchgeführt. Diese Suche wird dabei auf dem aktuell angezeigten Gebiet auf der Karte durchgeführt.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>Es können keine Objekte mit dem gesuchten Schlagwort gefunden werden (weil beispielsweise inzwischen der Kartenausschnitt verändert wurde). Der User wird darüber in Kenntnis gesetzt.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben. Es kann keine Verbindung zur Datenbank hergestellt werden, beziehungsweise die Crawler können nicht auf die externen Services zugreifen.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in einem Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel:</b>Suchergebnis mit anderen Benutzern teilen (nice to have)
+            </li>
+            <li>
+              <b>Kurzbeschreibung:</b> Um die gefundenen Ergenissen auch anderen Menschen mitzuteilen bzw. um sie selbst zu speichern, kann man den Permalink per Mail, IM oder BookMarkSystem verteilen.
+            </li>
+            <li>
+              <b>Aktoren:</b> Suchender HomepageBesucher. Angesprochener AktionsPartner
+            </li>
+            <li>
+              <b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Share</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man die Email von der Personen eingeben, bei der man glaub, sie hätte interesse an diesem Ergebniss.
+            </li>
+            <li>
+              <b>Alternativszenario:</b> Es kann auch per IM, Twitter, oder sonstigen BookMark-Systemen geteilt werden.
+            </li>
+            <li>
+              <b>Fehlersituation:</b>Falscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.
+            </li>
+            <li>
+              <b>Vorbedingung:</b>Das Ergebniss muss in der DB vorliegen.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b>
+        </li>
+      </ul>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suchergebnisse bewerten (nice to have)
+            </li>
+            <li>
+              <b>Kurzbeschreibung:</b> Der HomepageBesucher kann eine gefundenes Ergebniss bewerten, und die Qualität der Suche voran zu treiben.
+            </li>
+            <li>
+              <b>Aktoren:</b> HomepageBesucher
+            </li>
+            <li>
+              <b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Bewerten</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man eine Bewertung zwischen 1 und 5 Punkte abgeben. Dazu kann man wenn man will, auch einen Kommentar schreiben.
+            </li>
+            <li>
+              <b>Alternativszenario:</b>
+            </li>
+            <li>
+              <b>Fehlersituation:</b> alscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.
+            </li>
+            <li>
+              <b>Vorbedingung:</b>Da Ergebniss muss in der DB vorliegen.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b>
+        </li>
+      </ul>      
+		</section>
+	</body>
+</document>
+
+
