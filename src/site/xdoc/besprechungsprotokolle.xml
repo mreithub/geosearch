@@ -1,0 +1,167 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<author email="brandiatmuhkuh@gmail.com">JÃ¼rgen Brandstetter</author>
+		<author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+		<author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+		<title>Projektauftrag</title>
+	</properties>
+	<head>
+		<style type="text/css">
+			ol li {
+				margin-bottom: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<section name="Besprechungsprotokoll: 23.04.2009">
+			<i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i><br/><br/>
+			<ul>
+				<li>Google Plugin für Eclipse wird benutzt</li>
+				<li>Internationalisierung: zB Wikipedia Artikel in verschiedenen Sprachen, wechseln zwischen de.wiki,...? </li>
+				<li>2 Kategorien: zeitabhängige -  permanente </li>
+				<li>2 Möglichkeiten: Daten werden auf Anfrage abgefragt oder Daten werden in bestimmten Zeitabständen akualisiert </li>
+				<li>Proxy Prinzip!! </li>
+			</ul>
+			<subsection name="Featureliste">
+				<ul>
+					<li>
+					Suchen
+					<ul>
+							<li>Tag und Orts Suchen (optional) (Autovervollständigung beim Suchen?)</li>
+							<li>Unübersichtlichkeit vermeiden: durch Filter, Zoom (Menü Leiste bei Klick mit Filter Icons)</li>
+							<li>TagCloud mit Kategorien</li>
+							<li>Oder suche ??</li>
+						</ul>
+					</li><li>
+					Anzeigen
+					<ul>
+							<li>abhängig von Zeit und Ort</li>
+							<li>Anzeigelimit (dieses dem Benutzer auch klar machen)</li>
+							<li>Navigation im Kartenausschnitt: Zoom</li>
+							<li>Detailgrad ändern: Zoomlevel</li>
+							<li>Ergebniscounter</li>
+						</ul>
+					</li><li>
+					Crawler (Interface)
+					<ul>
+							<li>-	unterschiedliche Crawler für jede Website die unterschiedliche APIs haben</li>
+							<li>wenn Suche nicht erfolgreich: Crawler crawlt danach und die neuen Ergebnisse werden abgespeichert (Objekte in der DB haben eine expiration date)</li>
+							<li>Startapplikation um Daten in die DB zu füllen</li>
+							<li>zu jedem Eintrag wird der Permalink gespeichert</li>
+						</ul>
+					</li><li>
+					API
+					<ul>
+							<li>Abfrage, Einfügen und Veränderung der Daten soll durch externe Seiten möglich sein</li>
+						</ul>
+					</li><li>
+					Anderes
+					<ul>
+							<li>Möglichkeit die Ergebnisse zu sharen zB über Social Networks</li>
+						</ul>
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="Technologien">
+				Java, Maven, Spring, SVN, GoogleDocs, JUnit, Log4J, Laconica, Postgres, Eclipse, VisualParadigm, Java Servlets, Java Server Pages, Apache Tomcat, GWT, GoogleMaps API
+			</subsection>
+		</section>
+		<section name="Besprechungsprotokoll: 29.04.2009">
+			<i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+			<subsection name="Allgemeines">
+				Maven, SVN, Tomcat eingerichtet<br/>
+				Projektauftrag überarbeiten (Einteilung siehe GoogleDocs)
+			</subsection>
+			<subsection name="Unterschiede zu GoogleMaps">
+				<ul>
+					<li>GM hat kleinen Kontext</li>
+					<li>Inhalt der Sprechblase ändert sich dynamisch</li>
+					<li>API so designed, dass es leicht erweitert werden kann</li>
+				</ul>
+			</subsection>
+			<subsection name="Milestones">
+				<table>
+					<tr><th>Datum</th><th>Milestone</th></tr>
+					<tr><td>22.05.2009</td><td>
+							<ul><li>
+							alpha-Version
+								<ul>
+										<li>fertige GUI</li>
+										<li>fertiges DB-Schema</li>
+										<li>Testdatensätze und Marker anzeigen</li>
+									</ul>
+								</li></ul>
+						</td></tr>
+					<tr><td>14.06.2009</td><td>beta-Version</td></tr>
+					<tr><td>19.06.2009</td><td>Test abgeschlossen</td></tr>
+					<tr><td>14.06.2009</td><td>fertiges Produkt</td></tr>
+				</table>
+			</subsection>
+			<subsection name="Wichtige Arbeitsschritte">
+				<img src="images/Implementierungsverlauf_grob.jpg" alt="Bild: grobe Übersicht über Arbeitsschritte"/>
+			</subsection>
+		</section>
+		<section name="Besprechungsprotokoll: 05.05.2009">
+			<i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+			<subsection name="Allgemeines">
+				<ul>
+					<li>besser wöchentliche Milestones, damit in kleinerer Teile geteilt und der zeitliche Rahmen indem Milestone erledigt werden soll besser erkennbar; bei Tickets: eintragen wer es 
+						macht, wenn mehrere beteiligt, dann evtl. für jeden ein einzelnes Ticket</li>
+					<li>Christian unserer Dokumente rechtzeitig schicken, damit er genug Zeit hat sie bis Dienstag durchzuschauen </li>
+					<li>wir bekommen eine Liste mit den Richtlinien, die für Webanwendungen relevant sind</li>
+					<li>Dokumente gegendert</li>
+					<li>Aktorenhierarchie kann bei uns weggelassen werden (außer: registrierter User -&gt; User) </li>
+					<li>Technologien für GANTT Diagramm: Microsoft Project, Gantt Project (Freeware), Open Gantt (Freeware)</li>
+				</ul>
+			</subsection>
+			<subsection name="GUI">
+				<ul>
+					<li>genauere Beschreibung zur Skizze („Das ist der Suchbutton…“), welche Elemente können verändert werden, welche nicht, wie kann sich der User durchklicken</li>
+					<li>Erklärung zur TagCloud: kann man was anklicken, wie wird sie erstellt, wann refreshed, was ist der genaue Unterschied zwischen der TagCloud in der Detailansicht zur TagCloud
+						 neben der Karte (=&gt; auch User soll wissen wo der Unterschied liegt!!), welche Bedeutung haben plus und minus (woher weiß das der User, evtl. + /- immer sichtbar, nicht erst 
+						durch Mauszeiger =&gt; damit User weiß, dass es hier was zum klicken gibt)</li>
+					<li>erklären warum z.B. nur zehn Treffer angezeigt werden, warum ausgerechnet diese (definieren!)</li>
+					<li>für den User intuitiver wenn bei den Textfeldern das Allgemeine über dem Speziellen, also oben das Gebiet in dem gesucht werden soll, unten der Tag</li>
+					<li>Problem Lupe als Button für die Suche, ungeübte User könnten die Lupe als Zoom verstehen =&gt; gibt es ein eigenes Zoomelement (man kann nicht voraussetzten, dass alle ein 
+						Mausrad haben)? wie verschiebt man die Karte nach links und rechts und was passiert dann?</li>
+					<li>bei der Detailansicht eine genaue Erklärung was von uns zur Verfügung gestellt wird und was durch externe Services (am besten gleich in die GUI Skizze Textfelder einfügen, die 
+						genau beschriften das ist fremd, das stellen wir hier hinein und dazu ist das gut); außerdem erklären woher die Daten und Beschriftungen her sind (Logos, Fotographen,…)</li>
+					<li>auch in einer GUI Skizze zeigen, dass es bei bestimmten Positionen zu Anhäufungen von Icons kommen kann (also 5 Fotos, ein Wiki, ein Event…)</li>
+					<li>Twitter nicht in der GUI Skizze, damit LVA Leitung nicht glaubt, dass wir das implementieren!</li>
+				</ul>
+			</subsection>
+			<subsection name="Anwendungsfälle: Beschreibung">
+				<ul>
+					<li>ca. 30 Anwendungsfälle reichen: alle auf der GUI und im ER Diagramm nachspielen, um zu Überprüfen ob alle Aspekte berücksichtigt wurden (alle Fehler-, 
+						Alternativbehandlungen,…)</li>
+					<li>nicht in Blockform beschreiben =&gt; untergliedern in Unterpunkten:
+						(also: 1: User tippt ein 2: User klickt auf Suchbutton 3:…), die Fehlerbehandlung wird dann beschriftet mit der Nummer des Unterpunkts bei dem ein Fehler auftreten kann und 
+						einem ’f’ (also: 2f: der Suchbutton hat keinen ActionListener), Alternativbehandlungen wie Fehlerbehandlung mit ’a’ (also 2a: Enter drücken)
+						durch die Nummerierung leichter alle Fehler zu erkennen und abzudecken</li>
+					<li>Stichwörter reichen</li>
+					<li>Vorbedingungen sind keine Fehler (nur in einem von beiden beschreiben)</li>
+					<li>Nachbedingungen können auch bei der Beschreibung stehen</li>
+				</ul>
+			</subsection>
+			<subsection name="Nice to Haves">
+				<ul>
+					<li>bei der Bewertung angeben, dass sie von uns bzw. unseren Usern stammt und nicht von den externen Services übernommen wird</li>
+					<li>bei den Events, wenn der User ein Datum eingeben kann für einen Event, dann muss ihm ein Kalender zur Verfügung gestellt werden</li>
+				</ul>
+			</subsection>
+			<subsection name="Für Dienstag">
+				<ul>
+					<li>GUI Skizzen fertig machen</li>
+					<li>Anwendungsfälle fertig machen</li>
+					<li>ER-Diagramm fertig machen (Änderungen vorbehalten!)</li>
+					<li>Work Breakdown Structure (ohne Abhängigkeiten, 3 Ebenen detailliert, Beispiel:
+						1.Ebene: Entwurf 2.Ebene: GUI 3.Ebene: Skizze 3.Ebene Beschreibung (Zeitrahmen und geschätzten Aufwand angeben),
+						bei Implementierung: Komponenten besser aufschlüsseln, Dauer immer aufsummiern)</li>
+					<li>Deployment Diagramm: beginnen (falls fertig =&gt; mit GANTT Diagramm beginnen, Tools siehe Allgemeines)</li>
+				</ul>
+			</subsection>
+		</section>
+	</body>
+</document>
