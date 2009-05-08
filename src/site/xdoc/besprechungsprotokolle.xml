@@ -158,9 +158,43 @@
 					<li>ER-Diagramm fertig machen (Änderungen vorbehalten!)</li>
 					<li>Work Breakdown Structure (ohne Abhängigkeiten, 3 Ebenen detailliert, Beispiel:
 						1.Ebene: Entwurf 2.Ebene: GUI 3.Ebene: Skizze 3.Ebene Beschreibung (Zeitrahmen und geschätzten Aufwand angeben),
-						bei Implementierung: Komponenten besser aufschlüsseln, Dauer immer aufsummiern)</li>
-					<li>Deployment Diagramm: beginnen (falls fertig =&gt; mit GANTT Diagramm beginnen, Tools siehe Allgemeines)</li>
+						bei Implementierung: Komponenten besser aufschlüsseln, Dauer immer aufsummiern)<br/>
+						(falls fertig: mit GANTT Diagramm beginnen, Tools siehe Allgemeines)</li>
+					<li>Deployment Diagramm: beginnen </li>
 				</ul>
+			</subsection>
+		</section>
+		<section name="Besprechungsprotokoll: 07.05.2009">
+			<i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+			<subsection name="GUI">
+				die Art der Karte kann geändert werden z.B. Satellit (bei GoogleMaps dabei); <br/>
+				es gibt unterschiedliche Typen von Icons für die Pins z.B. für Panoramio und oder Flickr eine Kamera
+				<subsection name="TagCloud Suche">
+					Klick auf Tag bewirkt eine neue Suchanfrage mit dem hinzugefügten Tag;<br/>
+					Servicebezogene Tags werden nicht in der TagCloud angezeigt (z.B.: Panoramio, Foto, Wikipedia)<br/>
+					<i>nice to have</i>: Service Tags in einer zweiten TagCloud
+				</subsection>
+				<subsection name="Navigation in der Karte">
+					Karte wird verschoben mittels click and drag, in die Karte hineingezoomt wird mit dem Mausrad
+				</subsection>
+				<subsection name="Detailansicht">
+					die Detailansicht wird beim Öffnen so verschoben, dass sie wenn möglich von nichts überlappt wird;<br/>
+					<b>Aufbau</b>: oben Titel, Liste mit Tags unten, dazwischen html Seite (Struktur abhängig vom Service);
+					<ul>
+						<li>Wikipedia: Titel, Text (Artikel), Logo, Link auf die Quelle, Tags, Permalink</li>
+						<li>Panoramio: Titel, Foto, Logo, Detail, Tags, Permalink</li>
+						<li>LastFM: Eventname, Datum, Orz, Beginn, Logo, Detail, Tags, Permalink</li>
+					</ul>
+				</subsection>
+				<subsection name="Crawler">
+					brute force: in regelmäßigen Abständen werden die unterschiedlichen Services systematisch durchsucht;<br/>
+					für die LVA wird das Gebiet auf Österreich beschränkt;<br/>
+					der Crawler holt die Daten in einer Endlosschleife mit delay von den Services mit Hilfe einer Rastereinteilung;<br/>
+					serviceabhängige Crawler haben servicespezifische Aktualisierungszeiträume;<br/>
+				</subsection>
+				<subsection name="Datenbank">
+					wurde besprochen und teilweise verändert, für näheres siehe ER Diagramm
+				</subsection>
 			</subsection>
 		</section>
 	</body>
