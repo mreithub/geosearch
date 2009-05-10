@@ -1,0 +1,159 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<author email="brandiatmuhkuh@gmail.com">JÃ¼rgen Brandstetter</author>
+		<author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+		<author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+		<title>Work Breakdown Structure</title>
+	</properties>
+	<head>
+		<style type="text/css">
+			ol li {
+				margin-bottom: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<section name="Analyse">
+			<ul>
+				<li>Ausgangssituation</li>
+				<li>Projektbeschreibung
+					<ul>
+						<li>Suche und GUI</li>
+						<li>Crawler und Datenbank</li>
+						<li>API</li>
+					</ul>
+				</li>
+				<li>Zielgruppe
+					<ul>
+						<li>Suchende User</li>
+						<li>Web-Entwickler</li>
+						<li>Content-Provider</li>
+					</ul>
+				</li>
+				<li>Featureliste
+					<ul>
+						<li>Suchen</li>
+						<li>Anzeigen</li>
+						<li>API</li>
+						<li>Crawler</li>
+					</ul>
+				</li>
+				<li>verwendete Technologien</li>
+				<li>Projektabgrenzung</li>
+				<li>grober Projektplan</li>
+				<li>Arbeitsstruktur / Rollenverteilung
+					<ul>
+						<li>Teamkoordinator</li>
+						<li>Technischer Architekt</li>
+						<li>Dokumentationsbeauftragte</li>
+						<li>Testbeauftragter</li>
+						<li>Stellvertretende Teamkoordinatorin und Technische Architektin</li>
+					</ul>
+				</li>
+				<li>Informationswesen</li>
+				<li>Besonderheiten</li>
+				<li>Risikoabschätzung</li>
+				<li>Lieferkomponenten</li>
+				<li>Funktionale Anforderungen
+					<ul>
+						<li>User</li>
+						<li>Externe Websites</li>
+					</ul>
+				</li>
+				<li>Nichtfunktionale Anforderungen
+					<ul>
+						<li>Handhabung / Benutzbarkeit</li>
+						<li>Leistung</li>
+						<li>Erweiterbarkeit</li>
+						<li>Wartbarkeit</li>
+						<li>Korrektheit</li>
+						<li>Sicherheit</li>
+					</ul>
+				</li>
+				<li>Komponentendiagramm</li>
+				<li>Domänenmodell</li>
+			</ul>
+		</section>
+		<section name="Entwurf">
+			<ul>
+				<li>GUI
+					<ul>
+						<li>GUI-Skizzen</li>
+						<li>GUI-Beschreibungen</li>
+						<li>Logo-Skizzen</li>
+					</ul>
+				</li>
+				<li>Technische Komponenten
+					<ul>
+						<li>ER-Diagramm</li>
+						<li>DB-Beschreibungen</li>
+						<li>Klassendiagramm</li>
+						<li>Anwendungsfalldiagramme</li>
+						<li>Anwendungsfallbeschreibung</li>
+						<li>Komponentendiagramm</li>
+						<li>Deploymentdiagramm</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<section name="Implementierung">
+			<ul>
+				<li>Datenbank
+					<ul>
+						<li>SQL</li>
+						<li>Implementierung</li>
+						<li>DAO Anbindung</li>
+					</ul>
+				</li>
+				<li>GUI
+					<ul>
+						<li>TagCloud</li>
+						<li>Anzeige auf Karte (Pins)</li>
+						<li>Detailanzeige</li>
+						<li>Navigation</li>
+						<li>Layout</li>
+					</ul>
+				</li>
+				<li>DAO
+					<ul>
+						<li>Suche</li>
+						<li>Objekt einfügen</li>
+						<li>Objekt aktualisieren</li>
+					</ul>
+				</li>
+				<li>Crawler
+					<ul>
+						<li>Crawler Interface</li>
+						<li>Wikipedia Crawler</li>
+						<li>Panoramio Crawler</li>
+						<li>LastFM Crawler</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<section name="Test">
+			<ul>
+				<li>Testplan
+					<ul>
+						<li>Test entwerfen</li>
+						<li>Test planen</li>
+					</ul>
+				</li>
+				<li>Funktionale Testfälle
+					<ul>
+						<li>Funktionstests</li>
+						<li>Modul Test</li>
+						<li>System Test</li>
+					</ul>
+				</li>
+				<li>Testbericht
+					<ul>
+						<li>Auswertung</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+	</body>
+</document>
