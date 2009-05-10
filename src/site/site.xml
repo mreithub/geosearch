@@ -19,6 +19,8 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="Vorlagen" href="vorlagen.html" />
 			<item name="Datenbank" href="datenbank.html" />
 			<item name="WorkBreakdown" href="workBreakdownStructure.html" />
+			<item name="Anwedungsfälle" href="anwendungsfallbeschreibungen.html" />
+			<item name="Besprechung" href="besprechungsprotokolle.html" />
 		</menu>
 	</body>
 </project>
