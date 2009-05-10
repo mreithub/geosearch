@@ -249,7 +249,7 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Share</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man die Email von der Personen eingeben, bei der man glaub, sie hätte interesse an diesem Ergebniss.
+              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebnis angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Share</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man die Email von der Personen eingeben, bei der man glaub, sie hätte interesse an diesem Ergebnis.
             </li>
             <li>
               <b>Alternativszenario:</b> Es kann auch per IM, Twitter, oder sonstigen BookMark-Systemen geteilt werden.
@@ -258,7 +258,7 @@
               <b>Fehlersituation:</b>Falscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.
             </li>
             <li>
-              <b>Vorbedingung:</b>Das Ergebniss muss in der DB vorliegen.
+              <b>Vorbedingung:</b>Das Ergebnis muss in der DB vorliegen.
             </li>
           </ul>
         </li>
@@ -316,11 +316,304 @@
             <i>Nonfunctional Constraints:</i>
           </b>
         </li>
+      </ul>      
+      
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Detailansicht öffnen
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>User offnet einen Marker-Stechnadel
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User klickt einen Pin auf der Karte an. Die Detailansicht offnet sich als Rechteck mit zwei Tabs(Detail und Share)am oberen Ende des Pins. Fur Detail sind abhangig vom Service Titel(oben), Text/Photo/Eventinfo, Logo, Link auf die Quelle, Tags(unten) anzuzeigen; bei Share ein Permalink und Kontaktdaten anderer User. Wenn das Rechteck sich mit den Fensterkanten oder GUI-Komponenten uberlappt, wird die Karte so verschoben, dass die Detailansicht im Sichtfeld liegt. Wenn eine andere Detailansicht schon offen ist, wird die automatisch geschlossen.   
+            </li>
+            <li>
+              <b>Alternativszenario: </b>
+            </li>
+            <li>
+              <b>Fehlersituation: </b> Verbindung zur Datenbank bricht ab. Es wird eine leere Blase aufgemacht. Link aus der DB ist nicht mehr verfugbar. Das Objekt hat die Objektdaten, das eigentliche Objekt aber nicht mehr.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Detailansicht wird dem User in einer html-Blase angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Die Daten sollen benutzerfreundlich angezeigt werden.
+        </li>
+      </ul>      
+               
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Link zur Quelle anklicken
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>User offnet eine neue Seite mit der Quellseite des Objekts 
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User klickt den Button "Quelle" aus einer Detailansicht. Die Quellseite des Objekts offnet sich als neue Seite.   
+            </li>
+            <li>
+              <b>Alternativszenario: </b>
+            </li>
+            <li>
+              <b>Fehlersituation: </b> Link ist nicht mehr verfugbar. Eine Fehlermeldung wird angezeigt.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Eine neue Seite wird aufgemacht
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> 
+        </li>
+      </ul>  
+      
+        <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Logo anklicken
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>User offnet eine neue Seite mit der Homepage des Services 
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User klickt das Logo aus einer Detailansicht. Die Homepage des Services offnet sich als neue Seite.   
+            </li>
+            <li>
+              <b>Alternativszenario: </b>
+            </li>
+            <li>
+              <b>Fehlersituation: </b> 
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Pins wurden aufgemacht, die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Eine neue Seite wird aufgemacht
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> 
+        </li>
+      </ul>  
+      
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Tags anklicken
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Es wird eine neue, mit dem Tag erweiterte Suche durchgefuhrt. 
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User klickt einen Tag aus der Detailansicht. Die Seite wird neu geladen mit demselben Kartenausschnitt und der Suche erweitert durch den angeklickten Tag.  
+            </li>
+            <li>
+              <b>Alternativszenario: </b>Fur jeden Tag kann der User bestimmen, dass er und/oder-verknupft zu der Suche beitragt(nice to have)  
+            </li>
+            <li>
+              <b>Fehlersituation: </b> 
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Seite wird neu geladen.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> 
+        </li>
+      </ul>  
+      
+            <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Detailansicht schließen
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Detailansicht wird geschlossen
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User klickt das "X"-Button in der Titelleiste der Detailansicht. Die Detailansicht wird geschlossen.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>Die Detailansicht kann auch uber einen Button "Detailansicht schliessen" im unteren Teil der Detailblase geschlossen werden.
+            </li>
+            <li>
+              <b>Fehlersituation: </b> 
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Eine Detailansicht wurde geoffnet.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Karte verschiebt sich nicht.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> 
+        </li>
       </ul>
-      <br/>
-      <br/>
-
-    </section>
+      
+                <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Seite uber ein Permalink offnen
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Ein User offnet die Seite mit den Einstellungen eines anderen Users.  
+            </li>
+            <li>
+              <b>Aktoren: </b> Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>Der User bekommt von einem anderen User ein Permalink, der Kartenmittelpunkt, Zoomlevel, Suche, und offener Marker eines anderen Users enthaltet. Beim Klicken dieses links kommt er auf genau denselben Kartenzustand wie der andere User.  
+            </li>
+            <li>
+              <b>Alternativszenario: </b>
+            </li>
+            <li>
+              <b>Fehlersituation: </b> 
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Der Permalinkbenutzer kann die erhaltene Seite als Ausgangspunkt fur die Applikation nutzen.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> 
+        </li>
+      </ul>
+      
+      
+		</section>
 	</body>
 </document>
 
