@@ -18,7 +18,7 @@
 		<section name="Projektname">
 			geoSearch
 		</section>
-		<section name="Anwendungsfallbeschreibungen">
+    <section name="Anwendungsfallbeschreibungen">
       <ul>
         <li>
           <b>
@@ -67,7 +67,8 @@
           </b> Da die „Suche in einem Gebiet“ ein wichtiger Bestandteil des Programms ist, sollte sie so entworfen sein, dass mögliche Änderungen in der GoogleMaps API zu keinen schwerwiegenden Änderungen im eigenen Programm führen. Außerdem sollte der User nicht zu lange auf ein Suchergebnis warten müssen.
         </li>
       </ul>
-
+      <br/>
+      <br/>
 
       <ul>
         <li>
@@ -116,9 +117,11 @@
             <i>Nonfunctional Constraints:</i>
           </b> Die „Suche mit Tags“ sollte so entworfen werden, dass mögliche Änderungen in der GoogleMaps-, LastFm-, Panoramio- und Wikipedia API zu keinen schwerwiegenden Änderungen im eigenen Programm führen. Außerdem sollte der User nicht zu lange auf ein Suchergebnis warten müssen.
         </li>
-      </ul>      
-      
-      
+      </ul>
+      <br/>
+      <br/>
+
+
       <ul>
         <li>
           <b>
@@ -164,6 +167,8 @@
           </b> User soll nicht zu lange auf Ergebnisse warten müssen. (Polling Strategie finden)
         </li>
       </ul>
+      <br/>
+      <br/>
 
 
       <ul>
@@ -182,7 +187,7 @@
               <b>Aktoren: </b> Der Anwender
             </li>
             <li>
-              <b>Erstellungsdaten: </b>Mathias Kunter, 04.05.2009, V 1.0
+              <b>Erstellungsdaten: </b>Mathias Kunter, 10.05.2009, V 1.1
             </li>
           </ul>
         </li>
@@ -192,13 +197,13 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>In der TagCloud werden nach jeder Suche Tags aufgelistet, die mit dem Suchergebnis zu tun haben. Je nach Relevanz sind die einzelnen Tags in unterschiedlicher Größe in der TagCloud dargestellt. Durch Anklicken eines Tags wird eine erneute Suche nach dem gewählten Begriff durchgeführt. Diese Suche wird dabei auf dem aktuell angezeigten Gebiet auf der Karte durchgeführt.
+              <b>Beschreibung: </b>1) In der TagCloud werden nach jeder Suche Tags aufgelistet, die mit dem Suchergebnis zu tun haben. Je nach Relevanz sind die einzelnen Tags in unterschiedlicher Größe in der TagCloud dargestellt. 2) Der User kann durch Anklicken eines Tags eine erneute Suche nach dem gewählten Begriff durchführen. Diese Suche wird dabei auf dem aktuell angezeigten Gebiet auf der Karte durchgeführt.
             </li>
             <li>
-              <b>Alternativszenario: </b>Es können keine Objekte mit dem gesuchten Schlagwort gefunden werden (weil beispielsweise inzwischen der Kartenausschnitt verändert wurde). Der User wird darüber in Kenntnis gesetzt.
+              <b>Alternativszenario: </b>zu 1): wenn es keine vorhergehende Suche gibt, bzw. in der vorhergehenden Suche keine Ergebnisse gefunden wurden, so bleibt die TagCloud leer. zu 2): Der User wird über darüber in Kenntnis gesetzt, dass keine Ergebnisse gefunden werden konnten.
             </li>
             <li>
-              <b>Fehlersituation: </b>Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben. Es kann keine Verbindung zur Datenbank hergestellt werden, beziehungsweise die Crawler können nicht auf die externen Services zugreifen.
+              <b>Fehlersituation: </b>1) Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben. 2) Es kann keine Verbindung zur Datenbank hergestellt werden.
             </li>
             <li>
               <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
@@ -214,6 +219,8 @@
           </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
         </li>
       </ul>
+      <br/>
+      <br/>
 
 
       <ul>
@@ -261,6 +268,8 @@
           </b>
         </li>
       </ul>
+      <br/>
+      <br/>
 
 
       <ul>
@@ -307,8 +316,11 @@
             <i>Nonfunctional Constraints:</i>
           </b>
         </li>
-      </ul>      
-		</section>
+      </ul>
+      <br/>
+      <br/>
+
+    </section>
 	</body>
 </document>
 
