@@ -18,6 +18,7 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="Skizzen" href="skizzen.html" />
 			<item name="Vorlagen" href="vorlagen.html" />
 			<item name="Datenbank" href="datenbank.html" />
+			<item name="WorkBreakdown" href="workBreakdownStructure.html" />
 		</menu>
 	</body>
 </project>

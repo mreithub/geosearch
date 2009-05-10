@@ -1,0 +1,47 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
+		<author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+		<author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+		<title>Projektauftrag</title>
+	</properties>
+	<head>
+		<style type="text/css">
+			ol li {
+				margin-bottom: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<section name="GUI allgemein">
+			<img src="images/skizzen/start_high.jpg" alt="Bild: GUI"/><br />
+			Hier sieht mein einen Überblick über die Hauptkomponenten der GUI.<br />
+			Komponenten:<br /> 
+			- Suchfeld: Wo, Was, Suchbutton. Die Such wird durch klicken auf den SuchButton, oder Enter ausgelöst.<br />
+			- Ergebnisse: Hier wird angezeigt wie viel Ergebnisse gefunden wurden, und wie viele im Moment auf der Karte gezeigt werden. Um weitere zu sehen muss man hineinzoomen.<br />
+			- TagCloud: Hier werden die Tags im Bezug auf ihren Häufigkeiten in den gefundenen Objekten in verschiedenen Größen angezeigt. Beim Klicken auf einen Tag wird dieser Automatisch zur Suche hinzugefügt, und es wird automatisch eine neu Suche gemacht.<br />
+			- Kartenauswahl: Hier kann man zwischen verschiedenen KartenTypen auswählen<br />
+			- Naviagtion: Falls man nicht mit der Maus mittels Click and Drag navigieren will, dann man auch mit der NavigationsLeiste navigieren.<br />
+			- Symbole: Auf Grund der verschiedenen Symbole, kann man erkennen zu welchen Service das Ergebniss gehört.
+		</section>
+		<section name="Panoramio">
+			<img src="images/skizzen/panoramio_high.jpg" alt="Bild: Panoramio"/><br />
+			Bei Click auf Symbol öffnet sich DetailAnsicht<br />
+			- Name: Titel des Ergebnisses<br />
+			- Inhalt: Seit für den jeweiligen Services optimierten Inhalt an.<br />
+			- Service: Anzeigen des Logos des Services (Beim clicken darauf kommt man auf die Startseite des Services)<br />
+			- Details: Beim Clicken auf Details kommt man auf die Seite von der das Ergebniss kommt. (zb. Userpage)<br />
+			- Tags: Zeigt die zum Ergebniss gehörigen Tags an. Beim Klicken auf einen Tag wird dieser Automatisch zur Suche hinzugefügt, und es wird automatisch eine neu Suche gemacht.
+		</section>
+		<section name="WikiPedia">
+			<img src="images/skizzen/wiki.jpg" alt="Bild: Wikipedia"/><br />
+			Details: Siehe Panoramio
+		</section>		
+		<section name="LastFm">
+			<img src="images/skizzen/lastfm.jpg" alt="Bild: LastFM"/><br />
+			Details: Siehe Panoramio
+		</section>
+	</body>
+</document>

@@ -1,0 +1,62 @@
+<document>
+  <properties>
+    <author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+    <author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
+    <author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+    <author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+    <author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+    <title>Projektauftrag</title>
+  </properties>
+  <head>
+    <style type="text/css">ol li {
+      margin-bottom: 1em;
+      }</style>
+  </head>
+  <body>
+  	Einfach <code>SVN Update</code> machen. Und den Code der Vorlage dort hin kopieren wo du ihn brauchst!
+    <section name="UML Anwendungsfallbeschreibung">
+      <subsection name="Vorlage">
+		<ul>
+		  <li><b><i>Identification summary</i></b>
+			<ul>
+			  <li><b>Titel:</b></li>
+			  <li><b>Kurzbeschreibung:</b></li>
+			  <li><b>Aktoren:</b></li>
+			  <li><b>Erstellungsdaten:</b></li>
+			</ul>
+		  </li>
+		  <li><i><b>Scenario</b></i>
+			<ul>
+			  <li><b>Beschreibung:</b></li>
+			  <li><b>Alternativszenario:</b></li>
+			  <li><b>Fehlersituation:</b></li>
+			  <li><b>Vorbedingung:</b></li>
+			</ul>
+		  </li>
+		  <li><b><i>Nonfunctional Constraints:</i></b> </li>
+		</ul>
+      </subsection>
+      <subsection name="Beispiel">
+		<ul>
+		  <li><b><i>Identification summary</i></b>
+			<ul>
+			  <li><b>Titel: </b>Buch suchen</li>
+			  <li><b>Kurzbeschreibung: </b>Der User sucht nach einem bestimmten Buch</li>
+			  <li><b>Aktoren: </b>Der Anwender</li>
+			  <li><b>Erstellungsdaten: </b>Max Mustermann, 2. 10. 2004, V 1.0</li>
+			</ul>
+		  </li>
+		  <li><i><b>Scenario</b></i>
+			<ul>
+			  <li><b>Beschreibung: </b> Der Anwender gibt die Suchkriterien für ein Buch ein (Titel, Autor, Verlag, Kategorie). Das System zeigt die zu den Kriterien gefundenen Bücher an. Der Anwender wählt einen Datensatz aus und die Liste mit den Suchergebnissen wird geschlossen.</li>
+			  <li><b>Alternativszenario: </b>Das System kann kein Buch zu den angegebenen Kriterien finden, es wird eine Fehlermeldung ausgegeben.</li>
+			  <li><b>Fehlersituation: </b> Kann der Connect zur Datenbank nicht aufgebaut werden, dann wird noch 2x versucht den Connect zur DB herzustellen. Sind alle 3 Versuche erfolglos wird eine Fehlermeldung ausgegeben.</li>
+			  <li><b>Vorbedingung: </b>Das System läuft Nachbedingung: Die Daten des gefundenen Buches werden am Bildschirm angezeigt</li>
+			</ul>
+		  </li>
+		  <li><b><i>Nonfunctional Constraints: </i></b> Der User sollte nicht zu lange auf das Suchergebnis warten müssen (max. 10 sek) Der Anwendungsfall „Buch suchen“ wird sehr häufig in einer Bibliothek Verwendung finden.</li>
+		</ul>
+	  </subsection>
+    </section>
+  </body>
+</document>
