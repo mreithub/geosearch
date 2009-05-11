@@ -15,162 +15,8 @@
 		</style>
 	</head>
 	<body>
-		<section name="Projektname">
-			geoSearch
-		</section>
-    <section name="Anwendungsfallbeschreibungen">
-      <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Suche in Gebiet
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>Der User sucht nach einem bestimmten Gebiet.
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 03.05.2009, V 1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung: </b>Der User gibt in das Suchfeld ein Gebiet (Land, Stadt, Straße,…) ein, das er suchen möchte, wenn es gefunden wird, wird der dazugehörige Kartenausschnitt angezeigt. Gleichzeitig werden in einer TagCloud Begriffe angezeigt, die etwas mit der Suche zu tun haben.
-            </li>
-            <li>
-              <b>Alternativszenario: </b>Das gesuchte Gebiet kann nicht gefunden werden. Der User wird darüber in Kenntnis gesetzt.
-            </li>
-            <li>
-              <b>Fehlersituation: </b>Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben.
-            </li>
-            <li>
-              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Das gefundene Gebiet wird dem User in einem Kartenausschnitt angezeigt.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> Da die „Suche in einem Gebiet“ ein wichtiger Bestandteil des Programms ist, sollte sie so entworfen sein, dass mögliche Änderungen in der GoogleMaps API zu keinen schwerwiegenden Änderungen im eigenen Programm führen. Außerdem sollte der User nicht zu lange auf ein Suchergebnis warten müssen.
-        </li>
-      </ul>
-      <br/>
-      <br/>
-
-      <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Suche mit Tags
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>User sucht nach Tags
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 04.05.2009, V 1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung: </b>Der User gibt in ein Textfeld die Tags ein nach denen er suchen möchte. Wenn es Treffer zu den gesuchten Tags gibt, wird ein Kartenausschnitt ausgewählt, der so skaliert ist, dass die gefundenen Treffer in diesem Kartenausschnitt angezeigt werden können (vorausgesetzt ein festgesetztes Limit für die Größe des Ausschnitts wird nicht überschritten). Gleichzeitig werden in einer TagCloud Begriffe angezeigt, die etwas mit der Suche zu tun haben.
-            </li>
-            <li>
-              <b>Alternativszenario: </b>Zu den gesuchten Tags gibt es keinen Treffer. Der User wird darüber in Kenntnis gesetzt. Zu den gesuchten Tags gibt es mehrere Treffer, die zu weit voneinander entfernt sind um sie zusammen in einem Kartenausschnitt darzustellen. Eine nähere Auswahl durch den User ist nötig.
-            </li>
-            <li>
-              <b>Fehlersituation: </b>Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben. Es kann keine Verbindung zur Datenbank hergestellt werden, beziehungsweise die Crawler können nicht auf die externen Services (LastFM, Panoramio, Wikipedia) zugreifen. Es wird eine Fehlermeldung ausgegeben.
-            </li>
-            <li>
-              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert und es kann durch die Crawler auf die externen Services (LastFM, Panoramio, Wikipedia) zugegriffen werden.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in einem Kartenausschnitt angezeigt.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> Die „Suche mit Tags“ sollte so entworfen werden, dass mögliche Änderungen in der GoogleMaps-, LastFm-, Panoramio- und Wikipedia API zu keinen schwerwiegenden Änderungen im eigenen Programm führen. Außerdem sollte der User nicht zu lange auf ein Suchergebnis warten müssen.
-        </li>
-      </ul>
-      <br/>
-      <br/>
-
-
-      <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Details zu den Suchergebnissen anzeigen
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>Der User klickt auf ein gefundenes Ergebniss, und dann macht sich eine Kurzübersicht auf.
-            </li>
-            <li>
-              <b>Aktoren:</b> Besucher der Homepage
-            </li>
-            <li>
-              <b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Wenn er/sie dann auf das Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden.
-            </li>
-            <li>
-              <b>Alternativszenario:</b>Durch den Parmalink des Ergebnisses kann dieses Icon + Blase auch angezeigt werden.
-            </li>
-            <li>
-              <b>Fehlersituation:</b>Wird als Permalink ein Ergebniss (ID) verwendet die es nicht gibt, dann wird ein Fehler angezeigt.
-            </li>
-            <li>
-              <b>Vorbedingung:</b>Da Ergebniss muss in der DB vorliegen.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> User soll nicht zu lange auf Ergebnisse warten müssen. (Polling Strategie finden)
-        </li>
-      </ul>
-      <br/>
-      <br/>
-
-
+    
+    <section name="Suche">
       <ul>
         <li>
           <b>
@@ -197,20 +43,259 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>
+              <b>Beschreibung: </b><br/>
               1) Je nachdem was gefunden werden soll, kann der User verschiedene Eingaben in die Suchfelder machen.<br/>
               2) Im oberen Eingabefeld wird ein Ort eingegeben, der die Suchregion bestimmt.<br/>
               3) Im unteren Eingabefeld wird der bzw. die Tags eingegeben, nach denen gesucht werden soll.<br/>
               4) Durch einen Mausklick auf den grafischen Suchen-Button wird die Suche ausgeführt.
             </li>
             <li>
-              <b>Alternativszenario: </b>
+              <b>Alternativszenario: </b><br/>
               2a) und 3a): es kann <b>entweder</b> die Region <b>oder</b> die Tags eingegeben werden.<br/>
               4a): Die Suche kann auch durch Drücken der Enter-Taste ausgeführt werden.<br/>
               4a): Falls weder auf den Suchen-Button geklickt wird, noch auf die Enter-Taste gedrückt wird, findet keine Suche statt.<br/>
             </li>
             <li>
               <b>Fehlersituation: </b>keine.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in einem Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche in Gebiet
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Userin / der User sucht nach einem bestimmten Gebiet
+            </li>
+            <li>
+              <b>Aktoren: </b>Die Anwenderin / Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 10.05.2009, V 1.1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b><br/>
+              1) UserIn gibt Gebiet in Suchfeld ein<br/>
+              2) Kartenausschnitt mit Gebiet angezeigt<br/>
+              3) ersten xx Tag-Treffer durch Pins auf Karte angezeigt<br/>
+              4) TagCloud mit verwandten Begriffen angezeigt
+            </li>
+            <li>
+              <b>Alternativszenario:</b><br/>
+              1a) UserIn gibt kein Gebiet ein und drückt Enter, Kartenausschnitt von vorheriger Suche angezeigt<br/>
+              2a) Gebiet existiert nicht, UserIn informiert, Kartenausschnitt von vorheriger Suche angezeigt<br/>
+              3a) es existieren keine Tag-Treffer => nur Gebiet angezeigt
+            </li>
+            <li>
+              <b>Fehlersituation:</b><br/>
+              2f) keine Informationen von GoogleMaps => keine Karte, UserIn Fehlermeldung<br/>
+              3f) keine Informationen durch externe Services => keine Tags<br/>
+              4f) keine Verbindung mit DB => keine Tags
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Da die „Suche in einem Gebiet“ ein wichtiger Bestandteil des Programms ist, sollte sie
+          so entworfen sein, dass mögliche Änderungen in der GoogleMaps API zu keinen schwerwiegenden Änderungen im eigenen Programm führen.
+          Außerdem sollte die Userin / der User nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche mit Tags
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Userin / Der User sucht nach Tags
+            </li>
+            <li>
+              <b>Aktoren: </b>Die Anwenderin / Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 10.05.2009, V 1.1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b><br/>
+              1) UserIn gibt Tag(s) in Suchfeld ein<br/>
+              2) die ersten xx Pins (Treffer) im aktuellen Kartenausschnitt angezeigt<br/>
+              3) in Ergebnis-Anzeige links Anzahl der Gesamttreffer angezeigt<br/>
+              4) TagCloud mit verwandten Begriffen angezeigt
+            </li>
+            <li>
+              <b>Alternativszenario:</b><br/>
+              1a) UserIn gibt keine Tag(s) ein, aktueller Kartenausschnitt angezeigt, in Ergebnis-Anzeige „keine Treffer“ angezeigt<br/>
+              2a) es gibt keine Treffer, der aktuelle Kartenausschnitt wird angezeigt<br/>
+              3a) in Ergebnis-Anzeige „keine Treffer“ angezeigt
+            </li>
+            <li>
+              <b>Fehlersituation:</b><br/>
+              2f) keine Daten von GoogleMaps, Fehlermeldung; keine Verbindung zur DB, Fehlermeldung;<br/>
+              4f) keine Verbindung mit DB => keine Tags
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Die „Suche mit Tags“ sollte so entworfen werden, dass mögliche Änderungen in der GoogleMaps-, LastFm-, Panoramio- und
+          Wikipedia API zu keinen schwerwiegenden Änderungen im eigenen Programm führen. Außerdem sollte die Userin / der User nicht zu
+          lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche in Gebiet mit Tag(s)
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Userin / der User sucht nach Tag(s) in einem bestimmten Gebiet
+            </li>
+            <li>
+              <b>Aktoren: </b>Die Anwenderin / Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 10.05.2009, V 1.1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b><br/>
+              1) UserIn gibt Gebiet in Suchfeld ein<br/>
+              2) UserIn gibt Tag(s) in Suchfeld ein<br/>
+              3) Kartenausschnitt mit Gebiet angezeigt<br/>
+              4) ersten xx Tag-Treffer durch Pins auf Karte angezeigt<br/>
+              5) TagCloud mit verwandten Begriffen angezeigt
+            </li>
+            <li>
+              <b>Alternativszenario:</b><br/>
+              1a) UserIn gibt kein Gebiet ein, Suche mit Tags ausgeführt<br/>
+              2a) UserIn gibt keine Tags ein, Suche in Gebiet ausgeführt<br/>
+              3a) Gebiet existiert nicht, UserIn informiert, Kartenausschnitt von vorheriger Suche angezeigt<br/>
+              4a) es existieren keine Tag-Treffer => nur Gebiet angezeigt
+            </li>
+            <li>
+              <b>Fehlersituation:</b><br/>
+              3f) keine Informationen von GoogleMaps => keine Karte, UserIn Fehlermeldung<br/>
+              4f) keine Verbindung zur DB => keine Tags<br/>
+              5f) keine Verbindung zur DB => keine Tags
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Siehe Suche in einem Gebiet und Suche mit Tags.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche mit der TagCloud
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User sucht durch Verwendung der TagCloud
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Mathias Kunter, 10.05.2009, V 1.1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b><br/>
+              1) In der TagCloud werden nach jeder Suche Tags aufgelistet, die mit dem Suchergebnis zu tun haben. Je nach Relevanz sind die einzelnen Tags in unterschiedlicher Größe in der TagCloud dargestellt.<br/>
+              2) Der User kann durch Anklicken eines Tags diesen Begriff zu den Such-Tags hinzufügen. Diese neue Suche wird dabei auf dem aktuell angezeigten Gebiet auf der Karte durchgeführt.
+            </li>
+            <li>
+              <b>Alternativszenario: </b><br/>
+              1a): wenn es keine vorhergehende Suche gibt, bzw. in der vorhergehenden Suche keine Ergebnisse gefunden wurden, so bleibt die TagCloud leer.<br/>
+              2a): Der User wird über darüber in Kenntnis gesetzt, dass keine Ergebnisse gefunden werden konnten.
+            </li>
+            <li>
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
               <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
@@ -256,7 +341,7 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>
+              <b>Beschreibung: </b><br/>
               1) Der Anwender zoomt in die Karte hinein, dadurch wird ein kleinerer Kartenausschnitt detaillierter dargestellt.<br/>
               2) Auf diesem neuen Kartenausschnitt wird die Suche mit den momentan eingegebenen Tags erneut durchgeführt.
             </li>
@@ -264,7 +349,8 @@
               <b>Alternativszenario: </b>keines.
             </li>
             <li>
-              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
               <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
@@ -310,7 +396,7 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>
+              <b>Beschreibung: </b><br/>
               1) Der Anwender scrollt die Kartenansicht, dadurch wird ein anderer Kartenausschnitt dargestellt.<br/>
               2) Auf diesem neuen Kartenausschnitt wird die Suche mit den momentan eingegebenen Tags erneut durchgeführt.
             </li>
@@ -318,7 +404,8 @@
               <b>Alternativszenario: </b>keines.
             </li>
             <li>
-              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
               <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
@@ -334,11 +421,9 @@
           </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
         </li>
       </ul>
-      <br/>
-      <br/>
+    </section>
 
-
-
+    <section name="Detailansicht">
       <ul>
         <li>
           <b>
@@ -346,16 +431,16 @@
           </b>
           <ul>
             <li>
-              <b>Titel: </b>Suche mit der TagCloud
+              <b>Titel: </b>Detailansicht öffnen
             </li>
             <li>
-              <b>Kurzbeschreibung: </b>Der User sucht durch Verwendung der TagCloud
+              <b>Kurzbeschreibung: </b>User öffnet eine Marker-Stecknadel
             </li>
             <li>
-              <b>Aktoren: </b> Der Anwender
+              <b>Aktoren: </b>Der Anwender
             </li>
             <li>
-              <b>Erstellungsdaten: </b>Mathias Kunter, 10.05.2009, V 1.1
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
             </li>
           </ul>
         </li>
@@ -365,31 +450,408 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>
-              1) In der TagCloud werden nach jeder Suche Tags aufgelistet, die mit dem Suchergebnis zu tun haben. Je nach Relevanz sind die einzelnen Tags in unterschiedlicher Größe in der TagCloud dargestellt.<br/>
-              2) Der User kann durch Anklicken eines Tags eine erneute Suche nach dem gewählten Begriff durchführen. Diese Suche wird dabei auf dem aktuell angezeigten Gebiet auf der Karte durchgeführt.
+              <b>Beschreibung: </b><br/>
+              1) Der User klickt einen Pin auf der Karte an.<br/>
+              2) Die Detailansicht öffnet sich als Sprechblase über der Karte.<br/>
+              3) Wenn das Rechteck sich mit den Fensterkanten oder GUI-Komponenten überlappt, wird die Karte so verschoben, dass
+              die Detailansicht nach Möglichkeit im Sichtfeld liegt.<br/>
+              4) Wenn eine andere Detailansicht schon offen ist, wird diese automatisch vorher geschlossen.<br/>
+              5) In der Detailansicht werden, abhängig vom jeweilig angeklickten Eintrag, der Titel, der Text / das Foto / die Eventinfo, das Logo, der Link auf
+              die Quelle, und die Tags angezeigt.<br/>
             </li>
             <li>
-              <b>Alternativszenario: </b>
-              1a): wenn es keine vorhergehende Suche gibt, bzw. in der vorhergehenden Suche keine Ergebnisse gefunden wurden, so bleibt die TagCloud leer.<br/>
-              2a): Der User wird über darüber in Kenntnis gesetzt, dass keine Ergebnisse gefunden werden konnten.
+              <b>Alternativszenario: </b>Keines.
             </li>
             <li>
-              <b>Fehlersituation: </b>
-              Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
-              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
             </li>
             <li>
-              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in einem Kartenausschnitt angezeigt.
+              <b>Nachbedingung: </b>Die Detailansicht wird dem User in einer Sprechblase angezeigt.
             </li>
           </ul>
         </li>
         <li>
           <b>
             <i>Nonfunctional Constraints:</i>
-          </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+          </b> Die Daten sollen benutzerfreundlich angezeigt werden.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Detailansicht schließen
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Detailansicht wird geschlossen
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b><br/>
+              1) Der User klickt auf den Schließen-Button in der Titelleiste der Detailansicht.<br/>
+              2) Die Detailansicht wird geschlossen.
+            </li>
+            <li>
+              <b>Alternativszenario: </b><br/>
+              1) Die Detailansicht kann auch uber einen Button 'Detailansicht schliessen' im unteren Teil der Detailblase geschlossen werden.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Keine.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Eine Detailansicht wurde geoffnet.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Karte verschiebt sich nicht.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b>
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Logo des Services anklicken
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User öffnet die Homepage des Services
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b><br/>
+              1) Der User klickt auf das Logo aus einer Detailansicht.<br/>
+              2) Die Homepage des Services öffnet sich als neue Seite.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>Keines.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Keine.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Pins wurden aufgemacht, die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Eine neue Seite wird aufgemacht
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b>
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Link zur Quelle anklicken
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>User öffnet die Quellseite des Objekts
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b><br/>
+              1) Der User klickt auf den Link 'Details' in der Detailansicht.<br/>
+              2) Die Quellseite des Objekts öffnet sich als neue Seite.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>Keines.
+            </li>
+            <li>
+              <b>Fehlersituation: </b><br/>
+              1f) Die Quelle des Objekts ist nicht mehr verfugbar. Der Browser kann die Seite nicht öffnen.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Eine neue Seite wird geöffnet.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b>
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Tag in der Detailansicht anklicken
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Es wird eine neue, mit dem Tag erweiterte Suche durchgefuhrt.
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b><br/>
+              1) Der User klickt auf einen Tag aus der Detailansicht.<br/>
+              2) Es wird eine erneute Suche auf dem aktuell dargestellten Gebiet durchgeführt, wobei der angeklickte Tag zu den Such-Tags hinzugefügt wird.
+            </li>
+            <li>
+              <b>Alternativszenario: </b><br/>
+              2a): Falls keine Ergebnisse gefunden werden konnten, wird der User darüber in Kenntnis gesetzt.
+            </li>
+            <li>
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die neue Suche wurde durchgeführt; die Suchergebnisse werden auf der Karte angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Keine.
+        </li>
+      </ul>
+    </section>
+
+    <section name="Navigation im Kartenausschnitt">
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Navigation mit Navigationsbereich
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Userin / Der User navigiert im Kartenausschnitt
+            </li>
+            <li>
+              <b>Aktoren: </b>Die Anwenderin / Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 10.05.2009, V 1.1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b><br/>
+              1) UserIn klickt im Navigationsbereich in Pfeilrichtung (Norden, Süden, Osten, Westen) in die navigiert werden soll
+            </li>
+            <li>
+              <b>Alternativszenario:</b><br/>
+              1a) UserIn verschiebt Karte mittels click and drag
+            </li>
+            <li>
+              <b>Fehlersituation:</b><br/>
+              1f) keine Daten von GoogleMaps, Fehlermeldung
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die GoogleMaps API funktioniert
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Keine.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Zoomen mit Navigationsbereich
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Userin / Der User zoomt im Kartenausschnitt
+            </li>
+            <li>
+              <b>Aktoren: </b>Die Anwenderin / Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 10.05.2009, V 1.1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b><br/>
+              1) UserIn schiebt im Navigationsbereich den Regler in Richtung plus (hinauf) um hinein zu zoomen oder in Richtung minus (hinunter) um heraus zu zoomen
+            </li>
+            <li>
+              <b>Alternativszenario:</b><br/>
+              1a) UserIn zoomt mit dem Mausrad
+            </li>
+            <li>
+              <b>Fehlersituation:</b><br/>
+              1f) keine Daten von GoogleMaps, Fehlermeldung
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die GoogleMaps API funktioniert
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Keine.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Kartennavigation per Click and Drag
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Die Userin / Der User ändert den Kartenausschnitt
+            </li>
+            <li>
+              <b>Aktoren: </b>Die Anwenderin / Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Ruth Kendlbacher, 10.05.2009, V 1.1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b><br/>
+              1) UserIn klickt in Kartenausschnitt und zieht ihn entgegengesetzt zur Richtung, in die er Karte verschieben möchte
+            </li>
+            <li>
+              <b>Alternativszenario:</b><br/>
+              1a) UserIn benutzt die Pfeilrichtungen im Navigationsbereich zum Verschieben
+            </li>
+            <li>
+              <b>Fehlersituation:</b><br/>
+              1f) keine Daten von GoogleMaps, Fehlermeldung
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die GoogleMaps API funktioniert
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Keine.
         </li>
       </ul>
       <br/>
@@ -422,7 +884,7 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>
+              <b>Beschreibung: </b><br/>
               1) Der Anwender klickt doppelt auf die Karte.<br/>
               2) Die Kartenansicht verändert sich so, dass der angeklickte Punkt zum neuen Mittelpunkt der Karte wird.<br/>
               3) Zusätzlich wird der Zoom-Level erhöht, so dass der neue Kartenausschnitt detaillierter angezeigt wird.<br/>
@@ -432,7 +894,8 @@
               <b>Alternativszenario: </b>keines.
             </li>
             <li>
-              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
               <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
@@ -478,7 +941,7 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>
+              <b>Beschreibung: </b><br/>
               1) Der Anwender klickt rechts oben in der Kartenauswahl entweder auf 'Karte', 'Satellit' oder 'Gelände'.<br/>
               2) Je nach Wahl wird die Karte in dem gewünschten Ansichtsmodus dargestellt.
             </li>
@@ -486,7 +949,8 @@
               <b>Alternativszenario: </b>keines.
             </li>
             <li>
-              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API schlägt fehl. Der User bekommt eine Fehlermeldung.
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
               <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen und die GoogleMaps API funktioniert.
@@ -502,10 +966,9 @@
           </b> Das Umschalten des Ansichtsmodus soll nicht viel Zeit in Anspruch nehmen.
         </li>
       </ul>
-      <br/>
-      <br/>
+    </section>
 
-
+    <section name="Allgemeine UseCases">
       <ul>
         <li>
           <b>
@@ -513,16 +976,16 @@
           </b>
           <ul>
             <li>
-              <b>Titel:</b>Suchergebnis mit anderen Benutzern teilen (nice to have)
+              <b>Titel: </b>GeoSearch mit einen Permalink öffnen
             </li>
             <li>
-              <b>Kurzbeschreibung:</b> Um die gefundenen Ergenissen auch anderen Menschen mitzuteilen bzw. um sie selbst zu speichern, kann man den Permalink per Mail, IM oder BookMarkSystem verteilen.
+              <b>Kurzbeschreibung: </b>Ein User öffnet GeoSearch mit einem Permalink.
             </li>
             <li>
-              <b>Aktoren:</b> Suchender HomepageBesucher. Angesprochener AktionsPartner
+              <b>Aktoren: </b>Der Anwender
             </li>
             <li>
-              <b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0
+              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
             </li>
           </ul>
         </li>
@@ -532,16 +995,77 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebnis angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Share</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man die Email von der Personen eingeben, bei der man glaub, sie hätte interesse an diesem Ergebnis.
+              <b>Beschreibung: </b><br/>
+              1) Der User öffnet GeoSearch mit einem Permalink, der Kartenmittelpunkt, Zoomlevel, Suche, und offener Marker enthält.
+              2) Der User sieht die Karte im gleichen Zustand wie zu dem Zeitpunkt, als der Permalink generiert wurde.
             </li>
             <li>
-              <b>Alternativszenario:</b> Es kann auch per IM, Twitter, oder sonstigen BookMark-Systemen geteilt werden.
+              <b>Alternativszenario: </b><br/>
+              2a) Falls in der Zwischenzeit Objekte in der Datenbank hinzugekommen sind oder verworfen wurden, kann sich die Ansicht ändern.
             </li>
             <li>
-              <b>Fehlersituation:</b>Falscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.
+              <b>Fehlersituation: </b><br/>
+              1f) Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
-              <b>Vorbedingung:</b>Das Ergebnis muss in der DB vorliegen.
+              <b>Vorbedingung: </b>Die Datenbank läuft, die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Der Permalinkbenutzer kann die erhaltene Seite als Ausgangspunkt fur die Applikation nutzen.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b>
+        </li>
+      </ul>
+    </section>
+
+    <section name="Wichtigste Nice-to-have UseCases">
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suchergebnis mit anderen Benutzern teilen (nice to have)
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Um die gefundenen Ergenissen auch anderen Menschen mitzuteilen bzw. um sie selbst zu speichern, kann man den Permalink per Mail, IM oder BookMarkSystem verteilen.
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Benutzer
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Jürgen Brandstetter, 04.05.2009, V1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung:</b><br/>
+              Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase
+              über dem Icon auf, indem diverse Infos zu diesem Ergebnis angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Share</code>.
+              Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man die Email von der Personen eingeben, bei der man glaub, sie hätte
+              Interesse an diesem Ergebnis.
+            </li>
+            <li>
+              <b>Alternativszenario: </b><br/>
+              Es kann auch per IM, Twitter, oder sonstigen BookMark-Systemen geteilt werden.
+            </li>
+            <li>
+              <b>Fehlersituation: </b><br/>
+              Falscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Das Ergebnis muss in der DB vorliegen.
             </li>
           </ul>
         </li>
@@ -565,59 +1089,13 @@
               <b>Titel: </b>Suchergebnisse bewerten (nice to have)
             </li>
             <li>
-              <b>Kurzbeschreibung:</b> Der HomepageBesucher kann eine gefundenes Ergebniss bewerten, und die Qualität der Suche voran zu treiben.
+              <b>Kurzbeschreibung: </b>Der HomepageBesucher kann eine gefundenes Ergebniss bewerten, und die Qualität der Suche voran zu treiben.
             </li>
             <li>
-              <b>Aktoren:</b> HomepageBesucher
+              <b>Aktoren: </b>Der Benutzer
             </li>
             <li>
-              <b>Erstellungsdaten:</b>Jürgen Brandstetter, 04.05.2009, V1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung:</b>Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Bewerten</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man eine Bewertung zwischen 1 und 5 Punkte abgeben. Dazu kann man wenn man will, auch einen Kommentar schreiben.
-            </li>
-            <li>
-              <b>Alternativszenario:</b>
-            </li>
-            <li>
-              <b>Fehlersituation:</b> alscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.
-            </li>
-            <li>
-              <b>Vorbedingung:</b>Da Ergebniss muss in der DB vorliegen.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b>
-        </li>
-      </ul>      
-      
-      <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Detailansicht öffnen
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>User offnet einen Marker-Stechnadel
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
+              <b>Erstellungsdaten: </b>Jürgen Brandstetter, 04.05.2009, V1.0
             </li>
           </ul>
         </li>
@@ -627,276 +1105,29 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>Der User klickt einen Pin auf der Karte an. Die Detailansicht offnet sich als Rechteck mit zwei Tabs(Detail und Share)am oberen Ende des Pins. Fur Detail sind abhangig vom Service Titel(oben), Text/Photo/Eventinfo, Logo, Link auf die Quelle, Tags(unten) anzuzeigen; bei Share ein Permalink und Kontaktdaten anderer User. Wenn das Rechteck sich mit den Fensterkanten oder GUI-Komponenten uberlappt, wird die Karte so verschoben, dass die Detailansicht im Sichtfeld liegt. Wenn eine andere Detailansicht schon offen ist, wird die automatisch geschlossen.   
+              <b>Beschreibung: </b><br/>
+              Der/Die HomepageBesucher/inn gibt eine Suche ein. Diese werden dann als Icons auf der Karte angezeigt. Icon klickt, macht sich ein Blase über dem Icon auf, indem diverse Infos zu diesem Ergebniss angezeigt werden. Unter anderen hat diese Blase einen Tab mit Titel <code>Bewerten</code>. Beim klick auf diesen Tab änder sich das Aussehen der Blase. Nun kann man eine Bewertung zwischen 1 und 5 Punkte abgeben. Dazu kann man wenn man will, auch einen Kommentar schreiben.
             </li>
             <li>
               <b>Alternativszenario: </b>
             </li>
             <li>
-              <b>Fehlersituation: </b> Verbindung zur Datenbank bricht ab. Es wird eine leere Blase aufgemacht. Link aus der DB ist nicht mehr verfugbar. Das Objekt hat die Objektdaten, das eigentliche Objekt aber nicht mehr.
+              <b>Fehlersituation: </b><br/>
+              Falscher Permalink wird gesendet und dass Ergebniss ist nicht mehr verfügbar.
             </li>
             <li>
-              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Die Detailansicht wird dem User in einer html-Blase angezeigt.
+              <b>Vorbedingung: </b>Da Ergebniss muss in der DB vorliegen.
             </li>
           </ul>
         </li>
         <li>
           <b>
             <i>Nonfunctional Constraints:</i>
-          </b> Die Daten sollen benutzerfreundlich angezeigt werden.
-        </li>
-      </ul>      
-               
-      <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
           </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Link zur Quelle anklicken
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>User offnet eine neue Seite mit der Quellseite des Objekts 
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung: </b>Der User klickt den Button "Quelle" aus einer Detailansicht. Die Quellseite des Objekts offnet sich als neue Seite.   
-            </li>
-            <li>
-              <b>Alternativszenario: </b>
-            </li>
-            <li>
-              <b>Fehlersituation: </b> Link ist nicht mehr verfugbar. Eine Fehlermeldung wird angezeigt.
-            </li>
-            <li>
-              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Eine neue Seite wird aufgemacht
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> 
-        </li>
-      </ul>  
-      
-        <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Logo anklicken
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>User offnet eine neue Seite mit der Homepage des Services 
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung: </b>Der User klickt das Logo aus einer Detailansicht. Die Homepage des Services offnet sich als neue Seite.   
-            </li>
-            <li>
-              <b>Alternativszenario: </b>
-            </li>
-            <li>
-              <b>Fehlersituation: </b> 
-            </li>
-            <li>
-              <b>Vorbedingung: </b>Pins wurden aufgemacht, die Datenbank läuft, die GoogleMaps API funktioniert.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Eine neue Seite wird aufgemacht
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> 
-        </li>
-      </ul>  
-      
-      <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Tags anklicken
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>Es wird eine neue, mit dem Tag erweiterte Suche durchgefuhrt. 
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung: </b>Der User klickt einen Tag aus der Detailansicht. Die Seite wird neu geladen mit demselben Kartenausschnitt und der Suche erweitert durch den angeklickten Tag.  
-            </li>
-            <li>
-              <b>Alternativszenario: </b>Fur jeden Tag kann der User bestimmen, dass er und/oder-verknupft zu der Suche beitragt(nice to have)  
-            </li>
-            <li>
-              <b>Fehlersituation: </b> 
-            </li>
-            <li>
-              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft, die GoogleMaps API funktioniert.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Seite wird neu geladen.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> 
-        </li>
-      </ul>  
-      
-            <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Detailansicht schließen
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>Die Detailansicht wird geschlossen
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung: </b>Der User klickt das "X"-Button in der Titelleiste der Detailansicht. Die Detailansicht wird geschlossen.
-            </li>
-            <li>
-              <b>Alternativszenario: </b>Die Detailansicht kann auch uber einen Button "Detailansicht schliessen" im unteren Teil der Detailblase geschlossen werden.
-            </li>
-            <li>
-              <b>Fehlersituation: </b> 
-            </li>
-            <li>
-              <b>Vorbedingung: </b>Eine Detailansicht wurde geoffnet.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Karte verschiebt sich nicht.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> 
         </li>
       </ul>
-      
-                <ul>
-        <li>
-          <b>
-            <i>Identification summary</i>
-          </b>
-          <ul>
-            <li>
-              <b>Titel: </b>Seite uber ein Permalink offnen
-            </li>
-            <li>
-              <b>Kurzbeschreibung: </b>Ein User offnet die Seite mit den Einstellungen eines anderen Users.  
-            </li>
-            <li>
-              <b>Aktoren: </b> Der Anwender
-            </li>
-            <li>
-              <b>Erstellungsdaten: </b>Anca Cismasiu, 10.05.2009, V 1.0
-            </li>
-          </ul>
-        </li>
-        <li>
-          <i>
-            <b>Scenario</b>
-          </i>
-          <ul>
-            <li>
-              <b>Beschreibung: </b>Der User bekommt von einem anderen User ein Permalink, der Kartenmittelpunkt, Zoomlevel, Suche, und offener Marker eines anderen Users enthaltet. Beim Klicken dieses links kommt er auf genau denselben Kartenzustand wie der andere User.  
-            </li>
-            <li>
-              <b>Alternativszenario: </b>
-            </li>
-            <li>
-              <b>Fehlersituation: </b> 
-            </li>
-            <li>
-              <b>Vorbedingung: </b>Die Datenbank läuft, die GoogleMaps API funktioniert.
-            </li>
-            <li>
-              <b>Nachbedingung: </b>Der Permalinkbenutzer kann die erhaltene Seite als Ausgangspunkt fur die Applikation nutzen.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <b>
-            <i>Nonfunctional Constraints:</i>
-          </b> 
-        </li>
-      </ul>
-      
-      
-		</section>
+    </section>
+    
 	</body>
 </document>
 
