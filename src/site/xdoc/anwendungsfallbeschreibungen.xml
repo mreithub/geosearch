@@ -178,10 +178,178 @@
           </b>
           <ul>
             <li>
+              <b>Titel: </b>Suche (allgemein)
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User sucht Daten mit GeoSearch
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Mathias Kunter, 11.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>
+              1) Je nachdem was gefunden werden soll, kann der User verschiedene Eingaben in die Suchfelder machen.<br/>
+              2) Im oberen Eingabefeld wird ein Ort eingegeben, der die Suchregion bestimmt.<br/>
+              3) Im unteren Eingabefeld wird der bzw. die Tags eingegeben, nach denen gesucht werden soll.<br/>
+              4) Durch einen Mausklick auf den grafischen Suchen-Button wird die Suche ausgeführt.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>
+              2a) und 3a): es kann <b>entweder</b> die Region <b>oder</b> die Tags eingegeben werden.<br/>
+              4a): Die Suche kann auch durch Drücken der Enter-Taste ausgeführt werden.<br/>
+              4a): Falls weder auf den Suchen-Button geklickt wird, noch auf die Enter-Taste gedrückt wird, findet keine Suche statt.<br/>
+            </li>
+            <li>
+              <b>Fehlersituation: </b>keine.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in einem Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche durch Zoomen
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User sucht durch Verwendung der Zoomfunktion
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Mathias Kunter, 11.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>
+              1) Der Anwender zoomt in die Karte hinein, dadurch wird ein kleinerer Kartenausschnitt detaillierter dargestellt.<br/>
+              2) Auf diesem neuen Kartenausschnitt wird die Suche mit den momentan eingegebenen Tags erneut durchgeführt.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>keines.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in dem neu gewählten Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Suche durch Scrollen
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User sucht durch Verwendung der Scrollfunktion
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Mathias Kunter, 11.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>
+              1) Der Anwender scrollt die Kartenansicht, dadurch wird ein anderer Kartenausschnitt dargestellt.<br/>
+              2) Auf diesem neuen Kartenausschnitt wird die Suche mit den momentan eingegebenen Tags erneut durchgeführt.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>keines.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in dem neu gewählten Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
               <b>Titel: </b>Suche mit der TagCloud
             </li>
             <li>
-              <b>Kurzbeschreibung: </b>Der User sucht über die TagCloud
+              <b>Kurzbeschreibung: </b>Der User sucht durch Verwendung der TagCloud
             </li>
             <li>
               <b>Aktoren: </b> Der Anwender
@@ -197,13 +365,18 @@
           </i>
           <ul>
             <li>
-              <b>Beschreibung: </b>1) In der TagCloud werden nach jeder Suche Tags aufgelistet, die mit dem Suchergebnis zu tun haben. Je nach Relevanz sind die einzelnen Tags in unterschiedlicher Größe in der TagCloud dargestellt. 2) Der User kann durch Anklicken eines Tags eine erneute Suche nach dem gewählten Begriff durchführen. Diese Suche wird dabei auf dem aktuell angezeigten Gebiet auf der Karte durchgeführt.
+              <b>Beschreibung: </b>
+              1) In der TagCloud werden nach jeder Suche Tags aufgelistet, die mit dem Suchergebnis zu tun haben. Je nach Relevanz sind die einzelnen Tags in unterschiedlicher Größe in der TagCloud dargestellt.<br/>
+              2) Der User kann durch Anklicken eines Tags eine erneute Suche nach dem gewählten Begriff durchführen. Diese Suche wird dabei auf dem aktuell angezeigten Gebiet auf der Karte durchgeführt.
             </li>
             <li>
-              <b>Alternativszenario: </b>zu 1): wenn es keine vorhergehende Suche gibt, bzw. in der vorhergehenden Suche keine Ergebnisse gefunden wurden, so bleibt die TagCloud leer. zu 2): Der User wird über darüber in Kenntnis gesetzt, dass keine Ergebnisse gefunden werden konnten.
+              <b>Alternativszenario: </b>
+              1a): wenn es keine vorhergehende Suche gibt, bzw. in der vorhergehenden Suche keine Ergebnisse gefunden wurden, so bleibt die TagCloud leer.<br/>
+              2a): Der User wird über darüber in Kenntnis gesetzt, dass keine Ergebnisse gefunden werden konnten.
             </li>
             <li>
-              <b>Fehlersituation: </b>1) Es können aufgrund eines Fehlers keine Informationen von der GoogleMaps API bezogen werden. Dem User wird eine Fehlermeldung ausgegeben. 2) Es kann keine Verbindung zur Datenbank hergestellt werden.
+              <b>Fehlersituation: </b>
+              Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
             </li>
             <li>
               <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
@@ -217,6 +390,116 @@
           <b>
             <i>Nonfunctional Constraints:</i>
           </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Doppelklick auf die Karte
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User klickt doppelt auf die Karte.
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Mathias Kunter, 11.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>
+              1) Der Anwender klickt doppelt auf die Karte.<br/>
+              2) Die Kartenansicht verändert sich so, dass der angeklickte Punkt zum neuen Mittelpunkt der Karte wird.<br/>
+              3) Zusätzlich wird der Zoom-Level erhöht, so dass der neue Kartenausschnitt detaillierter angezeigt wird.<br/>
+              4) Auf diesem neuen Kartenausschnitt wird die Suche mit den momentan eingegebenen Tags erneut durchgeführt.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>keines.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API bzw. auf die Datenbank schlägt fehl. Der User bekommt eine Fehlermeldung.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen, die Datenbank läuft und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Suchtreffer werden dem User in dem neu gewählten Kartenausschnitt angezeigt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Der User sollte nicht zu lange auf ein Suchergebnis warten müssen.
+        </li>
+      </ul>
+      <br/>
+      <br/>
+
+
+      <ul>
+        <li>
+          <b>
+            <i>Identification summary</i>
+          </b>
+          <ul>
+            <li>
+              <b>Titel: </b>Ändern der Kartenansicht
+            </li>
+            <li>
+              <b>Kurzbeschreibung: </b>Der User ändert den Ansichtsmodus der Karte.
+            </li>
+            <li>
+              <b>Aktoren: </b>Der Anwender
+            </li>
+            <li>
+              <b>Erstellungsdaten: </b>Mathias Kunter, 11.05.2009, V 1.0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <i>
+            <b>Scenario</b>
+          </i>
+          <ul>
+            <li>
+              <b>Beschreibung: </b>
+              1) Der Anwender klickt rechts oben in der Kartenauswahl entweder auf 'Karte', 'Satellit' oder 'Gelände'.<br/>
+              2) Je nach Wahl wird die Karte in dem gewünschten Ansichtsmodus dargestellt.
+            </li>
+            <li>
+              <b>Alternativszenario: </b>keines.
+            </li>
+            <li>
+              <b>Fehlersituation: </b>Der Zugriff auf die Google Maps API schlägt fehl. Der User bekommt eine Fehlermeldung.
+            </li>
+            <li>
+              <b>Vorbedingung: </b>Die Website wurde erfolgreich aufgerufen und die GoogleMaps API funktioniert.
+            </li>
+            <li>
+              <b>Nachbedingung: </b>Die Karte wird im gewünschten Ansichtsmodus dargestellt.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <b>
+            <i>Nonfunctional Constraints:</i>
+          </b> Das Umschalten des Ansichtsmodus soll nicht viel Zeit in Anspruch nehmen.
         </li>
       </ul>
       <br/>
