@@ -109,11 +109,12 @@
 				</li>
 				<li>GUI
 					<ul>
-						<li>TagCloud</li>
+						<li>Karte einbinden</li>
+						<li>Seitenlayout</li>
+						<li>Navigation (Zoom, verschieben, ...)</li>
 						<li>Anzeige auf Karte (Pins)</li>
 						<li>Detailanzeige</li>
-						<li>Navigation</li>
-						<li>Layout</li>
+						<li>TagCloud</li>
 					</ul>
 				</li>
 				<li>DAO
