@@ -1,30 +1,3 @@
-<<<<<<< .mine
-<document>
-	<properties>
-		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
-		<title>Deckblatt</title>
-	</properties>
-	<head>
-		<!-- xhtml head tag -->
-	</head>
-	<body>
-			<section name="Projektname">
-				geoSearch
-			</section>
-			<section name="Gruppe">
-				SEPM07
-			</section>
-			<section name="GruppenMitglieder">
-				<ol>
-					<li>Jürgen Brandstetter</li>
-					<li>Manuel Reithuber</li>
-					<li>Mathias Kunter</li>
-					<li>Ruth Kendlbacher</li>
-					<li>Anca Cismasiu</li>
-				</ol>
-			</section>
-	</body>
-=======
 <document>
 	<properties>
 		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
@@ -38,13 +11,12 @@
 			<subsection name="Gruppe SEPM07">
 				<ul>
 					<li>Jürgen Brandstetter</li>
-					<li>Manuel Reithuber</li>
-					<li>Mathias Kunter</li>
-					<li>Ruth Kendlbacher</li>
 					<li>Anca Cismasiu</li>
+					<li>Ruth Kendlbacher</li>
+					<li>Mathias Kunter</li>
+					<li>Manuel Reithuber</li>
 				</ul>
 			</subsection>
 		</section>
 	</body>
->>>>>>> .r74
 </document>
