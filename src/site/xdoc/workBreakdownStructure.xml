@@ -17,19 +17,27 @@
 	<body>
 		<section name="Anmerkungen">
 			<ul>
-				<li>Zeiteinheit ist 1 Tag</li>
+				<li>Zeiteinheit fur die Dauer ist 1 Tag</li>
+				<li>Zeitschatzung wird in Stunden gemacht</li>
 				<li>Jedem Punkt wird spater ein Verantwortlicher zugewiesen</li>
 			</ul>
 		</section>
 		<section name="Analyse">
 			<ul>
-				<li>Ausgangssituation</li>
+				<li>Ausgangssituation<br/>
+					<duration></duration><br/>
+					<estimated>Stunden: 0.5</estimated><br/>
+					<responsible>verantwortlich: </responsible>
+				</li>
 				<li>Projektbeschreibung
 					<ul>
 						<li>Suche und GUI</li>
 						<li>Crawler und Datenbank</li>
 						<li>API</li>
 					</ul>
+					<duration></duration><br/>
+					<estimated>Stunden:0.5</estimated><br/>
+					<responsible>verantwortlich:</responsible>
 				</li>
 				<li>Zielgruppe
 					<ul>
@@ -37,6 +45,9 @@
 						<li>Web-Entwickler</li>
 						<li>Content-Provider</li>
 					</ul>
+					<duration></duration><br/>
+					<estimated>Stunden:0.5 </estimated><br/>
+					<responsible>verantwortlich:JB</responsible>
 				</li>
 				<li>Featureliste
 					<ul>
@@ -45,10 +56,25 @@
 						<li>API</li>
 						<li>Crawler</li>
 					</ul>
+					<duration></duration><br/>
+					<estimated>Stunden:1 </estimated><br/>
+					<responsible>verantwortlich:RK</responsible>
 				</li>
-				<li>verwendete Technologien</li>
-				<li>Projektabgrenzung</li>
-				<li>grober Projektplan</li>
+				<li>verwendete Technologien<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:0.5</estimated><br/>
+					<responsible>verantwortlich:</responsible>
+				</li>
+				<li>Projektabgrenzung<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:1.5 </estimated><br/>
+					<responsible>verantwortlich:JB, MR</responsible>
+				</li>
+				<li>grober Projektplan<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:1 </estimated><br/>
+					<responsible>verantwortlich:MK</responsible>
+				</li>
 				<li>Arbeitsstruktur / Rollenverteilung
 					<ul>
 						<li>Teamkoordinator</li>
@@ -57,16 +83,38 @@
 						<li>Testbeauftragter</li>
 						<li>Stellvertretende Teamkoordinatorin und Technische Architektin</li>
 					</ul>
+					<duration></duration><br/>
+					<estimated>Stunden:</estimated><br/>
+					<responsible>verantwortlich:</responsible>
 				</li>
-				<li>Informationswesen</li>
-				<li>Besonderheiten</li>
-				<li>Risikoabschätzung</li>
-				<li>Lieferkomponenten</li>
+				<li>Informationswesen<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:</estimated><br/>
+					<responsible>verantwortlich:</responsible>
+				</li>
+				<li>Besonderheiten<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:</estimated><br/>
+					<responsible>verantwortlich:</responsible>
+				</li>
+				<li>Risikoabschätzung<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:2 </estimated><br/>
+					<responsible>verantwortlich:MK, AC</responsible>
+				</li>
+				<li>Lieferkomponenten<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:2 </estimated><br/>
+					<responsible>verantwortlich:MK</responsible>
+				</li>
 				<li>Funktionale Anforderungen
 					<ul>
 						<li>User</li>
 						<li>Externe Websites</li>
 					</ul>
+					<duration></duration><br/>
+					<estimated>Stunden:1 </estimated><br/>
+					<responsible>verantwortlich:MK, RK</responsible>
 				</li>
 				<li>Nichtfunktionale Anforderungen
 					<ul>
@@ -77,46 +125,77 @@
 						<li>Korrektheit</li>
 						<li>Sicherheit</li>
 					</ul>
+					<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:1</estimated><br/>
+					<responsible>verantwortlich:RK</responsible>
 				</li>
-				<li>Komponentendiagramm</li>
-				<li>Domänenmodell</li>
+				<li>Komponentendiagramm<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:2 </estimated><br/>
+					<responsible>verantwortlich:JB, MR</responsible>
+				</li>
+				<li>Domänenmodell<br/>
+					<duration></duration><br/>
+					<estimated>Stunden:2 </estimated><br/>
+					<responsible>verantwortlich:MK</responsible>
+				</li>
 			</ul>
 		</section>
 		<section name="Entwurf">
 			<ul>
 				<li>GUI
 					<ul>
-						<li>GUI-Skizzen</li>
+						<li>GUI-Skizzen<br/>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:JB</responsible></li>
 						<li>GUI-Beschreibungen<br/>
-							<dauer>1</dauer><br/>
-							<wer> </wer>
-						</li>
+							<duration></duration><br/>
+							<estimated>Stunden:1 </estimated><br/>
+							<responsible>verantwortlich:JB</responsible></li>
 						<li>Logo-Skizzen<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
-						</li>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:JB</responsible></li>
 					</ul>
 				</li>
 				<li>Technische Komponenten
 					<ul>
-						<li>ER-Diagramm</li>
+						<li>ER-Diagramm<br/>
+							<duration></duration><br/>
+							<estimated>Stunden:</estimated><br/>
+							<responsible>verantwortlich:MR</responsible>
+						</li>
 						<li>DB-Beschreibungen<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Klassendiagramm<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:6 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
-						<li>Anwendungsfalldiagramme</li>
+						<li>Anwendungsfalldiagramm<br/>
+							<duration></duration><br/>
+							<estimated>Stunden:1</estimated><br/>
+							<responsible>verantwortlich:JB</responsible>
+						</li>
 						<li>Anwendungsfallbeschreibung<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:17 </estimated><br/>
+							<responsible>verantwortlich:MK, RK, JB, AC</responsible>
 						</li>
-						<li>Komponentendiagramm</li>
+						<li>Komponentendiagramm<br/>
+							<duration></duration><br/>
+							<estimated>Stunden:1.5 </estimated><br/>
+							<responsible>verantwortlich:JB</responsible>
+						</li>
 						<li>Deploymentdiagramm<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:JB</responsible>
 						</li>
 					</ul>
 				</li>
@@ -127,80 +206,96 @@
 				<li>Datenbank
 					<ul>
 						<li>SQL<br/>
-							<dauer>3</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Implementierung<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden: 2 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>DAO Anbindung<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:5 h</estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 					</ul>
 				</li>
 				<li>GUI
 					<ul>
 						<li>Karte einbinden<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Seitenlayout<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Navigation (Zoom, verschieben, ...)<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Anzeige auf Karte (Pins)<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:3 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Detailanzeige<br/>
-							<dauer>3</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:7 h </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>TagCloud<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:2 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 					</ul>
 				</li>
 				<li>DAO
 					<ul>
 						<li>Suche<br/>
-							<dauer>3</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:5 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Objekt einfügen<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:5 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Objekt aktualisieren<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:5 h </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 					</ul>
 				</li>
 				<li>Crawler
 					<ul>
 						<li>Crawler Interface<br/>
-							<dauer>3</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:10 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Wikipedia Crawler<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:3 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Panoramio Crawler<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:3 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>LastFM Crawler<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:3 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 					</ul>
 				</li>
@@ -211,36 +306,42 @@
 				<li>Testplan
 					<ul>
 						<li>Test entwerfen<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:5 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Test planen<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:3 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 					</ul>
 				</li>
 				<li>Funktionale Testfälle
 					<ul>
 						<li>Funktionstests<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:10 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>Modul Test<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:10 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 						<li>System Test<br/>
-							<dauer>2</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:10 </estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 					</ul>
 				</li>
 				<li>Testbericht
 					<ul>
 						<li>Auswertung<br/>
-							<dauer>1</dauer><br/> 
-							<wer> </wer>
+							<duration></duration><br/>
+							<estimated>Stunden:3</estimated><br/>
+							<responsible>verantwortlich:</responsible>
 						</li>
 					</ul>
 				</li>
