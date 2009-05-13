@@ -10,17 +10,21 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="Laconi.ca" href="http://laconica.fakeroot.at" />
 		</links>
 		<menu name="geoSearch">
-			<item name="Installation" href="setup.html" />
 			<item name="About" href="index.html" />
 			<item name="Projektinformation" href="project-info.html" />
 			<item name="Deckblatt" href="deckblatt.html"/>
 			<item name="Projektauftrag" href="projektauftrag.html" />
+		</menu>
+		<menu name="Planung">
+			<item name="WorkBreakdown" href="workBreakdownStructure.html" />
+			<item name="Anwendungsfälle" href="anwendungsfallbeschreibungen.html" />
+			<item name="Besprechungsprotokolle" href="besprechungsprotokolle.html" />
 			<item name="Skizzen" href="skizzen.html" />
 			<item name="Vorlagen" href="vorlagen.html" />
 			<item name="Datenbank" href="datenbank.html" />
-			<item name="WorkBreakdown" href="workBreakdownStructure.html" />
-			<item name="Anwendungsfälle" href="anwendungsfallbeschreibungen.html" />
-			<item name="Besprechung" href="besprechungsprotokolle.html" />
+		</menu>
+		<menu name="Infrastruktur">
+			<item name="Installation" href="setup.html" />
 		</menu>
 	</body>
 </project>
