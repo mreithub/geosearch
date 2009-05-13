@@ -15,6 +15,12 @@
 		</style>
 	</head>
 	<body>
+		<section name="Anmerkungen">
+			<ul>
+				<li>Zeiteinheit ist 1 Tag</li>
+				<li>Jedem Punkt wird spater ein Verantwortlicher zugewiesen</li>
+			</ul>
+		</section>
 		<section name="Analyse">
 			<ul>
 				<li>Ausgangssituation</li>
@@ -81,19 +87,37 @@
 				<li>GUI
 					<ul>
 						<li>GUI-Skizzen</li>
-						<li>GUI-Beschreibungen</li>
-						<li>Logo-Skizzen</li>
+						<li>GUI-Beschreibungen<br/>
+							<dauer>1</dauer><br/>
+							<wer> </wer>
+						</li>
+						<li>Logo-Skizzen<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 				<li>Technische Komponenten
 					<ul>
 						<li>ER-Diagramm</li>
-						<li>DB-Beschreibungen</li>
-						<li>Klassendiagramm</li>
+						<li>DB-Beschreibungen<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Klassendiagramm<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
 						<li>Anwendungsfalldiagramme</li>
-						<li>Anwendungsfallbeschreibung</li>
+						<li>Anwendungsfallbeschreibung<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
 						<li>Komponentendiagramm</li>
-						<li>Deploymentdiagramm</li>
+						<li>Deploymentdiagramm<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -102,34 +126,82 @@
 			<ul>
 				<li>Datenbank
 					<ul>
-						<li>SQL</li>
-						<li>Implementierung</li>
-						<li>DAO Anbindung</li>
+						<li>SQL<br/>
+							<dauer>3</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Implementierung<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>DAO Anbindung<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 				<li>GUI
 					<ul>
-						<li>Karte einbinden</li>
-						<li>Seitenlayout</li>
-						<li>Navigation (Zoom, verschieben, ...)</li>
-						<li>Anzeige auf Karte (Pins)</li>
-						<li>Detailanzeige</li>
-						<li>TagCloud</li>
+						<li>Karte einbinden<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Seitenlayout<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Navigation (Zoom, verschieben, ...)<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Anzeige auf Karte (Pins)<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Detailanzeige<br/>
+							<dauer>3</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>TagCloud<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 				<li>DAO
 					<ul>
-						<li>Suche</li>
-						<li>Objekt einfügen</li>
-						<li>Objekt aktualisieren</li>
+						<li>Suche<br/>
+							<dauer>3</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Objekt einfügen<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Objekt aktualisieren<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 				<li>Crawler
 					<ul>
-						<li>Crawler Interface</li>
-						<li>Wikipedia Crawler</li>
-						<li>Panoramio Crawler</li>
-						<li>LastFM Crawler</li>
+						<li>Crawler Interface<br/>
+							<dauer>3</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Wikipedia Crawler<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Panoramio Crawler<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>LastFM Crawler<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -138,20 +210,38 @@
 			<ul>
 				<li>Testplan
 					<ul>
-						<li>Test entwerfen</li>
-						<li>Test planen</li>
+						<li>Test entwerfen<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Test planen<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 				<li>Funktionale Testfälle
 					<ul>
-						<li>Funktionstests</li>
-						<li>Modul Test</li>
-						<li>System Test</li>
+						<li>Funktionstests<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>Modul Test<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
+						<li>System Test<br/>
+							<dauer>2</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 				<li>Testbericht
 					<ul>
-						<li>Auswertung</li>
+						<li>Auswertung<br/>
+							<dauer>1</dauer><br/> 
+							<wer> </wer>
+						</li>
 					</ul>
 				</li>
 			</ul>
