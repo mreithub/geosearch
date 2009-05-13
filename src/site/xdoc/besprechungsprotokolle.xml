@@ -164,38 +164,80 @@
 				</ul>
 			</subsection>
 		</section>
-		<section name="Besprechungsprotokoll: 07.05.2009">
-			<i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
-			<subsection name="GUI">
-				die Art der Karte kann geändert werden z.B. Satellit (bei GoogleMaps dabei); <br/>
-				es gibt unterschiedliche Typen von Icons für die Pins z.B. für Panoramio und oder Flickr eine Kamera
-				<subsection name="TagCloud Suche">
-					Klick auf Tag bewirkt eine neue Suchanfrage mit dem hinzugefügten Tag;<br/>
-					Servicebezogene Tags werden nicht in der TagCloud angezeigt (z.B.: Panoramio, Foto, Wikipedia)<br/>
-					<i>nice to have</i>: Service Tags in einer zweiten TagCloud
-				</subsection>
-				<subsection name="Navigation in der Karte">
-					Karte wird verschoben mittels click and drag, in die Karte hineingezoomt wird mit dem Mausrad
-				</subsection>
-				<subsection name="Detailansicht">
-					die Detailansicht wird beim Öffnen so verschoben, dass sie wenn möglich von nichts überlappt wird;<br/>
-					<b>Aufbau</b>: oben Titel, Liste mit Tags unten, dazwischen html Seite (Struktur abhängig vom Service);
-					<ul>
-						<li>Wikipedia: Titel, Text (Artikel), Logo, Link auf die Quelle, Tags, Permalink</li>
-						<li>Panoramio: Titel, Foto, Logo, Detail, Tags, Permalink</li>
-						<li>LastFM: Eventname, Datum, Orz, Beginn, Logo, Detail, Tags, Permalink</li>
-					</ul>
-				</subsection>
-				<subsection name="Crawler">
-					brute force: in regelmäßigen Abständen werden die unterschiedlichen Services systematisch durchsucht;<br/>
-					für die LVA wird das Gebiet auf Österreich beschränkt;<br/>
-					der Crawler holt die Daten in einer Endlosschleife mit delay von den Services mit Hilfe einer Rastereinteilung;<br/>
-					serviceabhängige Crawler haben servicespezifische Aktualisierungszeiträume;<br/>
-				</subsection>
-				<subsection name="Datenbank">
-					wurde besprochen und teilweise verändert, für näheres siehe ER Diagramm
-				</subsection>
-			</subsection>
-		</section>
+    <section name="Besprechungsprotokoll: 07.05.2009">
+      <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+      <subsection name="GUI">
+        die Art der Karte kann geändert werden z.B. Satellit (bei GoogleMaps dabei); <br/>
+        es gibt unterschiedliche Typen von Icons für die Pins z.B. für Panoramio und oder Flickr eine Kamera
+        <subsection name="TagCloud Suche">
+          Klick auf Tag bewirkt eine neue Suchanfrage mit dem hinzugefügten Tag;<br/>
+          Servicebezogene Tags werden nicht in der TagCloud angezeigt (z.B.: Panoramio, Foto, Wikipedia)<br/>
+          <i>nice to have</i>: Service Tags in einer zweiten TagCloud
+        </subsection>
+        <subsection name="Navigation in der Karte">
+          Karte wird verschoben mittels click and drag, in die Karte hineingezoomt wird mit dem Mausrad
+        </subsection>
+        <subsection name="Detailansicht">
+          die Detailansicht wird beim Öffnen so verschoben, dass sie wenn möglich von nichts überlappt wird;<br/>
+          <b>Aufbau</b>: oben Titel, Liste mit Tags unten, dazwischen html Seite (Struktur abhängig vom Service);
+          <ul>
+            <li>Wikipedia: Titel, Text (Artikel), Logo, Link auf die Quelle, Tags, Permalink</li>
+            <li>Panoramio: Titel, Foto, Logo, Detail, Tags, Permalink</li>
+            <li>LastFM: Eventname, Datum, Orz, Beginn, Logo, Detail, Tags, Permalink</li>
+          </ul>
+        </subsection>
+        <subsection name="Crawler">
+          brute force: in regelmäßigen Abständen werden die unterschiedlichen Services systematisch durchsucht;<br/>
+          für die LVA wird das Gebiet auf Österreich beschränkt;<br/>
+          der Crawler holt die Daten in einer Endlosschleife mit delay von den Services mit Hilfe einer Rastereinteilung;<br/>
+          serviceabhängige Crawler haben servicespezifische Aktualisierungszeiträume;<br/>
+        </subsection>
+        <subsection name="Datenbank">
+          wurde besprochen und teilweise verändert, für näheres siehe ER Diagramm
+        </subsection>
+      </subsection>
+    </section>
+    <section name="Besprechungsprotokoll: 12.05.2009">
+      <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+      <subsection name="Allgemeines">
+        Liste mit den Richtlinien, die für Webanwendungen relevant sind is coming soon<br/>
+        <i>(bitte einfügen: Allgemeines, das gesagt wurde, während ich noch nicht da war)</i>
+      </subsection>
+      <subsection name="MR2">
+        Termin übernächste Woche;<br/>
+        <b>Prototyp: </b> man soll sich überall durchklicken können und eine Funktion muss implementiert sein zum Herzeigen;<br/>
+        JUnit Testklassen müssen implementiert werden (überprüfen, ob sie durchlaufen); Testfälle für MR2 noch nicht nötig;
+        automatisierte GUI Tests wären möglich, aber relativ aufwendig (Christian könnte helfen)<br/>
+        alles in SVN; Anwesenheitspflicht für MR2;
+      </subsection>
+      <subsection name="Anwendungsfallbeschreibungen">
+        <ul>
+          <li>Achtung: Konsistenz bei Aktoren:...</li>
+          <li>sprachlich präziser, knapper, nur Stichworte</li>
+          <li>keine GUI Beschreibungen in UC</li>
+          <li>Vorbedingung sind keine Fehler, d.h. entweder wird ein gewisses Verhalten vorausgesetzt (dann eine Vorbedingung), oder es gibt Fehlerbehandlung</li>
+          <li>Nonfunctional Constraints: müssen quantifizierbar sein; keine Erklärungen warum ein Nonfunctional Constraint</li>
+          <li>Rechtschreibüberprüfung vor Abgabe</li>
+          <li>überall dezidiert hinschreiben, wenn es eine Fehlermeldung gibt</li>
+          <li>Umlaute einheitlich</li>
+          <li>einheitliche Bezeichnungen (Pin-Marker-Stecknadel)</li>
+          <li>Quellseite vs. Quelltext</li>
+          <li>Vorsicht: was ist ein UC was nicht!!</li>
+        </ul>
+      </subsection>
+      <subsection name="Für Dienstag">
+        <i>(im Grunde alles was in der Artefaktenliste bei 'Interne Reviews: Projektplanung und -steuerung' steht)</i>
+        <ul>
+          <li>Work Breakdown Structure mit Terminen und Zeitabschäzungen</li>
+          <li>Deploymentdiagramm</li>
+          <li>Beschreibung der Attribute von DB (wie in Eingangsbeispiel) (besonders wichtig für Dinge, die in ER-Modell nicht modellierbar sind!)</li>
+          <li>
+            !Klassendiagramm!: muss fertig sein, bevor mit Implemenierung begonnen werden kann, am besten diese Woche noch fertigstellen<br/>
+            (Möglichkeit mit fertigem KD mit Prof. Schatten einen Termin wegen der Technologien auszumachen)
+          </li>
+          <li>GANTT-Diagramm</li>
+        </ul>
+      </subsection>
+    </section>
 	</body>
 </document>
