@@ -17,65 +17,38 @@
 	<body>
 		<section name="Anmerkungen">
 			<ul>
-				<li>Zeiteinheit fur die Dauer ist 1 Tag</li>
-				<li>Zeitschatzung wird in Stunden gemacht</li>
-				<li>Jedem Punkt wird spater ein Verantwortlicher zugewiesen</li>
+				<li>Zeiteinheit: 1 Tag ~ 8 Arbeitsstunden </li>
 			</ul>
 		</section>
 		<section name="Analyse">
 			<ul>
-				<li>Ausgangssituation<br/>
-					<duration></duration><br/>
-					<estimated>Stunden: 0.5</estimated><br/>
-					<responsible>verantwortlich: </responsible>
-				</li>
-				<li>Projektbeschreibung
+				<li>Ausgangssituation (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+				<li>Projektbeschreibung(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)
 					<ul>
 						<li>Suche und GUI</li>
 						<li>Crawler und Datenbank</li>
 						<li>API</li>
 					</ul>
-					<duration></duration><br/>
-					<estimated>Stunden:0.5</estimated><br/>
-					<responsible>verantwortlich:</responsible>
 				</li>
-				<li>Zielgruppe
+				<li>Zielgruppe(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
 					<ul>
 						<li>Suchende User</li>
 						<li>Web-Entwickler</li>
 						<li>Content-Provider</li>
 					</ul>
-					<duration></duration><br/>
-					<estimated>Stunden:0.5 </estimated><br/>
-					<responsible>verantwortlich:JB</responsible>
 				</li>
-				<li>Featureliste
+				<li>Featureliste (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)
 					<ul>
 						<li>Suchen</li>
 						<li>Anzeigen</li>
 						<li>API</li>
 						<li>Crawler</li>
 					</ul>
-					<duration></duration><br/>
-					<estimated>Stunden:1 </estimated><br/>
-					<responsible>verantwortlich:RK</responsible>
 				</li>
-				<li>verwendete Technologien<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:0.5</estimated><br/>
-					<responsible>verantwortlich:</responsible>
-				</li>
-				<li>Projektabgrenzung<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:1.5 </estimated><br/>
-					<responsible>verantwortlich:JB, MR</responsible>
-				</li>
-				<li>grober Projektplan<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:1 </estimated><br/>
-					<responsible>verantwortlich:MK</responsible>
-				</li>
-				<li>Arbeitsstruktur / Rollenverteilung
+				<li>verwendete Technologien(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+				<li>Projektabgrenzung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+				<li>grober Projektplan(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+				<li>Arbeitsstruktur / Rollenverteilung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
 					<ul>
 						<li>Teamkoordinator</li>
 						<li>Technischer Architekt</li>
@@ -83,40 +56,18 @@
 						<li>Testbeauftragter</li>
 						<li>Stellvertretende Teamkoordinatorin und Technische Architektin</li>
 					</ul>
-					<duration></duration><br/>
-					<estimated>Stunden:</estimated><br/>
-					<responsible>verantwortlich:</responsible>
 				</li>
-				<li>Informationswesen<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:</estimated><br/>
-					<responsible>verantwortlich:</responsible>
-				</li>
-				<li>Besonderheiten<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:</estimated><br/>
-					<responsible>verantwortlich:</responsible>
-				</li>
-				<li>Risikoabschätzung<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:2 </estimated><br/>
-					<responsible>verantwortlich:MK, AC</responsible>
-				</li>
-				<li>Lieferkomponenten<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:2 </estimated><br/>
-					<responsible>verantwortlich:MK</responsible>
-				</li>
-				<li>Funktionale Anforderungen
+				<li>Informationswesen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+				<li>Besonderheiten(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+				<li>Risikoabschätzung(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+				<li>Lieferkomponenten(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+				<li>Funktionale Anforderungen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
 					<ul>
 						<li>User</li>
 						<li>Externe Websites</li>
 					</ul>
-					<duration></duration><br/>
-					<estimated>Stunden:1 </estimated><br/>
-					<responsible>verantwortlich:MK, RK</responsible>
 				</li>
-				<li>Nichtfunktionale Anforderungen
+				<li>Nichtfunktionale Anforderungen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
 					<ul>
 						<li>Handhabung / Benutzbarkeit</li>
 						<li>Leistung</li>
@@ -125,78 +76,29 @@
 						<li>Korrektheit</li>
 						<li>Sicherheit</li>
 					</ul>
-					<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:1</estimated><br/>
-					<responsible>verantwortlich:RK</responsible>
 				</li>
-				<li>Komponentendiagramm<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:2 </estimated><br/>
-					<responsible>verantwortlich:JB, MR</responsible>
-				</li>
-				<li>Domänenmodell<br/>
-					<duration></duration><br/>
-					<estimated>Stunden:2 </estimated><br/>
-					<responsible>verantwortlich:MK</responsible>
-				</li>
+				<li>Komponentendiagramm(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+				<li>Domänenmodell(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
 			</ul>
 		</section>
 		<section name="Entwurf">
 			<ul>
 				<li>GUI
 					<ul>
-						<li>GUI-Skizzen<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:JB</responsible></li>
-						<li>GUI-Beschreibungen<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:1 </estimated><br/>
-							<responsible>verantwortlich:JB</responsible></li>
-						<li>Logo-Skizzen<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:JB</responsible></li>
+						<li>GUI-Skizzen(<i><b>Einheiten:</b> 2, <b>Rahmen: </b> - </i>)</li>
+						<li>GUI-Beschreibungen(<i><b>Einheiten:</b> 1, <b>Rahmen: </b> - </i>)</li>
+						<li>Logo-Skizzen(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 				<li>Technische Komponenten
 					<ul>
-						<li>ER-Diagramm<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:</estimated><br/>
-							<responsible>verantwortlich:MR</responsible>
-						</li>
-						<li>DB-Beschreibungen<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Klassendiagramm<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:6 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Anwendungsfalldiagramm<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:1</estimated><br/>
-							<responsible>verantwortlich:JB</responsible>
-						</li>
-						<li>Anwendungsfallbeschreibung<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:17 </estimated><br/>
-							<responsible>verantwortlich:MK, RK, JB, AC</responsible>
-						</li>
-						<li>Komponentendiagramm<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:1.5 </estimated><br/>
-							<responsible>verantwortlich:JB</responsible>
-						</li>
-						<li>Deploymentdiagramm<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:JB</responsible>
-						</li>
+						<li>ER-Diagramm(<i><b>Einheiten:</b> 1, <b>Rahmen: </b> - </i>)</li>
+						<li>DB-Beschreibungen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Klassendiagramm(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+						<li>Anwendungsfalldiagramm(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Anwendungsfallbeschreibung(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+						<li>Komponentendiagramm(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Deploymentdiagramm(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 			</ul>
@@ -205,98 +107,34 @@
 			<ul>
 				<li>Datenbank
 					<ul>
-						<li>SQL<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Implementierung<br/>
-							<duration></duration><br/>
-							<estimated>Stunden: 2 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>DAO Anbindung<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:5 h</estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
+						<li>SQL(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Implementierung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>DAO Anbindung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 				<li>GUI
 					<ul>
-						<li>Karte einbinden<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Seitenlayout<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Navigation (Zoom, verschieben, ...)<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Anzeige auf Karte (Pins)<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:3 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Detailanzeige<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:7 h </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>TagCloud<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:2 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
+						<li>Karte einbinden(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Seitenlayout(<i><b>Einheiten:</b> 4, <b>Rahmen:</b> </i>)</li>
+						<li>Navigation (Zoom, verschieben, ...)(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Anzeige auf Karte (Pins)(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Detailanzeige(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+						<li>TagCloud(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 				<li>DAO
 					<ul>
-						<li>Suche<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:5 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Objekt einfügen<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:5 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Objekt aktualisieren<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:5 h </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
+						<li>Suche(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+						<li>Objekt einfügen(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+						<li>Objekt aktualisieren(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 				<li>Crawler
 					<ul>
-						<li>Crawler Interface<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:10 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Wikipedia Crawler<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:3 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Panoramio Crawler<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:3 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>LastFM Crawler<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:3 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
+						<li>Crawler Interface(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+						<li>Wikipedia Crawler(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+						<li>Panoramio Crawler(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+						<li>LastFM Crawler(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 			</ul>
@@ -305,44 +143,21 @@
 			<ul>
 				<li>Testplan
 					<ul>
-						<li>Test entwerfen<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:5 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>Test planen<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:3 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
+						<li>Test entwerfen(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+						<li>Test planen(<i><b>Einheiten:</b> 5, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 				<li>Funktionale Testfälle
 					<ul>
-						<li>Funktionstests<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:10 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
+						<li>Funktionstests(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+						<li>Modul Test + Mock-Tests (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)
 						</li>
-						<li>Modul Test<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:10 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
-						<li>System Test<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:10 </estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
+						<li>System Test(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 				<li>Testbericht
 					<ul>
-						<li>Auswertung<br/>
-							<duration></duration><br/>
-							<estimated>Stunden:3</estimated><br/>
-							<responsible>verantwortlich:</responsible>
-						</li>
+						<li>Auswertung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
 					</ul>
 				</li>
 			</ul>
