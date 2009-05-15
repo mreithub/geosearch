@@ -34,7 +34,46 @@
 			
 			</subsection>
 			<subsection name="geoObject">
-			
+				<table width="100%" border="1" cellspacing="0" cellpadding="2">
+					<tr>
+						<th>Feldname</th>
+						<th>Typ</th>
+						<th>Option</th>
+						<th>Bemerkung</th>
+					</tr>
+					<!-- BEGIN: Diesen Bereich duplizieren -->
+					<tr>
+						<td>obj_id</td>
+						<td>bigserial</td>
+						<td>!1+P</td>
+						<td>Objekt ID</td>
+					</tr>
+					<tr>
+						<td>svc_id</td>
+						<td>INT(4)</td>
+						<td>!F</td>
+						<td>Service ID - Fremdschlussel</td>
+					</tr>
+					<tr>
+						<td>title</td>
+						<td>VARCHAR(255)</td>
+						<td>!</td>
+						<td>Objekttitel </td>
+					</tr>
+					<tr>
+						<td>link</td>
+						<td>VARCHAR(255)</td>
+						<td>!</td>
+						<td>Link zur Objektquelle</td>
+					</tr>
+					<tr>
+						<td>last_updated</td>
+						<td>TIMESTAMP</td>
+						<td>!</td>
+						<td>Wann das Objekt letztens aktualisiert wurde</td>
+					</tr>
+					<!-- ENDE: Diesen Bereich duplizieren -->
+				</table>
 			</subsection>
 			<subsection name="objectTag">
 			
