@@ -58,5 +58,43 @@
 		</ul>
 	  </subsection>
     </section>
+	<section name="DB TabellenBeschreibung">
+		<subsection name="Vorlage">
+			<table width="100%" border="1" cellspacing="0" cellpadding="2">
+			  <tr>
+				<th>Feldname</th>
+				<th>Typ</th>
+				<th>Option</th>
+				<th>Bemerkung</th>
+			  </tr>
+			  <!-- BEGIN: Diesen Bereich duplizieren -->
+			  <tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			  </tr>
+			  <!-- ENDE: Diesen Bereich duplizieren -->
+			</table>
+		</subsection>
+		<subsection name="Beispiel">
+			<table width="100%" border="1" cellspacing="0" cellpadding="2">
+			  <tr>
+				<th>Feldname</th>
+				<th>Typ</th>
+				<th>Option</th>
+				<th>Bemerkung</th>
+			  </tr>
+			  <!-- BEGIN: Diesen Bereich duplizieren -->
+			  <tr>
+				<td>bezeichnuhg</td>
+				<td>VARCHAR(30)</td>
+				<td>!</td>
+				<td>Bezeichnung der Bibliothek</td>
+			  </tr>
+			  <!-- ENDE: Diesen Bereich duplizieren -->
+			</table>
+		</subsection>
+	</section>
   </body>
 </document>

@@ -28,6 +28,33 @@
 				</p>
 			</subsection>
 		</section>
+		<section name="DB-TabellenBeschreibung">
+		Bitte so machen wie es unter Vorlagen steht!
+			<subsection name="expiringObject">
+			
+			</subsection>
+			<subsection name="geoObject">
+			
+			</subsection>
+			<subsection name="objectTag">
+			
+			</subsection>
+			<subsection name="geoRoute">
+			
+			</subsection>
+			<subsection name="objectProperty">
+			
+			</subsection>
+			<subsection name="service">
+			
+			</subsection>
+			<subsection name="serviceTag">
+			
+			</subsection>
+			<subsection name="serviceType">
+			
+			</subsection>
+		</section>
 		
 	</body>
 </document>
