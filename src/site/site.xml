@@ -19,12 +19,13 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="WorkBreakdown" href="workBreakdownStructure.html" />
 			<item name="Anwendungsfälle" href="anwendungsfallbeschreibungen.html" />
 			<item name="Besprechungsprotokolle" href="besprechungsprotokolle.html" />
-			<item name="Skizzen" href="skizzen.html" />
-			<item name="Vorlagen" href="vorlagen.html" />
+			<item name="Skizzen" href="skizzen.html" />			
 			<item name="Datenbank" href="datenbank.html" />
+			<item name="DeploymentDiagramm" href="deploymentDiagram.html" />
 		</menu>
 		<menu name="Infrastruktur">
 			<item name="Installation" href="setup.html" />
+			<item name="Vorlagen" href="vorlagen.html" />
 		</menu>
 	</body>
 </project>

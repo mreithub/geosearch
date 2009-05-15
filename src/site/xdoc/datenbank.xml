@@ -46,7 +46,58 @@
 			
 			</subsection>
 			<subsection name="service">
-			
+				<table width="100%" border="1" cellspacing="0" cellpadding="2">
+					<tr>
+						<th>Feldname</th>
+						<th>Typ</th>
+						<th>Option</th>
+						<th>Bemerkung</th>
+					</tr>
+					<!-- BEGIN: Diesen Bereich duplizieren -->
+					<tr>
+						<td>svn_id</td>
+						<td>INT(4)</td>
+						<td>!1+P</td>
+						<td>Service ID</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>VARCHAR(255)</td>
+						<td>!</td>
+						<td>Name des Services (zb. Wikipedia)</td>
+					</tr>
+					<tr>
+						<td>homepage</td>
+						<td>VARCHAR(255)</td>
+						<td>!</td>
+						<td>OriginalQuelle (zb. de.Wikipedia.org)</td>
+					</tr>
+					<tr>
+						<td>description</td>
+						<td>TEXT</td>
+						<td>!</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>stype_id</td>
+						<td>INT(4)</td>
+						<td>!+F</td>
+						<td>ForreignKey zum ServiceTyp</td>
+					</tr>
+					<tr>
+						<td>bubbleHTML</td>
+						<td>TEXT</td>
+						<td>!</td>
+						<td>Beschreibt (als HTML) die der Inhalt im bubbleHTML aussehen soll. (zb. Anordnung Bild und Text)</td>
+					</tr>
+					<tr>
+						<td>thumbnail</td>
+						<td>VARCHAR(255)</td>
+						<td>!</td>
+						<td>Bild das den Service identifiziert</td>
+					</tr>
+					<!-- ENDE: Diesen Bereich duplizieren -->
+				</table>
 			</subsection>
 			<subsection name="serviceTag">
 			
