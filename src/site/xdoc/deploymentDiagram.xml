@@ -8,13 +8,39 @@
     <title>Projektauftrag</title>
   </properties>
   <head>
-    <style type="text/css">ol li {
+    <style type="text/css">
+      ol li {
       margin-bottom: 1em;
-      }</style>
+      }
+    </style>
   </head>
   <body>
-  	<section name="UML-Diagramm">
-		<img src="images/deploymentDiagramm.jpg" />
-	</section>
+    <section name="Deployment Diagramm">
+      <img src="images/deployDiagramm.jpg" alt="Deployment Diagramm"/>
+    </section>
+    <section name="Beschreibung">
+      <ul>
+        <li>
+          <b>Applikations-Server:</b> Dies ist ein Java Webserver (in unserem Fall ein Apache Tomcat). Dieser Server fungiert
+          als Deploy-Ziel aller Source-Code- und exekutierbaren Artefakte (Artefakte für die GUI, die API, die DAO-Klassen, die Crawler).
+        </li>
+        <li>
+          <b>Datenbank-Server:</b> Hier wird die Datenbank gehostet (in unserem Fall eine PostgreSQL Datenbank). Der Rechner, auf dem die
+          Datenbank läuft, kann auch der gleiche sein wie der Applikations-Server.
+        </li>
+        <li>
+          <b>Client: </b>Ein Client (bzw. ein/e UserIn) greift über einen Webbrowser auf unseren Webserver zu, indem der/die BenutzerIn unsere
+          Webseite aufruft.
+        </li>
+        <li>
+          <b>Google Maps-Server:</b> Die angezeigte Karte wird von Google Maps bezogen und läuft somit auf einem Server von Google. Die Karte
+          muss somit nicht von uns selbst deployed werden, sondern wird als fertiges Artefakt verwendet.
+        </li>
+        <li>
+          <b>Wikipedia-, Panoramio- und LastFM-Server:</b> Auf den Servern der Datenanbieter befinden sich die Daten, die von unseren Crawlern
+          abgefragt werden. Es erfolgt hier ein Zugriff auf bereits vorhandene Artefakte wie z.B. eine Datenbank.
+        </li>
+      </ul>
+    </section>
   </body>
 </document>
