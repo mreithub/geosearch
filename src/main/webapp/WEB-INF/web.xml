@@ -4,4 +4,15 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>SandBoxServiceImpl</servlet-name>
+    <servlet-class>at.fakeroot.sepm.server.SandBoxServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>SandBoxServiceImpl</servlet-name>
+    <url-pattern>/geosearch/sandboxarray</url-pattern>
+  </servlet-mapping>
 </web-app>
