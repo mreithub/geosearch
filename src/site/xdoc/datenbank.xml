@@ -139,7 +139,32 @@
         </table>
       </subsection>
       <subsection name="objectProperty">
-
+		<table width="100%" border="1" cellspacing="0" cellpadding="2">
+		  <tr>
+			<th>Feldname</th>
+			<th>Typ</th>
+			<th>Option</th>
+			<th>Bemerkung</th>
+		  </tr>
+		  <tr>
+			<td>obj_id</td>
+			<td>INT(8)</td>
+			<td>![1]+PF</td>
+			<td>Object ID; Frendschlüssel zur geoObject-Tabelle</td>
+		  </tr>
+		  <tr>
+			<td>name</td>
+			<td>VARCHAR(255)</td>
+			<td>![1]</td>
+			<td>Name des Properties; Teil des Primary Keys</td>
+		  </tr>
+		  <tr>
+			<td>value</td>
+			<td>VARCHAR(255)</td>
+			<td>!</td>
+			<td>Inhalt des Properties</td>
+		  </tr>
+		</table>
       </subsection>
       <subsection name="service">
         <table width="100%" border="1" cellspacing="0" cellpadding="2">
@@ -196,10 +221,54 @@
         </table>
       </subsection>
       <subsection name="serviceTag">
-
+		<table width="100%" border="1" cellspacing="0" cellpadding="2">
+		  <tr>
+			<th>Feldname</th>
+			<th>Typ</th>
+			<th>Option</th>
+			<th>Bemerkung</th>
+		  </tr>
+		  <tr>
+			<td>svc_id</td>
+			<td>INT(4)</td>
+			<td>![1]+PF</td>
+			<td>Service ID; Frendschlüssel zur service-Tabelle</td>
+		  </tr>
+		  <tr>
+			<td>tag</td>
+			<td>VARCHAR(255)</td>
+			<td>![1]</td>
+			<td>Inhalt des Tags</td>
+		  </tr>
+		</table>
       </subsection>
       <subsection name="serviceType">
-
+		<table width="100%" border="1" cellspacing="0" cellpadding="2">
+		  <tr>
+			<th>Feldname</th>
+			<th>Typ</th>
+			<th>Option</th>
+			<th>Bemerkung</th>
+		  </tr>
+		  <tr>
+			<td>stype_id</td>
+			<td>INT(4)</td>
+			<td>!1+P</td>
+			<td>ServiceType ID. </td>
+		  </tr>
+		  <tr>
+			<td>name</td>
+			<td>VARCHAR(255)</td>
+			<td>!</td>
+			<td>Name vom ServiceType (zb. Bilder)</td>
+		  </tr>
+		  <tr>
+			<td>thumbnail</td>
+			<td>VARCHAR(255)</td>
+			<td>!</td>
+			<td>Thumbnail vom ServiceType (zb.: Kamera bei Bilder)</td>
+		  </tr>
+		</table>
       </subsection>
     </section>
 
