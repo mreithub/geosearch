@@ -18,6 +18,5 @@ public class GeoSearch implements EntryPoint
 		//RootPanel.get().add(map);
 		GeoManager myManager = new GeoManager();
 		RootPanel.get().add(myManager.getGeoMap());
-		
 	}
 }

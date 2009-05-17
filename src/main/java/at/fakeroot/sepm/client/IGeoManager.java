@@ -13,5 +13,6 @@ public interface IGeoManager
 	public void search(String where, String what);
 	public void search(String what);
 	public void setBoundingBox(BoundingBox box);
-	public void showDetailView(ClientGeoObject geoObject);
+	//TODO benötigt Klasse GeoPin.
+	//public void showDetailView(GeoPin geoPin);
 }

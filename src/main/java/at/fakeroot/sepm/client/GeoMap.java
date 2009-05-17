@@ -3,15 +3,21 @@ package at.fakeroot.sepm.client;
 import java.util.Iterator;
 import java.util.List;
 
+import com.google.gwt.maps.client.InfoWindow;
+import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
-import com.google.gwt.maps.client.event.MapDragEndHandler;
+import com.google.gwt.maps.client.event.MapClickHandler;
+import com.google.gwt.maps.client.event.MarkerClickHandler;
+import com.google.gwt.maps.client.event.MapClickHandler.MapClickEvent;
 import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LatLngCallback;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.geom.LatLngBounds;
+import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
@@ -23,14 +29,17 @@ public class GeoMap extends Composite
 	private IGeoManager geoManager;
 	private MapWidget geoMap;
 	private Geocoder geoCoder;
-	//todo
+	//TODO benötigt DetailView-Klasse.
 	//private DetailView detailView;
 	
-	public GeoMap(IGeoManager _geoManager)
-	//public GeoMap()
+	/**
+	 * Constructor.
+	 * @param geoManger: An object which implements the IGeoManager interface.
+	 */
+	public GeoMap(IGeoManager geoManager)
 	{
 		//Set the geoManager.
-		this.geoManager = _geoManager;
+		this.geoManager = geoManager;
 		
 		//Create a panel which holds the geoMap.
 		HorizontalPanel hPanel = new HorizontalPanel();
@@ -54,9 +63,8 @@ public class GeoMap extends Composite
 		hPanel.add(geoMap);
 		initWidget(hPanel);
 		
-		//Create the geoCoder.
+		//Create the geoCoder which is required to search for locations.
 		geoCoder = new Geocoder();
-		
 	}
 	
 	public void setCenter(double x, double y)
@@ -64,6 +72,13 @@ public class GeoMap extends Composite
 		geoMap.setCenter(LatLng.newInstance(x, y));
 	}
 	
+	/**
+	 * Searches for a given location and moves the displayed map region to the search result (if there
+	 * is one).
+	 * @param where: A string, specifying the location where to search.
+	 * @return: The bounding box, containing the region displayed. If the search doesn't return
+	 * any result, the region doesn't change.
+	 */
 	public BoundingBox search(String where)
 	{
 		geoCoder.getLatLng(where, new LatLngCallback()
@@ -82,10 +97,22 @@ public class GeoMap extends Composite
 			bounds.getNorthEast().getLatitude(), bounds.getSouthWest().getLongitude()));
 	}
 	
+	/**
+	 * 
+	 * @param obj
+	 */
 	public void addPin(ClientGeoObject obj)
 	{
+		//TODO benötigt GeoPin-Klasse.
+		
+		/*GeoPin newPin = new GeoPin(geoManager, obj);
+		geoMap.addOverlay(newPin);*/
 	}
 	
+	/**
+	 * 
+	 * @param objList
+	 */
 	public void addPins(List<ClientGeoObject> objList)
 	{
 		Iterator<ClientGeoObject> iterator = objList.iterator();
@@ -93,19 +120,28 @@ public class GeoMap extends Composite
 			addPin(iterator.next());
 	}
 	
+	/**
+	 * 
+	 * @param objList
+	 */
 	public void setPins(List<ClientGeoObject> objList)
 	{
 		clearPins();
 		addPins(objList);
 	}
 	
+	/**
+	 * 
+	 */
 	public void clearPins()
 	{
+		geoMap.clearOverlays();
 	}
 	
-	//todo
-	/*public DetailView createDetailView(ClientGeoObject obj)
+	//TODO benötigt GeoPin- und DetailView-Klasse.
+	/*public DetailView createDetailView(GeoPin pin)
 	{
-		
+		geoMap.getInfoWindow().open(pin, new InfoWindowContent("<b>Loading - please wait...</b>"));
+		return (new DetailView(geoManager, pin.getGeoObj(), geoMap.getInfoWindow()));
 	}*/
 }
