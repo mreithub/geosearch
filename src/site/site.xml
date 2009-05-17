@@ -22,6 +22,8 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="Skizzen" href="skizzen.html" />			
 			<item name="Datenbank" href="datenbank.html" />
 			<item name="DeploymentDiagramm" href="deploymentDiagram.html" />
+			<item name="GANTT" href="gantt.html" />
+			<item name="KlassenDiagramm" href="klassenDiagramm.html" />
 		</menu>
 		<menu name="Infrastruktur">
 			<item name="Installation" href="setup.html" />

@@ -1,0 +1,23 @@
+<document>
+  <properties>
+    <author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+    <author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
+    <author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+    <author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+    <author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+    <title>Projektauftrag</title>
+  </properties>
+  <head>
+    <style type="text/css">
+      ol li {
+      margin-bottom: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <section name="GANTT">
+	  <a href="pdfs/GANTT.pdf">GANTT als pdf </a><br />
+	  <img src="images/GANTT.png" alt="GANTT Diagramm"/>
+    </section>
+  </body>
+</document>
