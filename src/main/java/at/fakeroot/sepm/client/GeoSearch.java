@@ -14,7 +14,10 @@ public class GeoSearch implements EntryPoint
 	public void onModuleLoad()
 	{
 		//RootPanel.get().add(new SandBox());
-		GeoMap map = new GeoMap();
-		RootPanel.get().add(map);
+		//GeoMap map = new GeoMap();
+		//RootPanel.get().add(map);
+		GeoManager myManager = new GeoManager();
+		RootPanel.get().add(myManager.getGeoMap());
+		
 	}
 }

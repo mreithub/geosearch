@@ -7,6 +7,7 @@ import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
+import com.google.gwt.maps.client.event.MapDragEndHandler;
 import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LatLngCallback;
 import com.google.gwt.maps.client.geom.LatLng;
@@ -25,11 +26,11 @@ public class GeoMap extends Composite
 	//todo
 	//private DetailView detailView;
 	
-	//public GeoMap(IGeoManager geoManager)
-	public GeoMap()
+	public GeoMap(IGeoManager _geoManager)
+	//public GeoMap()
 	{
 		//Set the geoManager.
-		this.geoManager = geoManager;
+		this.geoManager = _geoManager;
 		
 		//Create a panel which holds the geoMap.
 		HorizontalPanel hPanel = new HorizontalPanel();
@@ -55,6 +56,7 @@ public class GeoMap extends Composite
 		
 		//Create the geoCoder.
 		geoCoder = new Geocoder();
+		
 	}
 	
 	public void setCenter(double x, double y)

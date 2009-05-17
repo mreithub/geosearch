@@ -1,7 +1,6 @@
 package at.fakeroot.sepm.server;
 
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
-import at.fakeroot.sepm.client.serialize.GeoObject;
 import at.fakeroot.sepm.client.serialize.SandBoxService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
