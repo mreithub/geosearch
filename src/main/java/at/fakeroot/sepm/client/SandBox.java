@@ -15,6 +15,7 @@ import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MenuMapTypeControl;
 import com.google.gwt.maps.client.control.OverviewMapControl;
+import com.google.gwt.maps.client.control.SmallMapControl;
 import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
@@ -39,7 +40,8 @@ public class SandBox extends Composite {
 	HorizontalPanel mapHoPa = new HorizontalPanel();
 	VerticalPanel debugeConsole = new VerticalPanel();
 	ScrollPanel myScroll = new ScrollPanel();
-	public SandBox() {   
+	
+	public SandBox() {
 		initWidget(myVePa);
 		myVePa.add(mapHoPa);
 		myScroll.setWidget(debugeConsole);
@@ -64,7 +66,7 @@ public class SandBox extends Composite {
 	    myMap.addMapType(MapType.getSkyVisibleMap());
 	    myMap.addControl(new LargeMapControl());
 	    myMap.addControl(new MenuMapTypeControl());
-	    myMap.addControl(new OverviewMapControl());
+	    //myMap.addControl(new OverviewMapControl());
 	    myMap.setCenter(LatLng.newInstance(48.19538740833338, 16.34765625), 13);
 	    
 	    //Seite machen

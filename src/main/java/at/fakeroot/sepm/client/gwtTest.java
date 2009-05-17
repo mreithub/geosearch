@@ -117,7 +117,7 @@ public class gwtTest implements EntryPoint {
 			
 			
 			final InfoWindowContent myTempCont = new InfoWindowContent(
-					new HTML("You Clicked: -----------------------------------------"+markerVePa.getWidgetCount()
+					new HTML("Du klickst: -----------------------------------------"+markerVePa.getWidgetCount()
 							+".) <br />Lat: "+event.getLatLng().getLatitude()
 							+" <br />Lng: "+event.getLatLng().getLongitude()+
 							"<br /> <br /> <br /> <br /> <br /> <br />"+
