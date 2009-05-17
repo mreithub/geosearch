@@ -17,27 +17,31 @@
 	<body>
 		<section name="Anmerkungen">
 			<ul>
-				<li>Zeiteinheit: 1 Tag ~ 8 Arbeitsstunden </li>
+				<li>Zeiteinheit: 1 Tag (= 8 Arbeitsstunden) </li>
 			</ul>
 		</section>
 		<section name="Analyse">
+      <p>Einheiten: 27</p>
 			<ul>
-				<li>Ausgangssituation (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-				<li>Projektbeschreibung(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)
-					<ul>
-						<li>Suche und GUI</li>
-						<li>Crawler und Datenbank</li>
-						<li>API</li>
-					</ul>
-				</li>
-				<li>Zielgruppe(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
+        <li>
+          Ausgangssituation (<i><b>Einheiten:</b> 1</i>)
+        </li>
+        <li>
+          Projektbeschreibung (<i><b>Einheiten:</b> 2</i>)
+          <ul>
+            <li>Suche und GUI</li>
+            <li>Crawler und Datenbank</li>
+            <li>API</li>
+          </ul>
+        </li>
+				<li>Zielgruppe (<i><b>Einheiten:</b> 1</i>)
 					<ul>
 						<li>Suchende User</li>
 						<li>Web-Entwickler</li>
 						<li>Content-Provider</li>
 					</ul>
 				</li>
-				<li>Featureliste (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)
+				<li>Featureliste (<i><b>Einheiten:</b> 2</i>)
 					<ul>
 						<li>Suchen</li>
 						<li>Anzeigen</li>
@@ -45,10 +49,10 @@
 						<li>Crawler</li>
 					</ul>
 				</li>
-				<li>verwendete Technologien(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
-				<li>Projektabgrenzung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-				<li>grober Projektplan(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-				<li>Arbeitsstruktur / Rollenverteilung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
+				<li>verwendete Technologien (<i><b>Einheiten:</b> 2</i>)</li>
+				<li>Projektabgrenzung (<i><b>Einheiten:</b> 1</i>)</li>
+				<li>grober Projektplan (<i><b>Einheiten:</b> 1</i>)</li>
+				<li>Arbeitsstruktur / Rollenverteilung (<i><b>Einheiten:</b> 1</i>)
 					<ul>
 						<li>Teamkoordinator</li>
 						<li>Technischer Architekt</li>
@@ -57,17 +61,17 @@
 						<li>Stellvertretende Teamkoordinatorin und Technische Architektin</li>
 					</ul>
 				</li>
-				<li>Informationswesen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-				<li>Besonderheiten(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-				<li>Risikoabschätzung(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
-				<li>Lieferkomponenten(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
-				<li>Funktionale Anforderungen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
+				<li>Informationswesen (<i><b>Einheiten:</b> 1</i>)</li>
+				<li>Besonderheiten (<i><b>Einheiten:</b> 1</i>)</li>
+				<li>Risikoabschätzung (<i><b>Einheiten:</b> 3</i>)</li>
+				<li>Lieferkomponenten (<i><b>Einheiten:</b> 3</i>)</li>
+				<li>Funktionale Anforderungen (<i><b>Einheiten:</b> 1</i>)
 					<ul>
 						<li>User</li>
 						<li>Externe Websites</li>
 					</ul>
 				</li>
-				<li>Nichtfunktionale Anforderungen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)
+				<li>Nichtfunktionale Anforderungen (<i><b>Einheiten:</b> 1</i>)
 					<ul>
 						<li>Handhabung / Benutzbarkeit</li>
 						<li>Leistung</li>
@@ -77,90 +81,168 @@
 						<li>Sicherheit</li>
 					</ul>
 				</li>
-				<li>Komponentendiagramm(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
-				<li>Domänenmodell(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+				<li>Komponentendiagramm (<i><b>Einheiten:</b> 3</i>)</li>
+				<li>Domänenmodell (<i><b>Einheiten:</b> 3</i>)</li>
 			</ul>
 		</section>
 		<section name="Entwurf">
+      <p>Einheiten: 15<br/>
+      Rahmen: 28.04.2009 - 15.05.2009</p>
 			<ul>
-				<li>GUI
-					<ul>
-						<li>GUI-Skizzen(<i><b>Einheiten:</b> 2, <b>Rahmen: </b> - </i>)</li>
-						<li>GUI-Beschreibungen(<i><b>Einheiten:</b> 1, <b>Rahmen: </b> - </i>)</li>
-						<li>Logo-Skizzen(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+				<li>
+          GUI (<i><b>Einheiten:</b> 6, <b>Rahmen: </b> 29.04.2009 - 04.05.2009</i>)
+          <ul>
+						<li>GUI-Skizzen (<i><b>Einheiten:</b> 2, <b>Rahmen: </b> 02.05.2009 - 03.05.2009 </i>)</li>
+						<li>GUI-Beschreibungen (<i><b>Einheiten:</b> 1, <b>Rahmen: </b> 04.05.2009 </i>)</li>
+						<li>Logo-Skizzen (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 29.04.2009 - 01.05.2009
+            </i>)</li>
 					</ul>
 				</li>
-				<li>Technische Komponenten
-					<ul>
-						<li>ER-Diagramm(<i><b>Einheiten:</b> 1, <b>Rahmen: </b> - </i>)</li>
-						<li>DB-Beschreibungen(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Klassendiagramm(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
-						<li>Anwendungsfalldiagramm(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Anwendungsfallbeschreibung(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
-						<li>Komponentendiagramm(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Deploymentdiagramm(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+				<li>
+          Technische Komponenten (<i><b>Einheiten:</b> 9, <b>Rahmen: </b> 28.04.2009 - 15.05.2009</i>)
+          <ul>
+						<li>ER-Diagramm (<i><b>Einheiten:</b> 1, <b>Rahmen: </b> 03.05.2009</i>)</li>
+						<li>DB-Beschreibungen (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 04.05.2009</i>)</li>
+						<li>Klassendiagramm (<i><b>Einheiten:</b> 2, <b>Rahmen:</b>  14.05.2009 - 15.05.2009</i>)</li>
+						<li>Anwendungsfalldiagramm (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 28.04.2009</i>)</li>
+						<li>Anwendungsfallbeschreibung (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 29.04.2009 - 01.05.2009</i>)</li>
+						<li>Deploymentdiagramm (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 11.05.2009</i>)</li>
 					</ul>
 				</li>
 			</ul>
 		</section>
 		<section name="Implementierung">
+      <p>Einheiten: 46.5<br/>
+      Rahmen: 04.05.2009 - 07.06.2009</p>
 			<ul>
-				<li>Datenbank
-					<ul>
-						<li>SQL(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Implementierung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>DAO Anbindung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
+				<li>
+          Datenbank (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 04.05.2009 - 18.05.2009</i>)
+          <ul>
+						<li>SQL (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 04.05.2009</i>)</li>
+						<li>Implementierung (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 05.05.2009</i>)</li>
+						<li>DAO Anbindung (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 18.05.2009
+            </i>)</li>
 					</ul>
 				</li>
-				<li>GUI
-					<ul>
-						<li>Karte einbinden(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Seitenlayout(<i><b>Einheiten:</b> 4, <b>Rahmen:</b> </i>)</li>
-						<li>Navigation (Zoom, verschieben, ...)(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Anzeige auf Karte (Pins)(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Detailanzeige(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
-						<li>TagCloud(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+				<li>
+          GUI (<i><b>Einheiten:</b> 14, <b>Rahmen:</b> 18.05.2009 - 27.05.2009</i>)
+          <ul>
+						<li>Seitenlayout (<i><b>Einheiten:</b> 4, <b>Rahmen:</b> 24.05.2009 - 27.05.2009</i>)</li>
+            <li>Suche (<i><b>Einheiten:</b> 2, <b>Rahmen: 18.05.2009</b></i>)
+              <ul>
+                <li>Klasse SearchBox (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 18.05.2009</i>)</li>
+                <li>Klasse ResultInfoBox (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 18.05.2009</i>)</li>
+              </ul>
+            </li>
+
+            <li>Karte einbinden (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> 21.05.2009 - 22.05.2009</i>)
+              <ul>
+                <li>Klasse GeoMap (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> 21.05.2009 - 22.05.2009</i>)</li>
+              </ul>
+            </li>
+						<li>Navigation (Zoom, verschieben, ...)(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 21.05.2009 - 22.05.2009</i>)</li>
+						<li>Anzeige auf Karte (Pins) (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 19.05.2009</i>)
+              <ul>
+                <li>Klasse GeoPin (<i><b>Einheiten:</b> 1, <b>Rahmen: 19.05.2009</b></i>)</li>
+              </ul>
+            </li>
+            <li>
+              Detailanzeige (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> 19.05.2009 - 20.05.2009</i>)
+              <ul>
+                <li>Klasse DetailView (<i><b>Einheiten:</b> 2, <b>Rahmen:</b>  19.05.2009 - 20.05.2009</i>)</li>
+              </ul>
+            </li>
+						<li>Klasse TagCloud (<i><b>Einheiten:</b> 2, <b>Rahmen:</b>  18.05.2009 - 20.05.2009</i>)</li>
 					</ul>
 				</li>
-				<li>DAO
-					<ul>
-						<li>Suche(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
-						<li>Objekt einfügen(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
-						<li>Objekt aktualisieren(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
+				<li>
+          DAO (<i><b>Einheiten:</b> 5, <b>Rahmen:</b> 28.05.2009 - 31.05.2009</i>)
+          <ul>
+            <li>Datenbankverbindung (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 28.05.2009</i>)
+              <ul>
+                <li>Klasse DBConnection (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 28.05.2009</i>)</li>
+              </ul>
+            </li>
+            <li>
+              Objekt suchen/aktualisieren/einfügen (<i><b>Einheiten:</b> 4, <b>Rahmen:</b> 29.05.2009 - 31.05.2009</i>)
+              <ul>
+                <li>Klasse GeoObjectManager (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 29.05.2009 - 31.05.2009</i>)</li>
+                <li>Klasse ServiceManager (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 30.05.2009</i>)
+                </li>
+              </ul>
+            </li>
 					</ul>
 				</li>
-				<li>Crawler
-					<ul>
-						<li>Crawler Interface(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-						<li>Wikipedia Crawler(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
-						<li>Panoramio Crawler(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
-						<li>LastFM Crawler(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+				<li>
+          Crawler (<i><b>Einheiten:</b> 12.5, <b>Rahmen:</b> 29.05.2009 - 07.06.2009</i>)
+          <ul>
+						<li>Crawler Interface (<i><b>Einheiten:</b> 0.5, <b>Rahmen:</b> 29.05.2009</i>)</li>
+						<li>Klasse WikipediaCrawler (<i><b>Einheiten:</b> 4, <b>Rahmen:</b> 04.06.2009 - 07.06.2009</i>)</li>
+						<li>Klasse PanoramioCrawler (<i><b>Einheiten:</b> 4, <b>Rahmen:</b> 04.06.2009 - 07.06.2009</i>)</li>
+						<li>Klasse LastFMCrawler (<i><b>Einheiten:</b> 4, <b>Rahmen:</b> 04.06.2009 - 07.06.2009</i>)</li>
 					</ul>
 				</li>
+        <li>
+          Client Manager(<i><b>Einheiten:</b> 4.5, <b>Rahmen:</b> 18.05.2009 - 07.06.2009</i>)
+          <ul>
+            <li>Interface GeoManager (<i><b>Einheiten:</b> 0.5, <b>Rahmen:</b> 18.05.2009</i>)</li>
+            <li>Klasse GeoManager (<i><b>Einheiten:</b> 4, <b>Rahmen:</b> 04.06.2009 - 07.06.2009</i>)</li>
+          </ul>
+        </li>
+        <li>
+          Server Management (<i><b>Einheiten:</b> 7.5, <b>Rahmen:</b> 16.05.2009 - 02.06.2009</i>)
+          <ul>
+            <li>Allgemeines (<i><b>Einheiten:</b> 2.5, <b>Rahmen:</b> 16.05.2009 - 24.05.2009</i>)
+              <ul>
+                <li>Klasse GeoObject (<i><b>Einheiten:</b> 0.5, <b>Rahmen:</b> 16.05.2009</i>)</li>
+                <li>Klasse DBGeoObject (<i><b>Einheiten:</b> 0.5, <b>Rahmen:</b> 24.05.2009</i>)</li>
+                <li>Klasse ClientGeoObject (<i><b>Einheiten:</b> 0.5, <b>Rahmen:</b> 16.05.2009</i>)</li>
+                <li>Klasse Property (<i><b>Einheiten:</b> 0.5, <b>Rahmen:</b> 18.05.2009</i>)</li>
+                <li>Klasse BoundingBox (<i><b>Einheiten:</b> 0.5, <b>Rahmen:</b> 17.05.2009</i>)</li>
+              </ul>
+            </li>
+            <li>Objekt speichern (Schnittstelle Crawler, DAO) (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> 01.06.2009 - 02.06.2009</i>)
+              <ul>
+                <li>Klasse GeoSave (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> 01.06.2009 - 02.06.2009</i>)</li>
+              </ul>
+            </li>
+            <li>
+              Objekt suchen (Schnittstelle Client Manager, DAO) (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 28.05.2009 - 02.06.2009</i>)
+              <ul>
+                <li>Klasse GeoSearch (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> 01.06.2009 - 02.06.2009</i>)</li>
+                <li>Klasse SearchResult (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 28.05.2009</i>)</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
 			</ul>
 		</section>
 		<section name="Test">
+      <p>Einheiten: 17<br/>
+      Rahmen: 15.05.2009 - 17.06.2009</p>
 			<ul>
-				<li>Testplan
-					<ul>
-						<li>Test entwerfen(<i><b>Einheiten:</b> 2, <b>Rahmen:</b> </i>)</li>
-						<li>Test planen(<i><b>Einheiten:</b> 5, <b>Rahmen:</b> </i>)</li>
+				<li>Testplan (<i><b>Einheiten:</b> 7, <b>Rahmen:</b> 15.05.2009 - 21.05.2009</i>)
+          <ul>
+						<li>Test entwerfen (<i><b>Einheiten:</b> 2, <b>Rahmen:</b> 15.05.2009 - 16.05.2009</i>)</li>
+						<li>Test planen (<i><b>Einheiten:</b> 5, <b>Rahmen:</b> 17.05.2009 - 21.05.2009</i>)</li>
 					</ul>
 				</li>
-				<li>Funktionale Testfälle
-					<ul>
-						<li>Funktionstests(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
-						<li>Modul Test + Mock-Tests (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)
-						</li>
-						<li>System Test(<i><b>Einheiten:</b> 3, <b>Rahmen:</b> </i>)</li>
+				<li>Funktionale Testfälle (<i><b>Einheiten:</b> 9, <b>Rahmen:</b> 22.05.2009 - 16.06.2009</i>)
+          <ul>
+						<li>Funktionstests (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 22.05.2009 - 07.06.2009</i>)</li>
+						<li>Modul Test + Mock-Tests (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 22.05.2009 - 13.06.2009</i>)</li>
+						<li>System Test (<i><b>Einheiten:</b> 3, <b>Rahmen:</b> 14.06.2009 - 16.06.2009</i>)</li>
 					</ul>
 				</li>
-				<li>Testbericht
-					<ul>
-						<li>Auswertung(<i><b>Einheiten:</b> 1, <b>Rahmen:</b> </i>)</li>
-					</ul>
+				<li>Testbericht (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 17.06.2009</i>)
+          <ul><li>Auswertung (<i><b>Einheiten:</b> 1, <b>Rahmen:</b> 17.06.2009</i>)</li></ul>
 				</li>
 			</ul>
 		</section>
+    <section name="Gesamtaufwand">
+      <p>
+        <i><b>Einheiten:</b></i> 105.5<br/>
+        <i><b>Rahmen:</b></i> 28.04.2009 - 17.06.2009 (ohne Analyse)</p>
+    </section>
 	</body>
 </document>
