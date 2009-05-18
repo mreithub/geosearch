@@ -59,14 +59,25 @@ public class GeoMap extends Composite
 		geoMap.removeMapType(MapType.getHybridMap());
 		geoMap.addControl(new MapTypeControl());
 		
+		//Set map behaviour.
+		geoMap.setDoubleClickZoom(true);
+		geoMap.setScrollWheelZoomEnabled(true);
+		
 		//Add the map to the panel.
 		hPanel.add(geoMap);
+		
+		//Put the panel into a widget (required by GWT).
 		initWidget(hPanel);
 		
 		//Create the geoCoder which is required to search for locations.
 		geoCoder = new Geocoder();
 	}
 	
+	/**
+	 * Center the map at the given coordinates.
+	 * @param x
+	 * @param y
+	 */
 	public void setCenter(double x, double y)
 	{
 		geoMap.setCenter(LatLng.newInstance(x, y));
@@ -98,8 +109,8 @@ public class GeoMap extends Composite
 	}
 	
 	/**
-	 * 
-	 * @param obj
+	 * Add a pin to the map.
+	 * @param obj The ClientGeoObject which should be added.
 	 */
 	public void addPin(ClientGeoObject obj)
 	{
@@ -110,8 +121,8 @@ public class GeoMap extends Composite
 	}
 	
 	/**
-	 * 
-	 * @param objList
+	 * Add mutliple pins to the map.
+	 * @param objList The list of ClientGeoObjects which should be added.
 	 */
 	public void addPins(List<ClientGeoObject> objList)
 	{
@@ -121,8 +132,8 @@ public class GeoMap extends Composite
 	}
 	
 	/**
-	 * 
-	 * @param objList
+	 * Set multiple pins on the map. Already existing pins are deleted.
+	 * @param objList The list of ClientGeoObjects which should be added.
 	 */
 	public void setPins(List<ClientGeoObject> objList)
 	{
@@ -131,7 +142,7 @@ public class GeoMap extends Composite
 	}
 	
 	/**
-	 * 
+	 * Clear existing pins on the map.
 	 */
 	public void clearPins()
 	{
