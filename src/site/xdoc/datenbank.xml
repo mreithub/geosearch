@@ -33,6 +33,7 @@
     <section name="DB-TabellenBeschreibung">
       Bitte so machen wie es unter Vorlagen steht!
       <subsection name="expiringObject">
+        Tabelle für Objekte, die nur bis zu einem gewissen Zeitpunkt gültig sind (z.B.: Events, Parties, ...)
         <table width="100%" border="1" cellspacing="0" cellpadding="2">
           <tr>
             <th>Feldname</th>
@@ -53,7 +54,9 @@
             <td>Zeitstempel, der den Ablauf der Gültigkeit des Objekts angibt</td>
           </tr>
         </table>
-      </subsection>			<subsection name="geoObject">
+      </subsection>
+      <subsection name="geoObject">
+        Objekt, das auf der Karte angezeigt wird
         <table width="100%" border="1" cellspacing="0" cellpadding="2">
           <tr>
             <th>Feldname</th>
@@ -61,41 +64,56 @@
             <th>Option</th>
             <th>Bemerkung</th>
           </tr>
-          <!-- BEGIN: Diesen Bereich duplizieren -->
           <tr>
             <td>obj_id</td>
             <td>bigserial</td>
             <td>!1+P</td>
-            <td>Objekt ID</td>
+            <td>Objekt ID (Primary key)</td>
           </tr>
           <tr>
             <td>svc_id</td>
             <td>INT(4)</td>
             <td>!F</td>
-            <td>Service ID - Fremdschlussel</td>
+            <td>Service ID - Fremdschlüssel</td>
+          </tr>
+          <tr>
+            <td>uid</td>
+	    <td>varchar(255)</td>
+	    <td>!</td>
+	    <td>
+	      Unique ID (Eindeutig zusammen mit der svc_id, wird Service-Seitig verwendet),
+	      dient der Wiedererkennung von GeoObjects beim Speichern in die Datenbank
+	      (um zwischen INSERT und UPDATE unterscheiden zu können)
+	    </td>
           </tr>
           <tr>
             <td>title</td>
             <td>VARCHAR(255)</td>
             <td>!</td>
-            <td>Objekttitel </td>
+            <td>Objekttitel (wird als ToolTip beim MouseOver über den Pins der Karte und als Titel in der Detailansicht angezeigt)</td>
           </tr>
           <tr>
             <td>link</td>
             <td>VARCHAR(255)</td>
             <td>!</td>
-            <td>Link zur Objektquelle</td>
+            <td>Link zur Objektquelle (z.B.: Wikipedia-Eintrag)</td>
           </tr>
+	  <tr>
+	    <td>pos</td>
+	    <td>POINT</td>
+	    <td>!</td>
+	    <td>Referenzposition des Objekts (nice to have: bei Routen der Startpunkt, bei Polygonen (Gebieten) der Mittelpunkt)</td>
+	  </tr>
           <tr>
             <td>last_updated</td>
             <td>TIMESTAMP</td>
             <td>!</td>
-            <td>Wann das Objekt letztens aktualisiert wurde</td>
+            <td>Zeitpunkt des letzten Speicherns des Objekts (um verwaiste Einträge zu erkennen)</td>
           </tr>
-          <!-- ENDE: Diesen Bereich duplizieren -->
         </table>
       </subsection>
       <subsection name="objectTag">
+        Objektspezifische Tags, die in der TagCloud angezeigt werden
         <table width="100%" border="1" cellspacing="0" cellpadding="2">
           <tr>
             <th>Feldname</th>
@@ -113,10 +131,12 @@
             <td>tag</td>
             <td>VARCHAR(255)</td>
             <td>!</td>
-            <td>Beinhaltet die textuelle Repräsentation eines Tags, der zu einem geoObjekt gehört</td>
+            <td>Beinhaltet die textuelle Repräsentation eines Tags, der zu einem geoObjekt gehört (nur Kleinbuchstaben)</td>
           </tr>
         </table>
-      </subsection>			      <subsection name="geoRoute (nice to have)">
+      </subsection>
+      <subsection name="geoRoute (nice to have)">
+        Bildet Routen in der Datenbank ab
         <table width="100%" border="1" cellspacing="0" cellpadding="2">
           <tr>
             <th>Feldname</th>
@@ -132,41 +152,45 @@
           </tr>
           <tr>
             <td>route</td>
-            <td>TEXT</td>
+            <td>PATH</td>
             <td>!</td>
-            <td>Text, der eine Route für dieses Objekt beschreibt</td>
+            <td>Offener oder geschlossener Pfad (Punktliste)</td>
           </tr>
         </table>
       </subsection>
       <subsection name="objectProperty">
-		<table width="100%" border="1" cellspacing="0" cellpadding="2">
-		  <tr>
-			<th>Feldname</th>
-			<th>Typ</th>
-			<th>Option</th>
-			<th>Bemerkung</th>
-		  </tr>
-		  <tr>
-			<td>obj_id</td>
-			<td>INT(8)</td>
-			<td>![1]+PF</td>
-			<td>Object ID; Frendschlüssel zur geoObject-Tabelle</td>
-		  </tr>
-		  <tr>
-			<td>name</td>
-			<td>VARCHAR(255)</td>
-			<td>![1]</td>
-			<td>Name des Properties; Teil des Primary Keys</td>
-		  </tr>
-		  <tr>
-			<td>value</td>
-			<td>VARCHAR(255)</td>
-			<td>!</td>
-			<td>Inhalt des Properties</td>
-		  </tr>
-		</table>
+        Objektspezifische Eigenschaften, die zur Zusammenstellung der Detailansicht
+	benötigt werden (z.B.: bei Panoramio: User, der das Bild geschossen hat, ...).
+	<table width="100%" border="1" cellspacing="0" cellpadding="2">
+	  <tr>
+	    <th>Feldname</th>
+	    <th>Typ</th>
+	    <th>Option</th>
+	    <th>Bemerkung</th>
+	  </tr>
+	  <tr>
+	    <td>obj_id</td>
+	    <td>INT(8)</td>
+	    <td>![1]+PF</td>
+	    <td>Object ID; Fremdschlüssel zur geoObject-Tabelle</td>
+	  </tr>
+	  <tr>
+	    <td>name</td>
+	    <td>VARCHAR(255)</td>
+	    <td>![1]</td>
+	    <td>Name des Properties; Teil des Primary Keys</td>
+	  </tr>
+	  <tr>
+	    <td>value</td>
+	    <td>VARCHAR(255)</td>
+	    <td>!</td>
+	    <td>Inhalt des Properties</td>
+	  </tr>
+	</table>
       </subsection>
       <subsection name="service">
+        (derzeit statische) Dienst-Tabelle, die die einzelnen zur Verfügung stehenden Services abbildet
+	(derzeit: Wikipedia, Panoramio und Last.fm)
         <table width="100%" border="1" cellspacing="0" cellpadding="2">
           <tr>
             <th>Feldname</th>
@@ -174,103 +198,115 @@
             <th>Option</th>
             <th>Bemerkung</th>
           </tr>
-          <!-- BEGIN: Diesen Bereich duplizieren -->
           <tr>
-            <td>svn_id</td>
+            <td>svc_id</td>
             <td>INT(4)</td>
             <td>!1+P</td>
-            <td>Service ID</td>
+            <td>Service ID (Primärschlüssel, Auto Increment)</td>
           </tr>
           <tr>
             <td>name</td>
             <td>VARCHAR(255)</td>
+            <td>!1</td>
+            <td>Eindeutiger Name des Services (z.B.: wikipedia_de)</td>
+          </tr>
+          <tr>
+            <td>title</td>
+            <td>VARCHAR(255)</td>
             <td>!</td>
-            <td>Name des Services (zb. Wikipedia)</td>
+            <td>Titel des Services (z.B.: Wikipedia), wird für die Detailansicht benötigt</td>
           </tr>
           <tr>
             <td>homepage</td>
             <td>VARCHAR(255)</td>
             <td>!</td>
-            <td>OriginalQuelle (zb. de.Wikipedia.org)</td>
+            <td>Service-Homepage (zb. de.Wikipedia.org)</td>
           </tr>
           <tr>
             <td>description</td>
             <td>TEXT</td>
             <td>!</td>
-            <td></td>
+            <td>Service-Beschreibung (derzeit unbenutzt)</td>
           </tr>
           <tr>
             <td>stype_id</td>
             <td>INT(4)</td>
             <td>!+F</td>
-            <td>ForreignKey zum ServiceTyp</td>
+            <td>ForeignKey zum ServiceTyp</td>
           </tr>
           <tr>
             <td>bubbleHTML</td>
             <td>TEXT</td>
             <td>!</td>
-            <td>Beschreibt (als HTML) die der Inhalt im bubbleHTML aussehen soll. (zb. Anordnung Bild und Text)</td>
+            <td>
+              Beschreibt (als HTML) den Inhalt der Detailansicht, enthält Platzhalter,
+              die durch die objectProperty-Einträge des entsprechenden geoObjects ersetzt werden.
+            </td>
           </tr>
           <tr>
             <td>thumbnail</td>
             <td>VARCHAR(255)</td>
             <td>!</td>
-            <td>Bild das den Service identifiziert</td>
+            <td>Service-Logo (wird in der Detailansicht angezeigt)</td>
           </tr>
-          <!-- ENDE: Diesen Bereich duplizieren -->
         </table>
       </subsection>
       <subsection name="serviceTag">
-		<table width="100%" border="1" cellspacing="0" cellpadding="2">
-		  <tr>
-			<th>Feldname</th>
-			<th>Typ</th>
-			<th>Option</th>
-			<th>Bemerkung</th>
-		  </tr>
-		  <tr>
-			<td>svc_id</td>
-			<td>INT(4)</td>
-			<td>![1]+PF</td>
-			<td>Service ID; Frendschlüssel zur service-Tabelle</td>
-		  </tr>
-		  <tr>
-			<td>tag</td>
-			<td>VARCHAR(255)</td>
-			<td>![1]</td>
-			<td>Inhalt des Tags</td>
-		  </tr>
-		</table>
+        Servicespezifische Tags, die alle Objekte des Services teilen (für die Suche),
+        jedoch nicht in der TagCloud angezeigt werden.
+	<table width="100%" border="1" cellspacing="0" cellpadding="2">
+	  <tr>
+	    <th>Feldname</th>
+	    <th>Typ</th>
+	    <th>Option</th>
+	    <th>Bemerkung</th>
+	  </tr>
+	  <tr>
+	    <td>svc_id</td>
+	    <td>INT(4)</td>
+	    <td>![1]+PF</td>
+	    <td>Service ID; Frendschlüssel zur service-Tabelle</td>
+	  </tr>
+	  <tr>
+	    <td>tag</td>
+	    <td>VARCHAR(255)</td>
+	    <td>![1]</td>
+	    <td>Inhalt des Tags</td>
+	  </tr>
+	</table>
       </subsection>
       <subsection name="serviceType">
-		<table width="100%" border="1" cellspacing="0" cellpadding="2">
-		  <tr>
-			<th>Feldname</th>
-			<th>Typ</th>
-			<th>Option</th>
-			<th>Bemerkung</th>
-		  </tr>
-		  <tr>
-			<td>stype_id</td>
-			<td>INT(4)</td>
-			<td>!1+P</td>
-			<td>ServiceType ID. </td>
-		  </tr>
-		  <tr>
-			<td>name</td>
-			<td>VARCHAR(255)</td>
-			<td>!</td>
-			<td>Name vom ServiceType (zb. Bilder)</td>
-		  </tr>
-		  <tr>
-			<td>thumbnail</td>
-			<td>VARCHAR(255)</td>
-			<td>!</td>
-			<td>Thumbnail vom ServiceType (zb.: Kamera bei Bilder)</td>
-		  </tr>
-		</table>
+        Unterteilt die einzelnen Services in unterschiedliche Typen (z.B. Bild, Event, ...)
+	<table width="100%" border="1" cellspacing="0" cellpadding="2">
+	  <tr>
+	    <th>Feldname</th>
+	    <th>Typ</th>
+	    <th>Option</th>
+	    <th>Bemerkung</th>
+	  </tr>
+	  <tr>
+	    <td>stype_id</td>
+	    <td>INT(4)</td>
+	    <td>!1+P</td>
+	    <td>ServiceType ID, Primary Key, Auto Increment</td>
+	  </tr>
+	  <tr>
+	    <td>name</td>
+	    <td>VARCHAR(255)</td>
+	    <td>!</td>
+	    <td>Name des serviceType-Eintrags (zb. Bild)</td>
+	  </tr>
+	  <tr>
+	    <td>thumbnail</td>
+	    <td>VARCHAR(255)</td>
+	    <td>!</td>
+	    <td>
+	      Thumbnail vom ServiceType, wird als Bild für die Pins auf der
+	      Karte angezeigt) (zb.: Kamera bei Bildern)
+	    </td>
+	  </tr>
+	</table>
       </subsection>
     </section>
-
   </body>
 </document>
