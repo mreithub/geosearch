@@ -104,7 +104,7 @@
 			</subsection>
 		</section>
 		<section name="Besprechungsprotokoll: 05.05.2009">
-			<i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+			<i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Christian Mastnak, Manuel Reithuber</i>
 			<subsection name="Allgemeines">
 				<ul>
 					<li>besser wöchentliche Milestones, damit in kleinerer Teile geteilt und der zeitliche Rahmen indem Milestone erledigt werden soll besser erkennbar; bei Tickets: eintragen wer es 
@@ -198,7 +198,7 @@
       </subsection>
     </section>
     <section name="Besprechungsprotokoll: 12.05.2009">
-      <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+      <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Christian Mastnak, Manuel Reithuber</i>
       <subsection name="Allgemeines">
         Liste mit den Richtlinien, die für Webanwendungen relevant sind is coming soon<br/>
         <i>(bitte einfügen: Allgemeines, das gesagt wurde, während ich noch nicht da war)</i>
@@ -238,6 +238,18 @@
           <li>GANTT-Diagramm</li>
         </ul>
       </subsection>
+      <section name="Besprechungsprotokoll: 14.05.2009">
+        <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+
+        <ul>
+          <li>Einführung in GWT (kleines Probeprojekt)</li>
+          <li>TagCloud wird bei Client ausgerechnet, d.h. Client bekommt alle Objekte mit den zugehörigen Tags</li>
+          <li>Test: Mocks werden benutzt, jeder schreibt Mocks für die Komponenten, die er benutzt; transactions-prinzip; für DB testen  2 Datenbanken (TestDB und produktivDB)</li>
+          <li>wenn mehrere Orte mit selben Namen gefunden werden, wird das erste genommen</li>
+          <li>zu allen Objekten wird ein Ablaufdatum gespeichert</li>
+          <li>Klassendiagramm grob strukturiert und besprochen</li>
+        </ul>
+      </section>
     </section>
 	</body>
 </document>
