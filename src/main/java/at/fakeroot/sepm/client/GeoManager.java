@@ -1,5 +1,8 @@
 package at.fakeroot.sepm.client;
 
+
+import java.util.ArrayList;
+
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
@@ -9,7 +12,11 @@ import at.fakeroot.sepm.client.serialize.ClientGeoObject;
  *
  */
 public class GeoManager implements IGeoManager {
+	//private SearchBox searchBox;
+	//private ResultInfoBox resultBox;
+	//private TagCloud tagCloud;
 	private GeoMap geoMap;
+	private ArrayList<ClientGeoObject> geoObjects;
 	
 	public GeoManager() {
 		this.geoMap=new GeoMap(this);

@@ -1,7 +1,6 @@
 package at.fakeroot.sepm.client;
 
 import at.fakeroot.sepm.client.serialize.BoundingBox;
-import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
 /**
  * The interface for the GeoManager - specifies all functions which have to be implemented there.

@@ -5,7 +5,6 @@ import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 import at.fakeroot.sepm.client.serialize.GeoObject;
 import at.fakeroot.sepm.client.serialize.SandBoxService;
 import at.fakeroot.sepm.client.serialize.SandBoxServiceAsync;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -14,8 +13,6 @@ import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MenuMapTypeControl;
-import com.google.gwt.maps.client.control.OverviewMapControl;
-import com.google.gwt.maps.client.control.SmallMapControl;
 import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
