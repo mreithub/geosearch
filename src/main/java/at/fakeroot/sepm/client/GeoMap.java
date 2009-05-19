@@ -29,7 +29,7 @@ public class GeoMap extends Composite
 	private IGeoManager geoManager;
 	private MapWidget geoMap;
 	private Geocoder geoCoder;
-	//TODO benötigt DetailView-Klasse.
+	//TODO benÃ¶tigt DetailView-Klasse.
 	//private DetailView detailView;
 	
 	/**
@@ -114,7 +114,7 @@ public class GeoMap extends Composite
 	 */
 	public void addPin(ClientGeoObject obj)
 	{
-		//TODO benötigt GeoPin-Klasse.
+		//TODO benÃ¶tigt GeoPin-Klasse.
 		
 		/*GeoPin newPin = new GeoPin(geoManager, obj);
 		geoMap.addOverlay(newPin);*/
@@ -149,7 +149,7 @@ public class GeoMap extends Composite
 		geoMap.clearOverlays();
 	}
 	
-	//TODO benötigt GeoPin- und DetailView-Klasse.
+	//TODO benÃ¶tigt GeoPin- und DetailView-Klasse.
 	/*public DetailView createDetailView(GeoPin pin)
 	{
 		geoMap.getInfoWindow().open(pin, new InfoWindowContent("<b>Loading - please wait...</b>"));
