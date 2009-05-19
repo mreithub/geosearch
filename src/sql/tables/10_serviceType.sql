@@ -4,4 +4,5 @@ CREATE TABLE serviceType (
 	thumbnail	varchar(255)	NOT NULL,
 	PRIMARY KEY (stype_id)
 );
+
 ALTER TABLE serviceType OWNER TO geoSearch_web;
