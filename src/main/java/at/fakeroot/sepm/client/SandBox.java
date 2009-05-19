@@ -18,6 +18,7 @@ import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -39,6 +40,7 @@ public class SandBox extends Composite {
 	ScrollPanel myScroll = new ScrollPanel();
 	
 	public SandBox() {
+		System.out.println("SANDBOX");
 		initWidget(myVePa);
 		myVePa.add(mapHoPa);
 		myScroll.setWidget(debugeConsole);

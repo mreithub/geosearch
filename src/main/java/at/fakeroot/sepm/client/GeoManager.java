@@ -3,6 +3,9 @@ package at.fakeroot.sepm.client;
 
 import java.util.ArrayList;
 
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.PopupPanel;
+
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
@@ -12,7 +15,7 @@ import at.fakeroot.sepm.client.serialize.ClientGeoObject;
  *
  */
 public class GeoManager implements IGeoManager {
-	//private SearchBox searchBox;
+	private SearchBox searchBox;
 	//private ResultInfoBox resultBox;
 	//private TagCloud tagCloud;
 	private GeoMap geoMap;
@@ -20,6 +23,14 @@ public class GeoManager implements IGeoManager {
 	
 	public GeoManager() {
 		this.geoMap=new GeoMap(this);
+		this.searchBox=new SearchBox(this);
+	}
+	
+	public void drawGUI(){
+		PopupPanel searchPop = new PopupPanel(false);
+		searchPop.setWidget(this.searchBox);
+		searchPop.show();
+		searchPop.setPopupPosition(50, 50);
 	}
 	
 	public void addSearchTag(String tag) {
@@ -28,7 +39,8 @@ public class GeoManager implements IGeoManager {
 	}
 
 	public void search(String where, String what) {
-		// TODO Auto-generated method stub
+		BoundingBox whereBound = geoMap.search(where);
+		
 		
 	}
 
