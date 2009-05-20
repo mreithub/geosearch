@@ -2,10 +2,9 @@ package at.fakeroot.sepm.client;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.PopupPanel;
-
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
@@ -19,50 +18,77 @@ public class GeoManager implements IGeoManager {
 	//private ResultInfoBox resultBox;
 	private TagCloud tagCloud;
 	private GeoMap geoMap;
-	private ArrayList<ClientGeoObject> geoObjects;
+	
+	private String myWhere="";
+	private String myWhat="";
+	private BoundingBox myBound;
+	ArrayList<ClientGeoObject> testList = new ArrayList<ClientGeoObject>();
 	
 	public GeoManager() {
 		this.geoMap=new GeoMap(this);
 		this.searchBox=new SearchBox(this);
-		tagCloud = new TagCloud(this);
+		this.tagCloud = new TagCloud(this);
+		
+		//test sachen eben
+		addSearchTag("testtag");
+		
+		
 	}
 	
 	public void drawGUI(){
 		PopupPanel searchPop = new PopupPanel(false);
 		searchPop.setWidget(this.searchBox);
 		searchPop.show();
-		searchPop.setPopupPosition(50, 50);
+		searchPop.setPopupPosition(80, 5);
 		
 		PopupPanel tagPop = new PopupPanel(false);
 		tagPop.setTitle("TagCloud");
 		tagPop.setWidget(tagCloud);
-		tagPop.setPopupPosition(50, 120);
+		tagPop.setPopupPosition(80, 80);
 		tagPop.show();
 	}
 	
 	public void addSearchTag(String tag) {
-		// TODO Auto-generated method stub
+		this.searchBox.setWhat(searchBox.getWhat()+" "+tag);
 		
 	}
 
 	public void search(String where, String what) {
-		BoundingBox whereBound = geoMap.search(where);
-		
-		
+		System.out.println("searchByWhereAndWhat");
+		myWhat=what;
+		geoMap.search(where);		
 	}
 
 	public void search(String what) {
-		// TODO Auto-generated method stub
+		System.out.println("searchByWhat: "+what);
+		
+		//Hier beginnt echte suche
+		//Anfrage an DB mit Where and What
+		
+		int randTag=(int)(Math.random()*10);
+		String[] tempTagString = new String[randTag];
+		for(int i=0;i<randTag;i++){
+			tempTagString[i]="tag"+i;
+		}
+		
+		testList.add(new ClientGeoObject(1,"SuperTuper","photo.png",tempTagString,
+				myBound.getY1(),
+				myBound.getX1()));
+		geoMap.setPins(testList);
+		
+		
+		tagCloud.refresh(testList.iterator());
 		
 	}
 
 	public void setBoundingBox(BoundingBox box) {
-		System.out.println("bound: "+box.toString());
-		
+		System.out.println("setBoundingBox: "+box.toString());
+		myBound=box;
+		search(myWhat);
 	}
 
 	public void showDetailView(ClientGeoObject geoObject) {
-		// TODO Auto-generated method stub
+		System.out.println("showDetailView");
 		
 	}
 	

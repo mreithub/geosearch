@@ -10,6 +10,8 @@ import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.event.MapClickHandler;
+import com.google.gwt.maps.client.event.MapDragEndHandler;
+import com.google.gwt.maps.client.event.MapDragHandler;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.event.MapClickHandler.MapClickEvent;
 import com.google.gwt.maps.client.geocode.Geocoder;
@@ -24,7 +26,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
-public class GeoMap extends Composite
+public class GeoMap extends Composite implements MapDragEndHandler
 {
 	private IGeoManager geoManager;
 	private MapWidget geoMap;
@@ -71,6 +73,10 @@ public class GeoMap extends Composite
 		
 		//Create the geoCoder which is required to search for locations.
 		geoCoder = new Geocoder();
+		
+		
+		//Add DragEndHandler
+		geoMap.addMapDragEndHandler(this);
 	}
 	
 	/**
@@ -104,6 +110,11 @@ public class GeoMap extends Composite
 				}
 			});
 		LatLngBounds bounds = geoMap.getBounds();
+		
+		//Send the new BoundingBox to the GeoManager
+		geoManager.setBoundingBox(new BoundingBox(bounds.getSouthWest().getLatitude(), bounds.getNorthEast().getLongitude(),
+				bounds.getNorthEast().getLatitude(), bounds.getSouthWest().getLongitude()));
+		
 		return(new BoundingBox(bounds.getSouthWest().getLatitude(), bounds.getNorthEast().getLongitude(),
 			bounds.getNorthEast().getLatitude(), bounds.getSouthWest().getLongitude()));
 	}
@@ -145,6 +156,18 @@ public class GeoMap extends Composite
 	public void clearPins()
 	{
 		geoMap.clearOverlays();
+	}
+
+	//Send the new BoundigBox to the GeoManager
+	public void onDragEnd(MapDragEndEvent event) {
+		geoManager.setBoundingBox(
+				new BoundingBox(
+						geoMap.getBounds().getNorthEast().getLatitude(),
+						geoMap.getBounds().getNorthEast().getLongitude(),
+						geoMap.getBounds().getSouthWest().getLatitude(),
+						geoMap.getBounds().getSouthWest().getLongitude()
+						));	
+		
 	}
 	
 	//TODO benötigt GeoPin- und DetailView-Klasse.
