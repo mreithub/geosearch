@@ -6,12 +6,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Text;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -75,13 +79,14 @@ public class TagCloud extends Composite implements ClickHandler {
 		Iterator<String> sIt = c.iterator();
 		while (sIt.hasNext()) {
 			tag = sIt.next();
-			a = new Anchor(tag+" ");
+			a = new Anchor(tag);
 		
 			s = a.getElement().getStyle();
 			s.setProperty("fontSize", (100+(25*tagStat.get(tag)))+"%");
 
 			a.addClickHandler(this);
 			tagPanel.add(a);
+			tagPanel.add(new InlineLabel(" ")); 
 		}
 	}
 	
