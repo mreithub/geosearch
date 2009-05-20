@@ -6,15 +6,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Text;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -74,15 +71,33 @@ public class TagCloud extends Composite implements ClickHandler {
 		Style s;
 		Anchor a;
 		String tag;
+		int i;
+		
 		Set<String> c = tagStat.keySet();
 		
-		Iterator<String> sIt = c.iterator();
-		while (sIt.hasNext()) {
-			tag = sIt.next();
-			a = new Anchor(tag);
+		int min = tagStat.size(), max = 0;
+		// get the minimal and maximal Tag frequency
 		
+		Iterator<String> it = c.iterator();
+		while (it.hasNext()) {
+			tag = it.next();
+			
+			i = tagStat.get(tag);
+			if (i < min) min = i;
+			if (i > max) max = i;
+		}
+		
+		it = c.iterator();
+		
+		while (it.hasNext()) {
+			tag = it.next();
+			a = new Anchor(tag);
+			a.setTitle(tag);
+
 			s = a.getElement().getStyle();
-			s.setProperty("fontSize", (100+(25*tagStat.get(tag)))+"%");
+			// calculation source: German Wikipedia
+			int fontsize = (int) (Math.ceil(200*(tagStat.get(tag)-min))/(max-min));
+			s.setProperty("fontSize", fontsize+"%");
 
 			a.addClickHandler(this);
 			tagPanel.add(a);

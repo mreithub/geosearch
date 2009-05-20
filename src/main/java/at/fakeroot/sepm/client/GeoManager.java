@@ -2,7 +2,6 @@ package at.fakeroot.sepm.client;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gwt.user.client.ui.PopupPanel;
 import at.fakeroot.sepm.client.serialize.BoundingBox;
@@ -42,7 +41,6 @@ public class GeoManager implements IGeoManager {
 		searchPop.setPopupPosition(80, 5);
 		
 		PopupPanel tagPop = new PopupPanel(false);
-		tagPop.setTitle("TagCloud");
 		tagPop.setWidget(tagCloud);
 		tagPop.setPopupPosition(80, 80);
 		tagPop.show();
