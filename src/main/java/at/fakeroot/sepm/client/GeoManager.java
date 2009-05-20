@@ -17,13 +17,14 @@ import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 public class GeoManager implements IGeoManager {
 	private SearchBox searchBox;
 	//private ResultInfoBox resultBox;
-	//private TagCloud tagCloud;
+	private TagCloud tagCloud;
 	private GeoMap geoMap;
 	private ArrayList<ClientGeoObject> geoObjects;
 	
 	public GeoManager() {
 		this.geoMap=new GeoMap(this);
 		this.searchBox=new SearchBox(this);
+		tagCloud = new TagCloud(this);
 	}
 	
 	public void drawGUI(){
@@ -31,6 +32,12 @@ public class GeoManager implements IGeoManager {
 		searchPop.setWidget(this.searchBox);
 		searchPop.show();
 		searchPop.setPopupPosition(50, 50);
+		
+		PopupPanel tagPop = new PopupPanel(false);
+		tagPop.setTitle("TagCloud");
+		tagPop.setWidget(tagCloud);
+		tagPop.setPopupPosition(50, 120);
+		tagPop.show();
 	}
 	
 	public void addSearchTag(String tag) {
