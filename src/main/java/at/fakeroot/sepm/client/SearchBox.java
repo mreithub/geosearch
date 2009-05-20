@@ -1,5 +1,7 @@
 package at.fakeroot.sepm.client;
 
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -17,8 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Class representing the Search Input Box.
- * @author AC
- *
+ * @author Anca Cismasiu
  */
 public class SearchBox extends Composite{
 
@@ -45,11 +46,19 @@ public class SearchBox extends Composite{
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
 				if(where.getText().equals("Where?"))
-					where.setText(" ");
-				if(where.getText().equals(""))
-					where.setText("Where?");				
+					clearBox(where);			
 			}
 		});
+		
+		where.addBlurHandler(new BlurHandler(){
+			public void onBlur(BlurEvent be) {
+				if(where.getText().equals("")){
+					where.setText("Where?");
+				}
+			}
+			
+		});
+		
 		
 		what.addKeyPressHandler(new KeyPressHandler(){
 			public void onKeyPress(KeyPressEvent kpe) {
@@ -63,15 +72,22 @@ public class SearchBox extends Composite{
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
 				if(what.getText().equals("What?"))
-					what.setText(" ");
-				if(what.getText().equals(""))
-					what.setText("What?");				
+					clearBox(what);				
 			}
+		});
+		
+		what.addBlurHandler(new BlurHandler(){
+			public void onBlur(BlurEvent be) {
+				if(what.getText().equals("")){
+					what.setText("What?");
+				}
+			}
+			
 		});
 		
 		searchButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent ce) {					
-				geoManager.search(where.getText(), what.getText());
+				geoManager.search(getWhere(), getWhere());
 		      }
 		});
 		
@@ -83,21 +99,54 @@ public class SearchBox extends Composite{
 		
 	}
 
+	/**
+	 * Clears TextBox
+	 * @param box TextBox to be cleared 
+	 * */
+	public void clearBox(TextBox box){
+		box.setText("");
+	}
+	
+	/**
+	 * Returns String currently in the where-TextBox
+	 * @return rc String where search String
+	 * */	
 	public String getWhere(){
-		return where.getText();
+		String rc="";
+		if(!where.getText().equals("Where?"))
+			rc=where.getText();
+		 return rc;
 	}
 	
+	/**
+	 * Returns String currently in the what-TextBox
+	 * @return rc String what search String 
+	 * */
 	public String getWhat(){
-		return what.getText();
+		String rc="";
+		if(!what.getText().equals("What?"))
+			rc=what.getText();
+		return rc;
 	}
 	
+	
+	/**
+	 * Sets String in the where-TextBox for the area search
+	 * @param whereStr 
+	 * */
 	public void setWhere(String whereStr) {
 		where.setText(whereStr);
 	}
 	
-	public void setWhat(String searchStr){
-		what.setText(searchStr);
-		geoManager.search(where.getText(), what.getText());
+	
+	/**
+	 * Adds String to the what-TextBox for the tag search
+	 * @param whatStr 
+	 * */	
+	public void setWhat(String whereStr){
+		String s = what.getText();
+		what.setText(s+" "+whereStr);
+		geoManager.search(getWhere(), getWhat());
 	}
 
 	
