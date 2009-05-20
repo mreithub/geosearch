@@ -11,11 +11,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
 
 /**
  * TagCloud-UserInterface Class
@@ -24,7 +22,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConst
  * @author Manuel Reithuber
  */
 public class TagCloud extends Composite implements ClickHandler {
-	private HorizontalPanel hPanel = new HorizontalPanel();
+	private FlowPanel tagPanel = new FlowPanel();
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HashMap<String, Integer> tagStat = new HashMap<String, Integer>();
 	private IGeoManager geoManager;
@@ -36,18 +34,19 @@ public class TagCloud extends Composite implements ClickHandler {
 	
 	private void init() {
 		Label l = new Label("TagCloud");
-		l.setWidth("100px");
+		//l.setWidth("100%");
 		l.setHeight("1.2em");
 		vPanel.add(l);
 		vPanel.setCellHeight(l, "1.2em");
 		initWidget(vPanel);
-		setSize("200px", "200px");
+		setWidth("200px");
 		
 		Style s = l.getElement().getStyle();
 		s.setProperty("borderBottom", "1px solid black");
-		vPanel.add(hPanel);
+		vPanel.add(tagPanel);
+		
+		//tagPanel.setWidth("100%");
 
-		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
 		// test data
 		String[] t = {"wiki", "wiki", "wiki", "haus", "foo", "bla", "wiki", "bla"};
 		addTags(t);
@@ -76,35 +75,32 @@ public class TagCloud extends Composite implements ClickHandler {
 		Iterator<String> sIt = c.iterator();
 		while (sIt.hasNext()) {
 			tag = sIt.next();
-			a = new Anchor(tag);
+			a = new Anchor(tag+" ");
 		
 			s = a.getElement().getStyle();
 			s.setProperty("fontSize", (100+(25*tagStat.get(tag)))+"%");
-			s.setProperty("marginRight", "0.3em");
+
 			a.addClickHandler(this);
-			hPanel.add(a);
+			tagPanel.add(a);
 		}
-	}
-	
-	private void clearTags() {
-		hPanel.clear();
 	}
 	
 	public void refresh(Iterator<ClientGeoObject> it) {
 		ClientGeoObject o;
+
+		tagStat.clear();
 
 		while (it.hasNext()) {
 			o = it.next();
 			addTags(o.getTags());
 		}
 
-		clearTags();
+		tagPanel.clear();
 		drawTags();
 	}
 
 	@Override
 	public void onClick(ClickEvent e) {
-		// TODO Auto-generated method stub
 		// Tag clicked
 		if (e.getSource() instanceof Anchor) {
 			Anchor a = (Anchor) e.getSource();
