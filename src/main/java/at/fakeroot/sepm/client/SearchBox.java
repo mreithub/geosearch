@@ -12,7 +12,6 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -87,7 +86,7 @@ public class SearchBox extends Composite{
 		
 		searchButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent ce) {					
-				geoManager.search(getWhere(), getWhere());
+				geoManager.search(getWhere(), getWhat());
 		      }
 		});
 		
@@ -144,8 +143,7 @@ public class SearchBox extends Composite{
 	 * @param whatStr 
 	 * */	
 	public void setWhat(String whereStr){
-		String s = what.getText();
-		what.setText(s+" "+whereStr);
+		what.setText(whereStr);
 		geoManager.search(getWhere(), getWhat());
 	}
 
