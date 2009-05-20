@@ -114,10 +114,8 @@ public class GeoMap extends Composite
 	 */
 	public void addPin(ClientGeoObject obj)
 	{
-		//TODO benötigt GeoPin-Klasse.
-		
-		/*GeoPin newPin = new GeoPin(geoManager, obj);
-		geoMap.addOverlay(newPin);*/
+		GeoPin newPin = new GeoPin(geoManager, obj);
+		geoMap.addOverlay(newPin);
 	}
 	
 	/**

@@ -30,7 +30,7 @@ public class GeoPin extends Marker implements MarkerClickHandler
 	 */
 	public void onClick(MarkerClickEvent event) 
 	{
-		//geoManager.showDetailView(this);
+		geoManager.showDetailView(clientGeoObject);
 	}
 
 	public ClientGeoObject getClientGeoObject() {
