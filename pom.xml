@@ -123,7 +123,7 @@
 					<compileTargets>
 						<value>at.fakeroot.sepm.geoSearch</value>
 					</compileTargets>
-					<runTarget>at.fakeroot.sepm.geoSearch/gwtTest.html</runTarget>
+					<runTarget>geoSearch/index.html</runTarget>
 					<style>DETAILED</style>
 					<noServer>false</noServer>
 					<extraJvmArgs>-Xmx512m</extraJvmArgs>
