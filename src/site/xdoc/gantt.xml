@@ -16,8 +16,7 @@
   </head>
   <body>
     <section name="GANTT">
-	  <a href="pdfs/GANTT.pdf">GANTT als pdf </a><br />
-	  <img src="images/GANTT.png" alt="GANTT Diagramm"/>
+	  <a href="pdfs/GANTT-Diagramm.pdf">GANTT als pdf </a><br />
     </section>
   </body>
 </document>
