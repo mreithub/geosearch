@@ -67,7 +67,7 @@
 					Um von Maven automatisch ein Eclipse-Projekt erstellen zu lassen, gebt folgendes in der Eingabeaufforderung ein (im Working directory):<br />
 					<code>mvn eclipse:eclipse</code><br />
 					und:<br />
-					<code>mvn -Declipse.workspace=sepm eclipse:add-maven-repo</code> ("sepm" durch den Workspace-Namen ersetzen)
+					<code>mvn -Declipse.workspace=.. eclipse:add-maven-repo</code> (".." durch den Workspace-Pfad ersetzen)
 				</p>
 				<p>Wenn das Projekt von Eclipse nicht automatisch gefunden wird:</p>
 				<ul>
