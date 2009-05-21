@@ -3,30 +3,25 @@ package at.fakeroot.sepm.client;
 import java.util.Iterator;
 import java.util.List;
 
-import com.google.gwt.maps.client.InfoWindow;
-import com.google.gwt.maps.client.InfoWindowContent;
+import at.fakeroot.sepm.client.serialize.BoundingBox;
+import at.fakeroot.sepm.client.serialize.ClientGeoObject;
+
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
-import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
-import com.google.gwt.maps.client.event.MapDragHandler;
-import com.google.gwt.maps.client.event.MarkerClickHandler;
-import com.google.gwt.maps.client.event.MapClickHandler.MapClickEvent;
+import com.google.gwt.maps.client.event.MapZoomEndHandler;
+import com.google.gwt.maps.client.geocode.GeoAddressAccuracy;
 import com.google.gwt.maps.client.geocode.Geocoder;
-import com.google.gwt.maps.client.geocode.LatLngCallback;
+import com.google.gwt.maps.client.geocode.LocationCallback;
+import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.maps.client.geom.LatLngBounds;
-import com.google.gwt.maps.client.overlay.Marker;
-import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
-import at.fakeroot.sepm.client.serialize.BoundingBox;
-import at.fakeroot.sepm.client.serialize.ClientGeoObject;
-
-public class GeoMap extends Composite implements MapDragEndHandler
+public class GeoMap extends Composite implements MapDragEndHandler, MapZoomEndHandler
 {
 	private IGeoManager geoManager;
 	private MapWidget geoMap;
@@ -36,7 +31,7 @@ public class GeoMap extends Composite implements MapDragEndHandler
 	
 	/**
 	 * Constructor.
-	 * @param geoManger: An object which implements the IGeoManager interface.
+	 * @param geoManger An object which implements the IGeoManager interface.
 	 */
 	public GeoMap(IGeoManager geoManager)
 	{
@@ -65,6 +60,9 @@ public class GeoMap extends Composite implements MapDragEndHandler
 		geoMap.setDoubleClickZoom(true);
 		geoMap.setScrollWheelZoomEnabled(true);
 		
+		//Add DragEndHandler
+		geoMap.addMapDragEndHandler(this);		
+		
 		//Add the map to the panel.
 		hPanel.add(geoMap);
 		
@@ -73,10 +71,6 @@ public class GeoMap extends Composite implements MapDragEndHandler
 		
 		//Create the geoCoder which is required to search for locations.
 		geoCoder = new Geocoder();
-		
-		
-		//Add DragEndHandler
-		geoMap.addMapDragEndHandler(this);
 	}
 	
 	/**
@@ -92,31 +86,43 @@ public class GeoMap extends Composite implements MapDragEndHandler
 	/**
 	 * Searches for a given location and moves the displayed map region to the search result (if there
 	 * is one).
-	 * @param where: A string, specifying the location where to search.
-	 * @return: The bounding box, containing the region displayed. If the search doesn't return
-	 * any result, the region doesn't change.
+	 * @param where specifies the location where to search.
 	 */
-	public BoundingBox search(String where)
+	public void search(String where)
 	{
-		geoCoder.getLatLng(where, new LatLngCallback()
-			{
-				public void onSuccess(LatLng point)
+		geoCoder.getLocations(where, new LocationCallback()
+			{	
+				public void onSuccess(JsArray<Placemark> locations)
 				{
-					geoMap.setCenter(point);
+					if (locations.length() == 0)
+						return;
+					geoMap.setCenter(locations.get(0).getPoint());
+					int resultType = locations.get(0).getAccuracy();
+					if (resultType == GeoAddressAccuracy.COUNTRY)
+						geoMap.setZoomLevel(6);
+					else if (resultType == GeoAddressAccuracy.REGION)
+						geoMap.setZoomLevel(8);
+					else if (resultType == GeoAddressAccuracy.SUB_REGION)
+						geoMap.setZoomLevel(9);
+					else if (resultType == GeoAddressAccuracy.TOWN)
+						geoMap.setZoomLevel(11);
+					else if (resultType == GeoAddressAccuracy.POSTAL_CODE)
+						geoMap.setZoomLevel(12);
+					else if (resultType == GeoAddressAccuracy.STREET)
+						geoMap.setZoomLevel(13);
+					else if (resultType == GeoAddressAccuracy.INTERSECTION)
+						geoMap.setZoomLevel(15);
+					else if (resultType == GeoAddressAccuracy.ADDRESS)
+						geoMap.setZoomLevel(16);
 				}
 				
-				public void onFailure()
+				public void onFailure(int statusCode)
 				{
 				}
 			});
-		LatLngBounds bounds = geoMap.getBounds();
-		
-		//Send the new BoundingBox to the GeoManager
-		geoManager.setBoundingBox(new BoundingBox(bounds.getSouthWest().getLatitude(), bounds.getNorthEast().getLongitude(),
-				bounds.getNorthEast().getLatitude(), bounds.getSouthWest().getLongitude()));
-		
-		return(new BoundingBox(bounds.getSouthWest().getLatitude(), bounds.getNorthEast().getLongitude(),
-			bounds.getNorthEast().getLatitude(), bounds.getSouthWest().getLongitude()));
+				
+		//Send the new BoundingBox to the GeoManager.
+		geoManager.setBoundingBox(getBoundingBox());
 	}
 	
 	/**
@@ -158,16 +164,37 @@ public class GeoMap extends Composite implements MapDragEndHandler
 		geoMap.clearOverlays();
 	}
 
-	//Send the new BoundigBox to the GeoManager
-	public void onDragEnd(MapDragEndEvent event) {
-		geoManager.setBoundingBox(
-				new BoundingBox(
-						geoMap.getBounds().getNorthEast().getLatitude(),
-						geoMap.getBounds().getNorthEast().getLongitude(),
-						geoMap.getBounds().getSouthWest().getLatitude(),
-						geoMap.getBounds().getSouthWest().getLongitude()
-						));	
-		
+	/**
+	 * This function is called when a map drag event ends. The bounding box of the GeoManager has
+	 * to be updated.
+	 * @param event The MapDragEndEvent.
+	 */
+	public void onDragEnd(MapDragEndEvent event)
+	{
+		geoManager.setBoundingBox(getBoundingBox());
+	}
+
+	/**
+	 * This function is called when a map zoom event ends. The bounding box of the GeoManager has
+	 * to be updated.
+	 * @param event The MapZoomEndEvent.
+	 */
+	public void onZoomEnd(MapZoomEndEvent event)
+	{
+		geoManager.setBoundingBox(getBoundingBox());
+	}
+	
+	/**
+	 * This function returns the bounding box which represents the currently displayed region within the map.
+	 * @return The bounding box, containing the coordinates.
+	 */
+	private BoundingBox getBoundingBox()
+	{
+		return(new BoundingBox(
+			geoMap.getBounds().getSouthWest().getLatitude(),
+			geoMap.getBounds().getNorthEast().getLongitude(),
+			geoMap.getBounds().getNorthEast().getLatitude(),
+			geoMap.getBounds().getSouthWest().getLongitude()));
 	}
 	
 	//TODO benötigt GeoPin- und DetailView-Klasse.

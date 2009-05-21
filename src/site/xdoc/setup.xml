@@ -100,5 +100,16 @@
 				<code>mvn tomcat:redeploy</code>
 			</subsection>
 		</section>
+
+    <section name="JUnit verwenden">
+      Die vollständige Doku dazu befindet sich <a href="http://code.google.com/webtoolkit/tutorials/1.6/JUnit.html">hier</a>.<br/><br/>
+      Hier ist eine Kurzanleitung:<br/>
+      <ul>
+        <li>
+          Den Pfad <code>C:\Programme\Eclipse\plugins\com.google.gwt.eclipse.sdkbundle.win32_1.6.4.v200904062334\gwt-windows-1.6.4</code> zur PATH-Variable
+          hinzufügen, damit die darin befindliche Datei junitCreator.cmd gefunden wird.
+        </li>
+      </ul>
+    </section>
 	</body>
 </document>
