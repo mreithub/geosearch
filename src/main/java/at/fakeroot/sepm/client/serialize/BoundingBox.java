@@ -1,5 +1,6 @@
 package at.fakeroot.sepm.client.serialize;
 
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
@@ -39,22 +40,27 @@ public class BoundingBox implements IsSerializable
 	 */
 	public double getX1()
 	{
-		return(x1);
+		return (x1);
 	}
 	
 	public double getY1()
 	{
-		return(y1);
+		return (y1);
 	}
 	
 	public double getX2()
 	{
-		return(x2);
+		return (x2);
 	}
 	
 	public double getY2()
 	{
-		return(y2);
+		return (y2);
+	}
+	
+	public LatLng getCenter()
+	{
+		return (LatLng.newInstance((x1 + x2) / 2, (y1 + y2) / 2));
 	}
 	
 	public String toString() {

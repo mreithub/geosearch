@@ -38,11 +38,11 @@ public class GeoManager implements IGeoManager {
 		PopupPanel searchPop = new PopupPanel(false);
 		searchPop.setWidget(this.searchBox);
 		searchPop.show();
-		searchPop.setPopupPosition(80, 5);
+		searchPop.setPopupPosition(5, 5);
 		
 		PopupPanel tagPop = new PopupPanel(false);
 		tagPop.setWidget(tagCloud);
-		tagPop.setPopupPosition(80, 80);
+		tagPop.setPopupPosition(5, 80);
 		tagPop.show();
 	}
 	
@@ -70,8 +70,8 @@ public class GeoManager implements IGeoManager {
 		}
 		
 		testList.add(new ClientGeoObject(1,"SuperTuper","photo.png",tempTagString,
-				myBound.getY1(),
-				myBound.getX1()));
+				myBound.getCenter().getLatitude(),
+				myBound.getCenter().getLongitude()));
 		geoMap.setPins(testList);
 		
 		
@@ -87,7 +87,7 @@ public class GeoManager implements IGeoManager {
 
 	public void showDetailView(ClientGeoObject geoObject) {
 		System.out.println("showDetailView");
-		
+		geoMap.createDetailView(geoObject);
 	}
 	
 	public GeoMap getGeoMap(){

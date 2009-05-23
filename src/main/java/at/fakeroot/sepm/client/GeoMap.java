@@ -1,5 +1,6 @@
 package at.fakeroot.sepm.client;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -7,11 +8,14 @@ import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.control.ControlAnchor;
+import com.google.gwt.maps.client.control.ControlPosition;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
-import com.google.gwt.maps.client.event.MapDragEndHandler;
+import com.google.gwt.maps.client.event.MapMoveEndHandler;
 import com.google.gwt.maps.client.event.MapZoomEndHandler;
 import com.google.gwt.maps.client.geocode.GeoAddressAccuracy;
 import com.google.gwt.maps.client.geocode.Geocoder;
@@ -21,13 +25,12 @@ import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
-public class GeoMap extends Composite implements MapDragEndHandler, MapZoomEndHandler
+public class GeoMap extends Composite implements MapMoveEndHandler
 {
 	private IGeoManager geoManager;
 	private MapWidget geoMap;
 	private Geocoder geoCoder;
-	//TODO benötigt DetailView-Klasse.
-	//private DetailView detailView;
+	private ArrayList<GeoPin> geoPins;
 	
 	/**
 	 * Constructor.
@@ -47,21 +50,20 @@ public class GeoMap extends Composite implements MapDragEndHandler, MapZoomEndHa
 		geoMap.setSize("100%", "100%");
 		
 		//Add the navigation control to the map.
-		geoMap.addControl(new LargeMapControl());
+		geoMap.addControl(new LargeMapControl(), new ControlPosition(ControlAnchor.TOP_RIGHT, 5, 35));
 		
 		//Add the supported map types to the map.
 		geoMap.addMapType(MapType.getNormalMap());
 		geoMap.addMapType(MapType.getSatelliteMap());
 		geoMap.addMapType(MapType.getPhysicalMap());
-		geoMap.removeMapType(MapType.getHybridMap());
 		geoMap.addControl(new MapTypeControl());
 		
 		//Set map behaviour.
 		geoMap.setDoubleClickZoom(true);
 		geoMap.setScrollWheelZoomEnabled(true);
 		
-		//Add DragEndHandler
-		geoMap.addMapDragEndHandler(this);		
+		//Add event handlers.
+		geoMap.addMapMoveEndHandler(this);
 		
 		//Add the map to the panel.
 		hPanel.add(geoMap);
@@ -71,6 +73,8 @@ public class GeoMap extends Composite implements MapDragEndHandler, MapZoomEndHa
 		
 		//Create the geoCoder which is required to search for locations.
 		geoCoder = new Geocoder();
+		
+		geoPins = new ArrayList<GeoPin>();
 	}
 	
 	/**
@@ -133,6 +137,7 @@ public class GeoMap extends Composite implements MapDragEndHandler, MapZoomEndHa
 	{
 		GeoPin newPin = new GeoPin(geoManager, obj);
 		geoMap.addOverlay(newPin);
+		geoPins.add(newPin);
 	}
 	
 	/**
@@ -161,25 +166,18 @@ public class GeoMap extends Composite implements MapDragEndHandler, MapZoomEndHa
 	 */
 	public void clearPins()
 	{
-		geoMap.clearOverlays();
+		Iterator<GeoPin> iter = geoPins.iterator();
+		while (iter.hasNext())
+			geoMap.removeOverlay(iter.next());
+		geoPins.clear();
 	}
 
 	/**
-	 * This function is called when a map drag event ends. The bounding box of the GeoManager has
+	 * This function is called when a map move event ends. The bounding box of the GeoManager has
 	 * to be updated.
 	 * @param event The MapDragEndEvent.
 	 */
-	public void onDragEnd(MapDragEndEvent event)
-	{
-		geoManager.setBoundingBox(getBoundingBox());
-	}
-
-	/**
-	 * This function is called when a map zoom event ends. The bounding box of the GeoManager has
-	 * to be updated.
-	 * @param event The MapZoomEndEvent.
-	 */
-	public void onZoomEnd(MapZoomEndEvent event)
+	public void onMoveEnd(MapMoveEndEvent event)
 	{
 		geoManager.setBoundingBox(getBoundingBox());
 	}
@@ -197,10 +195,15 @@ public class GeoMap extends Composite implements MapDragEndHandler, MapZoomEndHa
 			geoMap.getBounds().getSouthWest().getLongitude()));
 	}
 	
-	//TODO benötigt GeoPin- und DetailView-Klasse.
-	/*public DetailView createDetailView(GeoPin pin)
+	/**
+	 * This function creates the detail view which is displayed when a pin is clicked.
+	 * @param pin The pin which has been clicked.
+	 * @return The created detail view.
+	 */
+	public DetailView createDetailView(ClientGeoObject obj)
 	{
-		geoMap.getInfoWindow().open(pin, new InfoWindowContent("<b>Loading - please wait...</b>"));
-		return (new DetailView(geoManager, pin.getGeoObj(), geoMap.getInfoWindow()));
-	}*/
+		geoMap.getInfoWindow().open(obj.getPoint(), new InfoWindowContent("<b>Loading - please wait...</b>"));
+		//TODO Anmerkung: die DetailView benoetigt wohl auch noch das InfoWindow von Google Maps.
+		return (new DetailView(obj, geoManager));
+	}
 }

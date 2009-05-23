@@ -16,14 +16,18 @@ public class GeoSearch implements EntryPoint
 	*/
 	public void onModuleLoad()
 	{
+		GeoManager myManager = new GeoManager();
+		RootPanel.get().add(myManager.getGeoMap());
+		myManager.drawGUI();
+
+		
+		//alte Tests
+		
 		//RootPanel.get().add(new HTML("test"));
 		//RootPanel.get().add(new SandBox());
 		//RootPanel.get().add(new SearchBox(new GeoManager()));
 		//GeoMap map = new GeoMap();
-		//RootPanel.get().add(map);
-		GeoManager myManager = new GeoManager();
-		RootPanel.get().add(myManager.getGeoMap());
-		myManager.drawGUI();
+		//RootPanel.get().add(map);		
 		//PopupPanel searchPop = new PopupPanel(true);
 		//searchPop.setWidget(new Button("test"));
 		//searchPop.show();
