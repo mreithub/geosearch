@@ -87,7 +87,10 @@ public class GeoManager implements IGeoManager {
 
 	public void showDetailView(ClientGeoObject geoObject) {
 		System.out.println("showDetailView");
-		geoMap.createDetailView(geoObject);
+		
+			geoMap.createDetailView(geoObject);
+		///TODO benotigt ObjectDetail		
+			//detailView.setDetail(....);
 	}
 	
 	public GeoMap getGeoMap(){

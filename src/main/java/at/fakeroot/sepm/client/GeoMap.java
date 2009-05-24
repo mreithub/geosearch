@@ -202,8 +202,9 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	 */
 	public DetailView createDetailView(ClientGeoObject obj)
 	{
-		geoMap.getInfoWindow().open(obj.getPoint(), new InfoWindowContent("<b>Loading - please wait...</b>"));
+		DetailView detailView=new DetailView(obj, geoManager);
+		geoMap.getInfoWindow().open(obj.getPoint(), detailView);
 		//TODO Anmerkung: die DetailView benoetigt wohl auch noch das InfoWindow von Google Maps.
-		return (new DetailView(obj, geoManager));
+		return detailView;
 	}
 }
