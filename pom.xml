@@ -53,7 +53,7 @@
 		<dependency>
 			<groupId>com.google.gwt.google-apis</groupId>
 			<artifactId>gwt-maps</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.4</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
