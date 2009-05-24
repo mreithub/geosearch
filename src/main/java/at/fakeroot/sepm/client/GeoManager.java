@@ -3,6 +3,7 @@ package at.fakeroot.sepm.client;
 
 import java.util.ArrayList;
 
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.PopupPanel;
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
@@ -94,9 +95,15 @@ public class GeoManager implements IGeoManager {
 	public void showDetailView(ClientGeoObject geoObject) {
 		System.out.println("showDetailView");
 		
-			geoMap.createDetailView(geoObject);
+			final DetailView waitingDeVi = geoMap.createDetailView(geoObject);
 		///TODO benotigt ObjectDetail		
 			//detailView.setDetail(....);
+			Timer t = new Timer(){
+				public void run() {
+					waitingDeVi.setDetail("testWait: "+Math.random());					
+				}				
+			};
+			t.schedule(1000);
 	}
 	
 	public GeoMap getGeoMap(){

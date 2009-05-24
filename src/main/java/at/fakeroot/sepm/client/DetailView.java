@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import at.fakeroot.sepm.client.serialize.*;
@@ -21,14 +22,16 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	
 	private IGeoManager gManager =null;
 	private ClientGeoObject gObject=null;
-	private static VerticalPanel myVePa=new VerticalPanel();
+	private static SimplePanel mySiPa = new SimplePanel();
+	private VerticalPanel myVePa=new VerticalPanel();
 	private Label title = null;
 	private HTML detail = null;
 	private FlowPanel tags= null;
 	
 	
 	public DetailView(ClientGeoObject object, IGeoManager geoManager){
-		super(myVePa);
+		super(mySiPa);
+		mySiPa.setWidget(myVePa);
 		gObject=object;
 		gManager=geoManager;
 		
