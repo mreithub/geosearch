@@ -14,7 +14,7 @@ import at.fakeroot.sepm.client.serialize.ClientGeoObject;
  */
 public class GeoManager implements IGeoManager {
 	private SearchBox searchBox;
-	//private ResultInfoBox resultBox;
+	private ResultInfoBox resultBox;
 	private TagCloud tagCloud;
 	private GeoMap geoMap;
 	
@@ -27,6 +27,7 @@ public class GeoManager implements IGeoManager {
 		this.geoMap=new GeoMap(this);
 		this.searchBox=new SearchBox(this);
 		this.tagCloud = new TagCloud(this);
+		this.resultBox = new ResultInfoBox();
 		
 		//test sachen eben
 		addSearchTag("testtag");
@@ -44,6 +45,11 @@ public class GeoManager implements IGeoManager {
 		tagPop.setWidget(tagCloud);
 		tagPop.setPopupPosition(5, 80);
 		tagPop.show();
+		
+		PopupPanel infoPop = new PopupPanel(false);
+		infoPop.setWidget(resultBox);
+		infoPop.setPopupPosition(5, 220);
+		infoPop.show();
 	}
 	
 	public void addSearchTag(String tag) {
