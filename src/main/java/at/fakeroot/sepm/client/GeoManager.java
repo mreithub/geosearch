@@ -44,12 +44,12 @@ public class GeoManager implements IGeoManager {
 		
 		PopupPanel tagPop = new PopupPanel(false);
 		tagPop.setWidget(tagCloud);
-		tagPop.setPopupPosition(5, 80);
+		tagPop.setPopupPosition(5, 180);
 		tagPop.show();
 		
 		PopupPanel infoPop = new PopupPanel(false);
 		infoPop.setWidget(resultBox);
-		infoPop.setPopupPosition(5, 220);
+		infoPop.setPopupPosition(5, 80);
 		infoPop.show();
 	}
 	
