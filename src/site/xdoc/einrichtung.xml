@@ -240,6 +240,7 @@
 					<tr><td><tt>mvn site</tt></td><td>Dokumentation erstellen</td></tr>
 					<tr><td><tt>mvn javadoc:javadoc</tt></td><td>JavaDoc erstellen</td></tr>
 					<tr><td><tt>mvn gwt:test</tt></td><td>JUnit-Testcases Testen (<a href="http://code.google.com/webtoolkit/tutorials/1.6/JUnit.html">Anleitung</a>)</td></tr>
+					<tr><td><tt>svn status</tt></td><td>Status der lokalen Änderungen anzeigen</td></tr>
 					<tr><td><tt>svn update</tt></td><td>Code aktualisieren (updates von anderen Entwicklern vom Server holen)</td></tr>
 					<tr><td><tt>svn add &lt;filename&gt;</tt></td><td>Neue Dateien unter Versionskontrolle stellen</td></tr>
 					<tr><td><tt>svn commit</tt></td><td>Eigene Änderungen hochladen</td></tr>
