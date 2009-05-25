@@ -8,22 +8,19 @@ import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.ControlAnchor;
 import com.google.gwt.maps.client.control.ControlPosition;
-import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.control.LargeMapControl3D;
 import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.event.MapMoveEndHandler;
-import com.google.gwt.maps.client.event.MapZoomEndHandler;
 import com.google.gwt.maps.client.geocode.GeoAddressAccuracy;
 import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LocationCallback;
 import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class GeoMap extends Composite implements MapMoveEndHandler
@@ -51,7 +48,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		geoMap.setSize("100%", "100%");
 		
 		//Add the navigation control to the map.
-		geoMap.addControl(new LargeMapControl(), new ControlPosition(ControlAnchor.TOP_RIGHT, 5, 35));
+		geoMap.addControl(new LargeMapControl3D(), new ControlPosition(ControlAnchor.TOP_RIGHT, 5, 35));
 		
 		//Add the supported map types to the map.
 		geoMap.addMapType(MapType.getNormalMap());
