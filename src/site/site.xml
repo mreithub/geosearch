@@ -27,7 +27,7 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="KlassenDiagramm" href="klassenDiagramm.html" />
 		</menu>
 		<menu name="Infrastruktur">
-			<item name="Installation" href="setup.html" />
+			<item name="Einrichtung" href="einrichtung.html" />
 			<item name="Vorlagen" href="vorlagen.html" />
 		</menu>
 	</body>

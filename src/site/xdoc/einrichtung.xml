@@ -1,0 +1,250 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<title>Installation</title>
+	</properties>
+	<head>
+		<!-- xhtml head tag -->
+	</head>
+	<body>
+		Die Einrichtung einer Entwicklungsumgebung für dieses Projekt kann auf zwei Arten erfolgen:
+		<ul>
+			<li><a href="#Commandline-Installation">Per Kommandozeile</a></li>
+			<li><a href="#Eclipse-Installation">mit Hilfe von Eclipse</a></li>
+		</ul>
+		<p>
+			Die Anleitungen für beide Varianten sind voneinander unabhängig, können jedoch gleichzeitig verwendet werden.
+			Beide Bereiche benötigen allerdings Java, dessen Installation im folgenden Bereich erklärt wird:
+		</p>
+		<section name="Basics">
+			In diesem Abschnitt wird die Installation der wichtigsten Grundprogramme beschrieben,
+			die auf jeden Fall für die Entwicklung notwendig sind:
+			<subsection name="Java">
+				<p>Für das Arbeiten am Projekt wird das Java Development Kit benötigt:</p>
+				<ul>
+					<li>
+						<a href="http://java.sun.com/javase/downloads/?intcmp=1281">Download-Link</a><br />
+						<img src="images/setup/java-download.png" alt="Java-Download-Link" />
+					</li>
+					<li>Plattform auswählen, der Lizenz zustimmen, auf "Continue" klicken</li>
+					<li>Unter "Available Files" die Datei auswählen, den Download auf der Festplatte speichern</li>
+					<li>Die heruntergeladene Datei ausführen</li>
+					<li>Wieder mal die Lizenz bestätigen...</li>
+					<li>Den Anleitungen des Installationsprogramms folgen</li>
+				</ul>
+			</subsection>
+		</section>
+		<section name="Eclipse-Installation">
+			<p>
+				Dieser Bereich behandelt die Einrichtung des Projekts unter Zuhilfenahme von Eclipse mit entsprechenden Plugins.
+				Bis auf das Java Development Kit ist sonst keine zusätzliche Software nötig.<br />
+				Auch Debuggen des Projekts ist möglich.
+			</p>
+			<subsection name="Eclipse">
+				<p>
+					Eclipse ist eine weit verbreitete OpenSource Java-Entwicklungsumgebung, für die
+					viele Plugins zur Verfügung stehen.
+				</p>
+				<ul>
+					<li>
+						<a href="http://www.eclipse.org/downloads/">Hier</a> eine der Versionen herunterladen, z.B. diese:<br />
+						<img src="images/setup/eclipse-download.png" alt="Eclipse-Download-Link" />
+					</li>
+					<li>Der Download ist ein ZIP-Archiv, d.h. es muss extrahiert werden (z.B.: nach C:\Programme\eclipse)</li>
+					<li>
+						Sinnvoll wäre auch noch ein Startmenü-Eintrag, der am einfachsten per Drag+Drop
+						direkt aus dem Explorer ins Startmenü gezogen werden kann (dann noch Rechtsklick, Umbenennen)
+					</li>
+					<li>Jetzt kann Eclipse gestartet werden</li>
+					<li>
+						Beim Starten fragt es nach einem Workspace-Pfad. Hier einfach den Ordner auswählen,
+						in dem die Projekte gespeichert werden sollen.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="Subclipse">
+				<p>Subclipse ist ein Subversion-Plugin für Eclipse</p>
+				<ul>
+					<li>Im Menü "Help" "Software Updates..." auswählen.</li>
+					<li>In das Tab "Available Software" wechseln</li>
+					<li>"Add Site..." anklicken</li>
+					<li>
+						Ins Textfeld eines der "Eclipse update site URL"s von der
+						<a href="http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA">Subclipse Homepage</a>
+						hineinkopieren (z.B.: <a href="http://subclipse.tigris.org/update_1.6.x">http://subclipse.tigris.org/update_1.6.x</a>
+					</li>
+					<li>"Ok" klicken</li>
+					<li>
+						Daraufhin wird in die Liste der verfügbaren Software ein neuer Eintrag für Subclipse hinzugefügt,
+						die Markiert werden müssen (es dürfen nur nicht 2 unterschiedliche SVNKit Library versionen installiert werden):<br />
+						<img src="images/setup/subclipse-update.png" alt="Subclipse Update-Einträge" />
+					</li>
+					<li>Nach dem Markieren der Einträge auf "Install..." klicken</li>
+					<li>Daraufhin erscheint ein Fenster, in dem man die Änderungen bestätigen muss. Einfach auf "Next" klicken</li>
+					<li>Die Lizenzen bestätigen, auf "Finish" klicken</li>
+					<li>Wenn die Installation fertig ist (kann ein wenig dauern...), will Eclipse neustarten. Einfach auf "Yes" klicken.</li>
+					<li>
+						Sobald Eclipse neu gestartet ist (dauert wieder...), sollte subclipse installiert sein, was z.b. durch den Eintrag
+						"SVN Repository Exploring" unter "Window/Open Perspective/Other..." sichtbar wird.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="Maven integration for Eclipse">
+				<p>Für Eclipse gibt's auch ein Maven Plugin (welches bei Bedarf sogar ein eigenes Maven mitbringt)</p>
+				<ul>
+					<li>In Eclipse wieder unter "Help" "Software Updates..." anklicken</li>
+					<li>Tab "Available Software" öffnen</li>
+					<li>"Add Site" auswählen</li>
+					<li>
+						Update-URL von der <a href="http://m2eclipse.codehaus.org/">m2eclipse Homepage</a> kopieren
+						und im Textfeld einfügen (z.B.: <a href="http://m2eclipse.sonatype.org/update/">http://m2eclipse.sonatype.org/update/</a>
+					</li>
+					<li>Dialog mit "Ok" bestätigen</li>
+					<li>Daraufhin sollte sich wieder ein neuer Eintrag in die Liste hinzufügen und aufklappen</li>
+					<li>
+						Hier wieder alles auswählen (bis auf Maven Integration for AJDT, die verursacht Konflikte):
+						<img src="images/setup/m2eclipse-update.png" alt="m2eclips software update tree" />
+					</li>
+					<li>Auf "Install..." klicken</li>
+					<li>"Next", Lizenzen akzeptieren, "Finish"</li>
+					<li>warten...</li>
+					<li>Eclipse neustarten</li>
+					<li>m2eclipse sollte jetzt installiert sein.</li>
+				</ul>
+			</subsection>
+			<subsection name="GWT-Plugin">
+				<p>Das GWT-Eclipse Plugin erlaubt es u.a., das Projekt einfach zu debuggen</p>
+				<ul>
+					<li>Im Eclipse unter "Help" "Software Updates..." auswählen</li>
+					<li>im Tab "Available Software" auf "Add Site..." klicken</li>
+					<li>
+						Die der Eclipse-Version entsprechende Update-URL von der 
+						<a href="http://code.google.com/eclipse/docs/getting_started.html">GWT Eclipse seite</a>
+						auswählen (z.B. für Ganymede: <a href="http://dl.google.com/eclipse/plugin/3.4">http://dl.google.com/eclipse/plugin/3.4</a>)
+						und auf "Ok" klicken.
+					</li>
+					<li>
+						Warten, bis der entsprechende Eintrag erscheint, dann aktivieren:<br />
+						<img src="images/setup/gwt-eclipse-update.png" />
+					</li>
+					<li>auf Install klicken und warten, bis ein Install-Fenster erscheint</li>
+					<li>"Next", Lizenz akzeptieren, "Finish"</li>
+					<li>warten, während das Plugin installiert wird und am Schluss Eclipse neu starten</li>
+				</ul>
+			</subsection>
+			<subsection name="Projekt einrichten">
+				<p>
+					Wenn Eclipse, Subclipse und m2eclipse installiert sind, kann das Projekt einfach per
+					Eclipse eingerichtet werden:
+				</p>
+				<ul>
+					<li>File/Import...</li>
+					<li>Maven/Check out Maven Projects from SCM</li>
+					<li>Next</li>
+					<li>evtl. Warning wegklicken</li>
+					<li>SCM URL: "Svn", "<a href="https://www.fakeroot.at/svn/sepm/trunk">https://www.fakeroot.at/svn/sepm/trunk</a>", alles andere so lassen</li>
+					<li>Finish</li>
+					<li>Server-Zertifikat permanent akzeptieren (Problem: es ist selbst ausgestellt)</li>
+					<li>Subversion-Benutzer &amp; Passwort eingeben (evtl. Passwort speichern)</li>
+					<li>warten...</li>
+				</ul>
+				<p>Daraufhin wird alles nötige heruntergeladen (sogar ein eingebautes Maven) und das Eclipse Projekt eingerichtet.</p>
+				<p>Jetzt muss nur noch eine Run Configuration fürs GWT eingerichtet werden:</p>
+				<ul>
+					<li>Rechtsklick aufs Projekt, Properties</li>
+					<li>unter "Google/Web Toolkit" kommt ein Häkchen vors "Use Google Web Toolkit"</li>
+					<li>auf Ok klicken und die Nachfrage, ob man die Java Editors neu öffnen will, bestätigen</li>
+					<li>Menüeintrag "Run/Run Configurations..." anklicken</li>
+					<li>"Web Application" aktivieren und den "New" button links oben anklicken</li>
+					<li>Der neuen Run Configuration einen entsprechenden Namen geben (z.b. den Projektnamen)</li>
+					<li>Projekt "geosearch" auswählen</li>
+					<li>
+						evtl. das Häkchen vor "Automatically select an unused port" aktivieren, damit ein eventuell
+						parallel laufender Server auf Port 8080 das Ausführen nicht verhindert
+					</li>
+					<li>im Tab "GWT" unter "URL" "at.fakeroot.sepm.geoSearch/index.html" eintragen</li>
+					<li>im Tab "Arguments" unter "Working Directory" "${workspace_loc:geosearch/target}" auswählen</li>
+					<li>Konfiguration übernehmen und Run Config Fenster schließen</li>
+					<li>Ab jetzt sollte das Debuggen unter Eclipse mit der gerade erstellten Run Configuration möglich sein</li>
+				</ul>
+			</subsection>
+		</section>
+		<section name="Commandline-Installation">
+			In diesem Bereich wird die Installation mithilfe von Commandline-Utilities genauer erklärt:
+			<subsection name="Subversion">
+				<p>Subversion wird zur Quellcodeverwaltung des Projekts verwendet.</p>
+				<ul>
+					<li>
+						Eine der Subversion-Client-Setups <a href="http://www.sliksvn.com/en/download">hier</a> herunterladen
+						(meistens wird die 32-bit Version benötigt)
+					</li>
+					<li>Setup ausführen und den Anweisungen folgen. Die "Typical" Installation sollte für die meisten Zwecke reichen</li>
+				</ul>
+				<p>Alternativ zum Commandline-Subversion stehen auch noch ein paar graphische Tools zur Verfügung, z.B.:</p>
+				<ul>
+					<li><a href="http://tortoisesvn.tigris.org/">TortoiseSVN</a>: Ein Subversion-Client, der sich in den Windows-Explorer integriert (sehr empfehlenswert)</li>
+					<li><a href="http://rapidsvn.tigris.org/">RapidSVN</a>: Eine einfache GUI für Subversion, die für Windows, Linux und Mac OS X zur verfügung steht</li>
+					<li><a href="http://kdesvn.alwins-world.de/">KDESvn</a>: Eine Subversion-GUI für KDE (Linux)</li>
+					<li>oder <a href="#Subclipse">Subclipse</a>, ein Subversion Eclipse plugin (dessen Installation weiter oben erklärt wird)</li>
+				</ul>
+				<p>Zu guter Letzt noch ein Link zu einer kleinen <a href="http://fakeroot.at/de/programming/subversion">Subversion-Einführung</a></p>
+			</subsection>
+			<subsection name="Maven">
+				<p>
+					Maven kümmert sich um die Dependency-Verwaltung, um die dynamische Kompilierung und Ausführung des Programms.
+				</p>
+				<ul>
+					<li>Den Download gibt's auf der <a href="http://maven.apache.org/download.html">Maven Download-Seite</a> (z.b. die .zip-Version).</li>
+					<li>Die heruntergeladene Zip entpacken (z.B. unter c:\Programme\)</li>
+					<li>mit Win+Pause (oder Arbeitsplatz, Rechtsklick, Eigenschaften bzw über die Systemsteuerung) die Systemeigenschaften öffnen</li>
+					<li>Unter "Erweitert" "Umgebungsvariablen" anklicken</li>
+					<li>Im unteren Bereich (Systemvariablen) folgende Variablen erstellen/ändern
+						<table>
+							<tr><th>Name</th><th>Wert</th></tr>
+							<tr><td>M2_HOME</td><td>[Ordner, in dem ihr Maven entpackt habt (z.b.: "<tt>C:\Program Files\apache-maven-2.1.0</tt>")]</td></tr>
+							<tr><td>M2</td><td><tt>%M2_HOME%\bin</tt></td></tr>
+							<tr>
+								<td>PATH</td>
+								<td>
+									Diese Variable sollte schon existieren. Am Ende der Variable folgendes anhängen:<br />
+									<tt>%M2%</tt> (nach einem ';')
+								</td>
+							</tr>
+							<tr>
+								<td>JAVA_HOME</td>
+								<td>Wenn diese Variable noch nicht existiert, erstellen und auf einen JDK-Ordner zeigen lassen (z.B.: "<tt>C:\Program Files\Java\jdk1.6.0_13</tt>")</td>
+							</tr>
+						</table>
+					</li>
+					<li>
+						Danach sollte in einer <b>neu aufgemachten</b> (wichtig, weil die Variablen nur beim Start eingelesen werden)
+						Eingabeaufforderung der Befehl <code>mvn --version</code> funktionieren (also die Version von maven und Java ausgeben).
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="Projekt einrichten">
+				Zuerst braucht ihr mal den Quellcode des Projekts:
+				<ul>
+					<li>Einen Ordner erstellen, in dem das Projekt gespeichert werden soll</li>
+					<li>Mit dem Kommandozeilenterminal in den Ordner wechseln</li>
+					<li>folgendes eingeben:<br />
+						<code>svn checkout https://www.fakeroot.at/svn/sepm/trunk .</code><br />
+						Falls ihr das Projekt später in einem anderen Ordner haben wollt, einfach verschieben/umbenennen/...
+						(aber immer nur die ganze Working-Copy)
+					</li>
+				</ul>
+				<p>Danach kann mit dem Projekt gearbeitet werden:</p>
+				<table>
+					<tr><th>Befehl</th><th>Beschreibung</th></tr>
+					<tr><td><tt>mvn gwt:run</tt></td><td>GWT-Projekt kompilieren und ausführen</td></tr>
+					<tr><td><tt>mvn site</tt></td><td>Dokumentation erstellen</td></tr>
+					<tr><td><tt>mvn javadoc:javadoc</tt></td><td>JavaDoc erstellen</td></tr>
+					<tr><td><tt>mvn gwt:test</tt></td><td>JUnit-Testcases Testen (<a href="http://code.google.com/webtoolkit/tutorials/1.6/JUnit.html">Anleitung</a>)</td></tr>
+					<tr><td><tt>svn update</tt></td><td>Code aktualisieren (updates von anderen Entwicklern vom Server holen)</td></tr>
+					<tr><td><tt>svn add &lt;filename&gt;</tt></td><td>Neue Dateien unter Versionskontrolle stellen</td></tr>
+					<tr><td><tt>svn commit</tt></td><td>Eigene Änderungen hochladen</td></tr>
+				</table>
+			</subsection>
+		</section>
+	</body>
+</document>
