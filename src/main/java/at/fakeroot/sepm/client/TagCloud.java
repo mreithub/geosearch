@@ -17,25 +17,43 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * TagCloud-UserInterface Class
+ * TagCloud-Widget class
  * 
- * Draws a TagCloud of the tags within the ClientGeoObjects
+ * Draws a TagCloud of the tags within the ClientGeoObjects given to refresh()
  * @author Manuel Reithuber
  */
 public class TagCloud extends Composite implements ClickHandler {
+	/**
+	 * Panel in which the tags are drawn
+	 */
 	private FlowPanel tagPanel = new FlowPanel();
+	/**
+	 * Widget Container
+	 */
 	private VerticalPanel vPanel = new VerticalPanel();
+	/**
+	 * Tag reference count statistics
+	 */
 	private HashMap<String, Integer> tagStat = new HashMap<String, Integer>();
+	/**
+	 * GeoManager reference
+	 */
 	private IGeoManager geoManager;
 	
+	/**
+	 * Constructor
+	 * @param gm GeoManager reference
+	 */
 	public TagCloud(IGeoManager gm) {
 		geoManager = gm;
 		init();
 	}
 	
+	/**
+	 * Widget initialization
+	 */
 	private void init() {
 		Label l = new Label("TagCloud");
-		//l.setWidth("100%");
 		l.setHeight("1.2em");
 		vPanel.add(l);
 		vPanel.setCellHeight(l, "1.2em");
@@ -45,15 +63,14 @@ public class TagCloud extends Composite implements ClickHandler {
 		Style s = l.getElement().getStyle();
 		s.setProperty("borderBottom", "1px solid black");
 		vPanel.add(tagPanel);
-		
-		//tagPanel.setWidth("100%");
-
-		// test data
-		String[] t = {"wiki", "wiki", "wiki", "haus", "foo", "bla", "wiki", "bla"};
-		addTags(t);
-		drawTags();
 	}
 	
+	/**
+	 * Add a String array of tags to the tag count statistics (tagStat)
+	 * 
+	 * Internal function, called by refresh()
+	 * @param tags tags to be added
+	 */
 	private void addTags(String[] tags) {
 		String tag;
 		int i;
@@ -67,7 +84,12 @@ public class TagCloud extends Composite implements ClickHandler {
 		}
 	}
 	
-	void drawTags() {
+	/**
+	 * creates Anchor widgets for the tags, resizes them based on their reference count and adds ClickHandlers to them
+	 * 
+	 * Internal function, called by refresh()
+	 */
+	private void drawTags() {
 		Style s;
 		Anchor a;
 		String tag;
@@ -76,8 +98,8 @@ public class TagCloud extends Composite implements ClickHandler {
 		Set<String> c = tagStat.keySet();
 		
 		int min = tagStat.size(), max = 0;
+
 		// get the minimal and maximal Tag frequency
-		
 		Iterator<String> it = c.iterator();
 		while (it.hasNext()) {
 			tag = it.next();
@@ -105,6 +127,10 @@ public class TagCloud extends Composite implements ClickHandler {
 		}
 	}
 	
+	/**
+	 * Refresh the TagCloud based on the tags given by @c it
+	 * @param it ClientGeoObject iterator that points at the new list of ClientGeoObjects
+	 */
 	public void refresh(Iterator<ClientGeoObject> it) {
 		ClientGeoObject o;
 
@@ -119,6 +145,9 @@ public class TagCloud extends Composite implements ClickHandler {
 		drawTags();
 	}
 
+	/**
+	 * ClickEventHandler for the tag Anchors
+	 */
 	@Override
 	public void onClick(ClickEvent e) {
 		// Tag clicked
