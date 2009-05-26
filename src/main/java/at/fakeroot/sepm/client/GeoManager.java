@@ -3,11 +3,17 @@ package at.fakeroot.sepm.client;
 
 import java.util.ArrayList;
 
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.PopupPanel;
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
+import at.fakeroot.sepm.client.serialize.ObjectSearchService;
+import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
+import at.fakeroot.sepm.client.serialize.SearchResult;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
  * Manage all requests between the Objects and the server.
@@ -15,6 +21,8 @@ import at.fakeroot.sepm.client.serialize.ClientGeoObject;
  *
  */
 public class GeoManager implements IGeoManager {
+	
+	private final ObjectSearchServiceAsync objectSearch = GWT.create(ObjectSearchService.class);
 	private int XOFFSET=5;
 	private int YOFFSET=5;
 	private Image logo = new Image("images/design/logo_no_shaddow.png");
@@ -85,6 +93,22 @@ public class GeoManager implements IGeoManager {
 		
 		//Hier beginnt echte suche
 		//Anfrage an DB mit Where and What
+		
+		objectSearch.search(myBound, what, new AsyncCallback<SearchResult>()
+				{
+					public void onFailure(Throwable arg0) {
+						System.out.println( "" + arg0.getMessage() +"  error");	
+					}
+
+					public void onSuccess(SearchResult result) {
+						for(int i=0;i<result.getResultCount();i++){
+							System.out.println(result.getResults().get(i)+" "+result.getResults().get(i).getPoint());
+							
+						}
+						System.out.println("-------------------");
+					}
+					
+				});
 		
 		int randTag=(int)(Math.random()*10);
 		String[] tempTagString = new String[randTag];

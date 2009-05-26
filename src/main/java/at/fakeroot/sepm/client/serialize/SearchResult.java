@@ -1,17 +1,18 @@
-package at.fakeroot.sepm.server;
+package at.fakeroot.sepm.client.serialize;
 
 import java.util.ArrayList;
 
-import at.fakeroot.sepm.client.serialize.ClientGeoObject;
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * @author Anca Cismasiu
  * Class that stores the search result in an ArrayList of ClientGeoObjects
  * */
 
-public class SearchResult {
+public class SearchResult implements IsSerializable{
 
 	private ArrayList<ClientGeoObject> result=null;
-
+	
 	public SearchResult(){
 		result=new ArrayList<ClientGeoObject>();
 	}

@@ -23,4 +23,5 @@
       
       <!-- Service Servlet Mapping -->
      <servlet path='/sandboxarray' class='at.fakeroot.sepm.server.SandBoxServiceImpl' />
+     <servlet path='/objectsearch' class='at.fakeroot.sepm.server.ObjectSearchServiceImpl' />
 </module>

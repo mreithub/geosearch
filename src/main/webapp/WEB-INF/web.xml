@@ -7,17 +7,30 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <!-- Servlets -->
+  
   <servlet>
     <servlet-name>SandBoxServiceImpl</servlet-name>
     <servlet-class>at.fakeroot.sepm.server.SandBoxServiceImpl</servlet-class>
   </servlet>
   
+    <servlet>
+    <servlet-name>ObjectSearchServiceImpl</servlet-name>
+    <servlet-class>at.fakeroot.sepm.server.ObjectSearchServiceImpl</servlet-class>
+    </servlet>
+  
   <servlet-mapping>
     <servlet-name>SandBoxServiceImpl</servlet-name>
     <url-pattern>/geosearch/sandboxarray</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ObjectSearchServiceImpl</servlet-name>
+    <url-pattern>/geosearch/objectsearch</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 </web-app>
+
+
