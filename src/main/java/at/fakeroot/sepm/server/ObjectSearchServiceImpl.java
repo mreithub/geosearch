@@ -23,15 +23,15 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 		fakeDB = new ArrayList<ClientGeoObject>();
 		fakeDB.add(new ClientGeoObject(1, "Karlskirche", null, new String[] {"karlskirche","kirche", "karlsplatz"}, 48.198247, 16.371422));
 		fakeDB.add(new ClientGeoObject(2, "Stephansdom", null, new String[] {"stephansdom","kirche", "stephansplatz", "wahrzeichen", "wien"}, 48.208333, 16.372778));
-		fakeDB.add(new ClientGeoObject(3, "Schloss Schönbrunn", null, new String[] {"schloss","schönbrunn", "schlosspark", "neptunbrunnen"}, 48.184517, 16.311864));				
+		fakeDB.add(new ClientGeoObject(3, "Schloss SchÃ¶nbrunn", null, new String[] {"schloss","schÃ¶nbrunn", "schlosspark", "neptunbrunnen"}, 48.184517, 16.311864));				
 		fakeDB.add(new ClientGeoObject(4, "Goldenes Dachl", null, new String[] {"goldenes","dachl", "innsbruck", "wahrzeichen"}, 47.268583, 11.393264));
 		fakeDB.add(new ClientGeoObject(5, "Festung Hohensalzburg", null, new String[] {"festung","hohensalzburg", "salzburg", "wahrzeichen", "burg"}, 47.794967, 13.047256));
-		fakeDB.add(new ClientGeoObject(6, "Wallfahrtsbasilika Pöstlingberg", null, new String[] {"wallfahrtsbasilika","pöstlingberg", "linz", "wahrzeichen"}, 48.323889, 14.258333));
+		fakeDB.add(new ClientGeoObject(6, "Wallfahrtsbasilika PÃ¶stlingberg", null, new String[] {"wallfahrtsbasilika","pÃ¶stlingberg", "linz", "wahrzeichen"}, 48.323889, 14.258333));
 		fakeDB.add(new ClientGeoObject(7, "Uhrturm", null, new String[] {"uhrturm", "turm", "graz", "wahrzeichen"}, 47.075463, 15.436746));
 		fakeDB.add(new ClientGeoObject(8, "Martinsturm", null, new String[] {"martinsturm", "turm", "bregenz", "wahrzeichen"}, 47.505, 9.749167));
 		fakeDB.add(new ClientGeoObject(9, "Schloss Esterhazy ", null, new String[] {"schloss","esterhazy ", "eisenstadt", "wahrzeichen"}, 47.848611, 16.520833));
 		fakeDB.add(new ClientGeoObject(10, "Lindwurm", null, new String[] {"lindwurm","klagenfurt", "wahrzeichen"}, 46.623997, 14.3077));
-		fakeDB.add(new ClientGeoObject(11, "Rathaus", null, new String[] {"rathaus","sankt", "st.", "pölten", "wahrzeichen"}, 48.2, 15.616667));
+		fakeDB.add(new ClientGeoObject(11, "Rathaus", null, new String[] {"rathaus","sankt", "st.", "pÃ¶lten", "wahrzeichen"}, 48.2, 15.616667));
 	}
 	
 	public SearchResult search(BoundingBox box, String what)
