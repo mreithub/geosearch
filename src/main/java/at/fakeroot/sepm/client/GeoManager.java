@@ -1,14 +1,10 @@
 package at.fakeroot.sepm.client;
 
-
-import java.util.ArrayList;
-
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 import at.fakeroot.sepm.client.serialize.ObjectSearchService;
 import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
 import at.fakeroot.sepm.client.serialize.SearchResult;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -31,7 +27,6 @@ public class GeoManager implements IGeoManager {
 	private TagCloud tagCloud;
 	private GeoMap geoMap;
 	
-	private String myWhere="";
 	private String myWhat="";
 	private BoundingBox myBound;
 	
@@ -39,12 +34,12 @@ public class GeoManager implements IGeoManager {
 		this.geoMap=new GeoMap(this);
 		this.searchBox=new SearchBox(this);
 		this.tagCloud = new TagCloud(this);
-		this.resultBox = new ResultInfoBox();
-		
-		
-		
+		this.resultBox = new ResultInfoBox();		
 	}
 	
+	/**
+	 * Draws the GUI after creating the object. (Has to be run after inserted to container)
+	 */
 	public void drawGUI(){
 		//Logo
 		PopupPanel logoPop = new PopupPanel(false);
@@ -74,16 +69,29 @@ public class GeoManager implements IGeoManager {
 		
 	}
 	
+	/**
+	 * Adds a SearchTag to the current search, and searchbox
+	 * @param tag 
+	 */
 	public void addSearchTag(String tag) {
 		this.searchBox.setWhat(searchBox.getWhat()+" "+tag);
 		
 	}
 
+	/**
+	 * Starts a standard search
+	 * @param where eg.: Linz, Wien
+	 * @param what eg.: kirche
+	 */
 	public void search(String where, String what) {
 		myWhat=what;
 		geoMap.search(where);		
 	}
 
+	/**
+	 * Starts a search with available BoundingBox 
+	 * @param what eg.: kirche
+	 */
 	public void search(String what) {
 		
 		objectSearch.search(myBound, what, new AsyncCallback<SearchResult>()
@@ -102,12 +110,19 @@ public class GeoManager implements IGeoManager {
 		
 	}
 
+	/**
+	 * Sets the rectangle where the search engine will search.
+	 * @param box  
+	 */
 	public void setBoundingBox(BoundingBox box) {
-		System.out.println("setBoundingBox: "+box.toString());
 		myBound=box;
 		search(myWhat);
 	}
 
+	/**
+	 * Open the DetailView of an ClientGeoObject
+	 * @param geoObject 
+	 */
 	public void showDetailView(ClientGeoObject geoObject) {
 		System.out.println("showDetailView");
 		
@@ -124,6 +139,10 @@ public class GeoManager implements IGeoManager {
 			t.schedule(1000);
 	}
 	
+	/**
+	 * Returns a MapWidget
+	 * @return
+	 */
 	public GeoMap getGeoMap(){
 		return geoMap;
 	}
