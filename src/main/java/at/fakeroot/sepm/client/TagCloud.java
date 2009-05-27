@@ -111,6 +111,7 @@ public class TagCloud extends Composite implements ClickHandler {
 		
 		it = c.iterator();
 		
+		int fontsize = 100;
 		while (it.hasNext()) {
 			tag = it.next();
 			a = new Anchor(tag);
@@ -118,7 +119,8 @@ public class TagCloud extends Composite implements ClickHandler {
 
 			s = a.getElement().getStyle();
 			// calculation source: German Wikipedia
-			int fontsize = (int) (Math.ceil(200*(tagStat.get(tag)-min))/(max-min));
+			if (max > min) fontsize = (int) (70+Math.ceil(130*(tagStat.get(tag)-min))/(max-min));
+
 			s.setProperty("fontSize", fontsize+"%");
 
 			a.addClickHandler(this);
