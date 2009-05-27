@@ -12,9 +12,11 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class SearchResult implements IsSerializable{
 
 	private ArrayList<ClientGeoObject> result=null;
+	private int totalHits;
 	
 	public SearchResult(){
 		result=new ArrayList<ClientGeoObject>();
+		totalHits = -1;
 	}
 
 	/**
@@ -38,6 +40,11 @@ public class SearchResult implements IsSerializable{
 	 * @return int number of results
 	 * */
 	public int getResultCount(){
-		return result.size();
+		return totalHits;
+	}
+	
+	public void setResultCount(int totalHits)
+	{
+		this.totalHits = totalHits;
 	}
 }

@@ -36,13 +36,17 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	
 	public SearchResult search(BoundingBox box, String what)
 	{
-		String[] tags = what.toLowerCase().split(" ");
 		SearchResult result = new SearchResult();
+		String[] tags = what.toLowerCase().split(" ");
+
+		int counter = 0;
+		
 		for(ClientGeoObject cgo : fakeDB)
 		{
 			if(cgo.getXPos() >= box.getX1() && cgo.getYPos() >= box.getY1() && cgo.getXPos() <= box.getX2()
-					&& cgo.getYPos() <= box.getY2())
+					//&& cgo.getYPos() <= box.getY2())
 			{
+				
 				boolean matches = true;
 				for(int i=0; i < tags.length; i++)
 				{
@@ -63,9 +67,13 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 					}
 				}
 				if(matches == true)
+				{
 					result.addResultToList(cgo);
+					counter++;
+				}
 			}
 		}
+		result.setResultCount(counter);
 		return result;
 		//return (geoObjManager.select(tags, box, limit)); (nach MR2)
 		
