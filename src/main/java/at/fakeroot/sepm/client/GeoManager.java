@@ -34,7 +34,6 @@ public class GeoManager implements IGeoManager {
 	private String myWhere="";
 	private String myWhat="";
 	private BoundingBox myBound;
-	ArrayList<ClientGeoObject> testList = new ArrayList<ClientGeoObject>();
 	
 	public GeoManager() {
 		this.geoMap=new GeoMap(this);
@@ -42,8 +41,6 @@ public class GeoManager implements IGeoManager {
 		this.tagCloud = new TagCloud(this);
 		this.resultBox = new ResultInfoBox();
 		
-		//test sachen eben
-		addSearchTag("testtag");
 		
 		
 	}
@@ -83,15 +80,11 @@ public class GeoManager implements IGeoManager {
 	}
 
 	public void search(String where, String what) {
-		System.out.println("searchByWhereAndWhat");
 		myWhat=what;
 		geoMap.search(where);		
 	}
 
 	public void search(String what) {
-		System.out.println("searchByWhat: "+what);
-		//Hier beginnt echte suche
-		//Anfrage an DB mit Where and What
 		
 		objectSearch.search(myBound, what, new AsyncCallback<SearchResult>()
 				{
@@ -100,35 +93,12 @@ public class GeoManager implements IGeoManager {
 					}
 
 					public void onSuccess(SearchResult result) {
-						System.out.println(""+ result.getResultCount());
 						geoMap.setPins(result.getResults());
 						tagCloud.refresh(result.getResults().iterator());
 						resultBox.refresh(result.getResults().size(), result.getResultCount());
-						for(int i=0;i<result.getResultCount();i++){
-							System.out.println(result.getResults().get(i)+" "+result.getResults().get(i).getPoint());
-							
-						}
-						
-						System.out.println("-------------------");
 					}
 					
 				});
-		
-		//int randTag=(int)(Math.random()*10);
-		//String[] tempTagString = new String[randTag];
-		//for(int i=0;i<randTag;i++){
-			//tempTagString[i]="tag"+i;
-		//}
-		
-		//testList.add(new ClientGeoObject(1,"SuperTuper","photo.png",tempTagString,
-				//myBound.getCenter().getLatitude(),
-				//myBound.getCenter().getLongitude()));
-		//geoMap.setPins(testList);
-		
-		
-		//tagCloud.refresh(testList.iterator());
-		
-		//resultBox.refresh(randTag, randTag+10);
 		
 	}
 
