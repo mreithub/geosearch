@@ -43,7 +43,7 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 		
 		for(ClientGeoObject cgo : fakeDB)
 		{
-			if(cgo.getXPos() >= box.getX1() && cgo.getYPos() >= box.getY1() && cgo.getXPos() <= box.getX2()
+			if(cgo.getXPos() >= box.getX1() && cgo.getYPos() >= box.getY1() && cgo.getXPos() <= box.getX2())
 					//&& cgo.getYPos() <= box.getY2())
 			{
 				
