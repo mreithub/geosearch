@@ -8,20 +8,12 @@
 
   <!-- Servlets -->
   
-  <servlet>
-    <servlet-name>SandBoxServiceImpl</servlet-name>
-    <servlet-class>at.fakeroot.sepm.server.SandBoxServiceImpl</servlet-class>
-  </servlet>
   
     <servlet>
     <servlet-name>ObjectSearchServiceImpl</servlet-name>
     <servlet-class>at.fakeroot.sepm.server.ObjectSearchServiceImpl</servlet-class>
     </servlet>
   
-  <servlet-mapping>
-    <servlet-name>SandBoxServiceImpl</servlet-name>
-    <url-pattern>/geoSearch/sandboxarray</url-pattern>
-  </servlet-mapping>
   
     <servlet-mapping>
     <servlet-name>ObjectSearchServiceImpl</servlet-name>
