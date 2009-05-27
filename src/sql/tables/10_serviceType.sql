@@ -1,5 +1,5 @@
 CREATE TABLE serviceType (
-	stype_id	integer		NOT NULL,
+	stype_id	serial		NOT NULL,
 	name		varchar(255)	NOT NULL,
 	thumbnail	varchar(255)	NOT NULL,
 	PRIMARY KEY (stype_id)

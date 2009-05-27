@@ -1,5 +1,5 @@
 CREATE TABLE service (
-	svc_id		integer		NOT NULL,
+	svc_id		serial		NOT NULL,
 	name		varchar(255)	NOT NULL,
 	title		varchar(255)	NOT NULL,
 	homepage	varchar(255)	NOT NULL,
