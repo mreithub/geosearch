@@ -116,6 +116,7 @@ public class TagCloud extends Composite implements ClickHandler {
 			tag = it.next();
 			a = new Anchor(tag);
 			a.setTitle(tag);
+			a.setHref("javascript:void()");
 
 			s = a.getElement().getStyle();
 			// calculation source: German Wikipedia
