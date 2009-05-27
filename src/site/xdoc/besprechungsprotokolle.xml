@@ -250,6 +250,45 @@
           <li>Klassendiagramm grob strukturiert und besprochen</li>
         </ul>
       </section>
+      <section name="Besprechungsprotokoll: 19.05.2009">
+        <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Christian Mastnak, Manuel Reithuber</i>
+        <subsection name="Allgemeines">
+          Donnerstag, 28.05.2009 09:00-10:00 MR2<br/>
+          Dienstag davor die gesammelte Doku abgeben<br/>
+          Doku gesammelt und ausgedruckt für MR2<br/>
+          Stundenliste soll aktuell sein für MR2<br/>
+          heute Vorlesung mit Fragestunde, spezieller Fokus aufs Testen
+        </subsection>
+          <subsection name="Dokumentation">
+            <ul>
+              <li>Use-Cases: passen, wenn ein UC komplett geändert wird, dann aktualisieren und Christian sagen</li>
+              <li>Deployment-Diagramm: passt (fasst schon zu detailliert) - gut zum Erklären fürs MR"</li>
+              <li>
+                KLassendiagramm: was greift auf was zu? theoretisch ist es momentan möglich, dass GUI auf die DB zugreift; Schichtentrennung wichtig,
+                damit Austausch später möglich; Business-Logic ist primär interessant, GUI nicht so wichtig; insert bzw update fehlt bei DAO
+              </li>
+              <li>GANTT-Diagramm: rot, gelb, grün keine gute Farbgebung, weckt falsche Assoziationen; von allen Tasks Vorgänger und Nachfolger einzeichnen</li>
+              <li>WBS: passt</li>
+              <li>DB-Attribut-Beschreibung: auf den ersten Blick ok, Christian schaut sie noch genau an</li>
+              <li>Testartefakte beginnen</li>
+              <li>Installationsleitfaden, so wie er in Maven Site ist für den Anfang ok</li>
+            </ul>
+          </subsection>
+          <subsection name="Testen">
+            <ul>
+              <li>Testbeauftragter soll nur Beispiele für Tests machen, jeder soll selbst Tests schreiben;</li>
+              <li>besser kleine und mehrere Tests;</li>
+              <li>Mock-Tests sind sinnvoll (Framework für Mock-Tests: EasyMocks);</li>
+              <li>UnitTests vor Implementierung, dann Modultests;</li>
+              <li>Funktionstests, wenn Komponenten fertig sind, bzw. wenn alles fertig ist</li>
+              <li>
+                Technischer Architekt soll Code reviewen, eventuell 2mal das gesamte Team zusammen einen Code-Review durchführen
+                (das erste mal, wenn die ersten Klassen implementiert sind, das zweite mal, wenn alles fertig ist)
+              </li>
+              <li>Testartefakte beginnen</li>
+            </ul>
+          </subsection>
+      </section>
     </section>
 	</body>
 </document>
