@@ -1,0 +1,613 @@
+<document>
+  <properties>
+    <author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+    <author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
+    <author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+    <author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+    <author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+    <title>Projektauftrag</title>
+  </properties>
+  <head>
+    <style type="text/css">
+      ol li {
+      margin-bottom: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <section name="Testplan"></section>
+
+    <section name="Unit-Testfälle (Client-Klassen)">
+      <subsection name="Einheit: Klasse SearchBox (bis 20.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>Testszenario: Ein SearchBox-Objekt wird erstellt. Es werden mit den Settern Werte gesetzt. Danach wird überprüft, ob von den
+          Gettern dieselben Werte wieder ausgelesen werden können.</li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Daten in den Eingabefeldern anzeigen</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Es werden mit den Settern Werte gesetzt. Danach wird überprüft, ob die Werte in der GUI angezeigt werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob der Suchen-Button funktioniert</b>
+          </li>
+          <li>Vorbedingungen: Es wurden Werte in die Suchfelder eingegeben.</li>
+          <li>
+            Testszenario: Nach Klick auf den Suchen-Button muss eine Suche von der SearchBox ausgelöst werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse ResultInfoBox (bis 20.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Anzeige funktioniert</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Nach Aufruf der Refresh()-Funktion muss der entsprechende Text angezeigt werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse GeoPin (bis 21.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob der Pin angeklickt werden kann</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Nach dem Klick auf den Marker muss die Funktion showDetailView() im GeoManager aufgerufen werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse GeoMap (bis 24.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Map richtig initsialisiert werden kann</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Nach dem Starten der Applikation soll die Karte angezeigt werden. Diese ist anfangs auf das territorale Gebiet des Staates
+            Österreichs zentriert.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Karte zentriert werden kann</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Nach dem Aufruf der setCenter()-Funktion soll die Karte beim angegebenen Punkt zentriert werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die geographische Suche funktioniert</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Nach dem Aufruf der search()-Funktion soll die/das gesuchte Land/Region/Stadt/Adresse auf der Karte
+            zentriert werden. Außerdem soll der Zoom-Level so gewählt werden, dass kleinere Gebiete näher herangezoomt werden als
+            größere (z.B. soll bei der Suche nach einer Stadt ein größerer Zoom-Level gewählt werden als bei der Suche nach einem Land).
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob Pins hinzugefügt werden können</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Es wird ein einzelner Pin mittels der addPin()-Funktion hinzugefügt, bzw. mehrere Pins mit der addPins() oder setPins()-Funktion.
+            Danach wird überprüft, ob die Pins auf der Karte auf den spezifizierten Positionen angezeigt werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob Pins gelöscht werden können</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Die Pins werden von der Karte mittels Aufruf der clearPins()-Funktion gelöscht. Danach wird überprüft, ob sich keine Pins mehr
+            auf der Karte befinden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Benutzer-Interaktion (scrollen, zoomen) mit der Karte korrekt funktioniert</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Die Karte wird vom Benutzer gescrollt oder gezoomt (dies kann mit den verschiedenen zur Verfügung stehenden Methoden gemacht
+            werden - z.B. durch einen Doppelklick auf die Karte oder durch Drehen des Mausrades fürs Zoomen, Klicken und Ziehen fürs Scrollen etc.). Bei
+            jeder Änderung des angezeigten Kartenausschnitts muss die setBoundingBox()-Funktion im GeoManager aufgerufen werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Detailansicht-Sprechblase erstellt werden kann</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Nach dem Aufruf der createDetailView()-Funktion soll an der angegebenen Position eine Sprechblase über der Karte erscheinen.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse TagCloud (bis 22.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die TagCloud die Tags entsprechend ihrer Häufigkeit in der korrekten Größe darstellt</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Nach dem Aufruf der refresh()-Funktion müssen häufiger vorkommende Tags in einer größeren Schrift dargestellt werden
+            als weniger häufig vorkommende. Es muss sowohl eine Unter- als auch eine Obergrenze geben, damit die Tags weder zu klein (Unleserlichkeit),
+            noch zu groß (Platzverschwendung) dargestellt werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob ein Tag in der TagCloud angeklickt werden kann</b>
+          </li>
+          <li>Vorbedingungen: Es muss mindestens ein Tag in der TagCloud dargestellt werden.</li>
+          <li>
+            Testszenario: Nach dem Klick auf den Tag muss die Funktion addSearchTag() im GeoManager aufgerufen werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse DetailView (bis 22.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob der Inhalt der Detailansicht verändert werden kann</b>
+          </li>
+          <li>Vorbedingungen: Die Detailansicht muss zuvor erstellt worden sein (bzw. auf der Karte geöffnet worden sein)</li>
+          <li>
+            Testszenario: Durch Aufruf der setDetail()-Funktion muss der Inhalt der angezeigten Detailansicht verändert werden können (d.h. der
+            neue Inhalt muss nach dem Aufruf dieser Funktion angezeigt werden).
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Objekt-Tags gesetzt werden können</b>
+          </li>
+          <li>Vorbedingungen: Die Detailansicht muss zuvor erstellt worden sein (bzw. auf der Karte geöffnet worden sein)</li>
+          <li>
+            Testszenario: Durch Aufruf der setTagList()-Funktion muss die Liste der Objekt-Tags gesetzt werden können. Diese müssen in der Detailansicht
+            angezeigt werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob ein Tag in der Detailansicht angeklickt werden kann</b>
+          </li>
+          <li>Vorbedingungen: Die Detailansicht muss zuvor erstellt worden sein (bzw. auf der Karte geöffnet worden sein).
+          Weiters muss mindestens ein Objekt-Tag in der Detailansicht angezeigt werden.</li>
+          <li>
+            Testszenario: Nach dem Klick auf den Tag muss die Funktion addSearchTag() im GeoManager aufgerufen werden.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse GeoManager (bis 24.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob das GUI-Layout korrekt dargestellt wird</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Prüfen, ob durch die drawGUI()-Funktion des GeoManagers die GUI korrekt initsialisert und positioniert wird.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob Tags zur Suche hinzugefügt werden können (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Durch Aufruf der addSearchTag()-Funktion muss der Text in der Suchbox derart verändert werden, dass der neue Tag hinzu kommt.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Suche nach Ort und Tags funktioniert (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Bei einer bestimmten Test-Suche müssen bestimmte Ergebnisse gefunden werden. Beispiel: Suche nach Ort = "Wien" und Tag = "Stephansdom" muss
+            mindestens einen Eintrag liefern.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Prüfen, ob die Detailansicht erstellt werden kann</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Durch den Aufruf der showDetailView()-Funktion muss eine Detailansicht angezeigt werden können, welche die Details
+            zu dem ausgewählten Objekt beinhaltet.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>        
+      </subsection>
+    </section>
+
+    
+    <section name="Unit-Testfälle (Server-Klassen)">
+      <subsection name="Einheit: Klasse BoundingBox (bis 20.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein BoundingBox-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+      
+      <subsection name="Einheit: Klasse ObjectDetails (bis 26.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein ObjectDetails-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+      
+      <subsection name="Einheit: Klasse ObjectSearch (bis 04.06.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Objekt-Details abrufen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: In der Datenbank befindet sich ein Objekt, dessen ID und Objekt-Details bekannt sind.</li>
+          <li>
+            Testszenario: Die getDetailHTML()-Funktion wird mit der Objekt-ID des bekannten Objekts aufgerufen. Anschließend wird überprüft, ob der
+            Detail-HTML-String mit dem erwarteten Ergebnis übereinstimmt.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse GeoObject (bis 20.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein GeoObject-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse ClientGeoObject (bis 20.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein ClientGeoObject-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>        
+      </subsection>
+
+      <subsection name="Einheit: Klasse DBGeoObject (bis 20.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein DBGeoObject-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse SearchResult (bis 26.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein SearchResult-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>        
+      </subsection>
+
+      <subsection name="Einheit: Klasse GeoSave (bis 04.06.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Save-Funktionalität testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: Testdatenbank wird anstelle der Produktivdatenbank verwendet</li>
+          <li>
+            Testszenario: Mittels der saveObject()-Funktion wird ein neues Objekt in die Datenbank gespeichert. Anschließend wird dieses Objekt
+            über den GeoObjectManager wieder aus der Datenbank ausgelesen und auf Identität mit dem zu speichernden Objekt überprüft.
+          </li>
+          <li>Auswirkungen: Testdatenbank wird verändert. Keine Auswirkungen für die Produktiv-Datenbank.</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: getServiceID()-Funktion testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Es wird überprüft, ob für einen (bzw. auch mehrere) bestimmte Service-Namen die richtige ID zurückgegeben wird, die auch
+            in der Datenbank gespeichert wird. Beispiel: Das Service "Wikipedia" verwendet die ID 1.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse Property (bis 04.06.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein Property-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+
+      <subsection name="Einheit: Klasse DBServiceObject (bis 05.06.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Getter und Setter testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: keine</li>
+          <li>
+            Testszenario: Ein DBServiceObject-Objekt wird erstellt. Es werden mit den Settern (bzw. im Konstruktor) Werte gesetzt. Danach wird überprüft, ob von den
+            Gettern dieselben Werte wieder ausgelesen werden können.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+      </subsection>
+    </section>
+
+    
+    <section name="Unit-Testfälle (Datenbank-Klassen)">
+      <subsection name="Einheit: Klasse GeoObjManager (bis 06.06.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Insert-Funktionalität testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: Testdatenbank wird anstelle der Produktivdatenbank verwendet</li>
+          <li>
+            Testszenario: Mittels der insert()-Funktion wird ein neues Objekt in die Datenbank gespeichert. Anschließend wird dieses Objekt
+            wieder aus der Datenbank ausgelesen und auf Identität mit dem zu speichernden Objekt überprüft.
+          </li>
+          <li>Auswirkungen: Testdatenbank wird verändert. Keine Auswirkungen für die Produktiv-Datenbank.</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Update-Funktionalität testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: Testdatenbank wird anstelle der Produktivdatenbank verwendet. Es existiert ein Objekt, das aktualisiert werden soll.</li>
+          <li>
+            Testszenario: Mittels der update()-Funktion wird das vorhandene Test-Objekt in der Datenbank aktualisiert. Anschließend wird dieses Objekt
+            wieder aus der Datenbank ausgelesen und auf Identität mit den erwarteten Änderungen überprüft.
+          </li>
+          <li>Auswirkungen: Testdatenbank wird verändert. Keine Auswirkungen für die Produktiv-Datenbank.</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Testen des Löschens von abgelaufenen Objekten (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: Testdatenbank wird anstelle der Produktivdatenbank verwendet. Es existiert Objekte, die bereits abgelaufen sind und somit
+          beim Aufruf der Funktion gelöscht werden sollten.</li>
+          <li>
+            Testszenario: Die deleteExpired()-Funktion wird aufgerufen. Alle bereits abgelaufenen Objekte müssen nach diesem Aufruf aus der Datenbank entfernt
+            worden sein. Dies kann dadurch überprüft werden, dass die relevanten Objekte nicht mehr in der Datenbank gefunden werden können.
+          </li>
+          <li>Auswirkungen: Testdatenbank wird verändert. Keine Auswirkungen für die Produktiv-Datenbank.</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Select-Funktionalität für ein einzelnes Objekt testen (JUnit)</b>
+          </li>
+          <li>
+            Vorbedingungen: Es existiert ein Objekt in der Datenbank, von dem die Attribute bekannt sind.
+          </li>
+          <li>
+            Testszenario: Die select()-Funktion wird aufgerufen, um das Objekt anhand seiner ID auszulesen. Danach wird überprüft, ob die Attribute die korrekten erwarteten
+            Werte beinhalten.
+          </li>
+          <li>Auswirkungen: keine.</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Select-Funktionalität für mehrere Objekte testen (Suchfunktion) (JUnit)</b>
+          </li>
+          <li>
+            Vorbedingungen: Es existieren Objekte in der Datenbank, deren Positionen und Tags bekannt sind.
+          </li>
+          <li>
+            Testszenario: Die select()-Funktion wird mit einer BoundingBox und einer Liste von Tags aufgerufen. Es wird verglichen, ob das Ergebnis mit dem erwarteten
+            Resultat übereinstimmt. Wenn beispielsweise Objekte innerhalb der gegebenen BoundingBox existieren, welche auch bei den angefragten Such-Tags übereinstimmen,
+            müssen diese im Resultat enthalten sein. Die Überprüfung auf Erfolg erfolgt durch das Vergleichen der Ergebnis-Anzahl mit der erwarteten Ergebnis-Anzahl.
+          </li>
+          <li>Auswirkungen: keine.</li>
+        </ul>        
+      </subsection>
+
+      <subsection name="Einheit: Klasse DBConnection (bis 30.05.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Verbindungsaufbau testen (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: Datenbank-Server ist aufgesetzt bzw. eingerichtet.</li>
+          <li>
+            Testszenario: Mittels der connect()-Funktion muss ein Verbindungsaufbau zur Datenbank erfolgreich sein.
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Testen der Erstellens von DB-Statements (JUnit)</b>
+          </li>
+          <li>Vorbedingungen: Datenbank-Server ist aufgesetzt bzw. eingerichtet. Die Verbindung zur Datenbank war erfolgreich.</li>
+          <li>
+            Testszenario: Die Funktionen prepareStatement() und getStatement() liefern gültige Rückgabewerte (insbesondere != null).
+          </li>
+          <li>Auswirkungen: keine</li>
+        </ul>        
+      </subsection>
+
+      <subsection name="Einheit: Klasse ServiceManager (bis 06.06.2009)">
+        <ul>
+          <li>
+            <b>Testfall: Select-Funktionalität über gegebene Service-ID testen (JUnit)</b>
+          </li>
+          <li>
+            Vorbedingungen: Es existiert ein Service-Objekt in der Datenbank, von dem die Attribute bekannt sind.
+          </li>
+          <li>
+            Testszenario: Die select()-Funktion wird aufgerufen, um das Service-Objekt anhand seiner ID auszulesen. Danach wird überprüft, ob die Attribute die korrekten erwarteten
+            Werte beinhalten.
+          </li>
+          <li>Auswirkungen: keine.</li>
+        </ul>
+
+        <ul>
+          <li>
+            <b>Testfall: Select-Funktionalität über gegebenen Service-Namen testen (JUnit)</b>
+          </li>
+          <li>
+            Vorbedingungen: Es existiert ein Service-Objekt in der Datenbank, von dem die Attribute bekannt sind.
+          </li>
+          <li>
+            Testszenario: Die select()-Funktion wird aufgerufen, um das Service-Objekt anhand seines Namens auszulesen. Danach wird überprüft, ob die Attribute die korrekten erwarteten
+            Werte beinhalten.
+          </li>
+          <li>Auswirkungen: keine.</li>
+        </ul>        
+      </subsection>
+    </section>
+
+    <section name="Unit-Testfälle (Crawler-Klassen) (bis 14.06.2009)">
+      <ul>
+        <li>
+          <b>Testfall: Prüfen, ob der API-Zugriff auf die Datenquelle des Services funktioniert. (JUnit)</b>
+        </li>
+        <li>
+          Vorbedingungen: Die Webseite des Service-Anbieters muss online sein.
+        </li>
+        <li>
+          Testszenario: Es wird eine Test-Anfrage an das Service geschickt. Es muss eine Anwort zurückkommen: es darf kein Verbindungs-Timeout, keinen
+          "Page not found"-Fehler oder sonstige Probleme geben.
+        </li>
+        <li>Auswirkungen: keine.</li>
+      </ul>
+
+      <ul>
+        <li>
+          <b>Testfall: Prüfen, ob das Auslesen von Daten von dem Service für ein bestimmtes Objekt funktioniert. (JUnit)</b>
+        </li>
+        <li>
+          Vorbedingungen: Die Webseite des Service-Anbieters muss online sein. Die Daten eines bestimmten Objekts des Services sind bekannt, z.B. durch Anzeigen
+          dieses Objekts direkt auf der Webseite des Service-Anbieters.
+        </li>
+        <li>
+          Testszenario: Es wird versucht dieses bestimmte Objekt vom Service mittels deren angebotenen API auszulesen. Danach wird überprüft, ob die Attribute
+          die korrekten erwarteten Werte beinhalten.
+        </li>
+        <li>Auswirkungen: keine.</li>
+      </ul>
+
+      <ul>
+        <li>
+          <b>Testfall: Prüfen, ob das Crawlen einer größeren geographischen Einheit funktioniert. (JUnit)</b>
+        </li>
+        <li>
+          Vorbedingungen: Die Webseite des Service-Anbieters muss online sein. Es wird die Testdatenbank anstelle der Produktivdatenbank verwendet.
+        </li>
+        <li>
+          Testszenario: Durch den Aufruf der crawlBox()-Funktion wird das Crawlen der gegebenen geographischen Region begonnen. Nachdem dies abgeschlossen ist,
+          müssen sich die Objekte in dieser Region von dem verwendeten Service in der Datenbank befinden. Dies kann (teilweise) über JUnit getestet werden,
+          indem überpüft wird, ob sich bestimmte bekannte Objekte aus dieser Region in der Datenbank finden lassen.
+        </li>
+        <li>Auswirkungen: Testdatenbank wird verändert. Keine Auswirkungen für die Produktiv-Datenbank.</li>
+      </ul>      
+    </section>
+    
+    <section name="Integrationstests (bis 18.06.2009)">
+      Die Integrationstests werden anhand der Anwendungsfälle durchgeführt. Unter den dort genannten Vorbedingungen müssen sich die beschriebenen
+      Use-Case-Szenarien fehlerfrei ausführen lassen. JUnit-Tests sind hierbei nicht möglich.
+    </section>
+  </body>
+</document>
+
+
