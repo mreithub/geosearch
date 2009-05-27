@@ -84,7 +84,6 @@ public class GeoManager implements IGeoManager {
 	 * @param what eg.: kirche
 	 */
 	public void search(String where, String what) {
-		System.out.println("where what");
 		myWhat=what;
 		geoMap.search(where);
 		search(myWhat);
@@ -95,7 +94,6 @@ public class GeoManager implements IGeoManager {
 	 * @param what eg.: kirche
 	 */
 	public void search(String what) {
-		System.out.println("what");
 		objectSearch.search(myBound, what.trim(), new AsyncCallback<SearchResult>()
 				{
 					public void onFailure(Throwable arg0) {
