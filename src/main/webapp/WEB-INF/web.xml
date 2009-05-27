@@ -20,12 +20,12 @@
   
   <servlet-mapping>
     <servlet-name>SandBoxServiceImpl</servlet-name>
-    <url-pattern>/geosearch/sandboxarray</url-pattern>
+    <url-pattern>/geoSearch/sandboxarray</url-pattern>
   </servlet-mapping>
   
     <servlet-mapping>
     <servlet-name>ObjectSearchServiceImpl</servlet-name>
-    <url-pattern>/geosearch/objectsearch</url-pattern>
+    <url-pattern>/geoSearch/objectsearch</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>

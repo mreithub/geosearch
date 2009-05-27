@@ -13,6 +13,7 @@
 	<url>http://maven.apache.org</url>
 	<pluginRepositories>
 		<pluginRepository>
+			<!--needed for gwt-maven-plugin-->
 			<id>codehaus-snapshot-repo</id>
 			<name>Codehaus Snapshot Repo</name>
 			<url>http://snapshots.repository.codehaus.org</url>
@@ -91,7 +92,32 @@
 				<version>1.1-SNAPSHOT</version>
 				<configuration>
 					<runTarget>at.fakeroot.sepm.geoSearch/index.html</runTarget>
+					<hostedWebapp>${basedir}/target/war</hostedWebapp>
 				</configuration>
+			</plugin>
+			<plugin>
+				<!-- used to copy web.xml to target/war/WEB-INF -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>copy-webxml</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/war/WEB-INF/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/webapp/WEB-INF/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
