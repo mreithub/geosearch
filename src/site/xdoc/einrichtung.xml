@@ -102,7 +102,7 @@
 					<li>Dialog mit "Ok" bestätigen</li>
 					<li>Daraufhin sollte sich wieder ein neuer Eintrag in die Liste hinzufügen und aufklappen</li>
 					<li>
-						Hier wieder alles auswählen (bis auf Maven Integration for AJDT, die verursacht Konflikte):
+						Hier wieder alles auswählen (bis auf Maven Integration for AJDT, die verursacht Konflikte):<br />
 						<img src="images/setup/m2eclipse-update.png" alt="m2eclips software update tree" />
 					</li>
 					<li>Auf "Install..." klicken</li>
