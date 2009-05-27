@@ -8,6 +8,8 @@ import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
 
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.shared.GwtEvent;
+
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.ControlAnchor;
@@ -29,6 +31,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	private MapWidget geoMap;
 	private Geocoder geoCoder;
 	private ArrayList<GeoPin> geoPins;
+	private boolean blockEventHandler;
 	
 	/**
 	 * Constructor.
@@ -72,7 +75,11 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		//Create the geoCoder which is required to search for locations.
 		geoCoder = new Geocoder();
 		
+		//Create the geoPin array.
 		geoPins = new ArrayList<GeoPin>();
+		
+		//Set the block variable to false.
+		blockEventHandler = false;
 	}
 	
 	/**
@@ -98,6 +105,8 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 				{
 					if (locations.length() == 0)
 						return;
+					
+					blockEventHandler = true;
 					geoMap.setCenter(locations.get(0).getPoint());
 					int resultType = locations.get(0).getAccuracy();
 					if (resultType == GeoAddressAccuracy.COUNTRY)
@@ -116,15 +125,14 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 						geoMap.setZoomLevel(15);
 					else if (resultType == GeoAddressAccuracy.ADDRESS)
 						geoMap.setZoomLevel(16);
+					blockEventHandler = false;
+					onMoveEnd(null);
 				}
 				
 				public void onFailure(int statusCode)
 				{
 				}
 			});
-				
-		//Send the new BoundingBox to the GeoManager.
-		geoManager.setBoundingBox(getBoundingBox());
 	}
 	
 	/**
@@ -177,6 +185,8 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	 */
 	public void onMoveEnd(MapMoveEndEvent event)
 	{
+		if (blockEventHandler)
+			return;
 		geoManager.setBoundingBox(getBoundingBox());
 	}
 	

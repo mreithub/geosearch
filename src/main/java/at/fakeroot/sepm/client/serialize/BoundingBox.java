@@ -28,10 +28,29 @@ public class BoundingBox implements IsSerializable
 	 */
 	public BoundingBox(double x1, double y1, double x2, double y2)
 	{
-		this.x1 = x1;
-		this.y1 = y1;
-		this.x2 = x2;
-		this.y2 = y2;
+		//Make sure the bounding box uses (x1, y1) as left upper point and
+		//(x2, y2) as right lower point.
+		if (x1 <= x2)
+		{
+			this.x1 = x1;
+			this.x2 = x2;
+		}
+		else
+		{
+			this.x1 = x2;
+			this.x2 = x1;
+		}
+		
+		if (y1 <= y2)
+		{
+			this.y1 = y1;
+			this.y2 = y2;
+		}
+		else
+		{
+			this.y1 = y2;
+			this.y2 = y1;
+		}
 	}
 	
 	/**

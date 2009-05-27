@@ -43,27 +43,24 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 		
 		for(ClientGeoObject cgo : fakeDB)
 		{
-			if(cgo.getXPos() >= box.getX1() && cgo.getYPos() >= box.getY1() && cgo.getXPos() <= box.getX2())
-					//&& cgo.getYPos() <= box.getY2())
+			if(cgo.getXPos() >= box.getX1() && cgo.getYPos() >= box.getY1() && cgo.getXPos() <= box.getX2() && cgo.getYPos() <= box.getY2())
 			{
 				
 				boolean matches = true;
-				for(int i=0; i < tags.length; i++)
-				{
-					boolean tagMatch = false;
-					String[] cgoTags = cgo.getTags();
-					for(int j = 0; j < cgoTags.length; j++)
-					{
-						if(tags[i].equals(cgoTags[j]))
-						{
-							tagMatch = true;
+				if (tags.length != 1 || !tags[0].equals("")) {
+					for (int i = 0; i < tags.length; i++) {
+						boolean tagMatch = false;
+						String[] cgoTags = cgo.getTags();
+						for (int j = 0; j < cgoTags.length; j++) {
+							if (tags[i].equals(cgoTags[j])) {
+								tagMatch = true;
+								break;
+							}
+						}
+						if (tagMatch == false) {
+							matches = false;
 							break;
-						}		
-					}
-					if(tagMatch == false)
-					{
-						matches = false;
-						break;
+						}
 					}
 				}
 				if(matches == true)
