@@ -108,7 +108,14 @@ public class GeoObject implements IsSerializable {
 		yPos = pos;
 	}
 	
-	
+	public String[] getTags() {
+		return tags;
+	}
+
+	public void setTags(String[] tags) {
+		this.tags = tags;
+	}
+
 	public String toString() {
 		return "id: "+id+", titel: "+titel+", xPos(lng): "+xPos+", yPos(lat): "+yPos;
 	}

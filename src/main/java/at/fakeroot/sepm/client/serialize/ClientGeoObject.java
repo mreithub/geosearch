@@ -28,29 +28,20 @@ public class ClientGeoObject extends GeoObject implements IsSerializable {
 	public ClientGeoObject(int id, String titel, String imageUrl, String[] tags, double xPos, double yPos){
 		super(id,titel,xPos,yPos);
 		this.imageUrl=imageUrl;
-		this.tags=tags;
+		setTags(tags);
 	}
 
 	public String getImageUrl() {
 		return imageUrl;
 	}
 
-
-	public String[] getTags() {
-		return tags;
-	}
-
-
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 
-
-	public void setTags(String[] tags) {
-		this.tags = tags;
-	}
 	
 	public String toString() {
+		String tags[] = getTags();
 		String sTag="[";
 		for(int i=0;i<tags.length;i++){
 			sTag+=tags[i]+", ";

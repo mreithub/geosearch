@@ -20,7 +20,7 @@ public class DBGeoObject extends GeoObject {
 		this.link=link;
 		this.valid_until=valid_until;
 		this.properties=properties;
-		this.tags=tags;
+		setTags(tags);
 	}
 
 	public int getSvc_id() {
@@ -42,12 +42,4 @@ public class DBGeoObject extends GeoObject {
 	public Property[] getProperties() {
 		return properties;
 	}
-
-	public String[] getTags() {
-		return tags;
-	}
-	
-	
-	
-	
 }
