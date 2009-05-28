@@ -2,6 +2,11 @@ package at.fakeroot.sepm.client.serialize;
 
 import junit.framework.TestCase;
 
+/**
+ * ObjectDetails JUnit Test
+ * @author JB
+ *
+ */
 public class ObjectDetailsTest extends TestCase {
 
 	public String getModulName(){

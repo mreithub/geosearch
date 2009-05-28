@@ -2,6 +2,11 @@ package at.fakeroot.sepm.client.serialize;
 
 import junit.framework.TestCase;
 
+/**
+ * ClientGeoObject JUnit Test
+ * @author JB
+ *
+ */
 public class ClientGeoObjectTest extends TestCase {
 
 	

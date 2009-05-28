@@ -2,6 +2,11 @@ package at.fakeroot.sepm.server;
 
 import junit.framework.TestCase;
 
+/**
+ * DBGEoObject JUnit Test
+ * @author JB
+ *
+ */
 public class DBGeoObjectTest extends TestCase {
 
 	public String getModulName(){
