@@ -1,1 +1,1 @@
-CREATE ROLE geoSearch_web WITH PASSWORD 'geoSearch' LOGIN;
+CREATE ROLE ${psql.user} WITH PASSWORD '${psql.pwd}' LOGIN;

@@ -5,4 +5,4 @@ CREATE TABLE expiringObject (
 	FOREIGN KEY (obj_id) REFERENCES geoObject (obj_id)
 );
 
-ALTER TABLE expiringObject OWNER TO geoSearch_web;
+ALTER TABLE expiringObject OWNER TO ${psql.user};

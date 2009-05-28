@@ -11,4 +11,4 @@ CREATE TABLE service (
 	FOREIGN KEY (stype_id) REFERENCES serviceType (stype_id)
 );
 
-ALTER TABLE service OWNER TO geoSearch_web;
+ALTER TABLE service OWNER TO ${psql.user};

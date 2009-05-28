@@ -5,4 +5,4 @@ CREATE TABLE serviceTag (
 	FOREIGN KEY (svc_id) REFERENCES service (svc_id)
 );
 
-ALTER TABLE serviceTag OWNER TO geoSearch_web;
+ALTER TABLE serviceTag OWNER TO ${psql.user};

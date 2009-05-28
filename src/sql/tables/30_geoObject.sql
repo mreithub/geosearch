@@ -10,4 +10,4 @@ CREATE TABLE geoObject (
 	FOREIGN KEY (svc_id) REFERENCES service (svc_id)
 );
 
-ALTER TABLE geoObject OWNER TO geoSearch_web;
+ALTER TABLE geoObject OWNER TO ${psql.user};

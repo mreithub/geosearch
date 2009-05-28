@@ -5,4 +5,4 @@ CREATE TABLE objectTag (
 	FOREIGN KEY (obj_id) REFERENCES geoObject (obj_id)
 );
 
-ALTER TABLE objectTag OWNER TO geoSearch_web;
+ALTER TABLE objectTag OWNER TO ${psql.user};

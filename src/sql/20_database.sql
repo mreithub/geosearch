@@ -1,3 +1,3 @@
-CREATE DATABASE geoSearch;
+CREATE DATABASE ${psql.db};
 
-ALTER DATABASE geoSearch OWNER TO geoSearch_web;
+ALTER DATABASE ${psql.db} OWNER TO ${psql.user};

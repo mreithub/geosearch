@@ -5,4 +5,4 @@ CREATE TABLE serviceType (
 	PRIMARY KEY (stype_id)
 );
 
-ALTER TABLE serviceType OWNER TO geoSearch_web;
+ALTER TABLE serviceType OWNER TO ${psql.user};
