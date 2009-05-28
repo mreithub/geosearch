@@ -138,4 +138,18 @@
 	<properties>
 		<gwt.version>1.6.4</gwt.version>
 	</properties>
+	<profiles>
+		<profile>
+			<id>dbtest</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<psql.host>fakeroot.at</psql.host>
+				<psql.db>geosearch_test</psql.db>
+				<psql.user>geosearch_test</psql.user>
+				<psql.pwd>Waerie4Petei4eey</psql.pwd>
+			</properties>
+		</profile>
+	</profiles>
 </project>
