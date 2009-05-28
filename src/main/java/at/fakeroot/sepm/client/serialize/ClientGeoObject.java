@@ -9,7 +9,6 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class ClientGeoObject extends GeoObject implements IsSerializable {
 	String imageUrl;
-	String[] tags;
 	
 	
 	/**

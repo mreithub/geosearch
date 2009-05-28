@@ -14,6 +14,7 @@ public class GeoObject implements IsSerializable {
 	private String titel;
 	private double xPos;
 	private double yPos;
+	private String tags[];
 	
 	/**
 	 * StandardConstruction. Is required for the serializeation

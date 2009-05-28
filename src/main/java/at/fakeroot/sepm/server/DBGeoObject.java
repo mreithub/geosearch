@@ -13,7 +13,6 @@ public class DBGeoObject extends GeoObject {
 	private String link;
 	private String valid_until;
 	private Property[] properties;
-	private String[] tags;
 	
 	public DBGeoObject(int serviceID, int uniqueID, String link, String valid_until, Property[] properties, String[] tags){
 		svc_id= serviceID;
