@@ -48,7 +48,7 @@ public class DBConnection {
 		}
 	}
 	
-	public Connection getConn() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		if (dbConn == null) {
 			dbConn = dataSource.getPooledConnection().getConnection();
 			if (isTesting) {
