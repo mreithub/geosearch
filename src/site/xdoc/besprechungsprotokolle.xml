@@ -289,6 +289,85 @@
             </ul>
           </subsection>
       </section>
+      <section name="Besprechungsprotokoll MR2: 29.05.2009">
+        <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Christian Mastnak, Manuel Reithuber</i>
+        <subsection name="Testen">
+          <ul>
+            <li>bisherigen Beschreibungen der JUnit Tests in die Kommentare im Code einbauen</li>
+            <li>Testplan beinhaltet wie getestet wird: mittels JUnit, CodeReview, Funktionalen Testfällen (Anwendungsfälle sollen durchgespielt
+            werden zB Testfall 1 = UC Punkt 1)</li>
+            <li>bei jedem Testfall müssen die Testdaten, die eingegeben werden, mit angegeben werden</li>
+            <li>in Testplan dargelegt, wann welche Tests durchgeführt werden (zB JUnit während/bzw vor dem progarmmieren, Funktionale 
+            Testfälle, wenn alle nötigen Komponenten fertig sind,...)</li>
+            <li>Zuständigkeiten müssen geklärt werden, es darf nicht die selbe Person die Klasse schreiben und testen (speziell funktionale Tests)</li>
+            <li>im Testbericht alle Tests aufgeschlüsselt und farblich gekennzeichnet welche durchlaufen und welche nicht
+             (grüner Balken gibt an wie viele Tests passen)</li>
+          </ul>
+        </subsection>
+        <subsection name="MR2: Anregungen">
+          <ul>
+            <li>Zurück-Button wäre interessant (zB Tag durch klick auf TagCloud hinzugefügt, Suche durchgeführt, durch 
+            Zurück-Button wieder wegenommen und ursprüngliche Suche durchgeführt)</li>
+            <li>Umfang begrenzt auf Österreich durchaus interessant, vielleicht besteht lokal ein Interesse das Service zu nutzen</li>
+            <li>in Komponenetendiagramm sollte Business-Logic besser sichtbar sein (evtl. durch Reverse Engineering)</li>
+            <li>für Code Review bei Prof. Schatten: Klassendiagramm, Komponentendiagramm Reverse Engineering, damit Code leichter zu erklären</li>
+            <li>Termin für MR3 voraussichtlich um 26.06.2009</li>
+          </ul>
+        </subsection>
+      </section>
+      <section name="Besprechungsprotokoll: 29.05.2009">
+        <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Manuel Reithuber</i>
+        <subsection name="Änderungen / Festlegungen">
+          <ul>
+            <li>in BubbleHTML durch %...% gekennzeichnete values (ObjectSearch)</li>
+            <li>ServerManagement und DAO am gleichen Server - kein RPC</li>
+            <li>Datenfeld Tags[] in <b>ClientGeoObject</b> und <b>DBGeoObject</b> herausgenommen und zu <b>GeoObject</b> hinzugefügt 
+            (gemeinsam mit Gettern und Settern)</li>
+            <li>
+              <b>GeoSave</b> beinhaltet die Methode 'save', <b>GeoObjectManager</b> hat nur insert und update</li>
+            <li>in DAO werden preparedStatments verwendet</li>
+            <li>Datenbank Connection regelt begin/rollback in der Testdatenbank</li>
+            <li>
+              <b>TagCloud</b> soll eine maximale Anzahl von angezeigten Tags haben</li>
+            <li>in <b>GeoMap</b> evtl. ein Bug, bitte überprüfen</li>
+            <li>
+              <b>GeoPin</b> so ändern, dass unterschiedliche Bilder für die Service-Arten angezeigt werden können; Bilder in Pfad 
+            public/images/pin</li>
+            <li>
+              <b>SearchBox</b> mit trim() Funktion</li>
+            <li>
+              <b>ResultInfoBox</b>, nicht 3/3; wenn alle Ergebnisse angezeigt, nicht 'für Details hineinzoomen' anzeigen</li>
+            <li>
+              <b>ObjectSearch</b> getGeoObject() löschen</li>
+            <li>DBConnection verwendet Connection Pooling, es wird zwar dbConnect() un disconnect() aufgerufen, aber Connection wird
+            nicht wirklich geschlossen, sondern nur zurückgegeben</li>
+            <li>
+              <b>GeoObjectManager</b> es wird zB jede Stunde überprüft, ob ein Objekt länger als 6 Stunden abgelaufen ist; 
+              select sucht nur nach aktuellen Objekten, dadurch werden alte Objekte unzugänglich gemacht, aber in Datenbank weiter gespeichert
+            </li>
+            <li>
+              <b>Crawler</b> in einem 2. Projekt, als Subprojekt (Problem Maven); abstrakte Klasse kümmert sich um Verbindung zu GeoSave;
+              verwendet Java RPC; in abstrakter Klasse eine Methode getHTML / getHTTPRequest
+            </li>
+            <li>
+              <b>ServiceManager</b> als Rückgabewert DBServiceObject; Crawler und ObjSearch greifen darauf zu
+            </li>
+            <li>
+              <b>BoundingBox</b> ändern (Eckpunkte anpassen)
+            </li>
+          </ul>
+        </subsection>
+        <subsection name="Arbeitsverteilung">
+          <i>bitte oben überprüfen, ob frühere Klassen von euch geändert werden müssen!</i>
+          <ul>
+            <li>Anca: GeoObjectManager, Panoramio-Crawler, Testplan</li>
+            <li>Jürgen: abstract Crawler</li>
+            <li>Manuel: Projekt für Crawler einrichten, DBConnection Feinschliff</li>
+            <li>Mathias: BoundingBox, GeoSave, LastFM-Crawler</li>
+            <li>Ruth: ServiceManager, Wikipedia-Crawler</li>
+          </ul>
+        </subsection>
+      </section>
     </section>
 	</body>
 </document>
