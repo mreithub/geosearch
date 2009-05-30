@@ -2,10 +2,14 @@ package at.fakeroot.sepm.client;
 
 import at.fakeroot.sepm.client.serialize.*;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,6 +27,31 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author Manuel Reithuber
  */
 public class TagCloud extends Composite implements ClickHandler {
+	private class ValueComparator implements Comparator<String> {
+		Map<String, Integer> m_map;
+		
+		private ValueComparator(Map<String, Integer> map) {
+			m_map = map;
+		}
+		
+		@Override
+		public int compare(String key1, String key2) {
+			int v1 = m_map.get(key1);
+			int v2 = m_map.get(key2);
+
+			int rc = 1;
+			if (v1 < v2) rc = -1;
+			else if (v1 == v2) {
+				int h1 = key1.hashCode();
+				int h2 = key2.hashCode();
+				
+				if (h1 < h2) rc = -1;
+				else if (h1 == h2) rc = 0;
+			}
+			return rc;
+		}
+	}
+
 	/**
 	 * Panel in which the tags are drawn
 	 */
@@ -85,15 +114,41 @@ public class TagCloud extends Composite implements ClickHandler {
 	}
 	
 	/**
+	 * If there are more than 20 tags in the TagCloud, remove those with the least reference count
+	 */
+	private void cleanupTags() {
+		if (tagStat.size() > 20) {
+			ValueComparator comp = new ValueComparator(tagStat);
+			TreeMap<String, Integer> tmp = new TreeMap<String, Integer>(comp);
+			
+			tmp.putAll(tagStat);
+
+			Set<String> keys = tmp.keySet();
+			Iterator<String> it = keys.iterator();
+
+			int i = 0;
+			while (tagStat.size() > 20 && it.hasNext()) {
+				String k = it.next();
+				if (k != null) {
+					tagStat.remove(k);
+				}
+				i++;
+			}
+		}
+	}
+	
+	/**
 	 * creates Anchor widgets for the tags, resizes them based on their reference count and adds ClickHandlers to them
 	 * 
 	 * Internal function, called by refresh()
 	 */
 	private void drawTags() {
-		Style s;
+		Style s = null;
 		Anchor a;
 		String tag;
 		int i;
+		
+		cleanupTags();
 		
 		Set<String> c = tagStat.keySet();
 		
@@ -118,11 +173,13 @@ public class TagCloud extends Composite implements ClickHandler {
 			a.setTitle(tag);
 			a.setHref("javascript:void()");
 
-			s = a.getElement().getStyle();
+			Element e = a.getElement();
+			if (e != null) s = e.getStyle();
+			else s = null;
 			// calculation source: German Wikipedia
 			if (max > min) fontsize = (int) (70+Math.ceil(130*(tagStat.get(tag)-min))/(max-min));
 
-			s.setProperty("fontSize", fontsize+"%");
+			if (s != null) s.setProperty("fontSize", fontsize+"%");
 
 			a.addClickHandler(this);
 			tagPanel.add(a);
