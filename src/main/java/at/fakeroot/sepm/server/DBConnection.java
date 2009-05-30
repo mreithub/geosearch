@@ -42,9 +42,8 @@ public class DBConnection {
 		if (dbConn != null) {
 			if (isTesting) {
 				// rollback transaction
-				dbConn.setAutoCommit(true);
-		//		Statement s = dbConn.createStatement();
-		//		s.execute("ROLLBACK");
+				Statement s = dbConn.createStatement();
+				s.execute("ROLLBACK");
 			}
 			dbConn.close();
 		}
@@ -55,9 +54,8 @@ public class DBConnection {
 			dbConn = dataSource.getPooledConnection().getConnection();
 			if (isTesting) {
 				// begin transaction
-				dbConn.setAutoCommit(false);
-				//Statement s = dbConn.createStatement();
-				//s.execute("BEGIN");
+				Statement s = dbConn.createStatement();
+				s.execute("BEGIN");
 			}
 		}
 		return dbConn;
