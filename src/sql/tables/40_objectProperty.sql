@@ -1,3 +1,5 @@
+BEGIN;
+
 CREATE TABLE objectProperty (
 	obj_id	bigint		NOT NULL,
 	name	varchar(255)	NOT NULL,
@@ -7,3 +9,5 @@ CREATE TABLE objectProperty (
 );
 
 ALTER TABLE objectProperty OWNER TO ${psql.user};
+
+COMMIT;

@@ -1,3 +1,5 @@
+BEGIN;
+
 CREATE TABLE expiringObject (
 	obj_id		bigint		NOT NULL,
 	valid_until	timestamp	NOT NULL,
@@ -6,3 +8,5 @@ CREATE TABLE expiringObject (
 );
 
 ALTER TABLE expiringObject OWNER TO ${psql.user};
+
+COMMIT;

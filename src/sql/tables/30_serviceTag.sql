@@ -1,3 +1,5 @@
+BEGIN;
+
 CREATE TABLE serviceTag (
 	svc_id		integer		NOT NULL,
 	tag		varchar(255)	NOT NULL,
@@ -6,3 +8,5 @@ CREATE TABLE serviceTag (
 );
 
 ALTER TABLE serviceTag OWNER TO ${psql.user};
+
+COMMIT;

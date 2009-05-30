@@ -1,3 +1,5 @@
+BEGIN;
+
 CREATE TABLE geoRoute (
 	obj_id		bigint		NOT NULL,
 	route		path		NOT NULL,
@@ -6,3 +8,5 @@ CREATE TABLE geoRoute (
 );
 
 ALTER TABLE geoRoute OWNER TO ${psql.user};
+
+COMMIT;

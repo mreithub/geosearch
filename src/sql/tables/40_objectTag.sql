@@ -1,3 +1,5 @@
+BEGIN;
+
 CREATE TABLE objectTag (
 	obj_id	bigint		NOT NULL,
 	tag	varchar(255)	NOT NULL,
@@ -6,3 +8,5 @@ CREATE TABLE objectTag (
 );
 
 ALTER TABLE objectTag OWNER TO ${psql.user};
+
+COMMIT;
