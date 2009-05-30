@@ -5,6 +5,7 @@ package at.fakeroot.sepm.server;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -41,8 +42,9 @@ public class DBConnection {
 		if (dbConn != null) {
 			if (isTesting) {
 				// rollback transaction
-				Statement s = dbConn.createStatement();
-				s.execute("ROLLBACK");
+				dbConn.setAutoCommit(true);
+		//		Statement s = dbConn.createStatement();
+		//		s.execute("ROLLBACK");
 			}
 			dbConn.close();
 		}
@@ -53,18 +55,19 @@ public class DBConnection {
 			dbConn = dataSource.getPooledConnection().getConnection();
 			if (isTesting) {
 				// begin transaction
-				Statement s = dbConn.createStatement();
-				s.execute("BEGIN");
+				dbConn.setAutoCommit(false);
+				//Statement s = dbConn.createStatement();
+				//s.execute("BEGIN");
 			}
 		}
 		return dbConn;
 	}
 	
 	public PreparedStatement prepareStatement(String stmt) throws SQLException {
-		return getConn().prepareStatement(stmt);
+		return getConnection().prepareStatement(stmt);
 	}
 	
 	public Statement createStatement() throws SQLException {
-		return getConn().createStatement();
+		return getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 }
