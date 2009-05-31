@@ -124,19 +124,8 @@
 						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
 			</plugin>
 		</plugins>
-		
-		<resources>
-			<resource>
-				<directory>${basedir}/src/sql</directory>
-				<targetPath>${basedir}/target/sql</targetPath>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 	</build>
 	<scm>
 		<developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk</developerConnection>
