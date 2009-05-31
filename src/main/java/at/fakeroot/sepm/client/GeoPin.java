@@ -14,7 +14,7 @@ public class GeoPin extends Marker implements MarkerClickHandler
 {
 	private ClientGeoObject clientGeoObject;
 	private IGeoManager geoManager;
-	private static MarkerOptions markterOptions = MarkerOptions.newInstance();
+	private static MarkerOptions markerOptions = MarkerOptions.newInstance();
 	
 	/**
 	 * Constructor
@@ -23,8 +23,8 @@ public class GeoPin extends Marker implements MarkerClickHandler
 	 */
 	public GeoPin(IGeoManager geoManager, ClientGeoObject clientGeoObject)
 	{
-		super(clientGeoObject.getPoint(), markterOptions);
-		//super(clientGeoObject.getPoint(), markterOptions);
+		super(clientGeoObject.getPoint(), markerOptions);
+		//super(clientGeoObject.getPoint(), markerOptions);
 		this.clientGeoObject = clientGeoObject;
 		this.geoManager = geoManager;
 		addMarkerClickHandler(this);
@@ -32,8 +32,8 @@ public class GeoPin extends Marker implements MarkerClickHandler
 		//MakerOptions
 		Icon markerIcon = Icon.newInstance("images/pin/"+clientGeoObject.getImageUrl());
 		markerIcon.setIconAnchor(Point.newInstance(13, 40));
-		markterOptions.setIcon(markerIcon);
-		markterOptions.setTitle(clientGeoObject.getTitel());
+		markerOptions.setIcon(markerIcon);
+		markerOptions.setTitle(clientGeoObject.getTitel());
 	}
 	
 	/**
