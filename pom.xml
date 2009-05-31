@@ -129,6 +129,19 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources/at/fakeroot/sepm/public</directory>
+				<targetPath>${basedir}/target/war/geoSearch</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/sql</directory>
+				<targetPath>${basedir}/target/sql</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			
+		</resources>
 	</build>
 	<scm>
 		<developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk</developerConnection>
