@@ -14,7 +14,8 @@ public class DBService {
 	private String description;
 	private int sType_id;
 	private String bubbleHTML;
-	
+	private String[] tags;
+
 	public DBService(int _svc_id, String _name, String _title, String _homepage, String _description, int _sType_id, String _bubbleHTML ){
 		svc_id=_svc_id;
 		name=_name;
@@ -53,7 +54,13 @@ public class DBService {
 		return bubbleHTML;
 	}
 	
-	
+	public String[] getTags() {
+		return tags;
+	}
+
+	public void setTags(String[] tags) {
+		this.tags = tags;
+	}
 	
 	
 }

@@ -11,14 +11,16 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ResultInfoBox extends Composite
 {
 	Label numText;
+	Label zoomText;
 	
 	public ResultInfoBox()
 	{
 		VerticalPanel vPanel = new VerticalPanel();
 		numText = new Label();
 		numText.setSize("200px", "30px");
-		Label zoomText = new Label("Fuer Details bitte hineinzoomen!");
+		zoomText = new Label("Fuer Details bitte hineinzoomen!");
 		zoomText.setSize("200px", "30px");
+		zoomText.setVisible(false);
 		vPanel.add(numText);
 		vPanel.add(zoomText);
 		initWidget(vPanel);
@@ -35,8 +37,16 @@ public class ResultInfoBox extends Composite
 		if(shown == 0)
 			numText.setText("Ihre Suche ergab keinen Treffer.");
 		else if(shown == 1)
-			numText.setText("" + shown + " Ergebnis von " + available);
+			numText.setText(shown + " Ergebnis");
 		else
-			numText.setText(shown + " Ergebnisse von " + available);
+		{
+			if(shown == available)
+				numText.setText(shown + " Ergebnisse");
+			else
+			{
+				numText.setText(shown + " Ergebnisse von " + available);
+				zoomText.setVisible(true);
+			}
+		}
 	}
 }
