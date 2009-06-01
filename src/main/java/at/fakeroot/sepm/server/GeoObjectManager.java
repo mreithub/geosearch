@@ -4,6 +4,11 @@ import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.GeoObject;
 import at.fakeroot.sepm.client.serialize.SearchResult;
 
+/**
+ * 
+ * DUMMY KLASSE UM COMPILE FEHLER ZU VERHINDERN
+ *
+ */
 public class GeoObjectManager 
 {
 	private static GeoObjectManager geoObjManager = null;
