@@ -27,9 +27,19 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author Manuel Reithuber
  */
 public class TagCloud extends Composite implements ClickHandler {
+	/**
+	 * Comparator class that compares the tag statistic elements by their reference count.
+	 * Used to sort the tag list by reference count to remove the least frequent ones if necessary.
+	 *   
+	 * @author Manuel Reithuber
+	 */
 	private class ValueComparator implements Comparator<String> {
 		Map<String, Integer> m_map;
 		
+		/**
+		 * Constructor
+		 * @param map tagStat Map
+		 */
 		private ValueComparator(Map<String, Integer> map) {
 			m_map = map;
 		}
@@ -202,7 +212,17 @@ public class TagCloud extends Composite implements ClickHandler {
 		}
 
 		tagPanel.clear();
-		drawTags();
+
+		if (tagStat.size() > 0) {
+			drawTags();
+		}
+		else {
+			Label l = new Label("No tags found!");
+			Element e = l.getElement();
+			e.setAttribute("fontVariant", "italic");
+			e.setAttribute("color", "#ccc");
+			tagPanel.add(l);
+		}
 	}
 
 	/**
