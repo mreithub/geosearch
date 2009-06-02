@@ -14,8 +14,12 @@ public class DBGeoObjectTest extends TestCase {
 	}
 	
 	public void testSimple(){
+		int objID = 17;
+		String titel = "ein toller titel";
+		double xPos = 15.458;
+		double yPos = 54.302;
 		int svc_id = 1;
-		int uid = 2 ;
+		String uid = "unique ID (URL)";
 		String link ="link1";
 		String valid_until ="until1";
 		Property pTest1 = new Property("p_name1","p_value1");
@@ -23,10 +27,14 @@ public class DBGeoObjectTest extends TestCase {
 		Property[] properties = {pTest1,pTest2};
 		String[] tags = {"tag1","tag2"};
 		
-		DBGeoObject testObject = new DBGeoObject(svc_id,uid,link,valid_until,properties,tags);
+		DBGeoObject testObject = new DBGeoObject(objID, titel, xPos, yPos, svc_id, uid, link, valid_until, properties, tags);
 		
 		
 		assertNotNull(testObject);
+		assertEquals(objID, testObject.getId());
+		assertEquals(titel, testObject.getTitel());
+		assertEquals(xPos, testObject.getXPos());
+		assertEquals(yPos, testObject.getYPos());
 		assertEquals(svc_id, testObject.getSvc_id());
 		assertEquals(uid, testObject.getUid());
 		assertEquals(link, testObject.getLink());

@@ -9,12 +9,13 @@ import at.fakeroot.sepm.client.serialize.GeoObject;
 public class DBGeoObject extends GeoObject {
 
 	private int svc_id;
-	private int uid;
+	private String uid;
 	private String link;
 	private String valid_until;
 	private Property[] properties;
 	
-	public DBGeoObject(int serviceID, int uniqueID, String link, String valid_until, Property[] properties, String[] tags){
+	public DBGeoObject(int objID, String titel, double xPos, double yPos, int serviceID, String uniqueID, String link, String valid_until, Property[] properties, String[] tags){
+		super(objID, titel, xPos, yPos);
 		svc_id= serviceID;
 		uid=uniqueID;
 		this.link=link;
@@ -27,7 +28,7 @@ public class DBGeoObject extends GeoObject {
 		return svc_id;
 	}
 
-	public int getUid() {
+	public String getUid() {
 		return uid;
 	}
 

@@ -23,7 +23,7 @@ public class GeoSave
 		//the service ID and the service object ID, but not the object ID itself.
 		
 		//There mustn't exist any object ID within this object.
-		obj.setId(-1);
+		obj.setId(0);
 		
 		DBGeoObject selectObj = GeoObjectManager.getInstance().select(obj);
 		if (selectObj == null)

@@ -51,7 +51,7 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	 */
 	public ObjectDetails getDetailHTML(int objId)
 	{
-		DBGeoObject dbGeoObj = geoObjManager.select(new GeoObject(objId, null, 0, 0));
+		DBGeoObject dbGeoObj = geoObjManager.select(new DBGeoObject(objId, null, 0, 0, 0, null, null, null, null, null));
 		DBService dbSvcObj = svcManager.select(dbGeoObj.getSvc_id());
 		String html = dbSvcObj.getBubbleHTML();
 		int begin = 0;
