@@ -35,8 +35,10 @@ public class DBConnectionTest extends TestCase {
 			// make sure that the DB transaction is rolled back before we run an assert 
 			assertEquals(5, rowcount);
 		}
-		catch (SQLException e) {
-			assertTrue("SQL Exception: "+e.getMessage(), false);
+		catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception: "+e.getMessage());
+			
 		}
 		finally {
 			try {

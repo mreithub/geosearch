@@ -3,20 +3,24 @@
  */
 package at.fakeroot.sepm.server;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import javax.sql.ConnectionPoolDataSource;
 
 import org.postgresql.ds.PGConnectionPoolDataSource;
 
 /**
+ * Provides a Database Connection
+ * This class uses a static connection pool that is shared by all DBConnection objects.
+ *
  * @author Manuel Reithuber
- * 
- * @note This class uses pooled connections.
  * 
  */
 public class DBConnection {
@@ -25,14 +29,22 @@ public class DBConnection {
 	private static boolean isTesting = false;
 	private Connection dbConn;
 	
-	public DBConnection() throws SQLException {
+	public DBConnection() throws SQLException, IOException {
 		if (dataSource == null)	{
+			Properties prop = new Properties();
 			// Database initialization @TODO dynamically get DB config
 			PGConnectionPoolDataSource ds = new PGConnectionPoolDataSource();
-			ds.setServerName("fakeroot.at");
-			ds.setDatabaseName("geosearch_test");
-			ds.setUser("geosearch_test");
-			ds.setPassword("Waerie4Petei4eey");
+			
+			InputStream propStream = getClass().getResourceAsStream("/WEB-INF/jdbc.properties");
+			if (propStream == null) {
+				throw new IOException("Error: Couldn't open property file 'jdbc.properties'");
+			}
+			prop.load(propStream);
+
+			ds.setServerName(prop.getProperty("host"));
+			ds.setDatabaseName(prop.getProperty("db"));
+			ds.setUser(prop.getProperty("user"));
+			ds.setPassword(prop.getProperty("pwd"));
 			dataSource = ds;
 			isTesting = true;
 		}
