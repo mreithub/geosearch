@@ -75,7 +75,9 @@ public class GeoManager implements IGeoManager {
 	 * @param tag 
 	 */
 	public void addSearchTag(String tag) {
-		this.searchBox.setWhat(searchBox.getWhat()+" "+tag);
+		if(searchBox.getWhat().equals(""))
+			searchBox.setWhat(tag);
+		else searchBox.setWhat(searchBox.getWhat()+" "+tag);
 		
 	}
 

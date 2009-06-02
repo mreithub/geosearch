@@ -113,7 +113,7 @@ public class SearchBox extends Composite{
 	public String getWhere(){
 		String rc="";
 		if(!where.getText().equals("Where?"))
-			rc=where.getText();
+			rc=where.getText().trim();
 		 return rc;
 	}
 	
@@ -124,7 +124,7 @@ public class SearchBox extends Composite{
 	public String getWhat(){
 		String rc="";
 		if(!what.getText().equals("What?"))
-			rc=what.getText();
+			rc=what.getText().trim();
 		return rc;
 	}
 	
@@ -142,8 +142,8 @@ public class SearchBox extends Composite{
 	 * Adds String to the what-TextBox for the tag search
 	 * @param whatStr 
 	 * */	
-	public void setWhat(String whereStr){
-		what.setText(whereStr);
+	public void setWhat(String whatStr){
+		what.setText(whatStr);
 		geoManager.search(getWhere(), getWhat());
 	}
 
