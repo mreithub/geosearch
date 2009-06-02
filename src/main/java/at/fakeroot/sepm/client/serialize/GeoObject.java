@@ -72,7 +72,7 @@ public class GeoObject implements IsSerializable {
 	 * @return
 	 */
 	public LatLng getPoint(){
-		return LatLng.newInstance(xPos, yPos);
+		return LatLng.newInstance(yPos, xPos);
 	}
 	
 	/**

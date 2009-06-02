@@ -89,7 +89,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	 */
 	public void setCenter(double x, double y)
 	{
-		geoMap.setCenter(LatLng.newInstance(x, y));
+		geoMap.setCenter(LatLng.newInstance(y, x));
 	}
 	
 	/**
@@ -197,10 +197,10 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	private BoundingBox getBoundingBox()
 	{
 		return(new BoundingBox(
+			geoMap.getBounds().getSouthWest().getLongitude(),
 			geoMap.getBounds().getSouthWest().getLatitude(),
 			geoMap.getBounds().getNorthEast().getLongitude(),
-			geoMap.getBounds().getNorthEast().getLatitude(),
-			geoMap.getBounds().getSouthWest().getLongitude()));
+			geoMap.getBounds().getNorthEast().getLatitude()));
 	}
 	
 	/**

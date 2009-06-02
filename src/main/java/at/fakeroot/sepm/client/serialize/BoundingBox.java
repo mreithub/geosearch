@@ -28,8 +28,7 @@ public class BoundingBox implements IsSerializable
 	 */
 	public BoundingBox(double x1, double y1, double x2, double y2)
 	{
-		//Make sure the bounding box uses (x1, y1) as left upper point and
-		//(x2, y2) as right lower point.
+		//Make sure the the coordinates of (x1, y1) are lower than for the point (x2, y2).
 		if (x1 <= x2)
 		{
 			this.x1 = x1;

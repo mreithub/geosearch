@@ -1,7 +1,6 @@
 package at.fakeroot.sepm.server;
 
 import at.fakeroot.sepm.client.serialize.BoundingBox;
-import at.fakeroot.sepm.client.serialize.GeoObject;
 import at.fakeroot.sepm.client.serialize.SearchResult;
 
 /**
@@ -33,13 +32,26 @@ public class GeoObjectManager
 		return geoObjManager;
 	}
 	
-	public DBGeoObject select(GeoObject geoObject)
+	public DBGeoObject select(DBGeoObject obj)
 	{
+		//Anmerkung:
+		//diese select-Funktion muss (zumindest) die Attribute obj_id, svc_id, uid beruecksichtigen
+		//(siehe Aufruf der Funktion in der GeoSave-Klasse).
 		return null;
 	}
 	
 	public SearchResult select(String[] tags, BoundingBox box, int limit)
 	{
 		return null;
+	}
+	
+	public void insert (DBGeoObject obj)
+	{
+	}
+	
+	public void update (DBGeoObject obj)
+	{
+		//Anmerkung: Identifikation des Objekts muss hier ueber das Attribut obj_id erfolgen
+		//(siehe Aufruf der Funktion in der GeoSave-Klasse).
 	}
 }
