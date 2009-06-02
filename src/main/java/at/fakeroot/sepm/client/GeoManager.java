@@ -2,6 +2,7 @@ package at.fakeroot.sepm.client;
 
 import at.fakeroot.sepm.client.serialize.BoundingBox;
 import at.fakeroot.sepm.client.serialize.ClientGeoObject;
+import at.fakeroot.sepm.client.serialize.ObjectDetails;
 import at.fakeroot.sepm.client.serialize.ObjectSearchService;
 import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
 import at.fakeroot.sepm.client.serialize.SearchResult;
@@ -97,7 +98,7 @@ public class GeoManager implements IGeoManager {
 		objectSearch.search(myBound, what.trim(), new AsyncCallback<SearchResult>()
 				{
 					public void onFailure(Throwable arg0) {
-						System.out.println( "" + arg0.getMessage() +"  error");	
+						System.err.println( "" + arg0.getMessage() +"  error");	
 					}
 
 					public void onSuccess(SearchResult result) {
@@ -126,17 +127,33 @@ public class GeoManager implements IGeoManager {
 	public void showDetailView(ClientGeoObject geoObject) {
 		System.out.println("showDetailView");
 		
-			final DetailView waitingDeVi = geoMap.createDetailView(geoObject);
-		///TODO benotigt ObjectDetail		
-			//detailView.setDetail(....);
-			final String wasSollISagen="testWaitsuper";
+		final DetailView waitingDeVi = geoMap.createDetailView(geoObject);
+		
+		objectSearch.getDetailHTML(10, new AsyncCallback<ObjectDetails>(){
+			public void onFailure(Throwable arg0) {
+				System.err.println( "" + arg0.getMessage() +"  error");	
+			}
+
+			public void onSuccess(ObjectDetails result) {
+				waitingDeVi.setDetail(result.getHTMLString());				
+			}
 			
-			Timer t = new Timer(){
-				public void run() {
-					waitingDeVi.setDetail(wasSollISagen+": "+Math.random());					
-				}				
-			};
-			t.schedule(1000);
+		});
+		
+		
+		///TODO benotigt ObjectDetail		
+		//detailView.setDetail(....);
+		/*
+		final String wasSollISagen="testWaitsuper";
+		
+		
+		Timer t = new Timer(){
+			public void run() {
+				waitingDeVi.setDetail(wasSollISagen+": "+Math.random());					
+			}				
+		};
+		t.schedule(1000);
+		*/
 	}
 	
 	/**

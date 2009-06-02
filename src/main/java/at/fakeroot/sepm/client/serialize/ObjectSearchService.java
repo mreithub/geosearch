@@ -7,5 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface ObjectSearchService extends RemoteService
 {
 	public SearchResult search(BoundingBox box, String what);
+	
+	public ObjectDetails getDetailHTML(int objId);
 }
 
