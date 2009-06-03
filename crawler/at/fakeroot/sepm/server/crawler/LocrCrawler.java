@@ -1,15 +1,23 @@
-package at.fakeroot.sepm.server.crawler;
+import org.json.HTTP;
+import org.json.HTTPTokener;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONString;
 
-public class LocrCrawler extends ICrawler {
 
-	public LocrCrawler() {
-		ICrawler(new BoundingBox(-1.0,-1.0,1.0,1.0),0.5);
+
+public class LocrCrawler extends ICrawler  {
+
+	public LocrCrawler()  {
+		ICrawler(new BoundingBox(10.0,10,80.0,80.0),11);
 		beginCrawlin();
 	}
 
 	private void beginCrawlin() {
 		//while(true){
-		for (int i = 0; i < 20; i++) {
+		
+		for (int i = 0; i < 4; i++) {
 			crawlBox();
 			String url = "http://de.locr.com/api/get_photos_json.php"
 					+ "?latitudemin=" + curBox.getX1() + 
@@ -21,6 +29,44 @@ public class LocrCrawler extends ICrawler {
 			//System.out.println(curBox);
 			System.out.println(url);
 			//System.out.println(crawl(url));
+
+			try {
+				String[] tabs= {"tag1","tag2"};
+			    Property[] myProperty = new Property[1];
+			    myProperty[0]= new Property("proName","proValue");
+			    
+			    
+				JSONObject myJSONObject = new JSONObject(crawl(url));
+				//System.out.println("Parse: "+myJSONObject.getJSONArray("photos"));
+				JSONArray myArray = myJSONObject.getJSONArray("photos");
+				DBGeoObject[] saveDBArray = new DBGeoObject[myArray.length()];
+				for(int k=0;k<myArray.length();k++){
+					System.out.println("id: "+(((JSONObject)myArray.get(k)).get("photo_id")));
+					
+					//Integer.parseInt((((JSONObject)myArray.get(k)).get("photo_id").toString()));
+					saveDBArray[k]=new DBGeoObject(
+							Integer.parseInt((((JSONObject)myArray.get(k)).get("photo_id").toString())),
+							"Client1",
+							Double.parseDouble((((JSONObject)myArray.get(k)).get("latitude").toString())),
+							Double.parseDouble((((JSONObject)myArray.get(k)).get("longitude").toString())),
+							12,
+							"uniqu",
+							"link",
+							"valid",
+							myProperty,tabs);
+					
+				}
+				
+				saveObject(saveDBArray);
+				
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			
 		}
+		
 	}
 }

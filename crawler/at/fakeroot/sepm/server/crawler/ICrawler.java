@@ -1,7 +1,8 @@
-package at.fakeroot.sepm.server.crawler;
-
 import java.io.*;
-
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -9,7 +10,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
-public abstract class ICrawler {
+public abstract class ICrawler  {
 	private BoundingBox crawlArea;
 	protected BoundingBox curBox;
 	
@@ -21,11 +22,14 @@ public abstract class ICrawler {
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
 	
+	
+	Registry registry;
+	GeoSave geoSaver;
+	
 	public void ICrawler() {
 		ICrawler(new BoundingBox(-1.0,-1.0,1.0,1.0), 0.5);
 	}	
 	
-
 	public  void ICrawler(BoundingBox _crawlArea){
 		ICrawler(_crawlArea, 0.5);
 	}
@@ -39,6 +43,16 @@ public abstract class ICrawler {
 				_crawlArea.getY1(),
 				_crawlArea.getX1()+XOFFSET,
 				_crawlArea.getY1()+YOFFSET);
+		
+		try {
+			registry = LocateRegistry.getRegistry("10.0.0.150");
+			geoSaver = (GeoSave) registry.lookup("GeoSave");
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} 
+		
 	}
 	
 	public String crawl(String crawlURL){
@@ -105,26 +119,6 @@ public abstract class ICrawler {
 		
 		return curBox;
 		
-		
-		/*
-		if(yCount<10 && xCount>=10){
-			yCount++;
-			xCount=0;
-			yNext=yNext+0.1;
-		}
-		
-		if(xCount<10){
-			curBox=new BoundingBox(
-					_curPos.getX2(),
-					_curPos.getY2(),
-					_curPos.getX2()+0.1,
-					yNext);
-			xCount++;
-			return curBox;
-		}
-		
-		return null;
-		*/
 	}
 	
 	private BoundingBox nextRight(BoundingBox _curPos){
@@ -172,7 +166,6 @@ public abstract class ICrawler {
 				_curPos.getY2());
 	}
 	
-	
 	private BoundingBox nextUp(BoundingBox _curPos){
 		return new BoundingBox(
 				_curPos.getX1(),
@@ -181,9 +174,16 @@ public abstract class ICrawler {
 				_curPos.getY1());
 	}
 	
-	
-	
 	public String toString() {
 		return curBox.toString();
+	}
+	
+	public void saveObject(DBGeoObject[] newObjects) {		
+		
+		try {
+			geoSaver.saveObject(newObjects);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} 
 	}
 }
