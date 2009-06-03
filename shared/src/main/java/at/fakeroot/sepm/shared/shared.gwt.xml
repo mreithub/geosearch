@@ -1,0 +1,13 @@
+<module rename-to="geoSearch">
+	<!-- Inherit the core Web Toolkit stuff.                        -->
+	<inherits name='com.google.gwt.user.User'/>
+	<entry-point class='at.fakeroot.sepm.shared.client.GeoSearch' />
+
+	<!--  inherit css based theme -->
+	<inherits name='com.google.gwt.user.theme.standard.Standard'/>
+      
+	<!-- Load the Google Maps GWT bindings from the gwt-google-apis project -->
+	<!-- Added by projectCreator if you use the -addModule argument -->
+	<inherits name="com.google.gwt.maps.GoogleMaps" />
+
+</module>
