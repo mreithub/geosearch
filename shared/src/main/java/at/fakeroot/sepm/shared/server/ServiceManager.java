@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.geoSearch.shared;
+package at.fakeroot.sepm.shared.server;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
