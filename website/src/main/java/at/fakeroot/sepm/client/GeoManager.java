@@ -1,11 +1,11 @@
 package at.fakeroot.sepm.client;
 
-import at.fakeroot.sepm.geoSearch.shared.BoundingBox;
-import at.fakeroot.sepm.geoSearch.shared.ClientGeoObject;
-import at.fakeroot.sepm.geoSearch.shared.ObjectDetails;
-import at.fakeroot.sepm.geoSearch.shared.ObjectSearchService;
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
+import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
+import at.fakeroot.sepm.client.serialize.ObjectSearchService;
 import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
-import at.fakeroot.sepm.geoSearch.shared.SearchResult;
+import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;

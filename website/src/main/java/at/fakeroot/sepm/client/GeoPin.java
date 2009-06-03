@@ -1,5 +1,5 @@
 package at.fakeroot.sepm.client;
-import at.fakeroot.sepm.geoSearch.shared.ClientGeoObject;
+import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Icon;

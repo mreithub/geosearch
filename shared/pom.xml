@@ -60,11 +60,11 @@
 				</configuration>
 			</plugin>
 		</plugins>
-<!--		<resources>
+		<resources>
 			<resource>
 				<directory>src/main/java</directory>
 			</resource>
-		</resources>-->
+		</resources>
 	</build>
 	<properties>
 		<gwt.version>1.6.4</gwt.version>

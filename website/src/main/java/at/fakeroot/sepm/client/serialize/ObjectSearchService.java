@@ -1,8 +1,10 @@
-package at.fakeroot.sepm.shared.client.serialize;
+package at.fakeroot.sepm.client.serialize;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 
 @RemoteServiceRelativePath("objectsearch")

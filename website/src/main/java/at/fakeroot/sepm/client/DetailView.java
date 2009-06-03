@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import at.fakeroot.sepm.geoSearch.shared.*;
+import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 
 /**
  * @author Anca Cismasiu
