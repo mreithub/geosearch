@@ -1,6 +1,4 @@
-package at.fakeroot.sepm.server;
-
-import at.fakeroot.sepm.client.serialize.GeoObject;
+package at.fakeroot.sepm.geoSearch.shared;
 
 /**
  * @author Anca Cismasiu

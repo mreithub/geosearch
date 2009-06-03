@@ -1,7 +1,7 @@
 /**
  * 
  */
-package at.fakeroot.sepm.server;
+package at.fakeroot.sepm.geoSearch.shared;
 
 import java.io.IOException;
 import java.io.InputStream;

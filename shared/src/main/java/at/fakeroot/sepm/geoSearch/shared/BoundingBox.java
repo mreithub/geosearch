@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.client.serialize;
+package at.fakeroot.sepm.geoSearch.shared;
 
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.rpc.IsSerializable;

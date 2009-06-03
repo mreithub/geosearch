@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.server;
+package at.fakeroot.sepm.geoSearch.shared;
 
 /**
  * @author Anca Cismasiu

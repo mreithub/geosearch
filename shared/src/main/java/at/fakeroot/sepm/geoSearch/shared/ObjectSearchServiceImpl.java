@@ -1,12 +1,6 @@
-package at.fakeroot.sepm.server;
+package at.fakeroot.sepm.geoSearch.shared;
 
 import java.util.ArrayList;
-
-import at.fakeroot.sepm.client.serialize.BoundingBox;
-import at.fakeroot.sepm.client.serialize.GeoObject;
-import at.fakeroot.sepm.client.serialize.ObjectDetails;
-import at.fakeroot.sepm.client.serialize.ObjectSearchService;
-import at.fakeroot.sepm.client.serialize.SearchResult;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

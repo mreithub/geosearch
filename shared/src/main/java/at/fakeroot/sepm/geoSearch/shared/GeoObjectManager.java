@@ -1,7 +1,4 @@
-package at.fakeroot.sepm.server;
-
-import at.fakeroot.sepm.client.serialize.BoundingBox;
-import at.fakeroot.sepm.client.serialize.SearchResult;
+package at.fakeroot.sepm.geoSearch.shared;
 
 /**
  * 

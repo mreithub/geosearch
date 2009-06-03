@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.server;
+package at.fakeroot.sepm.geoSearch.shared;
 
 
 public class GeoSave

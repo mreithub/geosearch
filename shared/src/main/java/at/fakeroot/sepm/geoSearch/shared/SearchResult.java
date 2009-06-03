@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.client.serialize;
+package at.fakeroot.sepm.geoSearch.shared;
 
 import java.util.ArrayList;
 
