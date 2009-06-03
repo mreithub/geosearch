@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import at.fakeroot.sepm.client.serialize.BoundingBox;
-import at.fakeroot.sepm.client.serialize.ClientGeoObject;
+import at.fakeroot.sepm.geoSearch.shared.BoundingBox;
+import at.fakeroot.sepm.geoSearch.shared.ClientGeoObject;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.shared.GwtEvent;

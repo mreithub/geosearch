@@ -38,29 +38,16 @@
 			<version>2.5.6</version>
 			<scope>compile</scope>
 		</dependency>
-		<!--  GWT deps (from central repo) -->
 		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>${gwt.version}</version>
-			<scope>runtime</scope>
+			<groupId>at.fakeroot.sepm</groupId>
+			<artifactId>geoSearch.shared</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt.google-apis</groupId>
-			<artifactId>gwt-maps</artifactId>
-			<version>1.0.4</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>8.3-603.jdbc4</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -139,16 +126,13 @@
 		</resources>
 	</build>
 	<scm>
-		<developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk</developerConnection>
-		<url>https://fakeroot.at/svn/sepm</url>
+		<developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk/website</developerConnection>
+		<url>https://fakeroot.at/svn/sepm/trunk/website</url>
 	</scm>
 	<issueManagement>
 		<system>Trac</system>
 		<url>http://sepm.fakeroot.at/trac</url>
 	</issueManagement>
-	<properties>
-		<gwt.version>1.6.4</gwt.version>
-	</properties>
 	<profiles>
 		<profile>
 			<id>dbtest</id>
@@ -163,4 +147,7 @@
 			</properties>
 		</profile>
 	</profiles>
+	<properties>
+		<gwt.version>1.6.4</gwt.version>
+	</properties>
 </project>

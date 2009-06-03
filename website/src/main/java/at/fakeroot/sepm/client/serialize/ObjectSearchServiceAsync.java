@@ -1,6 +1,7 @@
 package at.fakeroot.sepm.client.serialize;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import at.fakeroot.sepm.geoSearch.shared.*;
 
 public interface ObjectSearchServiceAsync 
 {

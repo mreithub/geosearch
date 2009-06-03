@@ -1,6 +1,6 @@
 package at.fakeroot.sepm.client;
 
-import at.fakeroot.sepm.client.serialize.*;
+import at.fakeroot.sepm.geoSearch.shared.*;
 
 import java.util.Comparator;
 import java.util.HashMap;
