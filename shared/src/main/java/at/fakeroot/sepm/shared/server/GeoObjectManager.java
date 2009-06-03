@@ -1,5 +1,8 @@
 package at.fakeroot.sepm.shared.server;
 
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+import at.fakeroot.sepm.shared.client.serialize.SearchResult;
+
 /**
  * 
  * DUMMY KLASSE UM COMPILE FEHLER ZU VERHINDERN

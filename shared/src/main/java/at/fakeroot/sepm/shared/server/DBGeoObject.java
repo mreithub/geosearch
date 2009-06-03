@@ -1,5 +1,7 @@
 package at.fakeroot.sepm.shared.server;
 
+import at.fakeroot.sepm.shared.client.serialize.GeoObject;
+
 /**
  * @author Anca Cismasiu
  *
