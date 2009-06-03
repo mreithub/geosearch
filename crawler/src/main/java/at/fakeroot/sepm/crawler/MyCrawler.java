@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.server.crawler;
+package at.fakeroot.sepm.crawler;
 
 
 public class MyCrawler {

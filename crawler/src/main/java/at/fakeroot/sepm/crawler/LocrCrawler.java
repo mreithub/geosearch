@@ -1,9 +1,11 @@
-package at.fakeroot.sepm.server.crawler;
+package at.fakeroot.sepm.crawler;
+
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 
 public class LocrCrawler extends ICrawler {
 
 	public LocrCrawler() {
-		ICrawler(new BoundingBox(-1.0,-1.0,1.0,1.0),0.5);
+		super(new BoundingBox(-1.0,-1.0,1.0,1.0),0.5);
 		beginCrawlin();
 	}
 

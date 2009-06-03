@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.server.crawler;
+package at.fakeroot.sepm.crawler;
 
 import java.io.*;
 
@@ -8,6 +8,9 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+
 
 public abstract class ICrawler {
 	private BoundingBox crawlArea;
@@ -21,16 +24,16 @@ public abstract class ICrawler {
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
 	
-	public void ICrawler() {
-		ICrawler(new BoundingBox(-1.0,-1.0,1.0,1.0), 0.5);
+	public ICrawler() {
+		this(new BoundingBox(-1.0,-1.0,1.0,1.0), 0.5);
 	}	
 	
 
-	public  void ICrawler(BoundingBox _crawlArea){
-		ICrawler(_crawlArea, 0.5);
+	public ICrawler(BoundingBox _crawlArea){
+		this(_crawlArea, 0.5);
 	}
 	
-	public void ICrawler(BoundingBox _crawlArea, double _jumpXYOffset) {
+	public ICrawler(BoundingBox _crawlArea, double _jumpXYOffset) {
 		crawlArea=_crawlArea;
 		XOFFSET=_jumpXYOffset;
 		YOFFSET=_jumpXYOffset;
