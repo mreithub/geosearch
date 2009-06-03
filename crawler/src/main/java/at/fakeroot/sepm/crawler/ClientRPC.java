@@ -1,3 +1,5 @@
+package at.fakeroot.sepm.crawler;
+
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 

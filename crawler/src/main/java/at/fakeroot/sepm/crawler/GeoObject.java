@@ -1,4 +1,4 @@
-
+package at.fakeroot.sepm.crawler;
 
 import java.io.Serializable;
 
