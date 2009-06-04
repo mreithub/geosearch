@@ -7,7 +7,7 @@ import at.fakeroot.sepm.shared.client.serialize.GeoObject;
  *
  */
 public class DBGeoObject extends GeoObject {
-
+	private String title;
 	private int svc_id;
 	private String uid;
 	private String link;
@@ -21,7 +21,12 @@ public class DBGeoObject extends GeoObject {
 		this.link=link;
 		this.valid_until=valid_until;
 		this.properties=properties;
+		title = titel;
 		setTags(tags);
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 	public int getSvc_id() {

@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.server;
+package at.fakeroot.sepm.shared.server;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import javax.xml.crypto.dsig.keyinfo.PGPData;
 
 import org.postgresql.geometric.PGpoint;
-import at.fakeroot.sepm.client.serialize.BoundingBox;
-import at.fakeroot.sepm.client.serialize.SearchResult;
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 
 /**
  * @author Anca Cismasiu
@@ -144,15 +144,20 @@ public class GeoObjectManager
 	 * */
 	public void insert (DBGeoObject obj)
 	{
-		PreparedStatement pstmt = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, '?', '?', '?', ?)");
-		pstmt.setInt(1, obj.getSvc_id());
-		pstmt.setString(2, obj.getUid());
-		pstmt.setString(3, obj.getTitle());
-		pstmt.setString(4, obj.getLink());
-		pstmt.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
-		pstmt.executeUpdate();
-		pstmt.close();
-		dbConn.disconnect();
+		try {
+			PreparedStatement pstmt = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, '?', '?', '?', ?)");
+			pstmt.setInt(1, obj.getSvc_id());
+			pstmt.setString(2, obj.getUid());
+			pstmt.setString(3, obj.getTitle());
+			pstmt.setString(4, obj.getLink());
+			pstmt.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
+			pstmt.executeUpdate();
+			pstmt.close();
+			dbConn.disconnect();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -163,16 +168,21 @@ public class GeoObjectManager
 	 * */
 	public void update (DBGeoObject obj)
 	{
-		PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id =?, uid='?', title = '?', link='?', pos='(?,?)' WHERE ID = ?");
-		pstmt.setInt(1, obj.getSvc_id());
-		pstmt.setString(2, obj.getUid());
-		pstmt.setString(3, obj.getTitle());
-		pstmt.setString(4, obj.getLink());
-		pstmt.setDouble(5, obj.getXPos());
-		pstmt.setDouble(6, obj.getYPos());
-		pstmt.setLong(7, obj.getId());
-		pstmt.executeUpdate();
-		pstmt.close();
-		dbConn.disconnect();
+		try {
+			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id =?, uid='?', title = '?', link='?', pos='(?,?)' WHERE ID = ?");
+			pstmt.setInt(1, obj.getSvc_id());
+			pstmt.setString(2, obj.getUid());
+			pstmt.setString(3, obj.getTitle());
+			pstmt.setString(4, obj.getLink());
+			pstmt.setDouble(5, obj.getXPos());
+			pstmt.setDouble(6, obj.getYPos());
+			pstmt.setLong(7, obj.getId());
+			pstmt.executeUpdate();
+			pstmt.close();
+			dbConn.disconnect();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
