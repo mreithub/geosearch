@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.client.serialize;
+package at.fakeroot.sepm.shared.client.serialize;
 
 import junit.framework.TestCase;
 
