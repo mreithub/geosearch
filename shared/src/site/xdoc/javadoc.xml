@@ -9,9 +9,9 @@
 	<body>
 		<section name="JavaDoc">
 			<ul>
-				<li><a href="../apidocs_shared">shared</a></li>
-				<li><a href="../apidocs_crawler">crawler</a></li>
-				<li><a href="../apidocx_website">website</a></li>
+				<li><a href="../apidocs_shared/">shared</a></li>
+				<li><a href="../apidocs_crawler/">crawler</a></li>
+				<li><a href="../apidocs_website/">website</a></li>
 			</ul>
 		</section>
 	</body>
