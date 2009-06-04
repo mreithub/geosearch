@@ -1,6 +1,5 @@
-package at.fakeroot.sepm.server;
+package at.fakeroot.sepm.shared.server;
 
-import at.fakeroot.sepm.server.Property;
 import junit.framework.TestCase;
 
 /**
