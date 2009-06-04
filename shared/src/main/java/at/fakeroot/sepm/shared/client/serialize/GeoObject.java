@@ -1,14 +1,15 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
+import java.io.Serializable;
+
 import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * Contains the main parts of an GeoObject. 
  * @author JB
  *
  */
-public class GeoObject implements IsSerializable {
+public class GeoObject implements Serializable {
 
 	private int id;
 	private String titel;

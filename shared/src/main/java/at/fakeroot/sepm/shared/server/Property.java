@@ -1,11 +1,13 @@
 package at.fakeroot.sepm.shared.server;
 
+import java.io.Serializable;
+
 /**
  * @author Anca Cismasiu
  * Class representing object properties
  * */
 
-public class Property {
+public class Property implements Serializable {
 
 	private String name;
 	private String value;

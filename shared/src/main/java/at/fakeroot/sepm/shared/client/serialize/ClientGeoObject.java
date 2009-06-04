@@ -1,13 +1,12 @@
 package at.fakeroot.sepm.shared.client.serialize;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
+import java.io.Serializable;
 
 /**
  * Contains GeoObject plus an Image and Tags to visualize it on the GUI. 
  * @author JB
  *
  */
-public class ClientGeoObject extends GeoObject implements IsSerializable {
+public class ClientGeoObject extends GeoObject implements Serializable {
 	String imageUrl;
 	
 	

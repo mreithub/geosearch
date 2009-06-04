@@ -1,7 +1,9 @@
 package at.fakeroot.sepm.crawler;
-
 import java.io.*;
-
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -10,30 +12,92 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+import at.fakeroot.sepm.shared.server.DBGeoObject;
 
-
-public abstract class ICrawler {
+/**
+ * Abstract Crawler Class. Includes all necessary functions for crawling, and the communication with the server.   
+ * @author JB
+ *
+ */
+public abstract class ICrawler  {
 	private BoundingBox crawlArea;
-	protected BoundingBox curBox;
+	private BoundingBox curBox;
 	
 	private double XOFFSET=0.5;
 	private double YOFFSET=0.5;
 	
 	private boolean newCircle=false;
 	
+	private int serviceID;
+	
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
 	
-	public ICrawler() {
-		this(new BoundingBox(-1.0,-1.0,1.0,1.0), 0.5);
+	private Registry registry;
+	private GeoSave geoSaver;
+	
+	
+	//BoundingBoxes
+	public static BoundingBox AUTRIA = new BoundingBox(10.0,10.0,40.0,40.0);
+	
+	/**
+	 * Standard constructor 
+	 * * BoundingBox is AUSTRIA,
+	 * * Step size is 0.5
+	 * * ServerHost is localhost
+	 * * ServerPort is RMI-Std. Port
+	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
+	 */
+	public void ICrawler(String SvcName) {
+		ICrawler(AUTRIA, 0.5, SvcName);
 	}	
 	
-
-	public ICrawler(BoundingBox _crawlArea){
-		this(_crawlArea, 0.5);
+	/**
+	 * Standard constructor 
+	 * * Step size is 0.5
+	 * * ServerHost is localhost
+	 * * ServerPort is RMI-Std. Port
+	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
+	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
+	 */
+	public  void ICrawler(BoundingBox _crawlArea, String SvcName){
+		ICrawler(_crawlArea, 0.5, SvcName);
 	}
 	
-	public ICrawler(BoundingBox _crawlArea, double _jumpXYOffset) {
+	/**
+	 * Standard constructor 
+	 * * ServerHost is localhost
+	 * * ServerPort is RMI-Std. Port
+	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
+	 * @param _jumpXYOffset Step size 
+	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
+	 */
+	public void ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String SvcName) {		
+		ICrawler(_crawlArea, _jumpXYOffset, "localhost", SvcName);
+		
+	}
+	
+	/**
+	 * Standard constructor 
+	 * * ServerPort is RMI-Std. Port
+	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
+	 * @param _jumpXYOffset Step size 
+	 * @param ServerHost ServerHost name (eg. localhost, www.myCrawler.com, 127.0.0.1)
+	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
+	 */
+	public void ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, String SvcName) {
+		 ICrawler(_crawlArea, _jumpXYOffset, ServerHost, 1099, SvcName);
+	}
+	
+	/**
+	 * Standard constructor 
+	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
+	 * @param _jumpXYOffset Step size 
+	 * @param ServerHost ServerHost name (eg. localhost, www.myCrawler.com, 127.0.0.1)
+	 * @param ServerPort Server Port.  (Std. Port is 1099)
+	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
+	 */
+	public void ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, int ServerPort, String SvcName) {
 		crawlArea=_crawlArea;
 		XOFFSET=_jumpXYOffset;
 		YOFFSET=_jumpXYOffset;
@@ -42,8 +106,24 @@ public abstract class ICrawler {
 				_crawlArea.getY1(),
 				_crawlArea.getX1()+XOFFSET,
 				_crawlArea.getY1()+YOFFSET);
+		
+		try {
+			registry = LocateRegistry.getRegistry(ServerHost);
+			geoSaver = (GeoSave) registry.lookup("GeoSave");
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} 
+		
+		serviceID=getServiceID(SvcName);
 	}
 	
+	/**
+	 * Crawls a site at the given URL.
+	 * @param crawlURL URL that should be crawled.  
+	 * @return Response String (eg. xml, json,)
+	 */
 	public String crawl(String crawlURL){
 		// Create a method instance.
 		GetMethod method = new GetMethod(crawlURL);
@@ -92,8 +172,49 @@ public abstract class ICrawler {
 		return null;
 	}
 	
-	public BoundingBox crawlBox(){		
+	
+	/**
+	 * 
+	 * @return Next BoundingBox in the gives search area. 
+	 */
+	public BoundingBox nextCrawlBox(){		
 		return nextBox(curBox);
+	}
+	
+	
+	/**
+	 * Send an array of DBGeoObjects to the Server
+	 * @param newObjects Array of new Objects
+	 */
+	public void saveObject(DBGeoObject[] newObjects) {		
+		
+		try {
+			geoSaver.saveObject(newObjects);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	/**
+	 * Returns the ServiceID
+	 * @return Returns the ServiceID
+	 */
+	public int getSvcID(){
+		return serviceID;
+	}
+	
+	public String toString() {
+		return curBox.toString();
+	}
+	
+	private int getServiceID(String SvcName){
+		
+		try {
+			return geoSaver.getServiceID(SvcName);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			return -1;
+		} 
 	}
 	
 	private BoundingBox nextBox(BoundingBox _curPos){
@@ -108,26 +229,6 @@ public abstract class ICrawler {
 		
 		return curBox;
 		
-		
-		/*
-		if(yCount<10 && xCount>=10){
-			yCount++;
-			xCount=0;
-			yNext=yNext+0.1;
-		}
-		
-		if(xCount<10){
-			curBox=new BoundingBox(
-					_curPos.getX2(),
-					_curPos.getY2(),
-					_curPos.getX2()+0.1,
-					yNext);
-			xCount++;
-			return curBox;
-		}
-		
-		return null;
-		*/
 	}
 	
 	private BoundingBox nextRight(BoundingBox _curPos){
@@ -175,7 +276,6 @@ public abstract class ICrawler {
 				_curPos.getY2());
 	}
 	
-	
 	private BoundingBox nextUp(BoundingBox _curPos){
 		return new BoundingBox(
 				_curPos.getX1(),
@@ -185,8 +285,4 @@ public abstract class ICrawler {
 	}
 	
 	
-	
-	public String toString() {
-		return curBox.toString();
-	}
 }

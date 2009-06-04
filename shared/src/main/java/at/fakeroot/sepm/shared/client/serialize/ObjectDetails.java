@@ -1,8 +1,8 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+import java.io.Serializable;
 
-public class ObjectDetails implements IsSerializable
+public class ObjectDetails implements Serializable
 {
 	private String HTMLString;
 	private String[] tags;

@@ -1,13 +1,14 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
+import java.io.Serializable;
+
 import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * This class implements a rectangular BoundingBox.
  * @author MK
  */
-public class BoundingBox implements IsSerializable
+public class BoundingBox implements Serializable
 {
 	private double x1, y1;
 	private double x2, y2;
