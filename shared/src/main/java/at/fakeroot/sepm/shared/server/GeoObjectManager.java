@@ -168,7 +168,7 @@ public class GeoObjectManager
 		pstmt.setString(2, obj.getUid());
 		pstmt.setString(3, obj.getTitle());
 		pstmt.setString(4, obj.getLink());
-		pstmt.setDouble(5, obj.getXPos())
+		pstmt.setDouble(5, obj.getXPos());
 		pstmt.setDouble(6, obj.getYPos());
 		pstmt.setLong(7, obj.getId());
 		pstmt.executeUpdate();
