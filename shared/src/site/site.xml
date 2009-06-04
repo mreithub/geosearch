@@ -8,13 +8,13 @@ http://maven.apache.org/guides/mini/guide-site.html
 		<links>
 			<item name="Trac" href="http://sepm.fakeroot.at/trac" />
 			<item name="Laconi.ca" href="http://laconica.fakeroot.at" />
-			<item name="JavaDoc" href="http://sepm.fakeroot.at/doc/apidocs/" />
 		</links>
 		<menu name="geoSearch">
 			<item name="About" href="index.html" />
 			<item name="Projektinformation" href="project-info.html" />
 			<item name="Deckblatt" href="deckblatt.html"/>
 			<item name="Projektauftrag" href="projektauftrag.html" />
+			<item name="JavaDoc" href="javadoc.html" />
 		</menu>
 		<menu name="Planung">
 			<item name="WorkBreakdown" href="workBreakdownStructure.html" />
