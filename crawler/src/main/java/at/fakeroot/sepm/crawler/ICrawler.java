@@ -48,8 +48,8 @@ public abstract class ICrawler  {
 	 * * ServerPort is RMI-Std. Port
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 */
-	public void ICrawler(String SvcName) {
-		ICrawler(AUTRIA, 0.5, SvcName);
+	public ICrawler(String SvcName) {
+		this(AUTRIA, 0.5, SvcName);
 	}	
 	
 	/**
@@ -60,8 +60,8 @@ public abstract class ICrawler  {
 	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 */
-	public  void ICrawler(BoundingBox _crawlArea, String SvcName){
-		ICrawler(_crawlArea, 0.5, SvcName);
+	public ICrawler(BoundingBox _crawlArea, String SvcName){
+		this(_crawlArea, 0.5, SvcName);
 	}
 	
 	/**
@@ -72,8 +72,8 @@ public abstract class ICrawler  {
 	 * @param _jumpXYOffset Step size 
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 */
-	public void ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String SvcName) {		
-		ICrawler(_crawlArea, _jumpXYOffset, "localhost", SvcName);
+	public ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String SvcName) {		
+		this(_crawlArea, _jumpXYOffset, "localhost", SvcName);
 		
 	}
 	
@@ -85,8 +85,8 @@ public abstract class ICrawler  {
 	 * @param ServerHost ServerHost name (eg. localhost, www.myCrawler.com, 127.0.0.1)
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 */
-	public void ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, String SvcName) {
-		 ICrawler(_crawlArea, _jumpXYOffset, ServerHost, 1099, SvcName);
+	public ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, String SvcName) {
+		 this(_crawlArea, _jumpXYOffset, ServerHost, 1099, SvcName);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public abstract class ICrawler  {
 	 * @param ServerPort Server Port.  (Std. Port is 1099)
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 */
-	public void ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, int ServerPort, String SvcName) {
+	public ICrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, int ServerPort, String SvcName) {
 		crawlArea=_crawlArea;
 		XOFFSET=_jumpXYOffset;
 		YOFFSET=_jumpXYOffset;

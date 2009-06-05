@@ -15,7 +15,7 @@ import at.fakeroot.sepm.shared.server.Property;
 public class LocrCrawler extends ICrawler  {
 
 	public LocrCrawler()  {
-		ICrawler(new BoundingBox(10.0,10,80.0,80.0),11, "wiki_de");
+		super(new BoundingBox(10.0,10,80.0,80.0),11, "wiki_de");
 		beginCrawlin();
 	}
 
