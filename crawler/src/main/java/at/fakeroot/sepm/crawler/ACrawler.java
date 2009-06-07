@@ -4,6 +4,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -38,7 +40,7 @@ public abstract class ACrawler  {
 	
 	
 	//BoundingBoxes
-	public static BoundingBox AUTRIA = new BoundingBox(10.0,10.0,40.0,40.0);
+	protected static BoundingBox AUSTRIA = new BoundingBox(9.25, 46.39, 17.34, 49.05);
 	
 	/**
 	 * Standard constructor 
@@ -49,7 +51,7 @@ public abstract class ACrawler  {
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 */
 	public ACrawler(String SvcName) {
-		this(AUTRIA, 0.5, SvcName);
+		this(AUSTRIA, 0.5, SvcName);
 	}	
 	
 	/**
@@ -107,7 +109,7 @@ public abstract class ACrawler  {
 				_crawlArea.getX1()+XOFFSET,
 				_crawlArea.getY1()+YOFFSET);
 		
-		try {
+		/*try {
 			registry = LocateRegistry.getRegistry(ServerHost);
 			geoSaver = (GeoSave) registry.lookup("GeoSave");
 		} catch (RemoteException e) {
@@ -116,7 +118,7 @@ public abstract class ACrawler  {
 			e.printStackTrace();
 		} 
 		
-		serviceID=getServiceID(SvcName);
+		serviceID=getServiceID(SvcName);*/
 	}
 	
 	/**
@@ -124,7 +126,7 @@ public abstract class ACrawler  {
 	 * @param crawlURL URL that should be crawled.  
 	 * @return Response String (eg. xml, json,)
 	 */
-	public String crawl(String crawlURL){
+	protected String crawl(String crawlURL){
 		// Create a method instance.
 		GetMethod method = new GetMethod(crawlURL);
 		
@@ -177,7 +179,7 @@ public abstract class ACrawler  {
 	 * 
 	 * @return Next BoundingBox in the gives search area. 
 	 */
-	public BoundingBox nextCrawlBox(){		
+	protected BoundingBox nextCrawlBox(){		
 		return nextBox(curBox);
 	}
 	
@@ -186,7 +188,7 @@ public abstract class ACrawler  {
 	 * Send an array of DBGeoObjects to the Server
 	 * @param newObjects Array of new Objects
 	 */
-	public void saveObject(DBGeoObject[] newObjects) {		
+	protected void saveObject(DBGeoObject[] newObjects) {		
 		
 		try {
 			geoSaver.saveObject(newObjects);
@@ -199,7 +201,7 @@ public abstract class ACrawler  {
 	 * Returns the ServiceID
 	 * @return Returns the ServiceID
 	 */
-	public int getSvcID(){
+	protected int getSvcID(){
 		return serviceID;
 	}
 	
@@ -285,4 +287,67 @@ public abstract class ACrawler  {
 	}
 	
 	
+	/**
+	 * This function parses a given string into tags.
+	 * @param source The source string.
+	 * @param tags The ArrayList of tags where newly found tags are added to.
+	 * @param checkValidity If true, only words which pass a validity check are accepted as tags. Note that
+	 * this validity check only works well for source strings which are in German. Pass false for this parameter
+	 * if you want to include all words of this string as tags.
+	 */
+	protected void parseStringIntoTags(String source, ArrayList<String> tags, boolean checkValidity)
+	{
+		//Split the string into words.
+		String[] splits = splitString(source);
+		for (int i = 0; i < splits.length; i++)
+		{
+			if (checkValidity)
+			{
+				//Check if we can accept this word. We do that if it's longer than 3 chars, and
+				//if it starts with an upper-case letter (because these words are usually substantives
+				//in the German language).
+				if (splits[i].length() <= 3 || splits[i].substring(0, 1).equals(splits[i].substring(0, 1).toLowerCase()))
+					continue;
+			}
+			//Check if this tag has already been found so far.
+			if (!tags.contains(splits[i]))
+				tags.add(splits[i]);
+		}
+	}
+	
+	
+	/**
+	 * Split a given string into separate words. This function considers additional splitting requirements
+	 * which are required for the tag extracting process.
+	 * @param source The source string.
+	 * @return A String array which holds the splitted words.
+	 */
+	private String[] splitString(String source)
+	{
+		String curString = "";
+		ArrayList<String> resultList = new ArrayList<String>();
+		
+		//Define the split characters. Include characters [10] and [13] in order to split at line breaks.
+		String invalidChars = " <>|^°!\"§$%&/{([)]=}?\\´`+*~#'-_.:,;" +
+			new Character((char)10).toString() + new Character((char)13).toString();
+		
+		for (int i = 0; i < source.length(); i++)
+		{
+			Character curChar = source.charAt(i);
+			//If the current character is a split character, add the current string to the result list.
+			if (invalidChars.contains(curChar.toString()))
+			{
+				if (curString.length() > 0)
+					resultList.add(curString);
+				curString = "";
+			}
+			else
+				curString += curChar;
+		}
+		if (curString.length() > 0)
+			resultList.add(curString);
+		
+		//Return the result as array.
+		return (resultList.toArray(new String[resultList.size()]));
+	}	
 }

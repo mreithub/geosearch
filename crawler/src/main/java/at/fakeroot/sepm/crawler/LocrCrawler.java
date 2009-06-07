@@ -57,7 +57,8 @@ public class LocrCrawler extends ACrawler  {
 							getSvcID(),
 							"uniqu",
 							"link",
-							"valid",myProperty,tabs);
+							null,
+							myProperty,tabs);
 					
 				}
 				
