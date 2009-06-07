@@ -15,7 +15,7 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
-import at.fakeroot.sepm.shared.server.GeoSave;
+import at.fakeroot.sepm.shared.server.IGeoSave;
 
 /**
  * Abstract Crawler Class. Includes all necessary functions for crawling, and the communication with the server.   
@@ -37,7 +37,7 @@ public abstract class ACrawler  {
 	private HttpClient client = new HttpClient();
 	
 	private Registry registry;
-	private GeoSave geoSaver;
+	private IGeoSave geoSaver;
 	
 	
 	//BoundingBoxes
