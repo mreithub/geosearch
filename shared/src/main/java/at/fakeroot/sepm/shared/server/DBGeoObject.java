@@ -1,5 +1,7 @@
 package at.fakeroot.sepm.shared.server;
 
+import java.sql.Timestamp;
+
 import at.fakeroot.sepm.shared.client.serialize.GeoObject;
 
 /**
@@ -11,10 +13,10 @@ public class DBGeoObject extends GeoObject {
 	private int svc_id;
 	private String uid;
 	private String link;
-	private String valid_until;
+	private Timestamp valid_until;
 	private Property[] properties;
 	
-	public DBGeoObject(int objID, String titel, double xPos, double yPos, int serviceID, String uniqueID, String link, String valid_until, Property[] properties, String[] tags){
+	public DBGeoObject(int objID, String titel, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
 		super(objID, titel, xPos, yPos);
 		svc_id= serviceID;
 		uid=uniqueID;
@@ -41,7 +43,7 @@ public class DBGeoObject extends GeoObject {
 		return link;
 	}
 
-	public String getValid_until() {
+	public Timestamp getValid_until() {
 		return valid_until;
 	}
 

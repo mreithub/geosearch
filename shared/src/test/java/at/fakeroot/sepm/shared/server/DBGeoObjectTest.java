@@ -1,5 +1,7 @@
 package at.fakeroot.sepm.shared.server;
 
+import java.sql.Timestamp;
+
 import junit.framework.TestCase;
 
 /**
@@ -21,7 +23,7 @@ public class DBGeoObjectTest extends TestCase {
 		int svc_id = 1;
 		String uid = "unique ID (URL)";
 		String link ="link1";
-		String valid_until ="until1";
+		Timestamp valid_until = new Timestamp(0);
 		Property pTest1 = new Property("p_name1","p_value1");
 		Property pTest2 = new Property("p_name2","p_value2");
 		Property[] properties = {pTest1,pTest2};

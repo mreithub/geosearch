@@ -105,7 +105,7 @@ public class GeoObjectManager
 				j++;
 			}
 
-			rc= new DBGeoObject(rs1.getInt(1), rs1.getString(4), location.x ,location.y, rs1.getInt(2), rs1.getString(3), rs1.getString(5),rs1.getString(7), properties, tags);
+			rc= new DBGeoObject(rs1.getInt(1), rs1.getString(4), location.x ,location.y, rs1.getInt(2), rs1.getString(3), rs1.getString(5),rs1.getTimestamp(7), properties, tags);
 		}
 
 	} catch (SQLException e) {
