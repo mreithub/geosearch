@@ -34,4 +34,10 @@ public class GeoSave
 			GeoObjectManager.getInstance().update(obj);
 		}
 	}
+	
+	public void saveObjects(DBGeoObject objects[]) {
+		for (int i = 0; i < objects.length; i++) {
+			saveObject(objects[i]);
+		}
+	}
 }
