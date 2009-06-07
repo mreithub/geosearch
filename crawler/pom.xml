@@ -21,6 +21,12 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>at.fakeroot.sepm</groupId>
 			<artifactId>geoSearch.shared</artifactId>
 			<version>1.0-SNAPSHOT</version>

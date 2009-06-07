@@ -1,7 +1,9 @@
 package at.fakeroot.sepm.shared.server;
 
+import java.rmi.RemoteException;
 
-public class GeoSave
+
+public class GeoSave implements IGeoSave
 {
 	private static GeoSave instance;
 	
@@ -39,5 +41,14 @@ public class GeoSave
 		for (int i = 0; i < objects.length; i++) {
 			saveObject(objects[i]);
 		}
+	}
+
+	@Override
+	public int getServiceID(String svcName) throws RemoteException {
+		ServiceManager serviceManager = ServiceManager.getInstance();
+		
+		DBService svc = serviceManager.select(svcName);
+		
+		return svc.getSvc_id();
 	}
 }

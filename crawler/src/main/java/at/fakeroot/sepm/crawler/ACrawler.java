@@ -15,6 +15,7 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
+import at.fakeroot.sepm.shared.server.GeoSave;
 
 /**
  * Abstract Crawler Class. Includes all necessary functions for crawling, and the communication with the server.   
@@ -191,7 +192,7 @@ public abstract class ACrawler  {
 	protected void saveObject(DBGeoObject[] newObjects) {		
 		
 		try {
-			geoSaver.saveObject(newObjects);
+			geoSaver.saveObjects(newObjects);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} 
@@ -328,7 +329,7 @@ public abstract class ACrawler  {
 		ArrayList<String> resultList = new ArrayList<String>();
 		
 		//Define the split characters. Include characters [10] and [13] in order to split at line breaks.
-		String invalidChars = " <>|^°!\"§$%&/{([)]=}?\\´`+*~#'-_.:,;" +
+		String invalidChars = " <>|^Â°!\"Â§$%&/{([)]=}?\\Â´`+*~#'-_.:,;" +
 			new Character((char)10).toString() + new Character((char)13).toString();
 		
 		for (int i = 0; i < source.length(); i++)
