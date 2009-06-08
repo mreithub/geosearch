@@ -19,10 +19,7 @@ public class LastFMCrawler extends ACrawler
 	 */
 	public LastFMCrawler()
 	{
-		//From last.fm:
-		//Your API Key is ca211b536eeba529327dcb4d0a7ca6b6 and your secret is 48fa6e4fc3702d4d188eda2e6cabd7d9		
-		
-		//0.32 degree are about 70 km.
+		//0.32 degrees are about 70 km.
 		super(ACrawler.AUSTRIA, 0.32, "last.fm");
 	}
 	
