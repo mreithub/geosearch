@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
@@ -32,6 +33,7 @@ public abstract class ACrawler  {
 	private boolean newCircle=false;
 	
 	private int serviceID;
+	private String serviceName;
 	
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
@@ -119,7 +121,7 @@ public abstract class ACrawler  {
 			e.printStackTrace();
 		} 
 		
-		serviceID=getServiceID(SvcName);*/
+		serviceID=requestServiceID(SvcName);*/
 	}
 	
 	/**
@@ -210,14 +212,17 @@ public abstract class ACrawler  {
 		return curBox.toString();
 	}
 	
-	private int getServiceID(String SvcName){
-		
+	private int requestServiceID(String svcName) {
+		int rc;
 		try {
-			return geoSaver.getServiceID(SvcName);
+			rc = geoSaver.getServiceID(svcName);
+			serviceName = svcName;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			return -1;
-		} 
+		}
+
+		return rc;
 	}
 	
 	private BoundingBox nextBox(BoundingBox _curPos){
@@ -350,5 +355,22 @@ public abstract class ACrawler  {
 		
 		//Return the result as array.
 		return (resultList.toArray(new String[resultList.size()]));
-	}	
+	}
+
+	/**
+	 * Requests the API key for the service (which is stored in a property file) 
+	 * @return API key for the service name passed to the constructor
+	 */
+	protected String getApiKey() throws IOException {
+		InputStream propStream = getClass().getResourceAsStream("/WEB-INF/apikeys.properties");
+		Properties prop = new Properties();
+		
+		if (propStream == null) {
+			// getResourceAsStream doesn't throw an Exception but returns a null pointer => we throw the exception
+			throw new IOException("Error: Couldn't open property file '/WEB-INF/apikeys.properties'");
+		}
+		prop.load(propStream);
+
+		return prop.getProperty(serviceName);
+	}
 }
