@@ -123,13 +123,13 @@ public abstract class ACrawler  {
 	}
 	
 	/**
-	 * Crawls a site at the given URL.
-	 * @param crawlURL URL that should be crawled.  
-	 * @return Response String (eg. xml, json,)
+	 * Requests a URL via HTTP
+	 * @param url URL that should be fetched.  
+	 * @return Response String (eg. xml, json, ...)
 	 */
-	protected String crawl(String crawlURL){
+	protected String requestUrl(String url){
 		// Create a method instance.
-		GetMethod method = new GetMethod(crawlURL);
+		GetMethod method = new GetMethod(url);
 		
 		// Provide custom retry handler is necessary
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,

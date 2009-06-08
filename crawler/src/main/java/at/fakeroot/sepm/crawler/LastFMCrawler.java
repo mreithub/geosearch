@@ -63,9 +63,9 @@ public class LastFMCrawler extends ACrawler
 					//The first page is returned by default. If we want to receive a different page, we have
 					//to specify this within the request string.
 					if (curPage == 1)
-						responseStr = crawl(url);
+						responseStr = requestUrl(url);
 					else
-						responseStr = crawl(url + "&page=" + curPage);
+						responseStr = requestUrl(url + "&page=" + curPage);
 					
 					//Create the JSON object to parse the response.
 					JSONObject responseObj = new JSONObject(responseStr);

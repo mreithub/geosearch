@@ -41,7 +41,7 @@ public class LocrCrawler extends ACrawler  {
 			    myProperty[0]= new Property("proName","proValue");
 			    
 			    
-				JSONObject myJSONObject = new JSONObject(crawl(url));
+				JSONObject myJSONObject = new JSONObject(requestUrl(url));
 				//System.out.println("Parse: "+myJSONObject.getJSONArray("photos"));
 				JSONArray myArray = myJSONObject.getJSONArray("photos");
 				DBGeoObject[] saveDBArray = new DBGeoObject[myArray.length()];
