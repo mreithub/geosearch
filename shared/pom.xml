@@ -59,6 +59,14 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
@@ -68,8 +76,35 @@
 				<directory>${basedir}/src/main/resources/</directory>
 				<filtering>true</filtering>
 			</resource>
+			<resource>
+				<directory>${basedir}/src/sql</directory>
+				<targetPath>${basedir}/target/sql</targetPath>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 	</build>
+	<scm>
+		<developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk/shared</developerConnection>
+		<url>https://fakeroot.at/svn/sepm/trunk/shared</url>
+	</scm>
+	<issueManagement>
+		<system>Trac</system>
+		<url>http://sepm.fakeroot.at/trac</url>
+	</issueManagement>
+	<profiles>
+		<profile>
+			<id>dbtest</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<psql.host>fakeroot.at</psql.host>
+				<psql.db>geosearch_test</psql.db>
+				<psql.user>geosearch_test</psql.user>
+				<psql.pwd>Waerie4Petei4eey</psql.pwd>
+			</properties>
+		</profile>
+	</profiles>
 	<properties>
 		<gwt.version>1.6.4</gwt.version>
 	</properties>
