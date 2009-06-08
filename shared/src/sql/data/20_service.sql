@@ -21,5 +21,11 @@ INSERT INTO service
 (SELECT stype_id FROM serviceType WHERE name='picture'),
 '<img src="%img%" />User: %user%', 'images/service/panoramio.png');
 
+-- Locr
+INSERT INTO service
+(name, title, homepage, description, stype_id, bubbleHTML, thumbnail) VALUES
+('locr.com', 'Locr', 'http://www.locr.com/', 'Online-Foto-Service',
+(SELECT stype_id FROM serviceType WHERE name='picture'),
+'<img src="%img%" />User: %user%', 'images/service/locr.png');
 
 COMMIT;
