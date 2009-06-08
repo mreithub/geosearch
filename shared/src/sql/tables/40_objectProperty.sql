@@ -3,7 +3,7 @@ BEGIN;
 CREATE TABLE objectProperty (
 	obj_id	bigint		NOT NULL,
 	name	varchar(255)	NOT NULL,
-	value	varchar(255)	NOT NULL,
+	value	varchar(1000)	NOT NULL,
 	PRIMARY KEY (obj_id, name),
 	FOREIGN KEY (obj_id) REFERENCES geoObject(obj_id)
 );
