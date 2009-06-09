@@ -99,7 +99,7 @@
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>1.1-SNAPSHOT</version>
 				<configuration>
-					<runTarget>at.fakeroot.sepm.geoSearch/index.html</runTarget>
+					<runTarget>/index.html</runTarget>
 					<hostedWebapp>${basedir}/target/war</hostedWebapp>
 				</configuration>
 			</plugin>
@@ -114,13 +114,8 @@
 		</plugins>
 		<resources>
 			<resource>
-				<directory>${basedir}/src/main/resources/at/fakeroot/sepm/public</directory>
-				<targetPath>${basedir}/target/war/geoSearch</targetPath>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/webapp/WEB-INF/</directory>
-				<targetPath>${basedir}/target/war/WEB-INF/</targetPath>
+				<directory>${basedir}/src/main/webapp/</directory>
+				<targetPath>${basedir}/target/war/</targetPath>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
