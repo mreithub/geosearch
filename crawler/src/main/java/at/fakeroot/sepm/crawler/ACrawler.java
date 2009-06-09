@@ -33,7 +33,8 @@ public abstract class ACrawler  {
 	private boolean newCircle=false;
 	
 	private int serviceID;
-	private String serviceName;
+	private String serviceName = null;
+	private String apiKey = null;
 	
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
@@ -362,15 +363,18 @@ public abstract class ACrawler  {
 	 * @return API key for the service name passed to the constructor
 	 */
 	protected String getApiKey() throws IOException {
-		InputStream propStream = getClass().getResourceAsStream("/WEB-INF/apikeys.properties");
-		Properties prop = new Properties();
-		
-		if (propStream == null) {
-			// getResourceAsStream doesn't throw an Exception but returns a null pointer => we throw the exception
-			throw new IOException("Error: Couldn't open property file '/WEB-INF/apikeys.properties'");
+		if (apiKey == null) {
+			InputStream propStream = getClass().getResourceAsStream("/WEB-INF/apikeys.properties");
+			Properties prop = new Properties();
+			
+			if (propStream == null) {
+				// getResourceAsStream doesn't throw an Exception but returns a null pointer => we throw the exception
+				throw new IOException("Error: Couldn't open property file '/WEB-INF/apikeys.properties'");
+			}
+			prop.load(propStream);
+	
+			apiKey = prop.getProperty(serviceName);
 		}
-		prop.load(propStream);
-
-		return prop.getProperty(serviceName);
+		return apiKey;
 	}
 }
