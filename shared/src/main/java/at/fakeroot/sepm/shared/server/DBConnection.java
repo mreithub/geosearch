@@ -74,7 +74,7 @@ public class DBConnection {
 	}
 	
 	public PreparedStatement prepareStatement(String stmt) throws SQLException {
-		return getConnection().prepareStatement(stmt);
+		return getConnection().prepareStatement(stmt, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 	
 	public Statement createStatement() throws SQLException {

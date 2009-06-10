@@ -1,13 +1,13 @@
 package at.fakeroot.sepm.shared.server;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.xml.crypto.dsig.keyinfo.PGPData;
-
 import org.postgresql.geometric.PGpoint;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 
 /**
@@ -19,6 +19,8 @@ public class GeoObjectManager
 {
 	private static GeoObjectManager geoObjManager = null;
 	private DBConnection dbConn;
+	PreparedStatement tagStmt;
+
 
 	/**
 	 * Constructor that establishes the DB Connection
@@ -28,6 +30,7 @@ public class GeoObjectManager
 		try
 		{
 			dbConn = new DBConnection();
+			tagStmt = dbConn.prepareStatement("SELECT tag FROM objectTag WHERE obj_id = ?");
 		}
 		catch (Exception e)
 		{
@@ -124,16 +127,86 @@ public class GeoObjectManager
 	 * @param limit int the number of retrieved results 
 	 * */
 	public SearchResult select(String[] tags, BoundingBox box, int limit)
-	{	SearchResult searchResult = new SearchResult();
-		
+	{
+		SearchResult searchResult = new SearchResult();
+		Connection db = null;
+		try {
+			String sql = "SELECT obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail FROM "
+				+ "geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) WHERE ";
+			int i = 0;
+			
+			if (tags.length > 0) {
+				sql += "obj_id IN (SELECT obj_id FROM objecttag where tag IN (";
+	
+				for (i = 0; i < tags.length; i++) {
+					sql += "?";
+					if (i < tags.length-1) sql += ',';
+				}
+				
+				sql += ") AND ";
+			}
+			
+			// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
+			sql += "obj_id IN (select obj_id from geoobject where pos @ box(point(?,?),point(?,?)))";
+			
+			
+			if (tags.length > 0) sql += " GROUP BY obj_id HAVING COUNT(*) = "+tags.length+")";
+
+			if (limit > 0) sql += " LIMIT "+limit; 
+			
+			
+			PreparedStatement stmt = dbConn.prepareStatement(sql);
+			
+			if (tags.length > 0) {
+				for (i = 0; i < tags.length; i++) {
+					stmt.setString(i+1, tags[i]);
+				}
+			}
+			stmt.setDouble(++i, box.getY1());
+			stmt.setDouble(++i, box.getX1());
+			stmt.setDouble(++i, box.getY2());
+			stmt.setDouble(++i, box.getX2());
 	
 	
-		///TODO 
-	
-	
-	
+			ResultSet res = stmt.executeQuery();
+			
+			while (res.next()) {
+				searchResult.addResultToList(new ClientGeoObject(
+						res.getInt("obj_id"),
+						res.getString("title"),
+						res.getString("thumbnail"),
+						getTags(res.getInt("obj_id")),
+						res.getDouble("posx"),
+						res.getDouble("posy")));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	
 		return searchResult;
+	}
+	
+	/**
+	 * Get the Tags for a GeoObject
+	 * @param objId Object ID
+	 * @return String Array
+	 * @throws SQLException
+	 */
+	private String[] getTags(int objId) throws SQLException {
+		String[] rc;
+		
+		tagStmt.setInt(1, objId);
+		ResultSet tagRes = tagStmt.executeQuery();
+		tagRes.last();
+		rc = new String[tagRes.getRow()];
+		tagRes.beforeFirst();
+		
+		while (tagRes.next()) {
+			rc[tagRes.getRow()-1] = tagRes.getString(1);
+		}
+
+		return rc;
 	}
 
 	

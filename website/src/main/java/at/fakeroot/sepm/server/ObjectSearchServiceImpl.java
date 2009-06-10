@@ -42,7 +42,9 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	public SearchResult search(BoundingBox box, String what)
 	{
 		//the input string is separated by ' '
-		String[] tags = what.toLowerCase().split(" ");
+		String[] tags; 
+		if (what.length() > 0) tags = what.toLowerCase().split(" ");
+		else tags = new String[0];
 		return (geoObjManager.select(tags, box, limit)); 
 	}
 	/**
