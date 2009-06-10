@@ -87,7 +87,7 @@ public class GeoManager implements IGeoManager{
 							//geoMap.setCenter(Double.parseDouble(pos[1]), Double.parseDouble(pos[0]));
 						}else if(tokens[i].split("=")[0].equals("q")){
 							
-							//searchBox.setWhat(tokens[i].split("=")[1]);
+							searchBox.setWhat(tokens[i].split("=")[1]);
 							System.out.println("q");
 						}
 					}
