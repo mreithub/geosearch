@@ -11,7 +11,7 @@ import com.google.gwt.maps.client.geom.LatLng;
  */
 public class GeoObject implements Serializable {
 
-	private int id;
+	private long id;
 	private String titel;
 	private double xPos;
 	private double yPos;
@@ -25,12 +25,12 @@ public class GeoObject implements Serializable {
 
 	/**
 	 * 
-	 * @param id Unique ID
+	 * @param id Object ID
 	 * @param titel ObjTitel
 	 * @param xPos (Lng=Longitute)
 	 * @param yPos (Lat=Latitiute)
 	 */
-	public GeoObject(int id, String titel, double xPos, double yPos){
+	public GeoObject(long id, String titel, double xPos, double yPos){
 		this.id=id;
 		this.titel=titel;
 		this.xPos=xPos;
@@ -40,7 +40,7 @@ public class GeoObject implements Serializable {
 	 * Returns the unique ID of the GeoObject
 	 * @return
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -80,7 +80,7 @@ public class GeoObject implements Serializable {
 	 * Sets the uniqueID of the GeoObject
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -9,6 +9,7 @@ import at.fakeroot.sepm.shared.client.serialize.GeoObject;
  *
  */
 public class DBGeoObject extends GeoObject {
+	
 	private String title;
 	private int svc_id;
 	private String uid;
@@ -16,7 +17,7 @@ public class DBGeoObject extends GeoObject {
 	private Timestamp valid_until;
 	private Property[] properties;
 	
-	public DBGeoObject(int objID, String titel, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
+	public DBGeoObject(long objID, String titel, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
 		super(objID, titel, xPos, yPos);
 		svc_id= serviceID;
 		uid=uniqueID;
