@@ -15,7 +15,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * the class connects the GeoManager at the client with the DAO; it relays the users requests
- * and returns the text for the detailview
+ * and returns the text for the DetailView
  * @author RK
  */
 @SuppressWarnings("serial")
@@ -25,6 +25,7 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	private static final int limit = 50;
 	private GeoObjectManager geoObjManager;
 	private ServiceManager svcManager;
+
 	
 	//Constructor
 	public ObjectSearchServiceImpl()
@@ -90,10 +91,10 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 				}
 				//the substring until the first '%' is added to the result string
 				result = html.substring(0, begin);
-				//loops through all the propertys for the current dbGeoObject
+				//loops through all the properties for the current dbGeoObject
 				for(int x = 0; x < dbGeoObj.getProperties().length; x++)
 				{
-					//checks wether there is a property-name equal to the substring between two '%' characters
+					//checks whether there is a property-name equal to the substring between two '%' characters
 					if(html.substring(begin + 1, end).equals(dbGeoObj.getProperties()[x].getName()))
 					{
 						//adds value from the property-value to the result String

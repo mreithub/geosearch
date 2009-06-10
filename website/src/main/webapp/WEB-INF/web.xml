@@ -10,9 +10,21 @@
   
   
     <servlet>
-    <servlet-name>ObjectSearchServiceImpl</servlet-name>
-    <servlet-class>at.fakeroot.sepm.server.ObjectSearchServiceImpl</servlet-class>
+	    <servlet-name>ObjectSearchServiceImpl</servlet-name>
+	    <servlet-class>at.fakeroot.sepm.server.ObjectSearchServiceImpl</servlet-class>
     </servlet>
+	<servlet>
+		<servlet-name>log4j-init</servlet-name>
+		<servlet-class>at.fakeroot.sepm.shared.server.Log4jInit</servlet-class>
+	
+		<init-param>
+			<param-name>log4j-init-file</param-name>
+			<param-value>WEB-INF/log4j.lcf</param-value>
+		</init-param>
+	
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+    
   
   
     <servlet-mapping>

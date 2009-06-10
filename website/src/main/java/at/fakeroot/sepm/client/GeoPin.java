@@ -24,20 +24,19 @@ public class GeoPin extends Marker implements MarkerClickHandler
 	public GeoPin(IGeoManager geoManager, ClientGeoObject clientGeoObject)
 	{
 		super(clientGeoObject.getPoint(), markerOptions);
-		//super(clientGeoObject.getPoint(), markerOptions);
 		this.clientGeoObject = clientGeoObject;
 		this.geoManager = geoManager;
 		addMarkerClickHandler(this);
 		
-		//MakerOptions
-		Icon markerIcon = Icon.newInstance("/"+clientGeoObject.getImageUrl());
+		//MarkerOptions
+		Icon markerIcon = Icon.newInstance(clientGeoObject.getImageUrl());
 		markerIcon.setIconAnchor(Point.newInstance(13, 40));
 		markerOptions.setIcon(markerIcon);
 		markerOptions.setTitle(clientGeoObject.getTitel());
 	}
 	
 	/**
-	 * opens the detailview, as soon as the marker is clicked
+	 * opens the DetailView, as soon as the marker is clicked
 	 */
 	public void onClick(MarkerClickEvent event) 
 	{
