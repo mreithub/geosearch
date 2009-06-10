@@ -123,6 +123,11 @@ public abstract class ACrawler  {
 		} 
 		
 		serviceID=requestServiceID(SvcName);*/
+		
+		//Start to Crawl
+		while(true){
+			crawlBox(nextCrawlBox());
+		}
 	}
 	
 	/**
@@ -199,6 +204,7 @@ public abstract class ACrawler  {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} 
+		
 	}
 	
 	/**
@@ -377,4 +383,11 @@ public abstract class ACrawler  {
 		}
 		return apiKey;
 	}
+	
+	
+	/**
+	 * Hier muss der Eigene Crawler gemacht werden.
+	 * @param curBox
+	 */
+	abstract void crawlBox(BoundingBox curBox);
 }

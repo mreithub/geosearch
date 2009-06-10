@@ -5,6 +5,5 @@ public class CrawlerMain
 	public static void main(String[] args)
 	{
 		LastFMCrawler kraller = new LastFMCrawler();
-		kraller.startCrawling();
 	}
 }
