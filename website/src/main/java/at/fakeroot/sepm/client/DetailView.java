@@ -57,11 +57,12 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
  * private method used to set the tag list in the InfoWindow
  * 
  * */	
-	private void setTagList(){
+	private void setTagList() {
 		String[] tagArray = gObject.getTags(); 
 		final Anchor[] anchor = new Anchor[tagArray.length];
 		for(int i=0; i<tagArray.length; i++){
 			anchor[i]=new Anchor(tagArray[i]);
+			anchor[i].setHref("javascript:void()");
 			anchor[i].addClickHandler(this);
 			tags.add(anchor[i]);
 			tags.add(new InlineLabel(" "));
