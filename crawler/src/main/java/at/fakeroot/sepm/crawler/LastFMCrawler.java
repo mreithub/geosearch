@@ -1,9 +1,12 @@
 package at.fakeroot.sepm.crawler;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,11 +23,17 @@ public class LastFMCrawler extends ACrawler
 	
 	/**
 	 * Standard constructor.
+	 * @throws IOException 
+	 * @throws SQLException 
 	 */
-	public LastFMCrawler()
+	public LastFMCrawler() throws IOException
 	{
 		//0.32 degrees are about 70 km.
-		super(ACrawler.AUSTRIA, 0.32, "last.fm");
+		
+		//Load Property
+		super("lastfm");
+		
+		//super(ACrawler.AUSTRIA, 0.32, "last.fm");
 	}
 	
 	/**
@@ -42,7 +51,7 @@ public class LastFMCrawler extends ACrawler
 			"&long=" + (curBox.getX1() + curBox.getX2()) / 2 +
 			"&distance=50" +
 			"&format=json" +
-			"&api_key=ca211b536eeba529327dcb4d0a7ca6b6";
+			"&api_key="+getApiKey();
 
 		//We have to process the response in multiple passes because there can be more than a single page
 		//for a single request.

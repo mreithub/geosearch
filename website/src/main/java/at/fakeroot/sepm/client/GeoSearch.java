@@ -1,7 +1,10 @@
 package at.fakeroot.sepm.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -17,5 +20,6 @@ public class GeoSearch implements EntryPoint
 		GeoManager myManager = new GeoManager();
 		RootPanel.get().add(myManager.getGeoMap());
 		myManager.drawGUI();
+		
 	}
 }

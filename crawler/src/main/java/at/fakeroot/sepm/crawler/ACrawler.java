@@ -35,6 +35,7 @@ public abstract class ACrawler  {
 	private int serviceID;
 	private String serviceName = null;
 	private String apiKey = null;
+	private String secKey = null;
 	
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
@@ -53,78 +54,34 @@ public abstract class ACrawler  {
 	 * * ServerHost is localhost
 	 * * ServerPort is RMI-Std. Port
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
+	 * @throws IOException 
 	 */
-	public ACrawler(String SvcName) {
-		this(AUSTRIA, 0.5, SvcName);
-	}	
-	
-	/**
-	 * Standard constructor 
-	 * * Step size is 0.5
-	 * * ServerHost is localhost
-	 * * ServerPort is RMI-Std. Port
-	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
-	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
-	 */
-	public ACrawler(BoundingBox _crawlArea, String SvcName){
-		this(_crawlArea, 0.5, SvcName);
+	public ACrawler(String svcName) throws IOException  {
+		init(svcName);
 	}
 	
-	/**
-	 * Standard constructor 
-	 * * ServerHost is localhost
-	 * * ServerPort is RMI-Std. Port
-	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
-	 * @param _jumpXYOffset Step size 
-	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
-	 */
-	public ACrawler(BoundingBox _crawlArea, double _jumpXYOffset, String SvcName) {		
-		this(_crawlArea, _jumpXYOffset, "localhost", SvcName);
+	private void init(String svcName) throws IOException{
+		Properties prop = new Properties();
+		InputStream propStream = getClass().getResourceAsStream("/WEB-INF/jdbc.properties");
+		if (propStream == null) {
+			throw new IOException("Error: Couldn't open property file 'jdbc.properties'");
+		}
+		prop.load(propStream);
 		
-	}
-	
-	/**
-	 * Standard constructor 
-	 * * ServerPort is RMI-Std. Port
-	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
-	 * @param _jumpXYOffset Step size 
-	 * @param ServerHost ServerHost name (eg. localhost, www.myCrawler.com, 127.0.0.1)
-	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
-	 */
-	public ACrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, String SvcName) {
-		 this(_crawlArea, _jumpXYOffset, ServerHost, 1099, SvcName);
-	}
-	
-	/**
-	 * Standard constructor 
-	 * @param _crawlArea Search Area (eg. Austria, Europe, Word)
-	 * @param _jumpXYOffset Step size 
-	 * @param ServerHost ServerHost name (eg. localhost, www.myCrawler.com, 127.0.0.1)
-	 * @param ServerPort Server Port.  (Std. Port is 1099)
-	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
-	 */
-	public ACrawler(BoundingBox _crawlArea, double _jumpXYOffset, String ServerHost, int ServerPort, String SvcName) {
-		crawlArea=_crawlArea;
-		XOFFSET=_jumpXYOffset;
-		YOFFSET=_jumpXYOffset;
-		curBox = new BoundingBox(
-				_crawlArea.getX1(),
-				_crawlArea.getY1(),
-				_crawlArea.getX1()+XOFFSET,
-				_crawlArea.getY1()+YOFFSET);
+		//Init Daten
+		crawlArea=new BoundingBox(
+				Double.parseDouble(prop.getProperty("crawlingBox_x1")),
+				Double.parseDouble(prop.getProperty("crawlingBox_y1")),
+				Double.parseDouble(prop.getProperty("crawlingBox_x2")),
+				Double.parseDouble(prop.getProperty("crawlingBox_y2")));
+		XOFFSET=Double.parseDouble(prop.getProperty("stepSize_"+svcName));
+		YOFFSET=Double.parseDouble(prop.getProperty("stepSize_"+svcName));
+		curBox = crawlArea;
+		serviceID=requestServiceID(svcName);
+		serviceName=prop.getProperty("serviceName_"+svcName);
+		apiKey=prop.getProperty("apiKey_"+svcName);
+		secKey=prop.getProperty("secKey_"+svcName);
 		
-		/*try {
-			registry = LocateRegistry.getRegistry(ServerHost);
-			geoSaver = (GeoSave) registry.lookup("GeoSave");
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			e.printStackTrace();
-		} 
-		
-		serviceID=requestServiceID(SvcName);*/
-		
-		//Start to Crawl
 		while(true){
 			crawlBox(nextCrawlBox());
 		}
@@ -368,22 +325,17 @@ public abstract class ACrawler  {
 	 * Requests the API key for the service (which is stored in a property file) 
 	 * @return API key for the service name passed to the constructor
 	 */
-	protected String getApiKey() throws IOException {
-		if (apiKey == null) {
-			InputStream propStream = getClass().getResourceAsStream("/WEB-INF/apikeys.properties");
-			Properties prop = new Properties();
-			
-			if (propStream == null) {
-				// getResourceAsStream doesn't throw an Exception but returns a null pointer => we throw the exception
-				throw new IOException("Error: Couldn't open property file '/WEB-INF/apikeys.properties'");
-			}
-			prop.load(propStream);
-	
-			apiKey = prop.getProperty(serviceName);
-		}
+	protected String getApiKey() {
 		return apiKey;
 	}
 	
+	/**
+	 * Returns a SecurtiyKey. Else NULL
+	 * @return SecurityKey
+	 */
+	protected String getSecKey(){
+		return secKey;
+	}
 	
 	/**
 	 * Hier muss der Eigene Crawler gemacht werden.

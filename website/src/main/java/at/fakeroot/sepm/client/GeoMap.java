@@ -93,6 +93,14 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	}
 	
 	/**
+	 * Returns the Center of the Map
+	 * @return Center
+	 */
+	public LatLng getCenter(){
+		return geoMap.getCenter();
+	}
+	
+	/**
 	 * Searches for a given location and moves the displayed map region to the search result (if there
 	 * is one).
 	 * @param where specifies the location where to search.

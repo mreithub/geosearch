@@ -7,7 +7,9 @@ import at.fakeroot.sepm.client.serialize.ObjectSearchService;
 import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Timer;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -17,7 +19,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
  * @author JB
  *
  */
-public class GeoManager implements IGeoManager {
+public class GeoManager implements IGeoManager{
 	
 	private final ObjectSearchServiceAsync objectSearch = GWT.create(ObjectSearchService.class);
 	private int XOFFSET=5;
@@ -30,12 +32,13 @@ public class GeoManager implements IGeoManager {
 	
 	private String myWhat="";
 	private BoundingBox myBound;
-	
+	 
 	public GeoManager() {
 		this.geoMap=new GeoMap(this);
 		this.searchBox=new SearchBox(this);
 		this.tagCloud = new TagCloud(this);
 		this.resultBox = new ResultInfoBox();		
+		
 	}
 	
 	/**
@@ -68,6 +71,34 @@ public class GeoManager implements IGeoManager {
 		tagPop.show();
 		
 		
+		
+		//HistroyListener
+		History.addValueChangeHandler(new ValueChangeHandler<String>(){
+			String oldToken="";
+			public void onValueChange(ValueChangeEvent<String> event) {
+				System.out.println("histroy: "+event.getValue());
+				if(!oldToken.equals(event.getValue()))
+				{
+					String[] tokens=event.getValue().split("&");
+					for(int i=0;i<tokens.length;i++){
+						if(tokens[i].split("=")[0].equals("pos")){
+							System.out.println("pos");
+							String[] pos=tokens[i].split("=")[1].split(";");
+							//geoMap.setCenter(Double.parseDouble(pos[1]), Double.parseDouble(pos[0]));
+						}else if(tokens[i].split("=")[0].equals("q")){
+							
+							//searchBox.setWhat(tokens[i].split("=")[1]);
+							System.out.println("q");
+						}
+					}
+					
+					
+				}
+				oldToken=event.getValue();
+			}
+		});
+		
+		History.fireCurrentHistoryState();
 	}
 	
 	/**
@@ -97,6 +128,7 @@ public class GeoManager implements IGeoManager {
 	 * @param what eg.: kirche
 	 */
 	public void search(String what) {
+		History.newItem("q="+what.trim());
 		objectSearch.search(myBound, what.trim(), new AsyncCallback<SearchResult>()
 				{
 					public void onFailure(Throwable arg0) {
@@ -165,5 +197,6 @@ public class GeoManager implements IGeoManager {
 	public GeoMap getGeoMap(){
 		return geoMap;
 	}
+
 
 }

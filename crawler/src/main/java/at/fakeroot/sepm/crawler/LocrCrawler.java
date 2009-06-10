@@ -1,4 +1,6 @@
 package at.fakeroot.sepm.crawler;
+import java.io.IOException;
+
 import org.json.HTTP;
 import org.json.HTTPTokener;
 import org.json.JSONArray;
@@ -14,8 +16,8 @@ import at.fakeroot.sepm.shared.server.Property;
 
 public class LocrCrawler extends ACrawler  {
 
-	public LocrCrawler()  {
-		super(new BoundingBox(10.0,10,80.0,80.0),11, "locr.com");
+	public LocrCrawler() throws IOException  {
+		super("locr.com");
 	}
 
 
