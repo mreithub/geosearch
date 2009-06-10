@@ -11,24 +11,24 @@ import com.google.gwt.maps.client.geom.LatLng;
  */
 public class GeoObject implements Serializable {
 
-	private long id;
+	private long id=0;
 	private String titel;
 	private double xPos;
 	private double yPos;
 	private String tags[];
 	
 	/**
-	 * StandardConstruction. Is required for the serializeation
+	 * Standard Constructor. Is required for the serialization.
 	 */
 	public GeoObject() {
 	}
 
 	/**
-	 * 
+	 * Constructor
 	 * @param id Object ID
 	 * @param titel ObjTitel
-	 * @param xPos (Lng=Longitute)
-	 * @param yPos (Lat=Latitiute)
+	 * @param xPos (Lng=Longitude)
+	 * @param yPos (Lat=Latitude)
 	 */
 	public GeoObject(long id, String titel, double xPos, double yPos){
 		this.id=id;
@@ -36,6 +36,20 @@ public class GeoObject implements Serializable {
 		this.xPos=xPos;
 		this.yPos=yPos;
 	}
+	
+	/**
+	 * Constructor
+	 * @param titel ObjTitel
+	 * @param xPos (Lng=Longitude)
+	 * @param yPos (Lat=Latitude)
+	 */
+	public GeoObject(String titel, double xPos, double yPos){
+		this.titel=titel;
+		this.xPos=xPos;
+		this.yPos=yPos;
+	}
+	
+	
 	/**
 	 * Returns the unique ID of the GeoObject
 	 * @return
@@ -53,7 +67,7 @@ public class GeoObject implements Serializable {
 	}
 
 	/**
-	 * Returns the xPos (Lng=Longitute) of the GeoObject
+	 * Returns the xPos (Lng=Longitude) of the GeoObject
 	 * @return
 	 */
 	public double getXPos() {
@@ -61,7 +75,7 @@ public class GeoObject implements Serializable {
 	}
 
 	/**
-	 * Returns the yPos (Lat=Latitute) of the GeoObject
+	 * Returns the yPos (Lat=Latitude) of the GeoObject
 	 * @return
 	 */
 	public double getYPos() {
@@ -94,7 +108,7 @@ public class GeoObject implements Serializable {
 
 	
 	/**
-	 * Sets the xPos (Lng=Longitute) of the GeoObject 
+	 * Sets the xPos (Lng=Longitude) of the GeoObject 
 	 * @return
 	 */
 	public void setXPos(double pos) {
@@ -102,7 +116,7 @@ public class GeoObject implements Serializable {
 	}
 
 	/**
-	 * Sets the yPos (Lat=Latitute) of the GeoObject 
+	 * Sets the yPos (Lat=Latitude) of the GeoObject 
 	 * @return
 	 */
 	public void setYPos(double pos) {
