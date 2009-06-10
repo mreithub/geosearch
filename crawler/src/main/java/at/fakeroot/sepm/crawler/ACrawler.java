@@ -341,5 +341,5 @@ public abstract class ACrawler  {
 	 * Hier muss der Eigene Crawler gemacht werden.
 	 * @param curBox
 	 */
-	abstract void crawlBox(BoundingBox curBox);
+	protected abstract void crawlBox(BoundingBox curBox);
 }

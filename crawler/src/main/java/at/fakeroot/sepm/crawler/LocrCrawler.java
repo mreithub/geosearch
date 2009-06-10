@@ -21,7 +21,7 @@ public class LocrCrawler extends ACrawler  {
 	}
 
 
-	void crawlBox(BoundingBox curBox) {
+	protected void crawlBox(BoundingBox curBox) {
 		String url = "http://de.locr.com/api/get_photos_json.php"
 			+ "?latitudemin=" + curBox.getX1() + 
 			"&longitudemin=" + curBox.getY1() + 

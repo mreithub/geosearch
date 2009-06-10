@@ -40,7 +40,7 @@ public class LastFMCrawler extends ACrawler
 	 * This function starts the crawling process and runs it. Note that this function doesn't terminate,
 	 * it must therefore execute within a separate thread.
 	 */
-	void crawlBox(BoundingBox curBox) {
+	protected void crawlBox(BoundingBox curBox) {
 		//curPage is the current page of the response, numPages contains the total amount of response pages.
 		int curPage = 1, numPages = 0;
 		String responseStr;

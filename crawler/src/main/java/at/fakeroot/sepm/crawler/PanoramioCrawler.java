@@ -19,7 +19,7 @@ public class PanoramioCrawler extends ACrawler{
 		
 
 	@Override
-	void crawlBox(BoundingBox curBox) {
+	protected void crawlBox(BoundingBox curBox) {
 		ArrayList<DBGeoObject> foundObjects = new ArrayList<DBGeoObject>();
 		int from=0, to=0, count=0;
 		String url="";
