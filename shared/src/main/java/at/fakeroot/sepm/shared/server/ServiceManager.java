@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 /**
  * the ServiceManager provides access to the Database, in order to readout Data from the
  * table service; this class realizes the Singleton pattern
@@ -13,6 +15,7 @@ public class ServiceManager
 {
 	private static ServiceManager svcManager = null;
 	private DBConnection dbConn;
+	private static final Logger logger = Logger.getRootLogger();
 	
 	/**
 	 * protected Constructor, tries to connect with DB
@@ -25,7 +28,7 @@ public class ServiceManager
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			logger.error("ServiceManager constructor error", e);
 		}
 	}
 	
@@ -75,7 +78,7 @@ public class ServiceManager
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			logger.error("ServiceManager.select error", e);
 		}
 		
 		//returns a DBService with the service tags
@@ -116,7 +119,7 @@ public class ServiceManager
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("ServiceManager.select error", e);
 		}
 		
 		//returns a DBService with the service tags

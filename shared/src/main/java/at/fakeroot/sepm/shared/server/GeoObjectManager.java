@@ -1,11 +1,12 @@
 package at.fakeroot.sepm.shared.server;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.postgresql.geometric.PGpoint;
+import org.apache.log4j.Logger;
+
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
@@ -20,6 +21,7 @@ public class GeoObjectManager
 	private static GeoObjectManager geoObjManager = null;
 	private DBConnection dbConn;
 	PreparedStatement tagStmt;
+	private static final Logger logger = Logger.getRootLogger();
 
 
 	/**
@@ -34,7 +36,7 @@ public class GeoObjectManager
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Couldn't connect to database", e);
 		}
 	}
 
@@ -57,65 +59,65 @@ public class GeoObjectManager
 	 * */
 
 	public DBGeoObject select(DBGeoObject obj)
-	{	ResultSet rs1=null;
-	ResultSet rs2=null;
-	ResultSet rs3=null;
-	DBGeoObject rc=null;
+	{
+		ResultSet rs1=null;
+		ResultSet rs2=null;
+		ResultSet rs3=null;
+		DBGeoObject rc=null;
 
-	try {	
-		PreparedStatement pstmt1 = dbConn.prepareStatement("SELECT * FROM geoObject WHERE obj_id= ? AND svc_id = ? AND uid = '?' ");
-		pstmt1.setLong(1, obj.getId());
-		pstmt1.setInt(2, obj.getSvc_id());
-		pstmt1.setString(3, obj.getUid());
-		rs1=pstmt1.executeQuery();
-		pstmt1.close();
-		dbConn.disconnect();
-
-		PreparedStatement pstmt2 = dbConn.prepareStatement("SELECT name, value FROM objectProperty WHERE obj_id = ?");
-		pstmt2.setLong(1, obj.getId());
-		rs2=pstmt2.executeQuery();
-		pstmt2.close();
-		dbConn.disconnect();
-		rs2.last();
-		int propRowCount = rs2.getRow();
-		rs2.first();
-		
-
-		PreparedStatement pstmt3 = dbConn.prepareStatement("SELECT tag FROM objectTag WHERE obj_id=?");
-		pstmt3.setLong(1, obj.getId());
-		rs3=pstmt3.executeQuery();
-		rs3=pstmt3.executeQuery();
-		rs3.last();
-		int tagRowCount = rs3.getRow();
-		rs3.first();
-		pstmt3.close();
-		dbConn.disconnect();
-
-		if(rs1.next()){
-			PGpoint location = (PGpoint)rs1.getObject(6);
-
-			Property[] properties= new Property[propRowCount];
-			int i=0;
-			while(rs2.next()){
-				properties[i]=new Property(rs2.getString(2), rs2.getString(3));
-				i++;
+		try {	
+			PreparedStatement pstmt1 = dbConn.prepareStatement("SELECT * FROM geoObject WHERE obj_id= ? AND svc_id = ? AND uid = '?' ");
+			pstmt1.setLong(1, obj.getId());
+			pstmt1.setInt(2, obj.getSvc_id());
+			pstmt1.setString(3, obj.getUid());
+			rs1=pstmt1.executeQuery();
+			pstmt1.close();
+			dbConn.disconnect();
+	
+			PreparedStatement pstmt2 = dbConn.prepareStatement("SELECT name, value FROM objectProperty WHERE obj_id = ?");
+			pstmt2.setLong(1, obj.getId());
+			rs2=pstmt2.executeQuery();
+			pstmt2.close();
+			dbConn.disconnect();
+			rs2.last();
+			int propRowCount = rs2.getRow();
+			rs2.first();
+			
+	
+			PreparedStatement pstmt3 = dbConn.prepareStatement("SELECT tag FROM objectTag WHERE obj_id=?");
+			pstmt3.setLong(1, obj.getId());
+			rs3=pstmt3.executeQuery();
+			rs3=pstmt3.executeQuery();
+			rs3.last();
+			int tagRowCount = rs3.getRow();
+			rs3.first();
+			pstmt3.close();
+			dbConn.disconnect();
+	
+			if(rs1.next()){
+				PGpoint location = (PGpoint)rs1.getObject(6);
+	
+				Property[] properties= new Property[propRowCount];
+				int i=0;
+				while(rs2.next()){
+					properties[i]=new Property(rs2.getString(2), rs2.getString(3));
+					i++;
+				}
+	
+				String[] tags = new String[tagRowCount];
+				int j=0;
+				while(rs3.next()){
+					tags[j]=rs3.getString(2);
+					j++;
+				}
+	
+				rc= new DBGeoObject(rs1.getInt(1), rs1.getString(4), location.x ,location.y, rs1.getInt(2), rs1.getString(3), rs1.getString(5),rs1.getTimestamp(7), properties, tags);
 			}
-
-			String[] tags = new String[tagRowCount];
-			int j=0;
-			while(rs3.next()){
-				tags[j]=rs3.getString(2);
-				j++;
-			}
-
-			rc= new DBGeoObject(rs1.getInt(1), rs1.getString(4), location.x ,location.y, rs1.getInt(2), rs1.getString(3), rs1.getString(5),rs1.getTimestamp(7), properties, tags);
+		} catch (SQLException e) {
+			logger.error("SQLException in GeoObjectManager.select()", e);
 		}
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-
-	return rc;
+	
+		return rc;
 	}
 
 	
@@ -129,7 +131,7 @@ public class GeoObjectManager
 	public SearchResult select(String[] tags, BoundingBox box, int limit)
 	{
 		SearchResult searchResult = new SearchResult();
-		Connection db = null;
+
 		try {
 			String sql = "SELECT obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail FROM "
 				+ "geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) WHERE ";
@@ -162,14 +164,14 @@ public class GeoObjectManager
 					stmt.setString(i+1, tags[i]);
 				}
 			}
-			stmt.setDouble(++i, box.getY1());
 			stmt.setDouble(++i, box.getX1());
-			stmt.setDouble(++i, box.getY2());
+			stmt.setDouble(++i, box.getY1());
 			stmt.setDouble(++i, box.getX2());
-	
-	
+			stmt.setDouble(++i, box.getY2());
+
+
 			ResultSet res = stmt.executeQuery();
-			
+
 			while (res.next()) {
 				searchResult.addResultToList(new ClientGeoObject(
 						res.getInt("obj_id"),
@@ -181,7 +183,7 @@ public class GeoObjectManager
 			}
 		}
 		catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL error in GeoObjectManager.select()", e);
 		}
 	
 		return searchResult;
@@ -229,7 +231,7 @@ public class GeoObjectManager
 			dbConn.disconnect();
 		}
 		catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL error in GeoObjectManager.insert", e);
 		}
 	}
 
@@ -255,7 +257,7 @@ public class GeoObjectManager
 			dbConn.disconnect();
 		}
 		catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL error in GeoObjectManager.update()", e);
 		}
 	}
 }

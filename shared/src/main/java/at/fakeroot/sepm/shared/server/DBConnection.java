@@ -32,7 +32,7 @@ public class DBConnection {
 	public DBConnection() throws SQLException, IOException {
 		if (dataSource == null)	{
 			Properties prop = new Properties();
-			// Database initialization @TODO dynamically get DB config
+
 			PGConnectionPoolDataSource ds = new PGConnectionPoolDataSource();
 			
 			InputStream propStream = getClass().getResourceAsStream("/WEB-INF/jdbc.properties");
