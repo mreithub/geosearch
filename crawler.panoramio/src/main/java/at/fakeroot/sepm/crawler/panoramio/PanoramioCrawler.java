@@ -35,7 +35,7 @@ public class PanoramioCrawler extends ACrawler {
 	@Override
 	protected void crawlBox(BoundingBox curBox) {
 		ArrayList<DBGeoObject> foundObjects = new ArrayList<DBGeoObject>();
-		int from=0, to=0, count=0;
+		int from=0, to=1, count=0;
 		String url="";
 		String responseStr = "";
 		
@@ -46,12 +46,14 @@ public class PanoramioCrawler extends ACrawler {
 					"&maxx=" + curBox.getX2()+ "&maxy=" + curBox.getY2()+ "&size=small";
 		
 			responseStr = requestUrl(url);
+			
+			System.out.println(responseStr);
 		
 			try {
 				JSONObject jsonResponse = new JSONObject(responseStr);
 				JSONArray photoArray = jsonResponse.getJSONArray("photos");
 				
-				for(int i=0; i<=photoArray.length(); i++){
+				for(int i=0; i<photoArray.length(); i++){
 					
 					JSONObject jsonObj = new JSONObject(photoArray.getJSONObject(i));
 					
@@ -75,7 +77,7 @@ public class PanoramioCrawler extends ACrawler {
 				}
 				
 				saveObject((DBGeoObject[])foundObjects.toArray());
-			
+				
 				count=jsonResponse.getInt("count");
 				from=to+1;
 				if(count>to+100)
