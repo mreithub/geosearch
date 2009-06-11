@@ -59,6 +59,7 @@
 	</dependencies>
 	<build>
 		<finalName>geoSearch</finalName>
+		<outputDirectory>target/geoSearch/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -86,7 +87,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<additionalClasspathElements>
-						<additionalClasspathElement>target/war</additionalClasspathElement>
+						<additionalClasspathElement>target/geoSearch</additionalClasspathElement>
 					</additionalClasspathElements>
 				</configuration>
 			</plugin>
@@ -100,7 +101,7 @@
 				<version>1.1-SNAPSHOT</version>
 				<configuration>
 					<runTarget>/index.html</runTarget>
-					<hostedWebapp>${basedir}/target/war</hostedWebapp>
+					<hostedWebapp>${basedir}/target/geoSearch</hostedWebapp>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -115,7 +116,7 @@
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/webapp/</directory>
-				<targetPath>${basedir}/target/war/</targetPath>
+				<targetPath>${basedir}/target/geoSearch/</targetPath>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
