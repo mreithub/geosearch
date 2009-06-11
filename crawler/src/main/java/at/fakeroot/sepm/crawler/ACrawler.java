@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
@@ -14,6 +15,10 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+
+import com.google.gwt.maps.client.geocode.Distance;
+import com.google.gwt.maps.client.geocode.Geocoder;
+import com.google.gwt.maps.client.geom.LatLng;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
@@ -42,6 +47,24 @@ public abstract class ACrawler  {
 
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
+	
+	private static String[] stopWords = new String[] {
+		"aber", "als", "am", "an", "auch", "auf", "aus", "bei", "bin", "bis", "bist", "da", "dadurch",
+		"daher", "darum", "das", "daß", "dass", "dein", "deine", "dem", "den", "der", "des", "dessen",
+		"deshalb", "die", "dies", "dieser", "dieses", "doch", "dort", "du", "durch", "ein", "eine", "einem",
+		"einen", "einer", "eines", "er", "es", "euer", "eure", "für", "hatte", "hatten", "hattest", "hattet",
+		"hier", "hinter", "ich", "ihr", "ihre", "im", "in", "ist", "ja", "jede", "jedem", "jeden", "jeder",
+		"jedes", "jener", "jenes", "jetzt", "kann", "kannst", "können", "könnt", "machen", "mein", "meine",
+		"mit", "muß", "mußt", "musst", "müssen", "müßt", "nach", "nachdem", "nein", "nicht", "nun", "oder",
+		"seid", "sein", "seine", "sich", "sie", "sind", "soll", "sollen", "sollst", "sollt", "sonst", "soweit",
+		"sowie", "über", "und", "unser", "unsere", "unter", "vom", "von", "vor", "wann", "warum", "was", "weiter",
+		"weitere", "wenn", "wer", "werde", "werden", "werdet", "weshalb", "wie", "wieder", "wieso", "wir",
+		"wird", "wirst", "wo", "woher", "wohin", "zu", "zum", "zur" };
+	
+	//Define the split characters. Include characters [10] and [13] in order to split at line breaks.
+	private static String splitChars = " <>|^Â°!\"Â§$%&/{([)]=}?\\Â´`+*~#'-_.:,;" +
+		new Character((char)10).toString() + new Character((char)13).toString();
+
 	
 	private IGeoSave geoSaver;
 	
@@ -307,10 +330,23 @@ public abstract class ACrawler  {
 		{
 			if (checkValidity)
 			{
-				//Check if we can accept this word. We do that if it's longer than 3 chars, and
+				//Check if we can accept this word. We do that if it's not a stop-word, and
 				//if it starts with an upper-case letter (because these words are usually substantives
 				//in the German language).
-				if (splits[i].length() <= 3 || splits[i].substring(0, 1).equals(splits[i].substring(0, 1).toLowerCase()))
+				if (splits[i].substring(0, 1).equals(splits[i].substring(0, 1).toLowerCase()))
+					continue;
+				
+				String lowcaseSplit = splits[i].toLowerCase();
+				boolean isStopWord = false;
+				for (int j = 0; j < stopWords.length; j++)
+				{
+					if (stopWords[j].equals(lowcaseSplit))
+					{
+						isStopWord = true;
+						break;
+					}
+				}
+				if (isStopWord)
 					continue;
 			}
 			//Check if this tag has already been found so far.
@@ -330,16 +366,12 @@ public abstract class ACrawler  {
 	{
 		String curString = "";
 		ArrayList<String> resultList = new ArrayList<String>();
-		
-		//Define the split characters. Include characters [10] and [13] in order to split at line breaks.
-		String invalidChars = " <>|^Â°!\"Â§$%&/{([)]=}?\\Â´`+*~#'-_.:,;" +
-			new Character((char)10).toString() + new Character((char)13).toString();
-		
+				
 		for (int i = 0; i < source.length(); i++)
 		{
 			Character curChar = source.charAt(i);
 			//If the current character is a split character, add the current string to the result list.
-			if (invalidChars.contains(curChar.toString()))
+			if (splitChars.contains(curChar.toString()))
 			{
 				if (curString.length() > 0)
 					resultList.add(curString);
@@ -353,6 +385,32 @@ public abstract class ACrawler  {
 		
 		//Return the result as array.
 		return (resultList.toArray(new String[resultList.size()]));
+	}
+	
+	/**
+	 * Computes the approximate distance in kilometers between two given geographical points. 
+	 * @param p1
+	 * @param p2
+	 * @return
+	 */
+	protected double computeDistance(LatLng p1, LatLng p2)
+	{
+		double x1, y1, z1, x2, y2, z2;
+		double rEarth = 40000;
+		
+		double longArg = (p1.getLongitude() - 90) * Math.PI / 180;
+		double latArg = p1.getLatitude() * Math.PI / 180;
+		x1 = Math.cos(longArg) * Math.cos(latArg) * rEarth;
+		y1 = Math.sin(longArg) * Math.cos(latArg) * rEarth;
+		z1 = Math.sin(latArg) * rEarth;
+		
+		longArg = (p2.getLongitude() - 90) * Math.PI / 180;
+		latArg = p2.getLatitude() * Math.PI / 180;
+		x2 = Math.cos(longArg) * Math.cos(latArg) * rEarth;
+		y2 = Math.sin(longArg) * Math.cos(latArg) * rEarth;
+		z2 = Math.sin(latArg) * rEarth;
+		
+		return (Math.acos((x1 * x2 + y1 * y2 + z1 * z2) / (Math.sqrt(x1 * x1 + y1 * y1 + z1 * z1) * Math.sqrt(x2 * x2 + y2 * y2 + z2 * z2))) * rEarth);
 	}
 
 	/**
