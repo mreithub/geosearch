@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>at.fakeroot.sepm</groupId>
-  <artifactId>geoSearch.crawler.lastfm</artifactId>
+  <artifactId>geoSearch.crawler.panoramio</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>geoSearch.crawler.lastfm</name>
+  <name>geoSearch.crawler.panoramio</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -43,8 +43,8 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>at.fakeroot.sepm.crawler.lastfm.LastFMCrawler</mainClass>
-              <packageName>at.fakeroot.sepm.crawler.lastfm</packageName>
+              <mainClass>at.fakeroot.sepm.crawler.panoramio.PanoramioCrawler</mainClass>
+              <packageName>at.fakeroot.sepm.crawler.panoramio</packageName>
             </manifest>
             <manifestEntries>
               <mode>development</mode>
@@ -66,7 +66,7 @@
         </executions>
         <configuration>
           <executable>maven</executable>
-          <mainClass>at.fakeroot.sepm.crawler.lastfm.LastFMCrawler</mainClass>
+          <mainClass>at.fakeroot.sepm.crawler.panoramio.PanoramioCrawler</mainClass>
         </configuration>
       </plugin>
     </plugins>
