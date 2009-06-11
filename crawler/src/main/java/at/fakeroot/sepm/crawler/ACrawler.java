@@ -1,13 +1,10 @@
 package at.fakeroot.sepm.crawler;
 import java.io.*;
-import java.rmi.ConnectException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
@@ -16,8 +13,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
-import com.google.gwt.maps.client.geocode.Distance;
-import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geom.LatLng;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
@@ -36,6 +31,9 @@ public abstract class ACrawler  {
 	private double xOffset=0.5;
 	private double yOffset=0.5;
 	
+	// time between two crawlBox() calls (msec)
+	private long interval=1000;
+
 	private boolean newCircle=false;
 	
 	private int serviceID;
@@ -50,14 +48,14 @@ public abstract class ACrawler  {
 	
 	private static String[] stopWords = new String[] {
 		"aber", "als", "am", "an", "auch", "auf", "aus", "bei", "bin", "bis", "bist", "da", "dadurch",
-		"daher", "darum", "das", "daß", "dass", "dein", "deine", "dem", "den", "der", "des", "dessen",
+		"daher", "darum", "das", "daï¿½", "dass", "dein", "deine", "dem", "den", "der", "des", "dessen",
 		"deshalb", "die", "dies", "dieser", "dieses", "doch", "dort", "du", "durch", "ein", "eine", "einem",
-		"einen", "einer", "eines", "er", "es", "euer", "eure", "für", "hatte", "hatten", "hattest", "hattet",
+		"einen", "einer", "eines", "er", "es", "euer", "eure", "fï¿½r", "hatte", "hatten", "hattest", "hattet",
 		"hier", "hinter", "ich", "ihr", "ihre", "im", "in", "ist", "ja", "jede", "jedem", "jeden", "jeder",
-		"jedes", "jener", "jenes", "jetzt", "kann", "kannst", "können", "könnt", "machen", "mein", "meine",
-		"mit", "muß", "mußt", "musst", "müssen", "müßt", "nach", "nachdem", "nein", "nicht", "nun", "oder",
+		"jedes", "jener", "jenes", "jetzt", "kann", "kannst", "kï¿½nnen", "kï¿½nnt", "machen", "mein", "meine",
+		"mit", "muï¿½", "muï¿½t", "musst", "mï¿½ssen", "mï¿½ï¿½t", "nach", "nachdem", "nein", "nicht", "nun", "oder",
 		"seid", "sein", "seine", "sich", "sie", "sind", "soll", "sollen", "sollst", "sollt", "sonst", "soweit",
-		"sowie", "über", "und", "unser", "unsere", "unter", "vom", "von", "vor", "wann", "warum", "was", "weiter",
+		"sowie", "ï¿½ber", "und", "unser", "unsere", "unter", "vom", "von", "vor", "wann", "warum", "was", "weiter",
 		"weitere", "wenn", "wer", "werde", "werden", "werdet", "weshalb", "wie", "wieder", "wieso", "wir",
 		"wird", "wirst", "wo", "woher", "wohin", "zu", "zum", "zur" };
 	
@@ -127,6 +125,8 @@ public abstract class ACrawler  {
 		xOffset = Double.parseDouble(prop.getProperty("crawler.stepSize", Double.toString(xOffset)));
 		yOffset = xOffset;
 
+		interval = Long.parseLong(prop.getProperty("crawler.interval", Long.toString(interval)));
+
 		curBox = crawlArea;
 		apiKey = prop.getProperty("crawler.apiKey", apiKey);
 		secKey = prop.getProperty("crawler.secKey", secKey);
@@ -142,6 +142,13 @@ public abstract class ACrawler  {
 	public void crawl() {
 		while(true){
 			crawlBox(nextCrawlBox());
+			try {
+				Thread.sleep(interval);
+			}
+			catch (InterruptedException e) {
+				System.err.println("Error: Aborted unexpectedly");
+				System.exit(1);
+			}
 		}
 	}
 	
