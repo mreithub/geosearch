@@ -23,7 +23,7 @@ public class SearchResultTest extends TestCase
 		assertEquals(hits, testObject.getResultCount());
 		assertEquals(testObject.getResults().get(0).getId(), cgo.getId());
 		assertEquals(testObject.getResults().get(0).getXPos(), cgo.getXPos());
-		assertEquals(testObject.getResults().get(0).getTitel(), cgo.getTitel());
+		assertEquals(testObject.getResults().get(0).getTitle(), cgo.getTitle());
 		assertEquals(testObject.getResults().get(0).getTags()[0], cgo.getTags()[0]);
 	}
 }

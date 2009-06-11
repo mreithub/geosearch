@@ -52,18 +52,24 @@ public abstract class ACrawler  {
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 * @throws IOException 
 	 */
-	public ACrawler(String svcName) throws IOException, NotBoundException  {
+	public ACrawler(String svcName) throws IOException {
 		init(svcName);
 	}
 	
-	private void init(String svcName) throws IOException, NotBoundException {
+	private void init(String svcName) throws IOException {
 		// specific properties overwrite the global ones
 		loadProperties("crawler.properties");
 		loadProperties(svcName+".properties");
 
 		// init RMI
 		Registry reg = LocateRegistry.getRegistry(rmiServer, rmiPort);
-		geoSaver = (IGeoSave) reg.lookup("GeoSave");
+		try {
+			geoSaver = (IGeoSave) reg.lookup("GeoSave");
+		}
+		catch (NotBoundException e) {
+			// if we can't get a RMI connection, enter testing mode
+			geoSaver = new GeoSaveTest();
+		}
 
 		// Request Service ID
 		serviceID=requestServiceID(svcName);

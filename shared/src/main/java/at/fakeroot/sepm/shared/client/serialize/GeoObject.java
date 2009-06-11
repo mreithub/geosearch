@@ -12,7 +12,7 @@ import com.google.gwt.maps.client.geom.LatLng;
 public class GeoObject implements Serializable {
 
 	private long id=0;
-	private String titel;
+	private String title;
 	private double xPos;
 	private double yPos;
 	private String tags[];
@@ -26,25 +26,25 @@ public class GeoObject implements Serializable {
 	/**
 	 * Constructor
 	 * @param id Object ID
-	 * @param titel ObjTitel
+	 * @param title Object title
 	 * @param xPos (Lng=Longitude)
 	 * @param yPos (Lat=Latitude)
 	 */
-	public GeoObject(long id, String titel, double xPos, double yPos){
+	public GeoObject(long id, String title, double xPos, double yPos){
 		this.id=id;
-		this.titel=titel;
+		this.title=title;
 		this.xPos=xPos;
 		this.yPos=yPos;
 	}
 	
 	/**
 	 * Constructor
-	 * @param titel ObjTitel
+	 * @param title Object title
 	 * @param xPos (Lng=Longitude)
 	 * @param yPos (Lat=Latitude)
 	 */
-	public GeoObject(String titel, double xPos, double yPos){
-		this.titel=titel;
+	public GeoObject(String title, double xPos, double yPos){
+		this.title=title;
 		this.xPos=xPos;
 		this.yPos=yPos;
 	}
@@ -62,8 +62,8 @@ public class GeoObject implements Serializable {
 	 * Returns the Title of the GeoObject
 	 * @return
 	 */
-	public String getTitel() {
-		return titel;
+	public String getTitle() {
+		return title;
 	}
 
 	/**
@@ -100,10 +100,10 @@ public class GeoObject implements Serializable {
 
 	/**
 	 * Sets the Title of the GeoObject
-	 * @param titel
+	 * @param title
 	 */
-	public void setTitel(String titel) {
-		this.titel = titel;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	
@@ -132,7 +132,7 @@ public class GeoObject implements Serializable {
 	}
 
 	public String toString() {
-		return "id: "+id+", titel: "+titel+", xPos(lng): "+xPos+", yPos(lat): "+yPos;
+		return "id: "+id+", title: "+title+", xPos(lng): "+xPos+", yPos(lat): "+yPos;
 	}
 	
 }

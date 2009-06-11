@@ -35,7 +35,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		gObject=object;
 		gManager=geoManager;
 		
-		title=new Label(gObject.getTitel());
+		title=new Label(gObject.getTitle());
 		detail = new HTML("Loading...");
 		tags = new FlowPanel();
 		setTagList();

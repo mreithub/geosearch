@@ -32,7 +32,7 @@ public class GeoPin extends Marker implements MarkerClickHandler
 		Icon markerIcon = Icon.newInstance(clientGeoObject.getImageUrl());
 		markerIcon.setIconAnchor(Point.newInstance(13, 40));
 		markerOptions.setIcon(markerIcon);
-		markerOptions.setTitle(clientGeoObject.getTitel());
+		markerOptions.setTitle(clientGeoObject.getTitle());
 	}
 	
 	/**

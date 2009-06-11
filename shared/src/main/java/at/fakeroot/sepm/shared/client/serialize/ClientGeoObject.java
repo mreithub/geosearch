@@ -18,14 +18,14 @@ public class ClientGeoObject extends GeoObject implements Serializable {
 
 	/**
 	 * Constructor
-	 * @param titel ObjTitel
+	 * @param title Object title
 	 * @param xPos (Lng=Longitude)
 	 * @param yPos (Lat=Latitude)
 	 * @param imageUrl Pin (Marker) Image
 	 * @param tags GeoObject Tags
 	 */
-	public ClientGeoObject(String titel, String imageUrl, String[] tags, double xPos, double yPos){
-		super(titel,xPos,yPos);
+	public ClientGeoObject(String title, String imageUrl, String[] tags, double xPos, double yPos){
+		super(title,xPos,yPos);
 		this.imageUrl=imageUrl;
 		setTags(tags);
 	}
@@ -33,14 +33,14 @@ public class ClientGeoObject extends GeoObject implements Serializable {
 	/**
 	 * Constructor
 	 * @param id object id
-	 * @param titel ObjTitel
+	 * @param title Object title
 	 * @param xPos (Lng=Longitude)
 	 * @param yPos (Lat=Latitude)
 	 * @param imageUrl Pin (Marker) Image
 	 * @param tags GeoObject Tags
 	 */
-	public ClientGeoObject(long id, String titel, String imageUrl, String[] tags, double xPos, double yPos){
-		super(id, titel,xPos,yPos);
+	public ClientGeoObject(long id, String title, String imageUrl, String[] tags, double xPos, double yPos){
+		super(id, title,xPos,yPos);
 		this.imageUrl=imageUrl;
 		setTags(tags);
 	}

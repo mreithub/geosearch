@@ -96,7 +96,7 @@ public class LastFMCrawler extends ACrawler
 					//Use event-level exception handling, too.
 					try
 					{
-						String titel = null, uniqueID = null, link = null;
+						String title = null, uniqueID = null, link = null;
 						ArrayList<String> tags = null;
 						double xPos = 0, yPos = 0;
 						Timestamp validUntil = null;
@@ -108,7 +108,7 @@ public class LastFMCrawler extends ACrawler
 						//Get the title.
 						if (curEvent.isNull("title"))
 							continue;
-						titel = curEvent.getString("title");
+						title = curEvent.getString("title");
 						
 						//Get the geo position.
 						foundData = false;
@@ -176,7 +176,7 @@ public class LastFMCrawler extends ACrawler
 						
 						//Extract the event tags. We use the words from the title, artists, and description.
 						tags = new ArrayList<String>();
-						parseStringIntoTags(titel, tags, false);
+						parseStringIntoTags(title, tags, false);
 						if (!curEvent.isNull("artists"))
 						{
 							JSONObject curArtists = curEvent.getJSONObject("artists");
@@ -199,7 +199,7 @@ public class LastFMCrawler extends ACrawler
 						}						
 						
 						//Add a new DB geo object with the parsed values.
-						geoObjects.add(new DBGeoObject(0, titel, xPos, yPos, getSvcID(), uniqueID,
+						geoObjects.add(new DBGeoObject(0, title, xPos, yPos, getSvcID(), uniqueID,
 							link, validUntil, new Property[] {}, tags.toArray(new String[tags.size()])));
 					}
 					catch (Exception e)
