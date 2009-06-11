@@ -13,13 +13,25 @@ import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
 
+/**
+ * Class representing a crawler for the website panoramio.com. 
+ * The maximum number of photos we can retrieve in one query is 100.
+ * */
+
 public class PanoramioCrawler extends ACrawler {
 
-	public PanoramioCrawler() throws IOException, NotBoundException {
+	/**
+	 * Private constructor, called by the main method in the class 
+	 * @throws IOException, NotBoundException
+	 * */
+	private PanoramioCrawler() throws IOException, NotBoundException {
 		super("panoramio.com");
 	}
 		
-
+	/**
+	 * Method used for retrieving all photos in a bounding box, in a 100-step loop. The photos are then saved to the DB as DBGeoObjects 
+	 * @param curBox the BoundingBox to be crawled 
+	 * */
 	@Override
 	protected void crawlBox(BoundingBox curBox) {
 		ArrayList<DBGeoObject> foundObjects = new ArrayList<DBGeoObject>();
@@ -65,9 +77,9 @@ public class PanoramioCrawler extends ACrawler {
 				saveObject((DBGeoObject[])foundObjects.toArray());
 			
 				count=jsonResponse.getInt("count");
-				from=to;
-				if(count<to+99)
-					to+=99;
+				from=to+1;
+				if(count>to+100)
+					to+=100;
 				else to=count;
 			
 			} catch (JSONException e) {
@@ -76,7 +88,11 @@ public class PanoramioCrawler extends ACrawler {
 		}	
 	}
 
-	
+	/**
+	 * Main method
+	 * creates a new PanoramioCrawler and starts it in an endless loop
+	 * @throws IOException, NotBoundException
+	 * */
 	public static void main(String args[]) throws IOException, NotBoundException {
 		ACrawler crawler = new PanoramioCrawler();
 		crawler.crawl();
