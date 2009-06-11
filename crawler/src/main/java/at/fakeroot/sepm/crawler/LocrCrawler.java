@@ -1,12 +1,10 @@
 package at.fakeroot.sepm.crawler;
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
-import org.json.HTTP;
-import org.json.HTTPTokener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
@@ -16,7 +14,7 @@ import at.fakeroot.sepm.shared.server.Property;
 
 public class LocrCrawler extends ACrawler  {
 
-	public LocrCrawler() throws IOException  {
+	public LocrCrawler() throws IOException, NotBoundException {
 		super("locr.com");
 	}
 

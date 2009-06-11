@@ -24,67 +24,80 @@ import at.fakeroot.sepm.shared.server.IGeoSave;
  *
  */
 public abstract class ACrawler  {
-	private BoundingBox crawlArea;
+	private BoundingBox crawlArea = new BoundingBox(0, -90, 360, 90);
 	private BoundingBox curBox;
 	
-	private double XOFFSET=0.5;
-	private double YOFFSET=0.5;
+	private double xOffset=0.5;
+	private double yOffset=0.5;
 	
 	private boolean newCircle=false;
 	
 	private int serviceID;
-	private String serviceName = null;
 	private String apiKey = null;
 	private String secKey = null;
 	
+	private String rmiServer = "localhost";
+	private int rmiPort = 1099;
+
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
 	
-	private Registry registry;
 	private IGeoSave geoSaver;
-	
-	
-	//BoundingBoxes
-	protected static BoundingBox AUSTRIA = new BoundingBox(9.25, 46.39, 17.34, 49.05);
 	
 	/**
 	 * Standard constructor 
-	 * * BoundingBox is AUSTRIA,
 	 * * Step size is 0.5
 	 * * ServerHost is localhost
 	 * * ServerPort is RMI-Std. Port
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 * @throws IOException 
 	 */
-	public ACrawler(String svcName) throws IOException  {
+	public ACrawler(String svcName) throws IOException, NotBoundException  {
 		init(svcName);
 	}
 	
-	private void init(String svcName) throws IOException{
-		Properties prop = new Properties();
-		InputStream propStream = getClass().getResourceAsStream("/WEB-INF/jdbc.properties");
-		if (propStream == null) {
-			throw new IOException("Error: Couldn't open property file 'jdbc.properties'");
-		}
-		prop.load(propStream);
-		
-		//Init Daten
-		crawlArea=new BoundingBox(
-				Double.parseDouble(prop.getProperty("crawlingBox_x1")),
-				Double.parseDouble(prop.getProperty("crawlingBox_y1")),
-				Double.parseDouble(prop.getProperty("crawlingBox_x2")),
-				Double.parseDouble(prop.getProperty("crawlingBox_y2")));
-		XOFFSET=Double.parseDouble(prop.getProperty("stepSize_"+svcName));
-		YOFFSET=Double.parseDouble(prop.getProperty("stepSize_"+svcName));
-		curBox = crawlArea;
+	private void init(String svcName) throws IOException, NotBoundException {
+		// specific properties overwrite the global ones
+		loadProperties("crawler.properties");
+		loadProperties(svcName+".properties");
+
+		// init RMI
+		Registry reg = LocateRegistry.getRegistry(rmiServer, rmiPort);
+		geoSaver = (IGeoSave) reg.lookup("GeoSave");
+
+		// Request Service ID
 		serviceID=requestServiceID(svcName);
-		serviceName=prop.getProperty("serviceName_"+svcName);
-		apiKey=prop.getProperty("apiKey_"+svcName);
-		secKey=prop.getProperty("secKey_"+svcName);
 		
 		while(true){
 			crawlBox(nextCrawlBox());
 		}
+	}
+	
+	private void loadProperties(String filename) throws IOException {
+		Properties prop = new Properties();
+		InputStream propStream = getClass().getResourceAsStream("/"+filename);
+		
+		if (propStream == null) {
+			throw new IOException("Error: Couldn't open property file '"+filename+"'");
+		}
+		prop.load(propStream);
+
+		crawlArea=new BoundingBox(
+				Double.parseDouble(prop.getProperty("crawler.box.x1", Double.toString(crawlArea.getX1()))),
+				Double.parseDouble(prop.getProperty("crawler.box.y1", Double.toString(crawlArea.getY1()))),
+				Double.parseDouble(prop.getProperty("crawler.box.x2", Double.toString(crawlArea.getX2()))),
+				Double.parseDouble(prop.getProperty("crawler.box.y2", Double.toString(crawlArea.getY2()))));
+		
+		xOffset = Double.parseDouble(prop.getProperty("crawler.stepSize", Double.toString(xOffset)));
+		yOffset = xOffset;
+
+		curBox = crawlArea;
+		apiKey = prop.getProperty("crawler.apiKey", apiKey);
+		secKey = prop.getProperty("crawler.secKey", secKey);
+		
+		rmiServer = prop.getProperty("rmi.server", rmiServer);
+		rmiPort = Integer.parseInt(prop.getProperty("rmi.port", Integer.toString(rmiPort)));
+
 	}
 	
 	/**
@@ -180,7 +193,6 @@ public abstract class ACrawler  {
 		int rc;
 		try {
 			rc = geoSaver.getServiceID(svcName);
-			serviceName = svcName;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			return -1;
@@ -204,19 +216,19 @@ public abstract class ACrawler  {
 	}
 	
 	private BoundingBox nextRight(BoundingBox _curPos){
-		if(_curPos.getX1()+XOFFSET>crawlArea.getX2()){
+		if(_curPos.getX1()+xOffset>crawlArea.getX2()){
 			//System.err.println("rumpRight "+_curPos);
 			newCircle=true;
 			return new BoundingBox(
 					crawlArea.getX1(),
 					_curPos.getY1(),
-					crawlArea.getX1()+XOFFSET,
+					crawlArea.getX1()+xOffset,
 					_curPos.getY2());
 		}else{
 			return new BoundingBox(
 				_curPos.getX2(),
 				_curPos.getY1(),
-				_curPos.getX2()+XOFFSET,
+				_curPos.getX2()+xOffset,
 				_curPos.getY2());
 		}
 		
@@ -224,25 +236,25 @@ public abstract class ACrawler  {
 	}
 	
 	private BoundingBox nextDown(BoundingBox _curPos){
-		if(_curPos.getY1()+YOFFSET>crawlArea.getY2()){
+		if(_curPos.getY1()+yOffset>crawlArea.getY2()){
 			//System.err.println("JumpDown ");
 			return new BoundingBox(
 					_curPos.getX1(),
 					crawlArea.getY1(),
 					_curPos.getX2(),
-					crawlArea.getY1()+YOFFSET);
+					crawlArea.getY1()+yOffset);
 		}else{		
 			return new BoundingBox(
 				_curPos.getX1(),
 				_curPos.getY2(),
 				_curPos.getX2(),
-				_curPos.getY2()+YOFFSET);
+				_curPos.getY2()+yOffset);
 		}
 	}
 	
 	private BoundingBox nextLeft(BoundingBox _curPos){
 		return new BoundingBox(
-				_curPos.getX1()-XOFFSET,
+				_curPos.getX1()-xOffset,
 				_curPos.getY1(),
 				_curPos.getX1(),
 				_curPos.getY2());
@@ -251,7 +263,7 @@ public abstract class ACrawler  {
 	private BoundingBox nextUp(BoundingBox _curPos){
 		return new BoundingBox(
 				_curPos.getX1(),
-				_curPos.getY1()-YOFFSET,
+				_curPos.getY1()-yOffset,
 				_curPos.getX2(),
 				_curPos.getY1());
 	}

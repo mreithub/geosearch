@@ -1,6 +1,7 @@
 package at.fakeroot.sepm.crawler;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -11,9 +12,9 @@ import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
 
-public class PanoramioCrawler extends ACrawler{
+public class PanoramioCrawler extends ACrawler {
 
-	public PanoramioCrawler() throws IOException{
+	public PanoramioCrawler() throws IOException, NotBoundException {
 		super("panoramio.com");
 	}
 		
@@ -52,7 +53,7 @@ public class PanoramioCrawler extends ACrawler{
 														jsonObj.getDouble("longitude"),
 														jsonObj.getDouble("latitude"), 
 														getSvcID(), 
-														jsonObj.numberToString(jsonObj.getInt("photo_id")),
+														JSONObject.numberToString(jsonObj.getInt("photo_id")),
 														jsonObj.getString("photo_url"),
 														null, 
 														tmpProp,
@@ -75,7 +76,7 @@ public class PanoramioCrawler extends ACrawler{
 	}
 
 	
-	public static void main(String args[]) throws IOException{
+	public static void main(String args[]) throws IOException, NotBoundException {
 		new PanoramioCrawler();
 	}
 

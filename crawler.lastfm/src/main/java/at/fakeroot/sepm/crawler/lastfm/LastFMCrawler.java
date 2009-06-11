@@ -1,16 +1,17 @@
-package at.fakeroot.sepm.crawler;
+package at.fakeroot.sepm.crawler.lastfm;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import at.fakeroot.sepm.crawler.ACrawler;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
@@ -21,13 +22,8 @@ public class LastFMCrawler extends ACrawler
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.US);
 	private ArrayList<DBGeoObject> geoObjects = new ArrayList<DBGeoObject>();
 
-	public static void main(String main[]) {
-		try {
-			new LastFMCrawler();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static void main(String main[]) throws IOException, NotBoundException {
+		new LastFMCrawler();
 	}
 	
 	/**
@@ -35,7 +31,7 @@ public class LastFMCrawler extends ACrawler
 	 * @throws IOException 
 	 * @throws SQLException 
 	 */
-	public LastFMCrawler() throws IOException
+	public LastFMCrawler() throws IOException, NotBoundException
 	{
 		//0.32 degrees are about 70 km.
 		
@@ -49,7 +45,7 @@ public class LastFMCrawler extends ACrawler
 	 * This function starts the crawling process and runs it. Note that this function doesn't terminate,
 	 * it must therefore execute within a separate thread.
 	 */
-	void crawlBox(BoundingBox curBox) {
+	public void crawlBox(BoundingBox curBox) {
 		//curPage is the current page of the response, numPages contains the total amount of response pages.
 		int curPage = 1, numPages = 0;
 		String responseStr;
