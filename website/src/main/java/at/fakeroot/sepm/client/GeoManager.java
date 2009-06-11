@@ -83,11 +83,11 @@ public class GeoManager implements IGeoManager{
 					for(int i=0;i<tokens.length;i++){
 						if(tokens[i].split("=")[0].equals("pos")){
 							System.out.println("pos");
-							String[] pos=tokens[i].split("=")[1].split(";");
+							//String[] pos=tokens[i].split("=")[1].split(";");
 							//geoMap.setCenter(Double.parseDouble(pos[1]), Double.parseDouble(pos[0]));
 						}else if(tokens[i].split("=")[0].equals("q")){
-							
-							searchBox.setWhat(tokens[i].split("=")[1]);
+							String[] var = tokens[i].split("=");
+							if (var.length > 1) searchBox.setWhat(var[1]);
 							System.out.println("q");
 						}
 					}
