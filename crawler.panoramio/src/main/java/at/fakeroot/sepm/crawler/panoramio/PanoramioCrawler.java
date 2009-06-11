@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.crawler;
+package at.fakeroot.sepm.crawler.panoramio;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import at.fakeroot.sepm.crawler.ACrawler;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
