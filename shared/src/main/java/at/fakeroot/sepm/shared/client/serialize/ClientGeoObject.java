@@ -7,6 +7,8 @@ import java.io.Serializable;
  *
  */
 public class ClientGeoObject extends GeoObject implements Serializable {
+	/// default serial version id
+	private static final long serialVersionUID = 1L;
 	String imageUrl;
 	
 	

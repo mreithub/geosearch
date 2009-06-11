@@ -10,7 +10,8 @@ import com.google.gwt.maps.client.geom.LatLng;
  *
  */
 public class GeoObject implements Serializable {
-
+	/// default serial version id
+	private static final long serialVersionUID = 1L;
 	private long id=0;
 	private String title;
 	private double xPos;

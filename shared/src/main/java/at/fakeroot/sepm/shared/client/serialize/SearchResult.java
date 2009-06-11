@@ -8,7 +8,9 @@ import java.io.Serializable;
  * Class that stores the search result in an ArrayList of ClientGeoObjects
  * */
 
-public class SearchResult implements Serializable{
+public class SearchResult implements Serializable {
+	/// default serial version id
+	private static final long serialVersionUID = 1L;
 
 	private ArrayList<ClientGeoObject> result=null;
 	private int totalHits;

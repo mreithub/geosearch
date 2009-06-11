@@ -8,6 +8,8 @@ import java.io.Serializable;
  * */
 
 public class Property implements Serializable {
+	/// default serial version id
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 	private String value;

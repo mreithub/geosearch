@@ -9,6 +9,8 @@ import at.fakeroot.sepm.shared.client.serialize.GeoObject;
  * @author Anca Cismasiu
  */
 public class DBGeoObject extends GeoObject {
+	/// default serial version id
+	private static final long serialVersionUID = 1L;
 	
 	private String title;
 	private int svc_id;
