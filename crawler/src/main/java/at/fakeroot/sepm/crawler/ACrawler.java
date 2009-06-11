@@ -48,14 +48,14 @@ public abstract class ACrawler  {
 	
 	private static String[] stopWords = new String[] {
 		"aber", "als", "am", "an", "auch", "auf", "aus", "bei", "bin", "bis", "bist", "da", "dadurch",
-		"daher", "darum", "das", "da�", "dass", "dein", "deine", "dem", "den", "der", "des", "dessen",
+		"daher", "darum", "das", "daß", "dass", "dein", "deine", "dem", "den", "der", "des", "dessen",
 		"deshalb", "die", "dies", "dieser", "dieses", "doch", "dort", "du", "durch", "ein", "eine", "einem",
-		"einen", "einer", "eines", "er", "es", "euer", "eure", "f�r", "hatte", "hatten", "hattest", "hattet",
+		"einen", "einer", "eines", "er", "es", "euer", "eure", "für", "hatte", "hatten", "hattest", "hattet",
 		"hier", "hinter", "ich", "ihr", "ihre", "im", "in", "ist", "ja", "jede", "jedem", "jeden", "jeder",
-		"jedes", "jener", "jenes", "jetzt", "kann", "kannst", "k�nnen", "k�nnt", "machen", "mein", "meine",
-		"mit", "mu�", "mu�t", "musst", "m�ssen", "m��t", "nach", "nachdem", "nein", "nicht", "nun", "oder",
+		"jedes", "jener", "jenes", "jetzt", "kann", "kannst", "können", "könnt", "machen", "mein", "meine",
+		"mit", "muß", "mußt", "musst", "müssen", "müßt", "nach", "nachdem", "nein", "nicht", "nun", "oder",
 		"seid", "sein", "seine", "sich", "sie", "sind", "soll", "sollen", "sollst", "sollt", "sonst", "soweit",
-		"sowie", "�ber", "und", "unser", "unsere", "unter", "vom", "von", "vor", "wann", "warum", "was", "weiter",
+		"sowie", "über", "und", "unser", "unsere", "unter", "vom", "von", "vor", "wann", "warum", "was", "weiter",
 		"weitere", "wenn", "wer", "werde", "werden", "werdet", "weshalb", "wie", "wieder", "wieso", "wir",
 		"wird", "wirst", "wo", "woher", "wohin", "zu", "zum", "zur" };
 	
@@ -91,7 +91,7 @@ public abstract class ACrawler  {
 		// init RMI
 		Registry reg = LocateRegistry.getRegistry(rmiServer, rmiPort);
 		try {
-			geoSaver = (IGeoSave) reg.lookup("GeoSave");
+			geoSaver = (IGeoSave) reg.lookup("IGeoSave");
 		}
 		catch (Exception e) {
 			// if we can't get a RMI connection, enter testing mode
