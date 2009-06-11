@@ -1,5 +1,6 @@
 package at.fakeroot.sepm.crawler;
 import java.io.*;
+import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -59,26 +60,32 @@ public abstract class ACrawler  {
 	private void init(String svcName) throws IOException {
 		// specific properties overwrite the global ones
 		loadProperties("crawler.properties");
-		loadProperties(svcName+".properties");
+		try {
+			loadProperties(svcName+".properties");
+		}
+		catch (IOException e) {
+			// no service-specific config file
+		}
 
 		// init RMI
 		Registry reg = LocateRegistry.getRegistry(rmiServer, rmiPort);
 		try {
 			geoSaver = (IGeoSave) reg.lookup("GeoSave");
 		}
-		catch (NotBoundException e) {
+		catch (Exception e) {
 			// if we can't get a RMI connection, enter testing mode
 			geoSaver = new GeoSaveTest();
 		}
 
 		// Request Service ID
 		serviceID=requestServiceID(svcName);
-		
-		while(true){
-			crawlBox(nextCrawlBox());
-		}
 	}
 	
+	/**
+	 * Reads the Object's properties from a file
+	 * @param filename file to read
+	 * @throws IOException
+	 */
 	private void loadProperties(String filename) throws IOException {
 		Properties prop = new Properties();
 		InputStream propStream = getClass().getResourceAsStream("/"+filename);
@@ -104,6 +111,15 @@ public abstract class ACrawler  {
 		rmiServer = prop.getProperty("rmi.server", rmiServer);
 		rmiPort = Integer.parseInt(prop.getProperty("rmi.port", Integer.toString(rmiPort)));
 
+	}
+	
+	/**
+	 * infinite loop that calls the crawler-specific crawl function
+	 */
+	public void crawl() {
+		while(true){
+			crawlBox(nextCrawlBox());
+		}
 	}
 	
 	/**

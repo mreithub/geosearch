@@ -78,7 +78,8 @@ public class PanoramioCrawler extends ACrawler {
 
 	
 	public static void main(String args[]) throws IOException, NotBoundException {
-		new PanoramioCrawler();
+		ACrawler crawler = new PanoramioCrawler();
+		crawler.crawl();
 	}
 
 }

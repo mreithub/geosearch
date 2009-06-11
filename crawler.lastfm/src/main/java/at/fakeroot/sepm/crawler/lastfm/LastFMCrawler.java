@@ -23,7 +23,8 @@ public class LastFMCrawler extends ACrawler
 	private ArrayList<DBGeoObject> geoObjects = new ArrayList<DBGeoObject>();
 
 	public static void main(String main[]) throws IOException, NotBoundException {
-		new LastFMCrawler();
+		ACrawler crawler = new LastFMCrawler();
+		crawler.crawl();
 	}
 	
 	/**
