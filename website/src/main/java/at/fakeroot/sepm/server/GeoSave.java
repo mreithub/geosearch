@@ -1,6 +1,12 @@
-package at.fakeroot.sepm.shared.server;
+package at.fakeroot.sepm.server;
 
 import java.rmi.RemoteException;
+
+import at.fakeroot.sepm.shared.server.DBGeoObject;
+import at.fakeroot.sepm.shared.server.DBService;
+import at.fakeroot.sepm.shared.server.GeoObjectManager;
+import at.fakeroot.sepm.shared.server.IGeoSave;
+import at.fakeroot.sepm.shared.server.ServiceManager;
 
 
 public class GeoSave implements IGeoSave
