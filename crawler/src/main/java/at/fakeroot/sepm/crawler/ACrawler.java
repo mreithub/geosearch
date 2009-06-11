@@ -1,5 +1,8 @@
 package at.fakeroot.sepm.crawler;
 import java.io.*;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -88,17 +91,23 @@ public abstract class ACrawler  {
 			// no service-specific config file
 		}
 
-		// init RMI
+		// init RMI		
 		Registry reg = LocateRegistry.getRegistry(rmiServer, rmiPort);
+		for(int i=0;i<reg.list().length;i++){
+			System.out.println("reg: "+reg.list()[i]);
+		}
 		try {
+			//geoSaver = (IGeoSave) reg.lookup("rmi://"+rmiServer+":"+rmiPort+"/IGeoSave");
 			geoSaver = (IGeoSave) reg.lookup("IGeoSave");
 		}
 		catch (Exception e) {
 			// if we can't get a RMI connection, enter testing mode
 			geoSaver = new GeoSaveTest();
 		}
+		
 
 		// Request Service ID
+		//System.out.println("id: "+requestServiceID(svcName));
 		serviceID=requestServiceID(svcName);
 	}
 	

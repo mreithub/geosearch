@@ -83,13 +83,7 @@ public class GeoObject implements Serializable {
 		return yPos;
 	}
 
-	/**
-	 * Returns the Positions of the GeoObject
-	 * @return
-	 */
-	public LatLng getPoint(){
-		return LatLng.newInstance(yPos, xPos);
-	}
+	
 	
 	/**
 	 * Sets the uniqueID of the GeoObject

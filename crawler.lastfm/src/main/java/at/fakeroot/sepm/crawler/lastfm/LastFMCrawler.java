@@ -47,6 +47,7 @@ public class LastFMCrawler extends ACrawler
 	 * it must therefore execute within a separate thread.
 	 */
 	public void crawlBox(BoundingBox curBox) {
+		
 		//curPage is the current page of the response, numPages contains the total amount of response pages.
 		int curPage = 1, numPages = 0;
 		String responseStr;
@@ -58,7 +59,7 @@ public class LastFMCrawler extends ACrawler
 			"&distance=50" +
 			"&format=json" +
 			"&api_key="+getApiKey();
-
+		System.out.println(url);
 		//We have to process the response in multiple passes because there can be more than a single page
 		//for a single request.
 		geoObjects.clear();
@@ -73,6 +74,8 @@ public class LastFMCrawler extends ACrawler
 					responseStr = requestUrl(url);
 				else
 					responseStr = requestUrl(url + "&page=" + curPage);
+				
+				
 				
 				//Create the JSON object to parse the response.
 				JSONObject responseObj = new JSONObject(responseStr);
@@ -216,7 +219,6 @@ public class LastFMCrawler extends ACrawler
 				//If there was an error while parsing the page, skip over the whole page.
 				e.printStackTrace();
 			}
-			
 			//Save the parsed DB geo objects by using the provided save function from the ACrawler.
 			saveObject(geoObjects.toArray(new DBGeoObject[geoObjects.size()]));
 			

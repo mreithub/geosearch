@@ -21,6 +21,16 @@ import at.fakeroot.sepm.shared.server.Property;
 public class PanoramioCrawler extends ACrawler {
 
 	/**
+	 * Main method
+	 * creates a new PanoramioCrawler and starts it in an endless loop
+	 * @throws IOException, NotBoundException
+	 * */
+	public static void main(String args[]) throws IOException, NotBoundException {
+		PanoramioCrawler crawler = new PanoramioCrawler();
+		crawler.crawl();
+	}
+	
+	/**
 	 * Private constructor, called by the main method in the class 
 	 * @throws IOException, NotBoundException
 	 * */
@@ -32,13 +42,14 @@ public class PanoramioCrawler extends ACrawler {
 	 * Method used for retrieving all photos in a bounding box, in a 100-step loop. The photos are then saved to the DB as DBGeoObjects 
 	 * @param curBox the BoundingBox to be crawled 
 	 * */
-	@Override
 	protected void crawlBox(BoundingBox curBox) {
+		
 		ArrayList<DBGeoObject> foundObjects = new ArrayList<DBGeoObject>();
 		int from=0, to=1, count=0;
 		String url="";
 		String responseStr = "";
 		
+
 		while(to<=count){
 			url = "http://www.panoramio.com/map/get_panoramas.php?order=popularity&set=public" +
 					"&from=" + from + "&to=" + to +
@@ -76,6 +87,7 @@ public class PanoramioCrawler extends ACrawler {
 					foundObjects.add(tmpObj);
 				}
 				
+				System.out.println("panoramio.com");
 				saveObject((DBGeoObject[])foundObjects.toArray());
 				
 				count=jsonResponse.getInt("count");
@@ -90,14 +102,6 @@ public class PanoramioCrawler extends ACrawler {
 		}	
 	}
 
-	/**
-	 * Main method
-	 * creates a new PanoramioCrawler and starts it in an endless loop
-	 * @throws IOException, NotBoundException
-	 * */
-	public static void main(String args[]) throws IOException, NotBoundException {
-		ACrawler crawler = new PanoramioCrawler();
-		crawler.crawl();
-	}
+	
 
 }

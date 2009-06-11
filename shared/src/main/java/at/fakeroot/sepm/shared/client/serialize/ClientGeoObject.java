@@ -1,6 +1,8 @@
 package at.fakeroot.sepm.shared.client.serialize;
 import java.io.Serializable;
 
+import com.google.gwt.maps.client.geom.LatLng;
+
 /**
  * Contains GeoObject plus an Image and Tags to visualize it on the GUI. 
  * @author JB
@@ -65,4 +67,14 @@ public class ClientGeoObject extends GeoObject implements Serializable {
 		sTag+="]";
 		return super.toString()+", imageUrl: "+imageUrl+", tags: "+sTag;
 	}
+	
+	/**
+	 * Returns the Positions of the GeoObject
+	 * @return
+	 */
+	
+	public LatLng getPoint(){
+		return LatLng.newInstance(getYPos(), getXPos());
+	}
+	
 }

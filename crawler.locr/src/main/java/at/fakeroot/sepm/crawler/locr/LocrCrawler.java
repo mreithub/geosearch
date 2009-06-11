@@ -15,6 +15,11 @@ import at.fakeroot.sepm.shared.server.Property;
 
 public class LocrCrawler extends ACrawler {
 
+	public static void main(String main[]) throws IOException, NotBoundException{
+		LocrCrawler test = new LocrCrawler();
+		test.crawl();
+	}
+	
 	public LocrCrawler() throws IOException, NotBoundException {
 		super("locr.com");
 	}
@@ -37,10 +42,10 @@ public class LocrCrawler extends ACrawler {
 	    Property[] myProperty = new Property[1];
 	    myProperty[0]= new Property("proName","proValue");
 	    
-	    
 		JSONObject myJSONObject = new JSONObject(requestUrl(url));
 		//System.out.println("Parse: "+myJSONObject.getJSONArray("photos"));
 		JSONArray myArray = myJSONObject.getJSONArray("photos");
+		
 		DBGeoObject[] saveDBArray = new DBGeoObject[myArray.length()];
 		for(int k=0;k<myArray.length();k++){
 			System.out.println("id: "+(((JSONObject)myArray.get(k)).get("photo_id")));
@@ -55,7 +60,8 @@ public class LocrCrawler extends ACrawler {
 					"uniqu",
 					"link",
 					null,
-					myProperty,tabs);
+					myProperty,
+					tabs);
 			
 		}
 		
