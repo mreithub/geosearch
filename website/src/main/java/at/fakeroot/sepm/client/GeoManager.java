@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Manage all requests between the Objects and the server.
@@ -208,8 +209,11 @@ public class GeoManager implements IGeoManager{
 
 	public void showErrorMessage(String msg) {
 		final DialogBox errBox = new DialogBox(false, true);
+		VerticalPanel vPanel = new VerticalPanel();
+		errBox.setWidget(vPanel);
 		errBox.setText("Server Error!");
-		errBox.add(new Label(msg));
+		
+		vPanel.add(new Label(msg));
 		Button ok = new Button("Ok");
 		ok.addClickHandler(new ClickHandler() {
 			@Override
@@ -217,9 +221,8 @@ public class GeoManager implements IGeoManager{
 				errBox.hide();
 			}
 		});
-		errBox.add(ok);
+		vPanel.add(ok);
 		errBox.center();
-
 	}
 	
 }
