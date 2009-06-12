@@ -7,11 +7,16 @@ import at.fakeroot.sepm.client.serialize.ObjectSearchService;
 import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
@@ -131,8 +136,20 @@ public class GeoManager implements IGeoManager{
 		History.newItem("q="+what.trim());
 		objectSearch.search(myBound, what.trim(), new AsyncCallback<SearchResult>()
 				{
-					public void onFailure(Throwable arg0) {
-						System.err.println( "" + arg0.getMessage() +"  error");	
+					public void onFailure(Throwable e) {
+						final DialogBox errBox = new DialogBox(false, true);
+						errBox.setText("Server Error!");
+						errBox.add(new Label(e.getMessage()));
+						Button ok = new Button("Ok");
+						ok.addClickHandler(new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								errBox.hide();
+							}
+							
+						});
+						errBox.add(ok);
+						errBox.center();
 					}
 
 					public void onSuccess(SearchResult result) {
