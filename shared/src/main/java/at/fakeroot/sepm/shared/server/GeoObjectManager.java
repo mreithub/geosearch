@@ -139,46 +139,18 @@ public class GeoObjectManager
 	public SearchResult select(String[] tags, BoundingBox box, int limit)
 	{
 		SearchResult searchResult = new SearchResult();
+		ResultSet res;
 
 		try {
-			String sql = "SELECT obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail FROM "
-				+ "geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) WHERE ";
-			int i = 0;
-			
-			if (tags.length > 0) {
-				sql += "obj_id IN (SELECT obj_id FROM objecttag where tag IN (";
-	
-				for (i = 0; i < tags.length; i++) {
-					sql += "?";
-					if (i < tags.length-1) sql += ',';
-				}
-				
-				sql += ") AND ";
-			}
-			
-			// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
-			sql += "obj_id IN (select obj_id from geoobject where pos @ box(point(?,?),point(?,?)))";
-			
-			
-			if (tags.length > 0) sql += " GROUP BY obj_id HAVING COUNT(*) = "+tags.length+")";
+			String requestSql = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail";
 
-			if (limit > 0) sql += " LIMIT "+limit; 
+			// get the overall result count
+			res = queryResult("COUNT(*)", tags, box, limit);
 			
+			res.next();
+			searchResult.setResultCount(res.getInt(1));
 			
-			PreparedStatement stmt = dbConn.prepareStatement(sql);
-			
-			if (tags.length > 0) {
-				for (i = 0; i < tags.length; i++) {
-					stmt.setString(i+1, tags[i]);
-				}
-			}
-			stmt.setDouble(++i, box.getX1());
-			stmt.setDouble(++i, box.getY1());
-			stmt.setDouble(++i, box.getX2());
-			stmt.setDouble(++i, box.getY2());
-
-
-			ResultSet res = stmt.executeQuery();
+			res = queryResult(requestSql, tags, box, limit);
 
 			while (res.next()) {
 				searchResult.addResultToList(new ClientGeoObject(
@@ -196,6 +168,47 @@ public class GeoObjectManager
 		}
 	
 		return searchResult;
+	}
+	
+	private ResultSet queryResult(String requestSql, String[] tags, BoundingBox box, int limit) throws SQLException {
+		String sql = "SELECT "+requestSql+" FROM "
+			+ "geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) WHERE ";
+		int i = 0;
+		
+		if (tags.length > 0) {
+			sql += "obj_id IN (SELECT obj_id FROM objecttag where tag IN (";
+
+			for (i = 0; i < tags.length; i++) {
+				sql += "?";
+				if (i < tags.length-1) sql += ',';
+			}
+			
+			sql += ") AND ";
+		}
+		
+		// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
+		sql += "obj_id IN (select obj_id from geoobject where pos @ box(point(?,?),point(?,?)))";
+		
+		
+		if (tags.length > 0) sql += " GROUP BY obj_id HAVING COUNT(*) = "+tags.length+")";
+
+		if (limit > 0) sql += " LIMIT "+limit; 
+		
+		
+		PreparedStatement stmt = dbConn.prepareStatement(sql);
+		
+		if (tags.length > 0) {
+			for (i = 0; i < tags.length; i++) {
+				stmt.setString(i+1, tags[i]);
+			}
+		}
+		stmt.setDouble(++i, box.getX1());
+		stmt.setDouble(++i, box.getY1());
+		stmt.setDouble(++i, box.getX2());
+		stmt.setDouble(++i, box.getY2());
+
+
+		return stmt.executeQuery();
 	}
 	
 	/**
