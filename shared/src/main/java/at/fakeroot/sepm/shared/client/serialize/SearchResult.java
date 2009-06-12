@@ -14,6 +14,7 @@ public class SearchResult implements Serializable {
 
 	private ArrayList<ClientGeoObject> result=null;
 	private int totalHits;
+	private String errMsg = null;
 	
 	public SearchResult(){
 		result=new ArrayList<ClientGeoObject>();
@@ -47,5 +48,17 @@ public class SearchResult implements Serializable {
 	public void setResultCount(int totalHits)
 	{
 		this.totalHits = totalHits;
+	}
+	
+	public boolean hasError() {
+		return errMsg != null;
+	}
+	
+	public String getErrorMessage() {
+		return errMsg;
+	}
+	
+	public void setErrorMessage(String msg) {
+		errMsg = msg;
 	}
 }

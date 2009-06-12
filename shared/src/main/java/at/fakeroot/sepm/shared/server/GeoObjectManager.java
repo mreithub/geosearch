@@ -184,6 +184,7 @@ public class GeoObjectManager
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.select()", e);
+			searchResult.setErrorMessage(e.getMessage());
 		}
 	
 		return searchResult;

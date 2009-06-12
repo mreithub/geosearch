@@ -137,25 +137,16 @@ public class GeoManager implements IGeoManager{
 		objectSearch.search(myBound, what.trim(), new AsyncCallback<SearchResult>()
 				{
 					public void onFailure(Throwable e) {
-						final DialogBox errBox = new DialogBox(false, true);
-						errBox.setText("Server Error!");
-						errBox.add(new Label(e.getMessage()));
-						Button ok = new Button("Ok");
-						ok.addClickHandler(new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent event) {
-								errBox.hide();
-							}
-							
-						});
-						errBox.add(ok);
-						errBox.center();
+						showErrorMessage(e.getMessage());
 					}
 
 					public void onSuccess(SearchResult result) {
 						geoMap.setPins(result.getResults());
 						tagCloud.refresh(result.getResults().iterator());
 						resultBox.refresh(result.getResults().size(), result.getResultCount());
+						if (result.hasError()) {
+							showErrorMessage(result.getErrorMessage());
+						}
 					}
 					
 				});
@@ -215,5 +206,20 @@ public class GeoManager implements IGeoManager{
 		return geoMap;
 	}
 
+	public void showErrorMessage(String msg) {
+		final DialogBox errBox = new DialogBox(false, true);
+		errBox.setText("Server Error!");
+		errBox.add(new Label(msg));
+		Button ok = new Button("Ok");
+		ok.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				errBox.hide();
+			}
+		});
+		errBox.add(ok);
+		errBox.center();
 
+	}
+	
 }
