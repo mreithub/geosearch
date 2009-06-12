@@ -66,7 +66,15 @@ public class GeoObjectManager
 		DBGeoObject rc=null;
 
 		try {	
-			PreparedStatement pstmt1 = dbConn.prepareStatement("SELECT * FROM geoObject WHERE obj_id= ? AND svc_id = ? AND uid = '?' ");
+			String query = "SELECT obj_id, svc_id, uid, title, link, pos, last_updated FROM geoObject WHERE 1=1";
+			if(obj.getId()!=0)
+				query+=" AND obj_id= ?";
+			if(obj.getSvc_id()!=0)
+				query+=" AND svc_id = ?";
+			if(obj.getUid()!=null&& !obj.getUid().equals(""))
+				query+=" AND uid = ?";
+			
+			PreparedStatement pstmt1 = dbConn.prepareStatement(query+";");
 			pstmt1.setLong(1, obj.getId());
 			pstmt1.setInt(2, obj.getSvc_id());
 			pstmt1.setString(3, obj.getUid());
