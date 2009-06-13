@@ -127,7 +127,11 @@ public class GeoObject implements Serializable {
 	}
 
 	public String toString() {
-		return "id: "+id+", title: "+title+", xPos(lng): "+xPos+", yPos(lat): "+yPos;
+		String strTags="";
+		for(int i=0;i<tags.length;i++){
+			strTags+=tags[i]+", ";
+		}
+		return "id: "+id+", title: "+title+", xPos(lng): "+xPos+", yPos(lat): "+yPos+", Tags: "+strTags;
 	}
 	
 }
