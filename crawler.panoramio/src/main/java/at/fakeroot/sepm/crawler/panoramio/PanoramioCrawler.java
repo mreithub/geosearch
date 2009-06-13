@@ -58,7 +58,7 @@ public class PanoramioCrawler extends ACrawler {
 		
 			responseStr = requestUrl(url);
 			
-			System.out.println(responseStr);
+			System.out.println(url);
 		
 			try {
 				JSONObject jsonResponse = new JSONObject(responseStr);

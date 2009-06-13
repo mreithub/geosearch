@@ -58,7 +58,7 @@ public class LastFMCrawler extends ACrawler
 			"&long=" + (curBox.getX1() + curBox.getX2()) / 2 +
 			"&distance=50" +
 			"&format=json" +
-			"&api_key="+getApiKey();
+			"&api_key=zz"+getApiKey();
 		System.out.println(url);
 		//We have to process the response in multiple passes because there can be more than a single page
 		//for a single request.

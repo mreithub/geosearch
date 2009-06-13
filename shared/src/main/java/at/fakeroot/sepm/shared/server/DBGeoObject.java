@@ -113,4 +113,12 @@ public class DBGeoObject extends GeoObject {
 	public Property[] getProperties() {
 		return properties;
 	}
+	
+	public String toString() {
+		String propStr="";
+		for(int i=0;i<properties.length;i++){
+			propStr+=i+".) "+properties[i].toString();
+		}
+		return super.toString()+", title: "+title+", svc_id: "+svc_id+", uid: "+uid+", link: "+link+", valid_until: "+valid_until+", properties: "+propStr;
+	}
 }

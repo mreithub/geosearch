@@ -40,6 +40,9 @@ public class Property implements Serializable {
 		return value;
 	}
 
+	public String toString() {
+		return "name: "+name+", value: "+value;
+	}
 
 
 }

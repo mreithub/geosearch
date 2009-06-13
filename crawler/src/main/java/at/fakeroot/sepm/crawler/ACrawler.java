@@ -89,6 +89,7 @@ public abstract class ACrawler  {
 		}
 		catch (IOException e) {
 			// no service-specific config file
+			e.printStackTrace();
 		}
 
 		// init RMI		
