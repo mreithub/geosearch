@@ -1,6 +1,9 @@
 package at.fakeroot.sepm.server;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.DBService;
@@ -9,12 +12,28 @@ import at.fakeroot.sepm.shared.server.IGeoSave;
 import at.fakeroot.sepm.shared.server.ServiceManager;
 
 
-public class GeoSave implements IGeoSave
+public class GeoSave
 {
 	private static GeoSave instance;
 	
 	private GeoSave()
 	{
+		//--- JAVAInsel
+		try {
+			LocateRegistry.createRegistry( Registry.REGISTRY_PORT );
+			//LocateRegistry.createRegistry(1525); 	    
+		    
+		    //GeoSave
+		    IGeoSaveImpl geoSaver = new IGeoSaveImpl();
+		    IGeoSave geoStub = (IGeoSave) UnicastRemoteObject.exportObject(geoSaver,0);
+		    
+		    Registry geoRegistry = LocateRegistry.getRegistry();
+		    geoRegistry.rebind("IGeoSave", geoStub);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
 	}
 	
 	public static GeoSave getInstance()
@@ -24,37 +43,4 @@ public class GeoSave implements IGeoSave
 		return(instance);
 	}
 	
-	public void saveObject(DBGeoObject obj)
-	{
-		//Check if this object already exists. If yes, we have to update it.
-		//If no, we have to insert it. Note that the passed DBGeoObject only provides
-		//the service ID and the service object ID, but not the object ID itself.
-		
-		//There mustn't exist any object ID within this object.
-		obj.setId(0);
-		
-		DBGeoObject selectObj = GeoObjectManager.getInstance().select(obj);
-		if (selectObj == null)
-			GeoObjectManager.getInstance().insert(obj);
-		else
-		{
-			obj.setId(selectObj.getId());
-			GeoObjectManager.getInstance().update(obj);
-		}
-	}
-	
-	public void saveObjects(DBGeoObject objects[]) {
-		for (int i = 0; i < objects.length; i++) {
-			saveObject(objects[i]);
-		}
-	}
-
-	@Override
-	public int getServiceID(String svcName) throws RemoteException {
-		ServiceManager serviceManager = ServiceManager.getInstance();
-		
-		DBService svc = serviceManager.select(svcName);
-		
-		return svc.getSvc_id();
-	}
 }
