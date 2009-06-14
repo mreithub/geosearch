@@ -12,6 +12,6 @@ public interface ObjectSearchService extends RemoteService
 {
 	public SearchResult search(BoundingBox box, String what);
 	
-	public ObjectDetails getDetailHTML(int objId);
+	public ObjectDetails getDetailHTML(long objId);
 }
 
