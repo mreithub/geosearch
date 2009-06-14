@@ -26,14 +26,14 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	private GeoObjectManager geoObjManager;
 	private ServiceManager svcManager;
 
-	
+
 	//Constructor
 	public ObjectSearchServiceImpl()
 	{
 		geoObjManager = GeoObjectManager.getInstance();
 		svcManager = ServiceManager.getInstance();
 	}
-	
+
 	/**
 	 * prepares the users request for the DAO and forwards it
 	 * @param box BoundingBox the area, where the user searches
@@ -55,70 +55,79 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	 * @param objId int identifies the Object, for which the detailHTML is needed
 	 * @return ObjectDetails HTML String with the tags for the object and service
 	 */
-	public ObjectDetails getDetailHTML(int objId)
+	public ObjectDetails getDetailHTML(long objId)
 	{
-		DBGeoObject dbGeoObj = geoObjManager.select(new DBGeoObject(objId, null, 0, 0, 0, null, null, null, null, null));
-		DBService dbSvcObj = svcManager.select(dbGeoObj.getSvc_id());
-		String html = dbSvcObj.getBubbleHTML();
-		int begin = 0;
-		int end = 0;
-		String result = null;
-		ArrayList<String> tags = new ArrayList<String>();
-		for(int i = 0; i < html.length(); i++)
-		{
-			//the placeholder in the 'BubbleHTML' for the objects property-values is 
-			//structured %PROPERTY_NAME%
-			if(html.charAt(i) == '%')
+		ObjectDetails objDetails;	
+
+		try{
+			DBGeoObject dbGeoObj = geoObjManager.getObjectbyId(objId);
+			DBService dbSvcObj = svcManager.select(dbGeoObj.getSvc_id());
+			String html = dbSvcObj.getBubbleHTML();
+			int begin = 0;
+			int end = 0;
+			String result = null;
+			ArrayList<String> tags = new ArrayList<String>();
+			for(int i = 0; i < html.length(); i++)
 			{
-				//begin points at the first found '%'
-				begin = i;
-				//the boolean endFound is true when a second '%' is found
-				boolean endFound = false;
-				for(int j = i+1; j < html.length(); j++)
+				//the placeholder in the 'BubbleHTML' for the objects property-values is 
+				//structured %PROPERTY_NAME%
+				if(html.charAt(i) == '%')
 				{
-					if(html.charAt(j) == '%')
+					//begin points at the first found '%'
+					begin = i;
+					//the boolean endFound is true when a second '%' is found
+					boolean endFound = false;
+					for(int j = i+1; j < html.length(); j++)
 					{
-						//end points at the second '%'
-						end = j;
-						endFound = true;
+						if(html.charAt(j) == '%')
+						{
+							//end points at the second '%'
+							end = j;
+							endFound = true;
+							break;
+						}
+					}
+					//endFound might be false if there is a regluar '%' character in the text 
+					if(!endFound)
+					{
 						break;
 					}
-				}
-				//endFound might be false if there is a regluar '%' character in the text 
-				if(!endFound)
-				{
-					break;
-				}
-				//the substring until the first '%' is added to the result string
-				result = html.substring(0, begin);
-				//loops through all the properties for the current dbGeoObject
-				for(int x = 0; x < dbGeoObj.getProperties().length; x++)
-				{
-					//checks whether there is a property-name equal to the substring between two '%' characters
-					if(html.substring(begin + 1, end).equals(dbGeoObj.getProperties()[x].getName()))
+					//the substring until the first '%' is added to the result string
+					result = html.substring(0, begin);
+					//loops through all the properties for the current dbGeoObject
+					for(int x = 0; x < dbGeoObj.getProperties().length; x++)
 					{
-						//adds value from the property-value to the result String
-						result += dbGeoObj.getProperties()[x].getValue();
-						//adds the rest of the bubbleHTML to the result String
-						result += html.substring(end+1);	  
-						html = result;
-						break;
+						//checks whether there is a property-name equal to the substring between two '%' characters
+						if(html.substring(begin + 1, end).equals(dbGeoObj.getProperties()[x].getName()))
+						{
+							//adds value from the property-value to the result String
+							result += dbGeoObj.getProperties()[x].getValue();
+							//adds the rest of the bubbleHTML to the result String
+							result += html.substring(end+1);	  
+							html = result;
+							break;
+						}
 					}
 				}
 			}
+			//adds the tags from the dbGeoObject
+			for(int i = 0; i < dbGeoObj.getTags().length; i++)
+			{
+				tags.add(dbGeoObj.getTags()[i]);
+			}
+			//adds the tags from the dbService
+			for(int i = 0; i < dbSvcObj.getTags().length; i++)
+			{
+				tags.add(dbSvcObj.getTags()[i]); 
+			}
+			//html for the object together with its tags
+			objDetails = new ObjectDetails(result,tags.toArray(new String[tags.size()]));
+		}catch(Exception e){
+			///TODO exception handling
+			objDetails = new ObjectDetails("", new String[0]);
 		}
-		//adds the tags from the dbGeoObject
-		for(int i = 0; i < dbGeoObj.getTags().length; i++)
-		{
-			tags.add(dbGeoObj.getTags()[i]);
-		}
-		//adds the tags from the dbService
-		for(int i = 0; i < dbSvcObj.getTags().length; i++)
-		{
-			tags.add(dbSvcObj.getTags()[i]); 
-		}
-		//returns the html for the object together with its tags
-		return (new ObjectDetails(result,tags.toArray(new String[tags.size()])));
+		
+		return objDetails;
 	}
-	
+
 }
