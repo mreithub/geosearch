@@ -1,1 +1,183 @@
-<document>  <properties>    <author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>    <author email="brandiatmuhkuh@gmail.com">Jurgen Brandstetter</author>    <author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>    <author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>    <author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>    <title>Testartefakte</title>  </properties>  <head>    <style type="text/css">      ol li {      margin-bottom: 1em;      }    </style>  </head>  <body>     <section name="Testplan">	  <subsection name="Testarten"> 	   <ol> 	   	   <li>Code reviews		   		<ul>					<li>eingesetzt bei jeder implementierter Klasse oder Interface</li>					<li>befinden sich in der internen Gruppenkommunikation</li>					<li>Tools: -</li>							<li>Template: -</li>					<li>Fehlerreporting : interne Emails</li>					<li>Testkriterien: - </li>					<li>Fehlerbehebungsprozess: der Verantwortliche fur die jeweiligen Klassen behebt den Fehler</li>				</ul>			</li>			<li>Design Reviews		   		<ul>					<li>eingesetzt in der Entwurfsphase</li>					<li>befinden sich in den Besprechungsprotokollen</li>					<li>Tools: -</li>							<li>Template: -</li>					<li>Fehlerreporting : Besprechungsprotokollen</li>					<li>Testkriterien: - </li>					<li>Fehlerbehebungsprozess: Schnittstellenanderung</li>				</ul>			</li>			<li>Integrationstests		   		<ul>					<li>eingesetzt um zu Testen wie die Module Crawler, Shared und Webseite miteinander kommunizieren, nach den Unittests, vor den Systemtests </li>					<li>befinden sich: trunk/*/src/test/java, wobei * fur den jeweiligen Javaprojektnamen steht</li>					<li>Tools: -</li>							<li>Template: -</li>					<li>Fehlerreporting : -</li>					<li>Testkriterien: Die einzelnen funktionsfahigen Klassen sollen funktionsfahige Komponenten bilden </li>					<li>Fehlerbehebungsprozess: Debugging</li>				</ul>			</li>			<li>Unit tests		   		<ul>					<li>eingesetzt vor der Implementierung</li>					<li>befinden sich  trunk/*/src/test/java, wobei * fur den jeweiligen Javaprojektnamen steht</li>					<li>Tools: JUnit</li>							<li>Template: http://junit.sourceforge.net/doc/faq/faq.htm#tests_16</li>					<li>Fehlerreporting : Maven JUnit Report Plug-in </li>					<li>Testkriterien: Testoutput entspricht dem Input und der Klassenfunktionalitat </li>					<li>Fehlerbehebungsprozess: Debugging</li>				</ul>			</li>  	   </ol>	 </subsection> 		 <subsection name= "Verantwortlichkeiten">	 	<ol>			<li>Zustandig fur den Testplan: Anca Cismasiu</li>			<li>Uberwachung der Tests: <b>bitte ausfullen</b></li>			<li>Erstellung von Testdaten: <b>bitte ausfullen</b></li>			<li>Zustandig fur die Auswahl der Funktionalen Testfalle: <b>bitte ausfullen</b></li>			<li>Erstellung des Testberichts: <b>bitte ausfullen</b></li>			<li>Zustandig fur das Entwickeln der verschiedenen Tests/Testarten: 						  <ul>						  	  <li>Code reviews - Manuel Reithuber</li>							  <li>Design reviews - Gruppe</li>							  <li>Integrationstests - Gruppe</li>							  <li>Unit Tests - Gruppe</li>						  </ul>			</li>		</ol>	</subsection>	</section>		<section name ="Funktionale Testfalle">		<subsection name="Funktionen der Testkomponenten">				<table>					   <th>Komponente</th><th>Funktion</th><th>Prioritat</th>					   <tr><td>website, shared</td><td>Use Case 1. Suche in Gebiet </td><td></td></tr>					   <tr><td>website, shared </td><td>Use Case 2. Suche mit Tags </td><td></td></tr>					   <tr><td>website, shared</td><td>Use Case 3. Suche in Gebiet mit Tag(s)</td><td></td></tr>					   <tr><td>website, shared</td><td>Use Case 4. Suche mit der TagCloud </td><td></td></tr>					   <tr><td>website, shared</td><td>Use Case 5. Suche durch Zoomen</td><td></td></tr>					   <tr><td>website, shared</td><td>Use Case 6. Detailansicht �ffnen</td><td></td></tr>					   <tr><td>website</td><td>Use Case 7. Detailansicht schlie�en</td><td></td></tr>					   <tr><td>website, shared</td><td>Use Case 8. Zur Hauptseite eines externen Services wechseln </td><td></td></tr>					   <tr><td>website, shared</td><td>Use Case 9. Details auf externen Website ansehen </td><td></td></tr>					   <tr><td>website, shared</td><td>Use Case 10. Suche mit Tag-Liste aus Detailansicht </td><td></td></tr>					   <tr><td>website</td><td>Use Case 11. Navigation im Kartenausschnitt</td><td></td></tr>					   <tr><td>website</td><td>Use Case 12. �ndern der Kartenansicht </td><td></td></tr>					   <tr><td>website</td><td>Use Case 13. GeoSearch �ber einen Permalink �ffnen</td><td></td></tr>				</table>	 		</subsection>		<subsection name="Testfallbeschreibung">					<table>					   <th>NR</th><th>Typ</th><th>Beschreibung</th><th>Erwartetes Ergebnis</th><th>Eingaben</th>					   <tr><td>1.1</td><td>NF</td><td>Suche im Gebiet</td><td>Gebiet im Kartenausschnitt ausgezeigt, ersten xx Objekt-Treffer durch Pins auf Karte angezeigt, Anzahl der Gesamttreffer angezeigt,TagCloud zeigt Tags, die in Ergebnisobjekten oft vorkommen</td><td>ein Gebiet</td></tr>					   <tr><td>1.2</td><td>AF</td><td>Suche in einem ungultigen Gebiet</td><td> Fehlermeldung, Kartenausschnitt bleibt unver�ndert </td><td>ein nicht-existierendes Gebiet</td></tr>					   <tr><td>1.3</td><td>AF</td><td>es existieren keine Objekt-Treffer</td><td>nur Gebiet angezeigt, in der Ergebnis-Anzeige 'keine Treffer', leere TagCloud</td><td>ein Gebiet</td></tr>					   <tr><td>1.4</td><td>FF</td><td>keine Informationen von GoogleMaps</td><td>keine Karte, Fehlermeldung </td><td>ein Gebiet</td></tr>					   <tr><td>1.5</td><td>FF</td><td>keine Verbindung mit DB</td><td>Fehlermeldung</td><td>ein Gebiet</td></tr>					  					   <tr><td>2.1</td><td>NF</td><td>Suche nach Tags </td><td>ersten xx Tag-Treffer durch Pins im aktuellen Kartenausschnitt angezeigt, Anzahl der Gesamttreffer angezeigt, TagCloud zeigt Tags, die in Ergebnisobjekten oft vorkommen </td><td>Tag(s)</td></tr>					   <tr><td>2.2</td><td>AF</td><td>es gibt keine Treffer </td><td>in Ergebnis-Anzeige 'keine Treffer' angezeigt,leere TagCloud </td><td>nich vorkommende/s Tag(s)</td></tr>					   <tr><td>2.3</td><td>FF</td><td>keine Informationen von GoogleMaps</td><td>keine Karte, Fehlermeldung </td><td>Tag(s)</td></tr>					   <tr><td>2.4</td><td>FF</td><td>keine Verbindung mit DB</td><td>Fehlermeldung</td><td>Tag(s)</td></tr>					  					   <tr><td>3.1</td><td>NF</td><td>Suche nach Tag(s) in einem Gebiet</td><td>Kartenausschnitt mit Gebiet, ersten xx Tag-Treffer durch Pins auf Karte, Anzahl der Gesamttreffer und Tags im TagCloud angezeigt</td><td>Gebiet und Tag(s)</td></tr>					   <tr><td>3.2</td><td>AF</td><td>siehe Testfall 1.2, 1.3, 2.2</td></tr>					   <tr><td>3.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5, 2.3, 2.4</td></tr>					  					   <tr><td>4.1</td><td>NF</td><td>Suche mit der TagCloud</td><td>Das Anklicken eines Tags aus dem TagCloud lost eine neue, erweiterte Suche aus</td><td>Gebiet und Tag(s)</td></tr>					   <tr><td>4.2</td><td>AF</td><td>siehe Testfall 2.2</td></tr>					   <tr><td>4.3</td><td>FF</td><td>siehe Testfall 2.3, 2.4</td></tr>					   					   <tr><td>5.1</td><td>NF</td><td>Suche durch Hineinzoomen</td><td>siehe Testfall 1.1 mit kleinerem Bereich</td><td>keine</td></tr>					   <tr><td>5.2</td><td>AF</td><td>Suche durch Hinauszoomen</td><td>siehe Testfall 1.1 mit grosserem Bereich</td><td>keine</td></tr>					   <tr><td>5.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5</td><td></td><td>keine</td></tr>					   					   <tr><td>6.1</td><td>NF</td><td>UserIn �ffnet Detailansicht, die so angezeigt wird, dass sie im Sichtbereich liegt</td><td>gultige Detailansicht</td><td>keine</td></tr>					   <tr><td>6.2</td><td>FF</td><td>siehe 1.4, 1.5</td><td></td><td>keine</td></tr>					  					   <tr><td>7.1</td><td>NF</td><td>Detailansicht schlie�en</td><td></td><td>keine</td></tr>					   					   <tr><td>8.1</td><td>NF</td><td>Zur Hauptseite eines externen Services wechseln</td><td>Seite in einem neuen Fenster</td><td>keine</td></tr> 					   <tr><td>8.2</td><td>FF</td><td>externes Service �ber Link nicht verf�gbar</td><td>Fehlermeldung durch Browser</td><td>keine</td></tr>					 					   <tr><td>9.1</td><td>NF</td><td>Details auf externen Website ansehen</td><td>Seite in einem neuen Fenster</td><td>keine</td></tr>					   <tr><td>9.2</td><td>FF</td><td>siehe Testfall 8.2</td></tr>					   <tr><td>10.1</td><td>NF</td><td>Suche mit Tag-Liste aus Detailansicht</td><td>Das Anklicken eines Tags aus dem TagCloud lost eine neue, erweiterte Suche aus</td><td>keine</td></tr>					   <tr><td>10.2</td><td>AF</td><td>siehe Testfall 2.2</td></tr>					   <tr><td>10.3</td><td>FF</td><td>siehe Testfall 2.3, 2.4</td></tr>					   					   <tr><td>11.1</td><td>NF</td><td> Navigation im Kartenausschnitt,Verschiebung des Kartenausschnitts in beliebiger Richtung</td><td>auf neuem Kartenausschnitt Suche mit momentan eingegebenen Tags erneut durchgef�hrt</td><td>keine</td></tr>					   <tr><td>11.2</td><td>AF</td><td>siehe Testfall 1.2, 1.3</td></tr>					   <tr><td>11.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5</td></tr>					   					   <tr><td>12.1</td><td>NF</td><td> �ndern der Kartenansicht: 'Karte', 'Satellit' oder 'Gel�nde' </td><td>Karte in gew�nschtem Ansichtsmodus dargestellt</td><td>keine</td></tr>					   <tr><td>12.3</td><td>FF</td><td>siehe Testfall 1.4</td></tr>					   					   <tr><td>13.1</td><td>NF</td><td>GeoSearch �ber einen Permalink �ffnen</td><td>Kartenauschnitt angezeigt wie durch Permalink definiert (selber Kartenmittelpunkt, Zoomlevel, Suche, Marker)</td><td>Permalink</td></tr>					   <tr><td>13.2</td><td>AF</td><td>Objekte wurden in der DB hinzugef�gt bzw. gel�scht</td><td>Pins andern sich</td><td>Permalink</td></tr>					   <tr><td>13.3</td><td>FF</td><td>siehe Testfall 1.4</td></tr>					</table>					</subsection>		<subsection name="Testbericht Template">				FEHLER =  Test ergibt nicht das erwartete Ergebnis. Zusatzlich kann eine kurze Fehlerbeschreibung beigefugt werden.				OK =  Test ergibt das erwartete Ergebnis.				Leer  = Test war zum Zeitpunkt der Iteration nicht vorhanden.						<table>				<th>Testfall</th><th>Iteration 1</th><th>Iteration 2</th><th>Iteration 3</th><th>...</th> 				<tr><td>1.1</td><td>FEHLER</td><td>OK</td></tr>			</table>					Textuell:			<ul>				<li> Welche Fehlerfalle konnten bei dieser Testiteration beobachtet werden?</li>				<li>Welche Massnahmen werden gesetzt?</li>				<li>Welche Anderungen (im Projekt, zeitlicher Ablauf, etc.) ergeben sich durch diese Testiteration?</li>				<li>Welche neuen Testfalle haben sich durch diese Testiteration ergeben (z.B. durch einen Fehlerfall mussen Teile detaillierter getestet werden, oder es hat sich ergeben, dass Teile nicht ausreichend abgedeckt sind)? </li>		</ul>		</subsection>					</section>	  </body></document>
+<document>
+  <properties>
+    <author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+    <author email="brandiatmuhkuh@gmail.com">Jurgen Brandstetter</author>
+    <author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+    <author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+    <author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+    <title>Testartefakte</title>
+  </properties>
+  <head>
+    <style type="text/css">
+      ol li {
+      margin-bottom: 1em;
+      }
+    </style>
+  </head>
+  <body>
+     <section name="Testplan">
+	  <subsection name="Testarten"> 
+	   <ol>
+ 	   	   <li>Code reviews
+		   		<ul>
+					<li>eingesetzt bei jeder implementierter Klasse oder Interface</li>
+					<li>befinden sich in der internen Gruppenkommunikation</li>
+					<li>Tools: -</li>		
+					<li>Template: -</li>
+					<li>Fehlerreporting : interne Emails</li>
+					<li>Testkriterien: - </li>
+					<li>Fehlerbehebungsprozess: der Verantwortliche fur die jeweiligen Klassen behebt den Fehler</li>
+				</ul>
+			</li>
+			<li>Design Reviews
+		   		<ul>
+					<li>eingesetzt in der Entwurfsphase</li>
+					<li>befinden sich in den Besprechungsprotokollen</li>
+					<li>Tools: -</li>		
+					<li>Template: -</li>
+					<li>Fehlerreporting : Besprechungsprotokollen</li>
+					<li>Testkriterien: - </li>
+					<li>Fehlerbehebungsprozess: Schnittstellenanderung</li>
+				</ul>
+			</li>
+			<li>Integrationstests
+		   		<ul>
+					<li>eingesetzt um zu Testen wie die Module Crawler, Shared und Webseite miteinander kommunizieren, nach den Unittests, vor den Systemtests </li>
+					<li>befinden sich: trunk/*/src/test/java, wobei * fur den jeweiligen Javaprojektnamen steht</li>
+					<li>Tools: -</li>		
+					<li>Template: -</li>
+					<li>Fehlerreporting : -</li>
+					<li>Testkriterien: Die einzelnen funktionsfahigen Klassen sollen funktionsfahige Komponenten bilden </li>
+					<li>Fehlerbehebungsprozess: Debugging</li>
+				</ul>
+			</li>
+			<li>Unit tests
+		   		<ul>
+					<li>eingesetzt vor der Implementierung</li>
+					<li>befinden sich  trunk/*/src/test/java, wobei * fur den jeweiligen Javaprojektnamen steht</li>
+					<li>Tools: JUnit</li>		
+					<li>Template: http://junit.sourceforge.net/doc/faq/faq.htm#tests_16</li>
+					<li>Fehlerreporting : Maven JUnit Report Plug-in </li>
+					<li>Testkriterien: Testoutput entspricht dem Input und der Klassenfunktionalitat </li>
+					<li>Fehlerbehebungsprozess: Debugging</li>
+				</ul>
+			</li>
+  	   </ol>
+	 </subsection> 
+	
+	 <subsection name= "Verantwortlichkeiten">
+	 	<ol>
+			<li>Zust&auml;ndig f&uuml;r den Testplan: Anca Cismasiu</li>
+			<li>&Uuml;berwachung der Tests: <b>bitte ausf&uuml;llen</b></li>
+			<li>Erstellung von Testdaten: <b>bitte ausf&uuml;llen</b></li>
+			<li>Zust&auml;ndig fur die Auswahl der Funktionalen Testfalle: <b>bitte ausf&uuml;llen</b></li>
+			<li>Erstellung des Testberichts: <b>bitte ausf&uuml;llen</b></li>
+			<li>Zust&auml;ndig fur das Entwickeln der verschiedenen Tests/Testarten: 
+			  <ul>
+				  <li>Code reviews - Manuel Reithuber</li>
+				  <li>Design reviews - Gruppe</li>
+				  <li>Integrationstests - Gruppe</li>
+				  <li>Unit Tests - Gruppe</li>
+			  </ul>
+			</li>
+		</ol>
+	</subsection>
+	</section>
+	
+	<section name ="Funktionale Testf&auml;lle">
+		<subsection name="Funktionen der Testkomponenten">
+				<table>
+					   <th>Komponente</th><th>Funktion</th><th>Priorit&auml;t</th>
+					   <tr><td>website, shared</td><td>Use Case 1. Suche in Gebiet </td><td></td></tr>
+					   <tr><td>website, shared </td><td>Use Case 2. Suche mit Tags </td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 3. Suche in Gebiet mit Tag(s)</td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 4. Suche mit der TagCloud </td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 5. Suche durch Zoomen</td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 6. Detailansicht &ouml;ffnen</td><td></td></tr>
+					   <tr><td>website</td><td>Use Case 7. Detailansicht schlie�en</td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 8. Zur Hauptseite eines externen Services wechseln </td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 9. Details auf externen Website ansehen </td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 10. Suche mit Tag-Liste aus Detailansicht </td><td></td></tr>
+					   <tr><td>website</td><td>Use Case 11. Navigation im Kartenausschnitt</td><td></td></tr>
+					   <tr><td>website</td><td>Use Case 12. &auml;ndern der Kartenansicht </td><td></td></tr>
+					   <tr><td>website</td><td>Use Case 13. GeoSearch &uuml;ber einen Permalink &ouml;ffnen</td><td></td></tr>
+				</table>	
+ 		</subsection>
+		<subsection name="Testfallbeschreibung">
+					<table>
+					   <th>NR</th><th>Typ</th><th>Beschreibung</th><th>Erwartetes Ergebnis</th><th>Eingaben</th>
+					   <tr><td>1.1</td><td>NF</td><td>Suche im Gebiet</td><td>Gebiet im Kartenausschnitt ausgezeigt, ersten xx Objekt-Treffer durch Pins auf Karte angezeigt, Anzahl der Gesamttreffer angezeigt,TagCloud zeigt Tags, die in Ergebnisobjekten oft vorkommen</td><td>ein Gebiet</td></tr>
+					   <tr><td>1.2</td><td>AF</td><td>Suche in einem ung&uuml;ltigen Gebiet</td><td> Fehlermeldung, Kartenausschnitt bleibt unver&auml;ndert </td><td>ein nicht-existierendes Gebiet</td></tr>
+					   <tr><td>1.3</td><td>AF</td><td>es existieren keine Objekt-Treffer</td><td>nur Gebiet angezeigt, in der Ergebniss-Anzeige 'keine Treffer', leere TagCloud</td><td>ein Gebiet</td></tr>
+					   <tr><td>1.4</td><td>FF</td><td>keine Informationen von GoogleMaps</td><td>keine Karte, Fehlermeldung </td><td>ein Gebiet</td></tr>
+					   <tr><td>1.5</td><td>FF</td><td>keine Verbindung mit DB</td><td>Fehlermeldung</td><td>ein Gebiet</td></tr>
+					  
+					   <tr><td>2.1</td><td>NF</td><td>Suche nach Tags </td><td>ersten xx Tag-Treffer durch Pins im aktuellen Kartenausschnitt angezeigt, Anzahl der Gesamttreffer angezeigt, TagCloud zeigt Tags, die in Ergebnisobjekten oft vorkommen </td><td>Tag(s)</td></tr>
+					   <tr><td>2.2</td><td>AF</td><td>es gibt keine Treffer </td><td>in Ergebniss-Anzeige 'keine Treffer' angezeigt, leere TagCloud </td><td>nicht vorkommende/s Tag(s)</td></tr>
+					   <tr><td>2.3</td><td>FF</td><td>keine Informationen von GoogleMaps</td><td>keine Karte, Fehlermeldung </td><td>Tag(s)</td></tr>
+					   <tr><td>2.4</td><td>FF</td><td>keine Verbindung mit DB</td><td>Fehlermeldung</td><td>Tag(s)</td></tr>
+					  
+					   <tr><td>3.1</td><td>NF</td><td>Suche nach Tag(s) in einem Gebiet</td><td>Kartenausschnitt mit Gebiet, ersten xx Tag-Treffer durch Pins auf Karte, Anzahl der Gesamttreffer und Tags im TagCloud angezeigt</td><td>Gebiet und Tag(s)</td></tr>
+					   <tr><td>3.2</td><td>AF</td><td>siehe Testfall 1.2, 1.3, 2.2</td></tr>
+					   <tr><td>3.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5, 2.3, 2.4</td></tr>
+					  
+					   <tr><td>4.1</td><td>NF</td><td>Suche mit der TagCloud</td><td>Das Anklicken eines Tags aus dem TagCloud l&ouml;st eine neue, erweiterte Suche aus</td><td>Gebiet und Tag(s)</td></tr>
+					   <tr><td>4.2</td><td>AF</td><td>siehe Testfall 2.2</td></tr>
+					   <tr><td>4.3</td><td>FF</td><td>siehe Testfall 2.3, 2.4</td></tr>
+					   
+					   <tr><td>5.1</td><td>NF</td><td>Suche durch Hineinzoomen</td><td>siehe Testfall 1.1 mit kleinerem Bereich</td><td>keine</td></tr>
+					   <tr><td>5.2</td><td>AF</td><td>Suche durch Hinauszoomen</td><td>siehe Testfall 1.1 mit grosserem Bereich</td><td>keine</td></tr>
+					   <tr><td>5.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5</td><td></td><td>keine</td></tr>
+					   
+					   <tr><td>6.1</td><td>NF</td><td>UserIn &ouml;ffnet Detailansicht, die so angezeigt wird, dass sie im Sichtbereich liegt</td><td>g&uuml;ltige Detailansicht</td><td>keine</td></tr>
+					   <tr><td>6.2</td><td>FF</td><td>siehe 1.4, 1.5</td><td></td><td>keine</td></tr>
+					  
+					   <tr><td>7.1</td><td>NF</td><td>Detailansicht schlie&szlig;en</td><td></td><td>keine</td></tr>
+					   
+					   <tr><td>8.1</td><td>NF</td><td>Zur Hauptseite eines externen Services wechseln</td><td>Seite in einem neuen Fenster</td><td>keine</td></tr> 
+					   <tr><td>8.2</td><td>FF</td><td>externes Service &uuml;ber Link nicht verf&uuml;gbar</td><td>Fehlermeldung durch Browser</td><td>keine</td></tr>
+					 
+					   <tr><td>9.1</td><td>NF</td><td>Details auf externen Website ansehen</td><td>Seite in einem neuen Fenster</td><td>keine</td></tr>
+					   <tr><td>9.2</td><td>FF</td><td>siehe Testfall 8.2</td></tr>
+
+					   <tr><td>10.1</td><td>NF</td><td>Suche mit Tag-Liste aus Detailansicht</td><td>Das Anklicken eines Tags aus dem TagCloud l&ouml;st eine neue, erweiterte Suche aus</td><td>keine</td></tr>
+					   <tr><td>10.2</td><td>AF</td><td>siehe Testfall 2.2</td></tr>
+					   <tr><td>10.3</td><td>FF</td><td>siehe Testfall 2.3, 2.4</td></tr>
+					   
+					   <tr><td>11.1</td><td>NF</td><td> Navigation im Kartenausschnitt,Verschiebung des Kartenausschnitts in beliebiger Richtung</td><td>auf neuem Kartenausschnitt Suche mit momentan eingegebenen Tags erneut durchgef&uuml;hrt</td><td>keine</td></tr>
+					   <tr><td>11.2</td><td>AF</td><td>siehe Testfall 1.2, 1.3</td></tr>
+					   <tr><td>11.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5</td></tr>
+					   
+					   <tr><td>12.1</td><td>NF</td><td> &Auml;ndern der Kartenansicht: 'Karte', 'Satellit' oder 'Gel&auml;nde' </td><td>Karte in gew&uuml;nschtem Ansichtsmodus dargestellt</td><td>keine</td></tr>
+					   <tr><td>12.3</td><td>FF</td><td>siehe Testfall 1.4</td></tr>
+					   
+					   <tr><td>13.1</td><td>NF</td><td>GeoSearch &uuml;ber einen Permalink &ouml;ffnen</td><td>Kartenauschnitt angezeigt wie durch Permalink definiert (selber Kartenmittelpunkt, Zoomlevel, Suche, Marker)</td><td>Permalink</td></tr>
+					   <tr><td>13.2</td><td>AF</td><td>Objekte wurden in der DB hinzugef&uuml;gt bzw. gel&ouml;scht</td><td>Pins andern sich</td><td>Permalink</td></tr>
+					   <tr><td>13.3</td><td>FF</td><td>siehe Testfall 1.4</td></tr>
+					</table>	
+		
+		</subsection>
+		<subsection name="Testbericht Templ&auml;te">
+				FEHLER =  Test ergibt nicht das erwartete Ergebnis. Zus&auml;tzlich kann eine kurze Fehlerbeschreibung beigef&uuml;gt werden.
+				OK =  Test ergibt das erwartete Ergebnis.
+				Leer  = Test war zum Zeitpunkt der Iteration nicht vorhanden.
+			
+			<table>
+				<th>Testfall</th><th>Iteration 1</th><th>Iteration 2</th><th>Iteration 3</th><th>...</th> 
+				<tr><td>1.1</td><td>FEHLER</td><td>OK</td></tr>
+			</table>
+		
+			Textuell:
+			<ul>
+				<li> Welche Fehlerfalle konnten bei dieser Testiteration beobachtet werden?</li>
+				<li>Welche Ma&szlig;nahmen werden gesetzt?</li>
+				<li>Welche &Auml;nderungen (im Projekt, zeitlicher Ablauf, etc.) ergeben sich durch diese Testiteration?</li>
+				<li>Welche neuen Testfalle haben sich durch diese Testiteration ergeben (z.B. durch einen Fehlerfall mussen Teile detaillierter getestet werden, oder es hat sich ergeben, dass Teile nicht ausreichend abgedeckt sind)? </li>
+		</ul>
+		</subsection>
+		
+		
+	</section>
+	
+  </body>
+</document>
