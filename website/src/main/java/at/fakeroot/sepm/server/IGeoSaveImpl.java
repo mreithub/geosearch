@@ -1,5 +1,8 @@
 package at.fakeroot.sepm.server;
 import java.rmi.RemoteException;
+
+import org.apache.log4j.Logger;
+
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.DBService;
 import at.fakeroot.sepm.shared.server.GeoObjectManager;
@@ -13,25 +16,27 @@ import at.fakeroot.sepm.shared.server.ServiceManager;
  */
 public class IGeoSaveImpl implements IGeoSave {
 	
+	private static final Logger logger = Logger.getRootLogger();
 	/**
 	 * Insert or update a GeoObject in the DB
 	 * @param newGeoObj 
 	 */
-	public void saveObject(DBGeoObject newGeoObj) {
+	public void saveObject(DBGeoObject obj) {
 		//Check if this object already exists. If yes, we have to update it.
 		//If no, we have to insert it. Note that the passed DBGeoObject only provides
 		//the service ID and the service object ID, but not the object ID itself.
 		
 		//There mustn't exist any object ID within this object.
-		newGeoObj.setId(0);
+		obj.setId(0);
+		long obj_id=0;
 		
-		DBGeoObject selectObj = GeoObjectManager.getInstance().select(newGeoObj);
-		if (selectObj == null)
-			GeoObjectManager.getInstance().insert(newGeoObj);
-		else
-		{
-			newGeoObj.setId(selectObj.getId());
-			GeoObjectManager.getInstance().update(newGeoObj);
+		try{
+			obj_id= GeoObjectManager.getInstance().getObjectId(obj.getSvc_id(), obj.getUid());
+			obj.setId(obj_id);
+			GeoObjectManager.getInstance().update(obj);
+		}catch(Exception e){
+			logger.error(e.getMessage(),e);
+			GeoObjectManager.getInstance().insert(obj);
 		}
 		
 		
