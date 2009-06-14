@@ -3,6 +3,7 @@ package at.fakeroot.sepm.shared.server;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import org.postgresql.geometric.PGpoint;
 import org.apache.log4j.Logger;
@@ -51,84 +52,60 @@ public class GeoObjectManager
 	}
 
 
-	
 	/**
-	 * Method used to check if the DBGeoObject already exists in the database
-	 * @param obj DBGeoObject object we are searching for
-	 * @return DBGeoObject the existing object, or null if there is no previous record in the database with these values
-	 * */
-
-	public DBGeoObject select(DBGeoObject obj)
-	{
-		ResultSet rs1=null;
-		ResultSet rs2=null;
-		ResultSet rs3=null;
-		DBGeoObject rc=null;
-
-		try {	
-			String query = "SELECT obj_id, svc_id, uid, title, link, pos, last_updated FROM geoObject WHERE 1=1";
-			if(obj.getId()!=0)
-				query+=" AND obj_id= ?";
-			if(obj.getSvc_id()!=0)
-				query+=" AND svc_id = ?";
-			if(obj.getUid()!=null&& !obj.getUid().equals(""))
-				query+=" AND uid = ?";
-			
-			PreparedStatement pstmt1 = dbConn.prepareStatement(query+";");
-			pstmt1.setLong(1, obj.getId());
-			pstmt1.setInt(2, obj.getSvc_id());
-			pstmt1.setString(3, obj.getUid());
-			rs1=pstmt1.executeQuery();
-			pstmt1.close();
-			dbConn.disconnect();
-	
-			PreparedStatement pstmt2 = dbConn.prepareStatement("SELECT name, value FROM objectProperty WHERE obj_id = ?");
-			pstmt2.setLong(1, obj.getId());
-			rs2=pstmt2.executeQuery();
-			pstmt2.close();
-			dbConn.disconnect();
-			rs2.last();
-			int propRowCount = rs2.getRow();
-			rs2.first();
-			
-	
-			PreparedStatement pstmt3 = dbConn.prepareStatement("SELECT tag FROM objectTag WHERE obj_id=?");
-			pstmt3.setLong(1, obj.getId());
-			rs3=pstmt3.executeQuery();
-			rs3=pstmt3.executeQuery();
-			rs3.last();
-			int tagRowCount = rs3.getRow();
-			rs3.first();
-			pstmt3.close();
-			dbConn.disconnect();
-	
-			if(rs1.next()){
-				PGpoint location = (PGpoint)rs1.getObject(6);
-	
-				Property[] properties= new Property[propRowCount];
-				int i=0;
-				while(rs2.next()){
-					properties[i]=new Property(rs2.getString(2), rs2.getString(3));
-					i++;
-				}
-	
-				String[] tags = new String[tagRowCount];
-				int j=0;
-				while(rs3.next()){
-					tags[j]=rs3.getString(2);
-					j++;
-				}
-	
-				rc= new DBGeoObject(rs1.getInt(1), rs1.getString(4), location.x ,location.y, rs1.getInt(2), rs1.getString(3), rs1.getString(5),rs1.getTimestamp(7), properties, tags);
-			}
-		} catch (SQLException e) {
-			logger.error("SQLException in GeoObjectManager.select()", e);
+	 * Method used to get the obj_id of the DBGeoObject with the given svc_id and uid
+	 * @param svc_id the service id 
+	 * @param uid the unique id 
+	 * @return the obj_id 
+	 * @throws Exception if no or more than one objects are found
+	 * */	
+	public long getObjectId(int svc_id, String uid) throws Exception{
+		
+		long rc=0;
+		try{
+			PreparedStatement pstmt = dbConn.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid='?';");
+			pstmt.setInt(svc_id, svc_id);
+			pstmt.setString(2, uid);
+			ResultSet result= pstmt.executeQuery();
+			result.last();
+			if(result.getRow()==1)			
+				rc=result.getLong("obj_id");
+		}catch(SQLException e){
+			logger.error("SQLException in GeoObjectManager.getObjectId(int svc_id, String uid)", e);
 		}
-	
+		if(rc==0)
+			throw new Exception("No object or object not uniquely identifiable");
 		return rc;
 	}
-
 	
+	
+	/**
+	 * Get the DBGeoObject with this obj_id
+	 * @param obj_id the object id 
+	 * @return  the DBGeoObject with this id
+	 * @throws Exception if no object with this id is found
+	 * */		
+	public DBGeoObject getObjectbyId(long id) throws Exception{
+		DBGeoObject rc=null;
+		try{
+			//long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
+			PreparedStatement pstmt = dbConn.prepareStatement("SELECT title, pos[0] AS xPos, pos[1] AS yPos, svc_id, uid, link, valid_until FROM geoObject INNER JOIN expiringObject USING (obj_id) WHERE obj_id = ?");
+			pstmt.setLong(1, id);
+			ResultSet res = pstmt.executeQuery();
+			res.last();
+			if(res.getRow()==1){
+				res.beforeFirst();
+				rc = new DBGeoObject(id, res.getString("title"), res.getDouble("xPos"), res.getDouble("yPos"), res.getInt("svc_id"), res.getString("uid"), res.getString("link"), res.getTimestamp("valid_until"), getProperties(id), getTags(id));
+			}			
+		}catch(SQLException e){
+			logger.error("SQLException in GeoObjectManager.getObjectById(long id)", e);
+		}
+		
+		if(rc.equals(null))
+			throw new Exception("No object found by this id");
+		
+		return rc;
+	}
 	
 	/**
 	 * Method used to retrieve a limited number of ClientGeoObjects having a set of tags and lying in a particular BoundingBox
@@ -217,10 +194,10 @@ public class GeoObjectManager
 	 * @return String Array
 	 * @throws SQLException
 	 */
-	private String[] getTags(int objId) throws SQLException {
+	private String[] getTags(long objId) throws SQLException {
 		String[] rc;
 		
-		tagStmt.setInt(1, objId);
+		tagStmt.setLong(1, objId);
 		ResultSet tagRes = tagStmt.executeQuery();
 		tagRes.last();
 		rc = new String[tagRes.getRow()];
@@ -233,6 +210,28 @@ public class GeoObjectManager
 		return rc;
 	}
 
+	
+	/**
+	 * Get the properties for a GeoObject
+	 * @param objId Object ID
+	 * @return Property Array
+	 * @throws SQLException
+	 */
+	private Property[] getProperties(long obj_id) throws SQLException{
+		Property[] rc;
+		PreparedStatement pstmt = dbConn.prepareStatement("SELECT name, value FROM objectProperty WHERE obj_id = ?"); 
+		pstmt.setLong(1, obj_id);
+		ResultSet rs= pstmt.executeQuery();
+		rs.last();
+		rc=new Property[rs.getRow()];
+		rs.beforeFirst();
+		while(rs.next()) {
+			rc[rs.getRow()-1] = new Property(rs.getString("name"),rs.getString("value"));
+		}
+		
+			return rc;	
+			
+	} 
 	
 	
 	/**
