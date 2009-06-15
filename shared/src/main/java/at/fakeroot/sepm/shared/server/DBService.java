@@ -1,8 +1,8 @@
 package at.fakeroot.sepm.shared.server;
 
 /**
+ * Class representing a Service with all the necessary properties to be stored in and read from the Database
  * @author Anca Cismasiu
- * 
  * */
 
 public class DBService {
@@ -16,6 +16,17 @@ public class DBService {
 	private String bubbleHTML;
 	private String[] tags;
 
+	/**
+	 * Constructor 
+	 * @param _svc_id the unique service id
+	 * @param _name service name 
+	 * @param _title title
+	 * @param _homepage  service homepage
+	 * @param _description servce description
+	 * @param _sType_id teh service type id (eg. Photos, Events, etc)
+	 * @param _bubbleHTML the HTML to be displayed in the DetailView
+	 * 
+	 * */
 	public DBService(int _svc_id, String _name, String _title, String _homepage, String _description, int _sType_id, String _bubbleHTML ){
 		svc_id=_svc_id;
 		name=_name;
@@ -26,38 +37,75 @@ public class DBService {
 		bubbleHTML=_bubbleHTML;
 	}
 
+	
+	/**
+	 * Getter for the service id
+	 * @return service is
+	 * */
 	public int getSvc_id() {
 		return svc_id;
 	}
 
+	/**
+	 * Getter for the service name
+	 * @return service name
+	 * */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Getter for the service title
+	 * @return service title
+	 * */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * Getter for the service homepage link
+	 * @return service homepage link
+	 * */
 	public String getHomepage() {
 		return homepage;
 	}
 
+	/**
+	 * Getter for the service description
+	 * @return service description
+	 * */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Getter for the service type id
+	 * @return service type id
+	 * */
 	public int getSType_id() {
 		return sType_id;
 	}
 
+	/**
+	 * Getter for the DetailView HTML
+	 * @return HTML String
+	 * */
 	public String getBubbleHTML() {
 		return bubbleHTML;
 	}
 	
+	/**
+	 * Getter for the service tags
+	 * @return service tags
+	 * */
 	public String[] getTags() {
 		return tags;
 	}
 
+	/**
+	 * Setter for the service tags
+	 * @param service tags
+	 * */
 	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
