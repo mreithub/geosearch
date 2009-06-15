@@ -46,7 +46,7 @@ public class DBConnection {
 			ds.setUser(prop.getProperty("user"));
 			ds.setPassword(prop.getProperty("pwd"));
 			dataSource = ds;
-			isTesting = true;
+			isTesting = !prop.getProperty("testing").equals("false");
 		}
 	}
 	

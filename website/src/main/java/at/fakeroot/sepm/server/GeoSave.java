@@ -1,60 +1,63 @@
 package at.fakeroot.sepm.server;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import javax.servlet.GenericServlet;
-import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 
-import at.fakeroot.sepm.shared.server.DBGeoObject;
-import at.fakeroot.sepm.shared.server.DBService;
-import at.fakeroot.sepm.shared.server.GeoObjectManager;
+import org.apache.log4j.Logger;
+
 import at.fakeroot.sepm.shared.server.IGeoSave;
-import at.fakeroot.sepm.shared.server.ServiceManager;
 
 
 public class GeoSave extends HttpServlet
 {
 	// default serial version id
 	private static final long serialVersionUID = 1L;
-	private static GeoSave instance;
+	private static Registry registry = null;
+	private static IGeoSave geoSaver;
+	private static IGeoSave geoStub;
 	
-	public GeoSave()
+	public GeoSave() throws ServletException
 	{
-		//--- JAVAInsel
-		try {
-			LocateRegistry.createRegistry(38492);
-			//LocateRegistry.createRegistry(1525); 	    
-		    
-		    //GeoSave
-		    IGeoSaveImpl geoSaver = new IGeoSaveImpl();
-		    IGeoSave geoStub = (IGeoSave) UnicastRemoteObject.exportObject(geoSaver,0);
-		    
-		    Registry geoRegistry = LocateRegistry.getRegistry();
-		    geoRegistry.rebind("IGeoSave", geoStub);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
 	}
 	
-/*	public void init(ServletConfig config) throws ServletException {
-		getInstance();
-	}*/
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		
+		//--- JAVAInsel
+		try {
+			try {
+				registry = LocateRegistry.createRegistry(38492);
+			}
+			catch (RemoteException e) {
+				registry = LocateRegistry.getRegistry(38492);
+			}
+
+		    //GeoSave
+		    geoSaver = new IGeoSaveImpl();
+		    geoStub = (IGeoSave) UnicastRemoteObject.exportObject(geoSaver, 0);
+		    
+		    registry.rebind("IGeoSave", geoStub);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			throw new ServletException("Couldn't init RMI server", e);
+		}
+	}
 	
-	public static GeoSave getInstance()
-	{
-		if (instance == null)
-			instance = new GeoSave();
-		return(instance);
-	}	
+	public void destroy() {
+		if (registry != null) {
+			try {
+				registry.unbind("IGeoSave");
+				UnicastRemoteObject.unexportObject(registry,true);
+				registry = null;
+			} catch (Exception e) {
+				Logger.getRootLogger().error("Failed to unbind registry 'IGeoSave'", e);
+			}
+		}
+	}
 }

@@ -108,6 +108,7 @@
 				<psql.db>geosearch_test</psql.db>
 				<psql.user>geosearch_test</psql.user>
 				<psql.pwd>Waerie4Petei4eey</psql.pwd>
+				<psql.testing>true</psql.testing>
 			</properties>
 		</profile>
 		<profile>
@@ -117,6 +118,7 @@
 				<psql.db>geosearch</psql.db>
 				<psql.user>geosearch_web</psql.user>
 				<psql.pwd>equohghoru4cahhahCoiWieru9ach7lu</psql.pwd>
+				<psql.testing>false</psql.testing>
 			</properties>
 		</profile>
 	</profiles>
