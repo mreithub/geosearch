@@ -67,12 +67,12 @@
 	
 	 <subsection name= "Verantwortlichkeiten">
 	 	<ol>
-			<li>Zust&auml;ndig f&uuml;r den Testplan: Anca Cismasiu</li>
-			<li>&Uuml;berwachung der Tests: <b>bitte ausf&uuml;llen</b></li>
-			<li>Erstellung von Testdaten: <b>bitte ausf&uuml;llen</b></li>
-			<li>Zust&auml;ndig fur die Auswahl der Funktionalen Testfalle: <b>bitte ausf&uuml;llen</b></li>
-			<li>Erstellung des Testberichts: <b>bitte ausf&uuml;llen</b></li>
-			<li>Zust&auml;ndig fur das Entwickeln der verschiedenen Tests/Testarten: 
+			<li>Zuständig für den Testplan: Anca Cismasiu</li>
+			<li>Überwachung der Tests: <b>bitte ausfüllen</b></li>
+			<li>Erstellung von Testdaten: <b>bitte ausfüllen</b></li>
+			<li>Zuständig fur die Auswahl der Funktionalen Testfalle: <b>bitte ausfüllen</b></li>
+			<li>Erstellung des Testberichts: <b>bitte ausfüllen</b></li>
+			<li>Zuständig fur das Entwickeln der verschiedenen Tests/Testarten: 
 			  <ul>
 				  <li>Code reviews - Manuel Reithuber</li>
 				  <li>Design reviews - Gruppe</li>
@@ -84,30 +84,30 @@
 	</subsection>
 	</section>
 	
-	<section name ="Funktionale Testf&auml;lle">
+	<section name ="Funktionale Testfälle">
 		<subsection name="Funktionen der Testkomponenten">
 				<table>
-					   <th>Komponente</th><th>Funktion</th><th>Priorit&auml;t</th>
+					   <th>Komponente</th><th>Funktion</th><th>Priorität</th>
 					   <tr><td>website, shared</td><td>Use Case 1. Suche in Gebiet </td><td></td></tr>
 					   <tr><td>website, shared </td><td>Use Case 2. Suche mit Tags </td><td></td></tr>
 					   <tr><td>website, shared</td><td>Use Case 3. Suche in Gebiet mit Tag(s)</td><td></td></tr>
 					   <tr><td>website, shared</td><td>Use Case 4. Suche mit der TagCloud </td><td></td></tr>
 					   <tr><td>website, shared</td><td>Use Case 5. Suche durch Zoomen</td><td></td></tr>
-					   <tr><td>website, shared</td><td>Use Case 6. Detailansicht &ouml;ffnen</td><td></td></tr>
+					   <tr><td>website, shared</td><td>Use Case 6. Detailansicht öffnen</td><td></td></tr>
 					   <tr><td>website</td><td>Use Case 7. Detailansicht schlie�en</td><td></td></tr>
 					   <tr><td>website, shared</td><td>Use Case 8. Zur Hauptseite eines externen Services wechseln </td><td></td></tr>
 					   <tr><td>website, shared</td><td>Use Case 9. Details auf externen Website ansehen </td><td></td></tr>
 					   <tr><td>website, shared</td><td>Use Case 10. Suche mit Tag-Liste aus Detailansicht </td><td></td></tr>
 					   <tr><td>website</td><td>Use Case 11. Navigation im Kartenausschnitt</td><td></td></tr>
-					   <tr><td>website</td><td>Use Case 12. &auml;ndern der Kartenansicht </td><td></td></tr>
-					   <tr><td>website</td><td>Use Case 13. GeoSearch &uuml;ber einen Permalink &ouml;ffnen</td><td></td></tr>
+					   <tr><td>website</td><td>Use Case 12. Ändern der Kartenansicht </td><td></td></tr>
+					   <tr><td>website</td><td>Use Case 13. GeoSearch über einen Permalink öffnen</td><td></td></tr>
 				</table>	
  		</subsection>
 		<subsection name="Testfallbeschreibung">
 					<table>
 					   <th>NR</th><th>Typ</th><th>Beschreibung</th><th>Erwartetes Ergebnis</th><th>Eingaben</th>
 					   <tr><td>1.1</td><td>NF</td><td>Suche im Gebiet</td><td>Gebiet im Kartenausschnitt ausgezeigt, ersten xx Objekt-Treffer durch Pins auf Karte angezeigt, Anzahl der Gesamttreffer angezeigt,TagCloud zeigt Tags, die in Ergebnisobjekten oft vorkommen</td><td>ein Gebiet</td></tr>
-					   <tr><td>1.2</td><td>AF</td><td>Suche in einem ung&uuml;ltigen Gebiet</td><td> Fehlermeldung, Kartenausschnitt bleibt unver&auml;ndert </td><td>ein nicht-existierendes Gebiet</td></tr>
+					   <tr><td>1.2</td><td>AF</td><td>Suche in einem ungültigen Gebiet</td><td> Fehlermeldung, Kartenausschnitt bleibt unverändert </td><td>ein nicht-existierendes Gebiet</td></tr>
 					   <tr><td>1.3</td><td>AF</td><td>es existieren keine Objekt-Treffer</td><td>nur Gebiet angezeigt, in der Ergebniss-Anzeige 'keine Treffer', leere TagCloud</td><td>ein Gebiet</td></tr>
 					   <tr><td>1.4</td><td>FF</td><td>keine Informationen von GoogleMaps</td><td>keine Karte, Fehlermeldung </td><td>ein Gebiet</td></tr>
 					   <tr><td>1.5</td><td>FF</td><td>keine Verbindung mit DB</td><td>Fehlermeldung</td><td>ein Gebiet</td></tr>
@@ -121,7 +121,7 @@
 					   <tr><td>3.2</td><td>AF</td><td>siehe Testfall 1.2, 1.3, 2.2</td></tr>
 					   <tr><td>3.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5, 2.3, 2.4</td></tr>
 					  
-					   <tr><td>4.1</td><td>NF</td><td>Suche mit der TagCloud</td><td>Das Anklicken eines Tags aus dem TagCloud l&ouml;st eine neue, erweiterte Suche aus</td><td>Gebiet und Tag(s)</td></tr>
+					   <tr><td>4.1</td><td>NF</td><td>Suche mit der TagCloud</td><td>Das Anklicken eines Tags aus dem TagCloud läst eine neue, erweiterte Suche aus</td><td>Gebiet und Tag(s)</td></tr>
 					   <tr><td>4.2</td><td>AF</td><td>siehe Testfall 2.2</td></tr>
 					   <tr><td>4.3</td><td>FF</td><td>siehe Testfall 2.3, 2.4</td></tr>
 					   
@@ -129,36 +129,36 @@
 					   <tr><td>5.2</td><td>AF</td><td>Suche durch Hinauszoomen</td><td>siehe Testfall 1.1 mit grosserem Bereich</td><td>keine</td></tr>
 					   <tr><td>5.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5</td><td></td><td>keine</td></tr>
 					   
-					   <tr><td>6.1</td><td>NF</td><td>UserIn &ouml;ffnet Detailansicht, die so angezeigt wird, dass sie im Sichtbereich liegt</td><td>g&uuml;ltige Detailansicht</td><td>keine</td></tr>
+					   <tr><td>6.1</td><td>NF</td><td>UserIn öffnet Detailansicht, die so angezeigt wird, dass sie im Sichtbereich liegt</td><td>gültige Detailansicht</td><td>keine</td></tr>
 					   <tr><td>6.2</td><td>FF</td><td>siehe 1.4, 1.5</td><td></td><td>keine</td></tr>
 					  
-					   <tr><td>7.1</td><td>NF</td><td>Detailansicht schlie&szlig;en</td><td></td><td>keine</td></tr>
+					   <tr><td>7.1</td><td>NF</td><td>Detailansicht schließen</td><td></td><td>keine</td></tr>
 					   
 					   <tr><td>8.1</td><td>NF</td><td>Zur Hauptseite eines externen Services wechseln</td><td>Seite in einem neuen Fenster</td><td>keine</td></tr> 
-					   <tr><td>8.2</td><td>FF</td><td>externes Service &uuml;ber Link nicht verf&uuml;gbar</td><td>Fehlermeldung durch Browser</td><td>keine</td></tr>
+					   <tr><td>8.2</td><td>FF</td><td>externes Service über Link nicht verfügbar</td><td>Fehlermeldung durch Browser</td><td>keine</td></tr>
 					 
 					   <tr><td>9.1</td><td>NF</td><td>Details auf externen Website ansehen</td><td>Seite in einem neuen Fenster</td><td>keine</td></tr>
 					   <tr><td>9.2</td><td>FF</td><td>siehe Testfall 8.2</td></tr>
 
-					   <tr><td>10.1</td><td>NF</td><td>Suche mit Tag-Liste aus Detailansicht</td><td>Das Anklicken eines Tags aus dem TagCloud l&ouml;st eine neue, erweiterte Suche aus</td><td>keine</td></tr>
+					   <tr><td>10.1</td><td>NF</td><td>Suche mit Tag-Liste aus Detailansicht</td><td>Das Anklicken eines Tags aus dem TagCloud lässt eine neue, erweiterte Suche aus</td><td>keine</td></tr>
 					   <tr><td>10.2</td><td>AF</td><td>siehe Testfall 2.2</td></tr>
 					   <tr><td>10.3</td><td>FF</td><td>siehe Testfall 2.3, 2.4</td></tr>
 					   
-					   <tr><td>11.1</td><td>NF</td><td> Navigation im Kartenausschnitt,Verschiebung des Kartenausschnitts in beliebiger Richtung</td><td>auf neuem Kartenausschnitt Suche mit momentan eingegebenen Tags erneut durchgef&uuml;hrt</td><td>keine</td></tr>
+					   <tr><td>11.1</td><td>NF</td><td> Navigation im Kartenausschnitt,Verschiebung des Kartenausschnitts in beliebiger Richtung</td><td>auf neuem Kartenausschnitt Suche mit momentan eingegebenen Tags erneut durchgeführt</td><td>keine</td></tr>
 					   <tr><td>11.2</td><td>AF</td><td>siehe Testfall 1.2, 1.3</td></tr>
 					   <tr><td>11.3</td><td>FF</td><td>siehe Testfall 1.4, 1.5</td></tr>
 					   
-					   <tr><td>12.1</td><td>NF</td><td> &Auml;ndern der Kartenansicht: 'Karte', 'Satellit' oder 'Gel&auml;nde' </td><td>Karte in gew&uuml;nschtem Ansichtsmodus dargestellt</td><td>keine</td></tr>
+					   <tr><td>12.1</td><td>NF</td><td> Ändern der Kartenansicht: 'Karte', 'Satellit' oder 'Gelände' </td><td>Karte in gewünschtem Ansichtsmodus dargestellt</td><td>keine</td></tr>
 					   <tr><td>12.3</td><td>FF</td><td>siehe Testfall 1.4</td></tr>
 					   
-					   <tr><td>13.1</td><td>NF</td><td>GeoSearch &uuml;ber einen Permalink &ouml;ffnen</td><td>Kartenauschnitt angezeigt wie durch Permalink definiert (selber Kartenmittelpunkt, Zoomlevel, Suche, Marker)</td><td>Permalink</td></tr>
-					   <tr><td>13.2</td><td>AF</td><td>Objekte wurden in der DB hinzugef&uuml;gt bzw. gel&ouml;scht</td><td>Pins andern sich</td><td>Permalink</td></tr>
+					   <tr><td>13.1</td><td>NF</td><td>GeoSearch über einen Permalink öffnen</td><td>Kartenauschnitt angezeigt wie durch Permalink definiert (selber Kartenmittelpunkt, Zoomlevel, Suche, Marker)</td><td>Permalink</td></tr>
+					   <tr><td>13.2</td><td>AF</td><td>Objekte wurden in der DB hinzugefügt bzw. gelöscht</td><td>Pins andern sich</td><td>Permalink</td></tr>
 					   <tr><td>13.3</td><td>FF</td><td>siehe Testfall 1.4</td></tr>
 					</table>	
 		
 		</subsection>
-		<subsection name="Testbericht Templ&auml;te">
-				FEHLER =  Test ergibt nicht das erwartete Ergebnis. Zus&auml;tzlich kann eine kurze Fehlerbeschreibung beigef&uuml;gt werden.
+		<subsection name="Testbericht Templäte">
+				FEHLER =  Test ergibt nicht das erwartete Ergebnis. Zusätzlich kann eine kurze Fehlerbeschreibung beigefügt werden.
 				OK =  Test ergibt das erwartete Ergebnis.
 				Leer  = Test war zum Zeitpunkt der Iteration nicht vorhanden.
 			
@@ -170,8 +170,8 @@
 			Textuell:
 			<ul>
 				<li> Welche Fehlerfalle konnten bei dieser Testiteration beobachtet werden?</li>
-				<li>Welche Ma&szlig;nahmen werden gesetzt?</li>
-				<li>Welche &Auml;nderungen (im Projekt, zeitlicher Ablauf, etc.) ergeben sich durch diese Testiteration?</li>
+				<li>Welche Maßnahmen werden gesetzt?</li>
+				<li>Welche Änderungen (im Projekt, zeitlicher Ablauf, etc.) ergeben sich durch diese Testiteration?</li>
 				<li>Welche neuen Testfalle haben sich durch diese Testiteration ergeben (z.B. durch einen Fehlerfall mussen Teile detaillierter getestet werden, oder es hat sich ergeben, dass Teile nicht ausreichend abgedeckt sind)? </li>
 		</ul>
 		</subsection>
