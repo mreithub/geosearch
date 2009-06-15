@@ -28,7 +28,7 @@
 		<servlet-name>geoSave</servlet-name>
 		<servlet-class>at.fakeroot.sepm.server.GeoSave</servlet-class>
 	
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>10</load-on-startup>
 	</servlet>
 	
 	<servlet-mapping>
