@@ -12,7 +12,6 @@ public class DBGeoObject extends GeoObject {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 	
-	private String title;
 	private int svc_id;
 	private String uid;
 	private String link;
@@ -38,7 +37,6 @@ public class DBGeoObject extends GeoObject {
 		this.link=link;
 		this.valid_until=valid_until;
 		this.properties=properties;
-		this.title = title;
 		setTags(tags);
 	}
 	
@@ -62,16 +60,7 @@ public class DBGeoObject extends GeoObject {
 		this.link=link;
 		this.valid_until=valid_until;
 		this.properties=properties;
-		this.title = title;
 		setTags(tags);
-	}
-
-	/**
-	 * Getter for object title
-	 * @return object title
-	 * */
-	public String getTitle() {
-		return title;
 	}
 
 	/**
@@ -119,6 +108,6 @@ public class DBGeoObject extends GeoObject {
 		for(int i=0;i<properties.length;i++){
 			propStr+=i+".) "+properties[i].toString();
 		}
-		return super.toString()+", title: "+title+", svc_id: "+svc_id+", uid: "+uid+", link: "+link+", valid_until: "+valid_until+", properties: "+propStr;
+		return super.toString()+", title: "+ getTitle()+", svc_id: "+svc_id+", uid: "+uid+", link: "+link+", valid_until: "+valid_until+", properties: "+propStr;
 	}
 }
