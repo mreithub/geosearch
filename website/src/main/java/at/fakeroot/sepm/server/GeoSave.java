@@ -31,7 +31,7 @@ public class GeoSave extends HttpServlet
 	{
 		//--- JAVAInsel
 		try {
-			LocateRegistry.createRegistry( Registry.REGISTRY_PORT );
+			LocateRegistry.createRegistry(38492);
 			//LocateRegistry.createRegistry(1525); 	    
 		    
 		    //GeoSave
