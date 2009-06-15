@@ -22,6 +22,14 @@ public class DBConnectionTest extends TestCase {
 
 		try {
 			db = new DBConnection();
+		}
+		catch (Exception e) {
+			System.err.println("Database connection failed:");
+			e.printStackTrace(System.err);
+			System.exit (0);
+		}
+
+		try {
 			Statement s = db.createStatement();
 			s.executeUpdate("INSERT INTO serviceType (name, thumbnail) VALUES ('testtype', '/img/test1.png')");
 			s.executeUpdate("INSERT INTO serviceType (name, thumbnail) VALUES ('testtype2', '/img/test2.png')");
