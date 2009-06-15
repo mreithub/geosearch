@@ -35,13 +35,22 @@ public class ResultInfoBox extends Composite
 	public void refresh(int shown, int available)
 	{
 		if(shown == 0)
+		{
 			numText.setText("Ihre Suche ergab keinen Treffer.");
+			zoomText.setVisible(false);
+		}
 		else if(shown == 1)
+		{
 			numText.setText(shown + " Ergebnis");
+			zoomText.setVisible(false);
+		}
 		else
 		{
 			if(available > -1 && shown == available)
+			{
 				numText.setText(shown + " Ergebnisse");
+				zoomText.setVisible(false);
+			}
 			else
 			{
 				numText.setText(shown + " Ergebnisse von " + available);
