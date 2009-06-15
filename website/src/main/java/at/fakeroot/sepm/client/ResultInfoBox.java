@@ -40,7 +40,7 @@ public class ResultInfoBox extends Composite
 			numText.setText(shown + " Ergebnis");
 		else
 		{
-			if(shown == available)
+			if(available > -1 && shown == available)
 				numText.setText(shown + " Ergebnisse");
 			else
 			{

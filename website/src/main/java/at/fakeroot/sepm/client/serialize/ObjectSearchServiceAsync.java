@@ -9,7 +9,7 @@ public interface ObjectSearchServiceAsync
 {
 	public void search(BoundingBox box, String what, AsyncCallback<SearchResult> callBack);
 	
-	public void getDetailHTML(int objId, AsyncCallback<ObjectDetails> callBack);
+	public void getDetailHTML(long objId, AsyncCallback<ObjectDetails> callBack);
 }
 
 
