@@ -15,6 +15,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.log4j.Logger;
 
 import com.google.gwt.maps.client.geom.LatLng;
 
@@ -28,6 +29,7 @@ import at.fakeroot.sepm.shared.server.IGeoSave;
  *
  */
 public abstract class ACrawler  {
+	private static final Logger logger = Logger.getRootLogger();
 	private BoundingBox crawlArea = new BoundingBox(0, -90, 360, 90);
 	private BoundingBox curBox;
 	
@@ -82,14 +84,14 @@ public abstract class ACrawler  {
 	}
 	
 	private void init(String svcName) throws IOException {
+		logger.info("Crawler "+svcName+" started");
 		// specific properties overwrite the global ones
 		loadProperties("crawler.properties");
 		try {
 			loadProperties(svcName+".properties");
 		}
 		catch (IOException e) {
-			// no service-specific config file
-			e.printStackTrace();
+			logger.error("Couldn't open "+svcName+".properties", e);
 		}
 
 		// init RMI		
@@ -100,10 +102,12 @@ public abstract class ACrawler  {
 		try {
 			//geoSaver = (IGeoSave) reg.lookup("rmi://"+rmiServer+":"+rmiPort+"/IGeoSave");
 			geoSaver = (IGeoSave) reg.lookup("IGeoSave");
+			logger.info("RMI connection opened on "+rmiServer+":"+rmiPort);
 		}
 		catch (Exception e) {
 			// if we can't get a RMI connection, enter testing mode
 			geoSaver = new GeoSaveTest();
+			logger.error("RMI connection failt on "+rmiServer+":"+rmiPort,e);
 		}
 		
 
@@ -122,6 +126,7 @@ public abstract class ACrawler  {
 		InputStream propStream = getClass().getResourceAsStream("/"+filename);
 		
 		if (propStream == null) {
+			logger.error("Error: Couldn't open property file '"+filename+"'");
 			throw new IOException("Error: Couldn't open property file '"+filename+"'");
 		}
 		prop.load(propStream);
@@ -156,6 +161,7 @@ public abstract class ACrawler  {
 				Thread.sleep(interval);
 			}
 			catch (InterruptedException e) {
+				logger.error("Error: Aborted unexpectedly",e);
 				System.err.println("Error: Aborted unexpectedly");
 				System.exit(1);
 			}
@@ -203,9 +209,11 @@ public abstract class ACrawler  {
 			*/
 			
 		} catch (HttpException e) {
+			logger.error("Fatal protocol violation",e);
 			System.err.println("Fatal protocol violation: " + e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
+			logger.error("Fatal transport error",e);
 			System.err.println("Fatal transport error: " + e.getMessage());
 			e.printStackTrace();
 		} finally {
@@ -234,6 +242,7 @@ public abstract class ACrawler  {
 		try {
 			geoSaver.saveObjects(newObjects);
 		} catch (RemoteException e) {
+			logger.error("Error: Saving Objects",e);
 			e.printStackTrace();
 		} 
 		
@@ -256,6 +265,7 @@ public abstract class ACrawler  {
 		try {
 			rc = geoSaver.getServiceID(svcName);
 		} catch (RemoteException e) {
+			logger.error("Error: No ServiceId",e);
 			e.printStackTrace();
 			return -1;
 		}
