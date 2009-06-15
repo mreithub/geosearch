@@ -24,6 +24,13 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+	<servlet>
+		<servlet-name>geoSave</servlet-name>
+		<servlet-class>at.fakeroot.sepm.server.GeoSave</servlet-class>
+	
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>objectSearch</servlet-name>
 		<url-pattern>/geoSearch/objectsearch</url-pattern>
