@@ -63,12 +63,12 @@ public class GeoObjectManager
 		
 		long rc=0;
 		try{
-			PreparedStatement pstmt = dbConn.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid='?';");
-			pstmt.setInt(svc_id, svc_id);
+			PreparedStatement pstmt = dbConn.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid=?;");
+			pstmt.setInt(1, svc_id);
 			pstmt.setString(2, uid);
 			ResultSet result= pstmt.executeQuery();
 			result.last();
-			if(result.getRow()==1)			
+			if(result.getRow()==1)	
 				rc=result.getLong("obj_id");
 		}catch(SQLException e){
 			logger.error("SQLException in GeoObjectManager.getObjectId(int svc_id, String uid)", e);
@@ -89,19 +89,29 @@ public class GeoObjectManager
 		DBGeoObject rc=null;
 		try{
 			//long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
-			PreparedStatement pstmt = dbConn.prepareStatement("SELECT title, pos[0] AS xPos, pos[1] AS yPos, svc_id, uid, link, valid_until FROM geoObject INNER JOIN expiringObject USING (obj_id) WHERE obj_id = ?");
+			PreparedStatement pstmt = dbConn.prepareStatement("SELECT title, pos[0] AS xPos, pos[1] AS yPos, svc_id, uid, link, valid_until "
+					+ "FROM geoObject LEFT JOIN expiringObject e USING (obj_id) WHERE obj_id = ? AND (e.valid_until is null or e.valid_until >= now())");
 			pstmt.setLong(1, id);
 			ResultSet res = pstmt.executeQuery();
 			res.last();
 			if(res.getRow()==1){
-				res.beforeFirst();
-				rc = new DBGeoObject(id, res.getString("title"), res.getDouble("xPos"), res.getDouble("yPos"), res.getInt("svc_id"), res.getString("uid"), res.getString("link"), res.getTimestamp("valid_until"), getProperties(id), getTags(id));
+				res.first();
+				rc = new DBGeoObject(
+						id,
+						res.getString("title"),
+						res.getDouble("xPos"), res.getDouble("yPos"),
+						res.getInt("svc_id"),
+						res.getString("uid"),
+						res.getString("link"),
+						res.getTimestamp("valid_until"),
+						getProperties(id),
+						getTags(id));
 			}			
 		}catch(SQLException e){
 			logger.error("SQLException in GeoObjectManager.getObjectById(long id)", e);
 		}
 		
-		if(rc.equals(null))
+		if(rc == null)
 			throw new Exception("No object found by this id");
 		
 		return rc;
@@ -241,7 +251,8 @@ public class GeoObjectManager
 	public void insert (DBGeoObject obj)
 	{
 		try {
-			PreparedStatement pstmt = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, '?', '?', '?', ?)");
+			
+			PreparedStatement pstmt = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
 			pstmt.setInt(1, obj.getSvc_id());
 			pstmt.setString(2, obj.getUid());
 			pstmt.setString(3, obj.getTitle());
@@ -249,15 +260,13 @@ public class GeoObjectManager
 			pstmt.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
 			pstmt.executeUpdate();
 			pstmt.close();
-			dbConn.disconnect();
+			//dbConn.disconnect();
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.insert", e);
 		}
 	}
 
-	
-	
 	/**
 	 * Update an object in the database
 	 * @param the new object, that will overwrite the old one with the same object id (obj_id)
@@ -265,7 +274,7 @@ public class GeoObjectManager
 	public void update (DBGeoObject obj)
 	{
 		try {
-			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id =?, uid='?', title = '?', link='?', pos='(?,?)' WHERE ID = ?");
+			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id =?, uid=?, title = ?, link=?, pos=point(?,?) WHERE obj_id = ?");
 			pstmt.setInt(1, obj.getSvc_id());
 			pstmt.setString(2, obj.getUid());
 			pstmt.setString(3, obj.getTitle());
@@ -275,7 +284,7 @@ public class GeoObjectManager
 			pstmt.setLong(7, obj.getId());
 			pstmt.executeUpdate();
 			pstmt.close();
-			dbConn.disconnect();
+			//dbConn.disconnect();
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.update()", e);

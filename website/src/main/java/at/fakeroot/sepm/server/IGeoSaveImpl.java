@@ -17,6 +17,8 @@ import at.fakeroot.sepm.shared.server.ServiceManager;
 public class IGeoSaveImpl implements IGeoSave {
 	
 	private static final Logger logger = Logger.getRootLogger();
+	private GeoObjectManager geoManager = GeoObjectManager.getInstance(); 
+	
 	/**
 	 * Insert or update a GeoObject in the DB
 	 * @param newGeoObj 
@@ -31,12 +33,12 @@ public class IGeoSaveImpl implements IGeoSave {
 		long obj_id=0;
 		
 		try{
-			obj_id= GeoObjectManager.getInstance().getObjectId(obj.getSvc_id(), obj.getUid());
+			obj_id = geoManager.getObjectId(obj.getSvc_id(), obj.getUid());
 			obj.setId(obj_id);
-			GeoObjectManager.getInstance().update(obj);
+			geoManager.update(obj);
 		}catch(Exception e){
 			logger.error(e.getMessage(),e);
-			GeoObjectManager.getInstance().insert(obj);
+			geoManager.insert(obj);
 		}
 		
 		
