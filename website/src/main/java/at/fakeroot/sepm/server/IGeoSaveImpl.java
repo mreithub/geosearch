@@ -1,4 +1,5 @@
 package at.fakeroot.sepm.server;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
@@ -43,9 +44,10 @@ public class IGeoSaveImpl implements IGeoSave {
 		} catch(SQLException e) {
 			logger.error("SQL exception in IGeoSaveImpl.saveObject()", e);
 			throw new RemoteException("SQL exception in IGeoSaveImpl.saveObject()", e);
+		} catch(IOException e) {
+			logger.error("IO exception in IGeoSaveImpl.saveObject()", e);
+			throw new RemoteException("IO exception in IGeoSaveImpl.saveObject()", e);
 		}
-		
-		
 	}
 
 	/**
@@ -60,6 +62,9 @@ public class IGeoSaveImpl implements IGeoSave {
 			svc = serviceManager.select(svcName);
 		}
 		catch (SQLException e) {
+			throw new RemoteException("IGeoSaveImpl.getServiceID failed", e);
+		}
+		catch (IOException e) {
 			throw new RemoteException("IGeoSaveImpl.getServiceID failed", e);
 		}
 		

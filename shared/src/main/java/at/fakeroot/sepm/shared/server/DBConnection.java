@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 import javax.sql.ConnectionPoolDataSource;
+import javax.sql.PooledConnection;
 
 import org.postgresql.ds.PGConnectionPoolDataSource;
 
@@ -27,7 +28,7 @@ public class DBConnection {
 	// shared connection pool
 	private static ConnectionPoolDataSource dataSource;
 	private static boolean isTesting = false;
-	private Connection dbConn;
+	private PooledConnection dbConn;
 	
 	public DBConnection() throws SQLException, IOException {
 		if (dataSource == null)	{
@@ -54,7 +55,7 @@ public class DBConnection {
 		if (dbConn != null) {
 			if (isTesting) {
 				// rollback transaction
-				Statement s = dbConn.createStatement();
+				Statement s = dbConn.getConnection().createStatement();
 				s.execute("ROLLBACK");
 			}
 			dbConn.close();
@@ -63,14 +64,14 @@ public class DBConnection {
 	
 	public Connection getConnection() throws SQLException {
 		if (dbConn == null) {
-			dbConn = dataSource.getPooledConnection().getConnection();
+			dbConn = dataSource.getPooledConnection();
 			if (isTesting) {
 				// begin transaction
-				Statement s = dbConn.createStatement();
+				Statement s = dbConn.getConnection().createStatement();
 				s.execute("BEGIN");
 			}
 		}
-		return dbConn;
+		return dbConn.getConnection();
 	}
 	
 	public PreparedStatement prepareStatement(String stmt) throws SQLException {

@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 public class ServiceManager 
 {
 	private static ServiceManager svcManager = null;
-	private DBConnection dbConn;
 	private static final Logger logger = Logger.getRootLogger();
 	
 	/**
@@ -24,17 +23,7 @@ public class ServiceManager
 	 */
 	protected ServiceManager()
 	{
-		try
-		{
-			dbConn = new DBConnection();
-		}
-		catch (SQLException e)
-		{
-			logger.error("ServiceManager constructor: SQL Exception", e);
-		}
-		catch (IOException e) {
-			logger.error("ServiceManager constructor: IO Exception", e);
-		}
+
 	}
 	
 	/**
@@ -55,14 +44,16 @@ public class ServiceManager
 	 * @param svcId int ID of the service 
 	 * @return DBService 
 	 */
-	public DBService select(int svcId) throws SQLException
+	public DBService select(int svcId) throws SQLException, IOException
 	{
 		ResultSet rs = null;
 		DBService result = null;
 		ArrayList<String> tags = new ArrayList<String>();
+		DBConnection dbConn = null;
 		
 		try
 		{
+			dbConn = new DBConnection();
 			//the use of prepared statements in order to avoid sql-injection
 			PreparedStatement pstmt = dbConn.prepareStatement("select * from service where svc_id = ?");
 			pstmt.setInt(1, svcId);
@@ -79,12 +70,18 @@ public class ServiceManager
 			while(rs.next())
 				tags.add(rs.getString(1));
 			result.setTags(tags.toArray(new String[tags.size()]));
-			dbConn.disconnect();
 		}
 		catch (SQLException e)
 		{
-			logger.error("ServiceManager.select error", e);
+			logger.error("ServiceManager.select() error", e);
 			throw e;
+		}
+		catch (IOException e) {
+			logger.error("ServiceManager.select() IO Exception", e);
+			throw e;
+		}
+		finally {
+			if (dbConn != null) dbConn.disconnect();
 		}
 		
 		//returns a DBService with the service tags
@@ -98,12 +95,14 @@ public class ServiceManager
 	 * @param name String the name of the service
 	 * @return DBService
 	 */
-	public DBService select(String name) throws SQLException
+	public DBService select(String name) throws SQLException, IOException
 	{
 		ResultSet rs = null;
 		DBService result = null;
+		DBConnection dbConn = null;
 		ArrayList<String> tags = new ArrayList<String>();
 		try {
+			dbConn = new DBConnection();
 			//the use of prepared statements in order to avoid sql-injection
 			PreparedStatement pstmt = dbConn.prepareStatement("select * from service where name = ?");
 			pstmt.setString(1, name);
@@ -112,19 +111,26 @@ public class ServiceManager
 			{
 				result = new DBService(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
 					rs.getString(5), rs.getInt(6), rs.getString(7));
+
+				//the service tags for this object, are readout separately from the table 'serviceTag'
+				pstmt = dbConn.prepareStatement("select tag from serviceTag where svc_id = ?");
+				pstmt.setInt(1, rs.getInt(1));
+				rs = pstmt.executeQuery();
+				while(rs.next())
+					tags.add(rs.getString(1));
+				result.setTags(tags.toArray(new String[tags.size()]));
 			}
-			//the service tags for this object, are readout separately from the table 'serviceTag'
-			pstmt = dbConn.prepareStatement("select tag from serviceTag where svc_id = ?");
-			pstmt.setInt(1, rs.getInt(1));
-			rs = pstmt.executeQuery();
-			while(rs.next())
-				tags.add(rs.getString(1));
-			result.setTags(tags.toArray(new String[tags.size()]));
-			dbConn.disconnect();
 		}
 		catch (SQLException e) {
-			logger.error("ServiceManager.select error", e);
+			logger.error("ServiceManager.select() error", e);
 			throw e;
+		}
+		catch (IOException e) {
+			logger.error("ServiceManager.select() error", e);
+			throw e;
+		}
+		finally {
+			dbConn.disconnect();
 		}
 		
 		//returns a DBService with the service tags
