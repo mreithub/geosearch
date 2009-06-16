@@ -2,8 +2,6 @@ package at.fakeroot.sepm.shared.client.serialize;
 
 import java.io.Serializable;
 
-import com.google.gwt.maps.client.geom.LatLng;
-
 /**
  * This class implements a rectangular BoundingBox.
  * @author MK
@@ -56,32 +54,39 @@ public class BoundingBox implements Serializable
 	}
 	
 	/**
-	 * Getters for x1, y1, x2, y2. Setters are not required because a bounding box is read-only.
+	 * Getter for x1. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
 	public double getX1()
 	{
 		return (x1);
 	}
-	
+
+	/**
+	 * Getter for y1. Setters are not required because a bounding box is read-only.
+	 * @return
+	 */
 	public double getY1()
 	{
 		return (y1);
 	}
-	
+
+	/**
+	 * Getter for x2. Setters are not required because a bounding box is read-only.
+	 * @return
+	 */	
 	public double getX2()
 	{
 		return (x2);
 	}
 	
+	/**
+	 * Getter for y2. Setters are not required because a bounding box is read-only.
+	 * @return
+	 */
 	public double getY2()
 	{
 		return (y2);
-	}
-	
-	public LatLng getCenter()
-	{
-		return (LatLng.newInstance((x1 + x2) / 2, (y1 + y2) / 2));
 	}
 	
 	public String toString() {
