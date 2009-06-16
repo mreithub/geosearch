@@ -413,32 +413,6 @@ public abstract class ACrawler  {
 		//Return the result as array.
 		return (resultList.toArray(new String[resultList.size()]));
 	}
-	
-	/**
-	 * Computes the approximate distance in kilometers between two given geographical points. 
-	 * @param p1
-	 * @param p2
-	 * @return
-	 */
-	protected double computeDistance(LatLng p1, LatLng p2)
-	{
-		double x1, y1, z1, x2, y2, z2;
-		double rEarth = 40000;
-		
-		double longArg = (p1.getLongitude() - 90) * Math.PI / 180;
-		double latArg = p1.getLatitude() * Math.PI / 180;
-		x1 = Math.cos(longArg) * Math.cos(latArg) * rEarth;
-		y1 = Math.sin(longArg) * Math.cos(latArg) * rEarth;
-		z1 = Math.sin(latArg) * rEarth;
-		
-		longArg = (p2.getLongitude() - 90) * Math.PI / 180;
-		latArg = p2.getLatitude() * Math.PI / 180;
-		x2 = Math.cos(longArg) * Math.cos(latArg) * rEarth;
-		y2 = Math.sin(longArg) * Math.cos(latArg) * rEarth;
-		z2 = Math.sin(latArg) * rEarth;
-		
-		return (Math.acos((x1 * x2 + y1 * y2 + z1 * z2) / (Math.sqrt(x1 * x1 + y1 * y1 + z1 * z1) * Math.sqrt(x2 * x2 + y2 * y2 + z2 * z2))) * rEarth);
-	}
 
 	/**
 	 * Requests the API key for the service (which is stored in a property file) 
