@@ -80,4 +80,8 @@ public class DBConnection {
 	public Statement createStatement() throws SQLException {
 		return getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
+	
+	public boolean isTesting() {
+		return isTesting;
+	}
 }
