@@ -22,6 +22,12 @@ public class LastFMCrawler extends ACrawler
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.US);
 	private ArrayList<DBGeoObject> geoObjects = new ArrayList<DBGeoObject>();
 
+	/**
+	 * Main function for running the crawler.
+	 * @param main
+	 * @throws IOException
+	 * @throws NotBoundException
+	 */
 	public static void main(String main[]) throws IOException, NotBoundException {
 		ACrawler crawler = new LastFMCrawler();
 		crawler.crawl();
@@ -33,13 +39,9 @@ public class LastFMCrawler extends ACrawler
 	 * @throws SQLException 
 	 */
 	public LastFMCrawler() throws IOException, NotBoundException
-	{
-		//0.32 degrees are about 70 km.
-		
-		//Load Property
+	{		
+		//Initialize the crawler.
 		super("last.fm");
-		
-		//super(ACrawler.AUSTRIA, 0.32, "last.fm");
 	}
 	
 	/**
@@ -47,7 +49,6 @@ public class LastFMCrawler extends ACrawler
 	 * it must therefore execute within a separate thread.
 	 */
 	public void crawlBox(BoundingBox curBox) {
-		
 		//curPage is the current page of the response, numPages contains the total amount of response pages.
 		int curPage = 1, numPages = 0;
 		String responseStr;
@@ -58,8 +59,8 @@ public class LastFMCrawler extends ACrawler
 			"&long=" + (curBox.getX1() + curBox.getX2()) / 2 +
 			"&distance=50" +
 			"&format=json" +
-			"&api_key="+getApiKey();
-		System.out.println(url);
+			"&api_key=" + getApiKey();
+
 		//We have to process the response in multiple passes because there can be more than a single page
 		//for a single request.
 		geoObjects.clear();
@@ -74,8 +75,6 @@ public class LastFMCrawler extends ACrawler
 					responseStr = requestUrl(url);
 				else
 					responseStr = requestUrl(url + "&page=" + curPage);
-				
-				
 				
 				//Create the JSON object to parse the response.
 				JSONObject responseObj = new JSONObject(responseStr);
@@ -102,6 +101,7 @@ public class LastFMCrawler extends ACrawler
 					{
 						String title = null, uniqueID = null, link = null;
 						ArrayList<String> tags = null;
+						ArrayList<Property> properties = new ArrayList<Property>();
 						double xPos = 0, yPos = 0;
 						Timestamp validUntil = null;
 						boolean foundData = false;
@@ -119,6 +119,8 @@ public class LastFMCrawler extends ACrawler
 						if (!curEvent.isNull("venue"))
 						{
 							JSONObject curVenue = curEvent.getJSONObject("venue");
+							if (!curVenue.isNull("name"))
+								properties.add(new Property("LOCATION", curVenue.getString("name")));
 							if (!curVenue.isNull("location"))
 							{
 								JSONObject curLocation = curVenue.getJSONObject("location");
@@ -177,6 +179,7 @@ public class LastFMCrawler extends ACrawler
 							dateFormatter.applyPattern("dd MMM yyyy");
 						
 						validUntil = new Timestamp(dateFormatter.parse(startTime).getTime());
+						properties.add(new Property("BEGIN", startTime));
 						
 						//Extract the event tags. We use the words from the title, artists, and description.
 						tags = new ArrayList<String>();
@@ -186,25 +189,37 @@ public class LastFMCrawler extends ACrawler
 							JSONObject curArtists = curEvent.getJSONObject("artists");
 							if (!curArtists.isNull("artist"))
 							{
+								String artistString = "";
 								JSONArray curArtistArray = curArtists.optJSONArray("artist");
 								if (curArtistArray != null)
 								{
 									for (int j = 0; j < curArtistArray.length(); j++)
-										parseStringIntoTags(curArtistArray.getString(j), tags, false);
+									{
+										String curArtist = curArtistArray.getString(j);
+										artistString += curArtist + ", ";
+										parseStringIntoTags(curArtist, tags, false);
+									}
+									artistString = artistString.substring(0, artistString.length() - 2);
 								}
 								else
-									parseStringIntoTags(curArtists.getString("artist"), tags, false);
+								{
+									artistString = curArtists.getString("artist");
+									parseStringIntoTags(artistString, tags, false);
+								}
+								properties.add(new Property("ARTISTS", artistString));
 							}
 						}
 						if (!curEvent.isNull("description"))
 						{
 							String desc = curEvent.getString("description");
+							properties.add(new Property("DESCRIPTION", desc));
 							parseStringIntoTags(desc, tags, true);
-						}						
+						}
 						
 						//Add a new DB geo object with the parsed values.
-						geoObjects.add(new DBGeoObject(0, title, xPos, yPos, getSvcID(), uniqueID,
-							link, validUntil, new Property[] {}, tags.toArray(new String[tags.size()])));
+						geoObjects.add(new DBGeoObject(0, title, xPos, yPos, getSvcID(), uniqueID, link, validUntil,
+							properties.toArray(new Property[properties.size()]),
+							tags.toArray(new String[tags.size()])));
 					}
 					catch (Exception e)
 					{
@@ -219,6 +234,7 @@ public class LastFMCrawler extends ACrawler
 				//If there was an error while parsing the page, skip over the whole page.
 				e.printStackTrace();
 			}
+			
 			//Save the parsed DB geo objects by using the provided save function from the ACrawler.
 			saveObject(geoObjects.toArray(new DBGeoObject[geoObjects.size()]));
 			
