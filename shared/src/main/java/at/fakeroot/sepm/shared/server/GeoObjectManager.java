@@ -23,6 +23,23 @@ public class GeoObjectManager
 	private DBConnection dbConn;
 	PreparedStatement tagStmt;
 	private static final Logger logger = Logger.getRootLogger();
+	
+	public class NotFoundException extends Exception {
+		/// default serial version id
+		private static final long serialVersionUID = 1L;
+		
+		public NotFoundException() {
+			super();
+		}
+		
+		public NotFoundException(String message) {
+			super(message);
+		}
+		
+		public NotFoundException(String message, Throwable cause) {
+			super(message, cause);
+		}
+	}
 
 
 	/**
@@ -59,22 +76,27 @@ public class GeoObjectManager
 	 * @return the obj_id 
 	 * @throws Exception if no or more than one objects are found
 	 * */	
-	public long getObjectId(int svc_id, String uid) throws Exception{
+	public long getObjectId(int svc_id, String uid) throws NotFoundException, SQLException {
 		
-		long rc=0;
+		long rc=-1;
 		try{
 			PreparedStatement pstmt = dbConn.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid=?;");
 			pstmt.setInt(1, svc_id);
 			pstmt.setString(2, uid);
 			ResultSet result= pstmt.executeQuery();
-			result.last();
-			if(result.getRow()==1)	
+
+			if(result.next()) {	
 				rc=result.getLong("obj_id");
-		}catch(SQLException e){
+			}
+			else {
+				throw new NotFoundException("svc_id: "+svc_id+", uid: "+uid);
+			}
+		} catch(SQLException e) {
 			logger.error("SQLException in GeoObjectManager.getObjectId(int svc_id, String uid)", e);
+			throw e;
 		}
-		if(rc==0)
-			throw new Exception("No object or object not uniquely identifiable");
+		
+		
 		return rc;
 	}
 	
@@ -85,7 +107,7 @@ public class GeoObjectManager
 	 * @return  the DBGeoObject with this id
 	 * @throws Exception if no object with this id is found
 	 * */		
-	public DBGeoObject getObjectbyId(long id) throws Exception{
+	public DBGeoObject getObjectbyId(long id) throws NotFoundException, SQLException {
 		DBGeoObject rc=null;
 		try{
 			//long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
@@ -93,8 +115,8 @@ public class GeoObjectManager
 					+ "FROM geoObject LEFT JOIN expiringObject e USING (obj_id) WHERE obj_id = ? AND (e.valid_until is null or e.valid_until >= now())");
 			pstmt.setLong(1, id);
 			ResultSet res = pstmt.executeQuery();
-			res.last();
-			if(res.getRow()==1){
+			
+			if(res.next()){
 				res.first();
 				rc = new DBGeoObject(
 						id,
@@ -106,13 +128,14 @@ public class GeoObjectManager
 						res.getTimestamp("valid_until"),
 						getProperties(id),
 						getTags(id));
-			}			
+			}
+			else {
+				throw new NotFoundException("obj_id: "+id);
+			}
 		}catch(SQLException e){
 			logger.error("SQLException in GeoObjectManager.getObjectById(long id)", e);
+			throw e;
 		}
-		
-		if(rc == null)
-			throw new Exception("No object found by this id");
 		
 		return rc;
 	}

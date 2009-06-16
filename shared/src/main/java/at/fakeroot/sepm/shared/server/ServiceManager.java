@@ -1,7 +1,9 @@
 package at.fakeroot.sepm.shared.server;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -26,9 +28,12 @@ public class ServiceManager
 		{
 			dbConn = new DBConnection();
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
-			logger.error("ServiceManager constructor error", e);
+			logger.error("ServiceManager constructor: SQL Exception", e);
+		}
+		catch (IOException e) {
+			logger.error("ServiceManager constructor: IO Exception", e);
 		}
 	}
 	
@@ -50,7 +55,7 @@ public class ServiceManager
 	 * @param svcId int ID of the service 
 	 * @return DBService 
 	 */
-	public DBService select(int svcId)
+	public DBService select(int svcId) throws SQLException
 	{
 		ResultSet rs = null;
 		DBService result = null;
@@ -76,9 +81,10 @@ public class ServiceManager
 			result.setTags(tags.toArray(new String[tags.size()]));
 			dbConn.disconnect();
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
 			logger.error("ServiceManager.select error", e);
+			throw e;
 		}
 		
 		//returns a DBService with the service tags
@@ -92,13 +98,12 @@ public class ServiceManager
 	 * @param name String the name of the service
 	 * @return DBService
 	 */
-	public DBService select(String name)
+	public DBService select(String name) throws SQLException
 	{
 		ResultSet rs = null;
 		DBService result = null;
 		ArrayList<String> tags = new ArrayList<String>();
-		try
-		{
+		try {
 			//the use of prepared statements in order to avoid sql-injection
 			PreparedStatement pstmt = dbConn.prepareStatement("select * from service where name = ?");
 			pstmt.setString(1, name);
@@ -117,9 +122,9 @@ public class ServiceManager
 			result.setTags(tags.toArray(new String[tags.size()]));
 			dbConn.disconnect();
 		}
-		catch(Exception e)
-		{
+		catch (SQLException e) {
 			logger.error("ServiceManager.select error", e);
+			throw e;
 		}
 		
 		//returns a DBService with the service tags

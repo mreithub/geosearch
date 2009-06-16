@@ -1,5 +1,6 @@
 package at.fakeroot.sepm.server;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
@@ -8,6 +9,7 @@ import at.fakeroot.sepm.shared.server.DBService;
 import at.fakeroot.sepm.shared.server.GeoObjectManager;
 import at.fakeroot.sepm.shared.server.IGeoSave;
 import at.fakeroot.sepm.shared.server.ServiceManager;
+import at.fakeroot.sepm.shared.server.GeoObjectManager.NotFoundException;
 
 /**
  * Implements the Crawler RMI (RPC) Connections
@@ -23,7 +25,7 @@ public class IGeoSaveImpl implements IGeoSave {
 	 * Insert or update a GeoObject in the DB
 	 * @param newGeoObj 
 	 */
-	public void saveObject(DBGeoObject obj) {
+	public void saveObject(DBGeoObject obj) throws RemoteException {
 		//Check if this object already exists. If yes, we have to update it.
 		//If no, we have to insert it. Note that the passed DBGeoObject only provides
 		//the service ID and the service object ID, but not the object ID itself.
@@ -36,9 +38,11 @@ public class IGeoSaveImpl implements IGeoSave {
 			obj_id = geoManager.getObjectId(obj.getSvc_id(), obj.getUid());
 			obj.setId(obj_id);
 			geoManager.update(obj);
-		}catch(Exception e){
-			logger.error(e.getMessage(),e);
+		} catch(NotFoundException e) {
 			geoManager.insert(obj);
+		} catch(SQLException e) {
+			logger.error("SQL exception in IGeoSaveImpl.saveObject()", e);
+			throw new RemoteException("SQL exception in IGeoSaveImpl.saveObject()", e);
 		}
 		
 		
@@ -50,8 +54,14 @@ public class IGeoSaveImpl implements IGeoSave {
 	 */
 	public int getServiceID(String svcName) throws RemoteException {
 		ServiceManager serviceManager = ServiceManager.getInstance();
+		DBService svc;
 		
-		DBService svc = serviceManager.select(svcName);
+		try {
+			svc = serviceManager.select(svcName);
+		}
+		catch (SQLException e) {
+			throw new RemoteException("IGeoSaveImpl.getServiceID failed", e);
+		}
 		
 		return svc.getSvc_id();
 	}
