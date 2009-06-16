@@ -11,6 +11,8 @@ import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.gwt.maps.client.geom.LatLng;
+
 import at.fakeroot.sepm.crawler.ACrawler;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
@@ -32,7 +34,7 @@ public class LastFMCrawler extends ACrawler
 		ACrawler crawler = new LastFMCrawler();
 		crawler.crawl();
 	}
-	
+		
 	/**
 	 * Standard constructor.
 	 * @throws IOException 
@@ -43,6 +45,7 @@ public class LastFMCrawler extends ACrawler
 		//Initialize the crawler.
 		super("last.fm");
 	}
+
 	
 	/**
 	 * This function starts the crawling process and runs it. Note that this function doesn't terminate,
@@ -53,11 +56,17 @@ public class LastFMCrawler extends ACrawler
 		int curPage = 1, numPages = 0;
 		String responseStr;
 		
-		//Create the request string.
+		//Compute the radius which should be used for the query (in kilometers).
+		double radius;
+		//TODO: Problem: GWT scheint hier nicht verwendbar zu sein.
+		//radius = curBox.getCenter().distanceFrom(LatLng.newInstance(curBox.getY1(), curBox.getX1())) / 1000;
+		radius = 40;
+		
+		//Create the request string.		
 		String url = "http://ws.audioscrobbler.com/2.0/?method=geo.getevents" +
 			"&lat=" + (curBox.getY1() + curBox.getY2()) / 2 +
 			"&long=" + (curBox.getX1() + curBox.getX2()) / 2 +
-			"&distance=50" +
+			"&distance=" + radius +
 			"&format=json" +
 			"&api_key=" + getApiKey();
 
