@@ -2,7 +2,6 @@ package at.fakeroot.sepm.crawler.wikipedia;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -31,7 +30,7 @@ public class WikiCrawler extends ACrawler
 	 */
 	public WikiCrawler() throws IOException
 	{
-		super("wikipedia.de");
+		super("de.wikipedia.org");
 	}
 	
 	/**
