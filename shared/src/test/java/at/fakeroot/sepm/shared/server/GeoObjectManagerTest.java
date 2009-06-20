@@ -73,7 +73,8 @@ public class GeoObjectManagerTest extends TestCase {
 		geoObjManager = GeoObjectManager.getInstance();
 		tags= new String[]{"nacht", "see", "baum"};
 		prop = new Property[]{new Property("owner", "lacitot")};
-		inObj = new DBGeoObject("Night", 21.440957, 48.427236, 0, "1706188", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
+		int svc_id= ServiceManager.getInstance().select("panoramio.com").getSvc_id();
+		inObj = new DBGeoObject("Night", 21.440957, 48.427236, svc_id, "1706188", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
 		
 	}
 
