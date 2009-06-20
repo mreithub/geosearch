@@ -15,9 +15,9 @@ import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 
 /**
- * @author Anca Cismasiu
  * Class representing the DAO for the GeoObjects, that reads from and writes to the database
  * Based on the Singleton pattern.
+ * @author Anca Cismasiu
  */
 public class GeoObjectManager 
 {
@@ -260,7 +260,6 @@ public class GeoObjectManager
 		return rc;
 	}
 
-	
 	/**
 	 * Get the properties for a GeoObject
 	 * @param objId Object ID
@@ -286,21 +285,40 @@ public class GeoObjectManager
 	
 	/**
 	 * Insert a new object in the Database
-	 * @param obj DBGeoObject object to be inserted
+	 * @param obj DBGeoObject object to be inserted 
 	 * */
 	public void insert (DBGeoObject obj) throws RemoteException
 	{
 		DBConnection dbConn = null;
+		long obj_id = 0;
 		try {
 			dbConn = new DBConnection();
-			PreparedStatement pstmt = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
-			pstmt.setInt(1, obj.getSvc_id());
-			pstmt.setString(2, obj.getUid());
-			pstmt.setString(3, obj.getTitle());
-			pstmt.setString(4, obj.getLink());
-			pstmt.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
-			pstmt.executeUpdate();
-			pstmt.close();
+			PreparedStatement pstmt1 = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
+			pstmt1.setInt(1, obj.getSvc_id());
+			pstmt1.setString(2, obj.getUid());
+			pstmt1.setString(3, obj.getTitle());
+			pstmt1.setString(4, obj.getLink());
+			pstmt1.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
+			pstmt1.executeUpdate();
+			pstmt1.close();
+			//save the tags
+			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
+			obj_id=getObjectId(obj.getSvc_id(), obj.getUid());
+			pstmt2.setLong(1, obj_id);    //get the assigned obj_id
+			String tags[] =obj.getTags();
+			for(int i=0; i<tags.length; i++){
+				pstmt2.setString(2, tags[i]);
+				pstmt2.executeUpdate();
+			}
+			//save the properties
+			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
+			pstmt3.setLong(1, obj_id);
+			Property[] prop = obj.getProperties();
+			for(int i=0; i<prop.length; i++){
+				pstmt3.setString(2, prop[i].getName());
+				pstmt3.setString(3, prop[i].getValue());
+				pstmt3.executeUpdate();
+			}
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.insert", e);
@@ -309,6 +327,9 @@ public class GeoObjectManager
 		catch (IOException e) {
 			logger.error("IO exception in GeoObjectManager.insert", e);
 			throw new RemoteException("IO exception in geoObjectManager.insert", e);
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		finally {
 			try {

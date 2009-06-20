@@ -19,8 +19,8 @@ public class DBService {
 	/**
 	 * Constructor 
 	 * @param _svc_id the unique service id
-	 * @param _name service name 
-	 * @param _title title
+	 * @param _name unique service name, used by crawler to get svd_id (eg. wikipedia.de) 
+	 * @param _title title, as shown to the user (eg. wikipedia)
 	 * @param _homepage  service homepage
 	 * @param _description servce description
 	 * @param _sType_id teh service type id (eg. Photos, Events, etc)

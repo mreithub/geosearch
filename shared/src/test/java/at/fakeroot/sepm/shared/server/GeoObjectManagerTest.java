@@ -8,7 +8,11 @@ import java.sql.Statement;
 import junit.framework.TestCase;
 
 public class GeoObjectManagerTest extends TestCase {
-	GeoObjectManager geoManager = GeoObjectManager.getInstance();
+	
+	GeoObjectManager geoObjManager;
+	String[] tags;
+	Property[] prop;
+	DBGeoObject inObj;
 	
 	public void testSimple() {
 		DBConnection dbConn = null;
@@ -24,7 +28,7 @@ public class GeoObjectManagerTest extends TestCase {
 			if (r.next()) {
 				svcId = r.getInt(1);
 			}
-		}
+		} 
 		catch (Exception e) {
 			fail("couldn't get svc id: "+e.getMessage());
 		}
@@ -32,18 +36,46 @@ public class GeoObjectManagerTest extends TestCase {
 		// this data just lies in the test database 
 		if (dbConn != null && dbConn.isTesting()) {
 			try {
-				obj_id = geoManager.getObjectId(svcId, "test_karlskirche");
+				obj_id = geoObjManager.getObjectId(svcId, "test_karlskirche");
 			}
 			catch (Exception e) {
 				fail("object 'test_karlskirche' not found! "+e.getMessage());
 			}
 			
 			try {
-				DBGeoObject geoObject = geoManager.getObjectbyId(obj_id);
+				DBGeoObject geoObject = geoObjManager.getObjectbyId(obj_id);
 			}
 			catch (Exception e) {
 				fail("couldn't resolve object id "+obj_id+": "+e.getMessage());
 			}
+			
+			try{
+				geoObjManager.insert(inObj);
+				long outObjId= geoObjManager.getObjectId(0, "1706188");
+				DBGeoObject outObj = geoObjManager.getObjectbyId(outObjId);
+				
+				assertEquals(inObj.getTitle(), outObj.getTitle());
+				assertEquals(inObj.getLink(), outObj.getLink());
+				assertEquals(inObj.getSvc_id(), outObj.getSvc_id());
+				assertEquals(inObj.getUid(), outObj.getUid());
+				assertEquals(inObj.getXPos(), outObj.getXPos());
+				assertEquals(inObj.getYPos(), outObj.getYPos());
+				assertArrayEquals(inObj.getProperties(), outObj.getProperties());
+				assertArrayEquals(inObj.getTags(), outObj.getTags());
+			}catch(Exception e){
+				fail(e.getMessage());
+			}
 		}
 	}
+
+	@Override
+	protected void setUp() throws Exception {
+		geoObjManager = GeoObjectManager.getInstance();
+		tags= new String[]{"nacht", "see", "baum"};
+		prop = new Property[]{new Property("owner", "lacitot")};
+		inObj = new DBGeoObject("Night", 21.440957, 48.427236, 0, "1706188", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
+		
+	}
+
 }
+
