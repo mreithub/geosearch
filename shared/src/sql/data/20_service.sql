@@ -5,7 +5,7 @@ INSERT INTO service
 (name, title, homepage, description, stype_id, bubbleHTML, thumbnail) VALUES
 ('de.wikipedia.org', 'Wikipedia', 'http://de.wikipedia.org/', 'Deutsche Wikipedia (freies Online-Lexicon)',
 (SELECT stype_id FROM serviceType WHERE name='lexicon'),
-'<div>%description%</div>', 'images/service/wikipedia.png');
+'%summary%', 'images/service/wikipedia.png');
 
 -- last.fm
 INSERT INTO service
