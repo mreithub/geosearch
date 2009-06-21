@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import org.postgresql.geometric.PGpoint;
 import org.apache.log4j.Logger;
@@ -290,7 +289,7 @@ public class GeoObjectManager
 	public void insert (DBGeoObject obj) throws RemoteException
 	{
 		DBConnection dbConn = null;
-		long obj_id = 0;
+
 		try {
 			dbConn = new DBConnection();
 			PreparedStatement pstmt1 = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
@@ -302,21 +301,18 @@ public class GeoObjectManager
 			pstmt1.executeUpdate();
 			pstmt1.close();
 			//save the tags
-			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
-			obj_id=getObjectId(obj.getSvc_id(), obj.getUid());
-			pstmt2.setLong(1, obj_id);    //get the assigned obj_id
+			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (currval('geoobject_obj_id_seq'), ?)");
 			String tags[] =obj.getTags();
 			for(int i=0; i<tags.length; i++){
-				pstmt2.setString(2, tags[i]);
+				pstmt2.setString(1, tags[i]);
 				pstmt2.executeUpdate();
 			}
 			//save the properties
-			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
-			pstmt3.setLong(1, obj_id);
+			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (currval('geoobject_obj_id_seq'), ?, ?)");
 			Property[] prop = obj.getProperties();
 			for(int i=0; i<prop.length; i++){
-				pstmt3.setString(2, prop[i].getName());
-				pstmt3.setString(3, prop[i].getValue());
+				pstmt3.setString(1, prop[i].getName());
+				pstmt3.setString(2, prop[i].getValue());
 				pstmt3.executeUpdate();
 			}
 		}
@@ -327,9 +323,6 @@ public class GeoObjectManager
 		catch (IOException e) {
 			logger.error("IO exception in GeoObjectManager.insert", e);
 			throw new RemoteException("IO exception in geoObjectManager.insert", e);
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		finally {
 			try {
