@@ -219,7 +219,7 @@ public class GeoObjectManager
 		
 		if (tags.length > 0) sql += " GROUP BY obj_id HAVING COUNT(*) = "+tags.length+")";
 
-		if (limit > 0) sql += " LIMIT "+limit; 
+		if (limit > 0) sql += " ORDER BY RANDOM() LIMIT "+limit; 
 		
 		PreparedStatement stmt = dbConn.prepareStatement(sql);
 		
@@ -304,7 +304,7 @@ public class GeoObjectManager
 			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (currval('geoobject_obj_id_seq'), ?)");
 			String tags[] =obj.getTags();
 			for(int i=0; i<tags.length; i++){
-				pstmt2.setString(1, tags[i]);
+				pstmt2.setString(1, tags[i].toLowerCase());
 				pstmt2.executeUpdate();
 			}
 			//save the properties
