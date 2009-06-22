@@ -17,6 +17,10 @@ INSERT INTO serviceTag
 (svc_id, tag) VALUES
 ((SELECT svc_id FROM service WHERE name='de.wikipedia.org'), 'enzyklopädie');
 
+INSERT INTO serviceTag
+(svc_id, tag) VALUES
+((SELECT svc_id FROM service WHERE name='de.wikipedia.org'), 'artikel');
+
 -- last.fm
 INSERT INTO serviceTag
 (svc_id, tag) VALUES
@@ -29,6 +33,14 @@ INSERT INTO serviceTag
 INSERT INTO serviceTag
 (svc_id, tag) VALUES
 ((SELECT svc_id FROM service WHERE name='last.fm'), 'ereignis');
+
+INSERT INTO serviceTag
+(svc_id, tag) VALUES
+((SELECT svc_id FROM service WHERE name='last.fm'), 'konzert');
+
+INSERT INTO serviceTag
+(svc_id, tag) VALUES
+((SELECT svc_id FROM service WHERE name='last.fm'), 'veranstaltung');
 
 -- panoramio
 
