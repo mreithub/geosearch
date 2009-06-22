@@ -129,7 +129,7 @@ public class LastFMCrawler extends ACrawler
 						{
 							JSONObject curVenue = curEvent.getJSONObject("venue");
 							if (!curVenue.isNull("name"))
-								properties.add(new Property("LOCATION", curVenue.getString("name")));
+								properties.add(new Property("location", curVenue.getString("name")));
 							if (!curVenue.isNull("location"))
 							{
 								JSONObject curLocation = curVenue.getJSONObject("location");
@@ -188,7 +188,7 @@ public class LastFMCrawler extends ACrawler
 							dateFormatter.applyPattern("dd MMM yyyy");
 						
 						validUntil = new Timestamp(dateFormatter.parse(startTime).getTime());
-						properties.add(new Property("BEGIN", startTime));
+						properties.add(new Property("begin", startTime));
 						
 						//Extract the event tags. We use the words from the title, artists, and description.
 						tags = new ArrayList<String>();
@@ -215,13 +215,13 @@ public class LastFMCrawler extends ACrawler
 									artistString = curArtists.getString("artist");
 									parseStringIntoTags(artistString, tags, false);
 								}
-								properties.add(new Property("ARTISTS", artistString));
+								properties.add(new Property("artists", artistString));
 							}
 						}
 						if (!curEvent.isNull("description"))
 						{
 							String desc = curEvent.getString("description");
-							properties.add(new Property("DESCRIPTION", desc));
+							properties.add(new Property("description", desc));
 							parseStringIntoTags(desc, tags, true);
 						}
 						
