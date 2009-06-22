@@ -29,7 +29,6 @@ public class GeoSave extends HttpServlet
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		
-		//--- JAVAInsel
 		try {
 			try {
 				registry = LocateRegistry.createRegistry(38492);

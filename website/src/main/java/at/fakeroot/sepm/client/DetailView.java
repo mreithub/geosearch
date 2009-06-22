@@ -42,7 +42,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		
 		myVePa.add(title);
 		myVePa.add(detail);
-		myVePa.add(tags);		
+		myVePa.add(tags);
 	}
 	
 /**

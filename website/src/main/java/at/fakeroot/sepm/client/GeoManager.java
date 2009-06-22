@@ -174,7 +174,7 @@ public class GeoManager implements IGeoManager{
 		
 		objectSearch.getDetailHTML(10, new AsyncCallback<ObjectDetails>(){
 			public void onFailure(Throwable arg0) {
-				System.err.println( "" + arg0.getMessage() +"  error");	
+				System.err.println("" + arg0.getMessage() + " error");	
 			}
 
 			public void onSuccess(ObjectDetails result) {
