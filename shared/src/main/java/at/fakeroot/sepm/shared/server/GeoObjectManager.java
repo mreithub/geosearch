@@ -343,7 +343,7 @@ public class GeoObjectManager
 		DBConnection dbConn = null;
 		try {
 			dbConn = new DBConnection();
-			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id =?, uid=?, title = ?, link=?, pos=point(?,?) WHERE obj_id = ?");
+			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id = ?, uid = ?, title = ?, link = ?, pos = point(?,?) WHERE obj_id = ?");
 			pstmt.setInt(1, obj.getSvc_id());
 			pstmt.setString(2, obj.getUid());
 			pstmt.setString(3, obj.getTitle());
