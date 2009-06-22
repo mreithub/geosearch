@@ -20,7 +20,7 @@ public class ServiceManagerTest extends TestCase{
 			assertEquals("http://de.wikipedia.org/", dbSvc.getHomepage());
 			assertEquals("Deutsche Wikipedia (freies Online-Lexicon)", dbSvc.getDescription());
 			assertEquals(3, dbSvc.getSType_id());
-			assertEquals("<div>%description%</div>", dbSvc.getBubbleHTML());
+			assertEquals("%summary%", dbSvc.getBubbleHTML());
 			
 		}catch(Exception e){
 			fail("could not retrieve service by name:"+ e.getMessage());
@@ -33,7 +33,7 @@ public class ServiceManagerTest extends TestCase{
 			assertEquals("http://de.wikipedia.org/", dbServ.getHomepage());
 			assertEquals("Deutsche Wikipedia (freies Online-Lexicon)", dbServ.getDescription());
 			assertEquals(3, dbServ.getSType_id());
-			assertEquals("<div>%description%</div>", dbServ.getBubbleHTML());
+			assertEquals("%summary%", dbServ.getBubbleHTML());
 
 			}
 		catch(Exception e){
