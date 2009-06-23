@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.postgresql.geometric.PGpoint;
 import org.apache.log4j.Logger;
@@ -126,7 +127,7 @@ public class GeoObjectManager
 						res.getString("link"),
 						res.getTimestamp("valid_until"),
 						getProperties(id),
-						getTags(id));
+						queryTags(id));
 			}
 			else {
 				throw new NotFoundException("obj_id: "+id);
@@ -152,24 +153,34 @@ public class GeoObjectManager
 
 		try {
 			String requestSql = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail "
-				+"FROM geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id)";
+				+ "FROM geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id)";
 
-			// get the overall result count
-			res = queryResult("COUNT(*) FROM geoObject", tags, box, 0);
-			
+			//Get the overall result count
+			res = queryResult("COUNT(*) FROM geoObject", tags, box, 0, true);
 			res.next();
 			searchResult.setResultCount(res.getInt(1));
 			
-			res = queryResult(requestSql, tags, box, limit);
-
-			while (res.next()) {
+			//Get the result set which contains the selected geoObjects.
+			res = queryResult(requestSql, tags, box, limit, false);
+			
+			//Get the object tags for all those selected objects. Use a single query for that.
+			while (res.next())
+			{
+				//Create the objects with empty tags here. (We can only loop through the result set
+				//once, therefore we have to set the tags later.
 				searchResult.addResultToList(new ClientGeoObject(
-						res.getInt("obj_id"),
-						res.getString("title"),
-						res.getString("thumbnail"),
-						getTags(res.getInt("obj_id")),
-						res.getDouble("posx"),
-						res.getDouble("posy")));
+					res.getLong("obj_id"),
+					res.getString("title"),
+					res.getString("thumbnail"),
+					null,
+					res.getDouble("posx"),
+					res.getDouble("posy")));
+			}
+			
+			if (searchResult.getResults().size() > 0)
+			{
+				//Fill in the tags from the database into the ClientGeoObjects.
+				queryTags(searchResult);
 			}
 		}
 		catch (SQLException e) {
@@ -180,48 +191,43 @@ public class GeoObjectManager
 		return searchResult;
 	}
 	
-	private ResultSet queryResult(String requestSql, String[] tags, BoundingBox box, int limit) throws SQLException {
-		/*
-			SELECT ... FROM ...
-			WHERE obj_id IN (
-				SELECT obj_id FROM objecttag WHERE
-				tag in ('gemeinde', 'oberösterreich')
-				GROUP BY obj_id HAVING count(*) = 2
-			)
-			AND pos @ box(point(0,0), point(50,50))
-;
-
-		 */
-		String sql = "SELECT "+requestSql + " WHERE ";
-		int i = 0;
+	private ResultSet queryResult(String requestSql, String[] tags, BoundingBox box, int limit, boolean isCountQuery) throws SQLException {
+		String sql;
 		
-		if (tags.length > 0) {
-			sql += "obj_id IN (SELECT obj_id FROM objecttag where tag IN (";
-
-			for (i = 0; i < tags.length; i++) {
-				sql += "?";
-				if (i < tags.length-1) sql += ',';
-			}
-			
-			sql += ") GROUP BY obj_id HAVING count(*) = "+tags.length+") AND ";
+		if (!isCountQuery)
+			sql = "SELECT * FROM (";
+		else
+			sql = "";
+		sql += "SELECT " + requestSql + " WHERE ";
+		
+		//Create the WHERE clause for the geographical location.
+		// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
+		sql += "pos @ box(point(?, ?), point(?, ?)) AND ";
+		
+		//Create a where clause for each passed tag.
+		if (tags.length > 0)
+		{
+			for (int i = 0; i < tags.length; i++)
+				sql += "obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) AND ";
 		}
 		
-		// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
-		sql += "pos @ box(point(?,?),point(?,?))";
+		//Remove the last " AND " from the query string again.
+		sql = sql.substring(0, sql.length() - 5);
 		
-		if (limit > 0) sql += " ORDER BY RANDOM() LIMIT "+limit; 
+		if (limit > 0)
+			sql += " ORDER BY RANDOM() LIMIT " + limit; 
+		if (!isCountQuery)
+			sql += ") AS subquery ORDER BY obj_id ASC";
 		
 		PreparedStatement stmt = dbConn.prepareStatement(sql);
 		
-		if (tags.length > 0) {
-			for (i = 0; i < tags.length; i++) {
-				stmt.setString(i+1, tags[i]);
-			}
-		}
-		stmt.setDouble(++i, box.getX1());
-		stmt.setDouble(++i, box.getY1());
-		stmt.setDouble(++i, box.getX2());
-		stmt.setDouble(++i, box.getY2());
+		stmt.setDouble(1, box.getX1());
+		stmt.setDouble(2, box.getY1());
+		stmt.setDouble(3, box.getX2());
+		stmt.setDouble(4, box.getY2());
+		for (int i = 0; i < tags.length; i++) {
+			stmt.setString(i + 5, tags[i]);
+		}		
 
 		return stmt.executeQuery();
 	}
@@ -232,7 +238,50 @@ public class GeoObjectManager
 	 * @return String Array
 	 * @throws SQLException
 	 */
-	private String[] getTags(long objId) throws SQLException {
+	private void queryTags(SearchResult result) throws SQLException {
+		//Set up the SQL query string.
+		String sql = "SELECT obj_id, tag FROM objectTag WHERE obj_id IN (";
+		for (int i = 0; i < result.getResults().size(); i++)
+			sql += "?, ";
+		sql = sql.substring(0, sql.length() - 2);
+		sql += ") ORDER BY obj_id ASC";
+		
+		//Prepare the statement.
+		PreparedStatement tagStmt = dbConn.prepareStatement(sql);
+		
+		//Set up the ID's of the objects.
+		for (int i = 0; i < result.getResults().size(); i++)
+			tagStmt.setLong(i + 1, result.getResults().get(i).getId());
+		
+		//Execute the query.
+		ResultSet tagRes = tagStmt.executeQuery();
+		int objIndex = 0;
+		long lastID = -1, curID;
+		ArrayList<String> curObjTags = new ArrayList<String>();
+		while (tagRes.next())
+		{
+			curID = tagRes.getLong("obj_id");
+			if (curID != lastID)
+			{
+				if (lastID != -1)
+				{
+					//We've got a new object.
+					//Update the previous object, which is at [objIndex] within the ArrayList.
+					result.getResults().get(objIndex).setTags(curObjTags.toArray(new String[curObjTags.size()]));
+					curObjTags.clear();
+					objIndex++;
+				}
+				lastID = curID;
+			}
+			curObjTags.add(tagRes.getString("tag"));
+		}
+		tagStmt.close();
+		
+		//Set the tags of the last object in the list.
+		result.getResults().get(objIndex).setTags(curObjTags.toArray(new String[curObjTags.size()]));
+	}
+	
+	private String[] queryTags(long objId) throws SQLException {
 		PreparedStatement tagStmt = dbConn.prepareStatement("SELECT tag FROM objectTag WHERE obj_id = ?");
 		String[] rc;
 
@@ -248,7 +297,7 @@ public class GeoObjectManager
 		tagStmt.close();
 
 		return rc;
-	}
+	}	
 
 	/**
 	 * Get the properties for a GeoObject
