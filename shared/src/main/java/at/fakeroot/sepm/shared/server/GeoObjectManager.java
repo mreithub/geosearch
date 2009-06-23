@@ -381,7 +381,7 @@ public class GeoObjectManager
 			deleteTags(obj.getId());
 
 			//insert new tags and properties
-			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES ?, ?)");
+			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
 			String tags[] =obj.getTags();
 			pstmt2.setLong(1, obj.getId());
 			for(int i=0; i<tags.length; i++){
@@ -390,7 +390,7 @@ public class GeoObjectManager
 			}
 			pstmt2.close();
 			
-			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES ?, ?, ?)");
+			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
 			Property[] prop = obj.getProperties();
 			pstmt3.setLong(1, obj.getId());
 			for(int i=0; i<prop.length; i++){
