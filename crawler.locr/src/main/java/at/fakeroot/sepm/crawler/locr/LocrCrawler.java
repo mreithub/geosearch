@@ -36,8 +36,8 @@ public class LocrCrawler extends ACrawler {
 		String url = "http://de.locr.com/api/get_photos_json.php"
 			+ "?latitudemin=" + curBox.getX1()+ 
 			"&longitudemin=" + curBox.getY1() + 
-			"&latitudemax=" + curBox.getX2()
-			+ "&longitudemax=" + curBox.getY2()
+			"&latitudemax=" + curBox.getX2()+100
+			+ "&longitudemax=" + curBox.getY2()+100
 			+ "&category=popularity" 
 			+ "&locr=true"
 			+ "&start="+start

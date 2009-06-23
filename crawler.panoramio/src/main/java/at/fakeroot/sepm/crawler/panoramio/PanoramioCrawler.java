@@ -96,7 +96,8 @@ public class PanoramioCrawler extends ACrawler {
 				
 			}
 			
-			System.out.println("panoramio.com");
+			//System.out.println("panoramio.com: "+saveDBArray[0].getUid());
+			//System.out.println("panoramio.com: "+saveDBArray[1].getUid());
 			saveObject(saveDBArray);
 			
 			
