@@ -20,7 +20,24 @@ import at.fakeroot.sepm.shared.server.GeoObjectManager.NotFoundException;
 public class IGeoSaveImpl implements IGeoSave {
 	
 	private static final Logger logger = Logger.getRootLogger();
-	private GeoObjectManager geoManager = GeoObjectManager.getInstance(); 
+	private GeoObjectManager geoManager;
+	
+	/**
+	 * constructer 
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	public IGeoSaveImpl() {
+		try {
+			geoManager = GeoObjectManager.getInstance();
+		}
+		catch (SQLException e) {
+			logger.error("SQLException", e);
+		}
+		catch (IOException e) {
+			logger.error("IOException", e);
+		}
+	}
 	
 	/**
 	 * Insert or update a GeoObject in the DB

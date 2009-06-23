@@ -1,6 +1,10 @@
 package at.fakeroot.sepm.server;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
@@ -25,12 +29,22 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	private static final int limit = 50;
 	private GeoObjectManager geoObjManager;
 	private ServiceManager svcManager;
+	private Logger logger = Logger.getRootLogger();
 
 
 	//Constructor
 	public ObjectSearchServiceImpl()
 	{
-		geoObjManager = GeoObjectManager.getInstance();
+		try {
+			geoObjManager = GeoObjectManager.getInstance();
+		}
+		catch (SQLException e) {
+			logger.error("SQLException in ObjectSearchServiceImpl() constructor", e);
+		}
+		catch (IOException e) {
+			logger.error("IOException in ObjectSearchServiceImpl() constructor", e);
+		}
+		
 		svcManager = ServiceManager.getInstance();
 	}
 
