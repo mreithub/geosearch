@@ -43,6 +43,7 @@ public class DBConnection {
 			prop.load(propStream);
 
 			ds.setServerName(prop.getProperty("host"));
+			ds.setPortNumber(Integer.parseInt(prop.getProperty("port")));
 			ds.setDatabaseName(prop.getProperty("db"));
 			ds.setUser(prop.getProperty("user"));
 			ds.setPassword(prop.getProperty("pwd"));
