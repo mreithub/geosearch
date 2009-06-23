@@ -136,22 +136,20 @@ public class GeoManager implements IGeoManager{
 	public void search(String what) {
 		History.newItem("q="+what.trim());
 		objectSearch.search(myBound, what.trim(), new AsyncCallback<SearchResult>()
-				{
-					public void onFailure(Throwable e) {
-						showErrorMessage(e.getMessage());
-					}
+		{
+			public void onFailure(Throwable e) {
+				showErrorMessage(e.getMessage());
+			}
 
-					public void onSuccess(SearchResult result) {
-						geoMap.setPins(result.getResults());
-						tagCloud.refresh(result.getResults().iterator());
-						resultBox.refresh(result.getResults().size(), result.getResultCount());
-						if (result.hasError()) {
-							showErrorMessage(result.getErrorMessage());
-						}
-					}
-					
-				});
-		
+			public void onSuccess(SearchResult result) {
+				geoMap.setPins(result.getResults());
+				tagCloud.refresh(result.getResults().iterator());
+				resultBox.refresh(result.getResults().size(), result.getResultCount());
+				if (result.hasError()) {
+					showErrorMessage(result.getErrorMessage());
+				}
+			}
+		});		
 	}
 
 	/**

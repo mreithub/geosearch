@@ -27,83 +27,80 @@ public class SearchBox extends Composite{
 	private IGeoManager geoManager=null;
 	private TextBox where=new TextBox();
 	private TextBox what=new TextBox();
-	private Button searchButton = new Button("Search"); 
+	private Button searchButton = new Button("Search");
+	
+	private final String whereString = "Where?";
+	private final String whatString = "What?";
 
 	public SearchBox(IGeoManager gm){
 		initWidget(myHoPanel);
-		geoManager=gm;
-		where.addKeyPressHandler(new KeyPressHandler(){
-			public void onKeyPress(KeyPressEvent kpe) {
-				if(kpe.getCharCode()==KeyCodes.KEY_ENTER){
-					geoManager.search(where.getText(), what.getText());
-				}
-			}
-		});
+		geoManager=gm;		
 		
-		where.setText("Where?");
-		
+		where.setText(whereString);
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
-				if(where.getText().equals("Where?"))
-					clearBox(where);			
+				if(getWhere().length() == 0)
+					where.setText("");
 			}
 		});
-		
 		where.addBlurHandler(new BlurHandler(){
 			public void onBlur(BlurEvent be) {
-				if(where.getText().equals("")){
-					where.setText("Where?");
+				if(where.getText().trim().length() == 0){
+					where.setText(whereString);
 				}
 			}
-			
 		});
-		
-		
-		what.addKeyPressHandler(new KeyPressHandler(){
+		where.addKeyPressHandler(new KeyPressHandler(){
 			public void onKeyPress(KeyPressEvent kpe) {
-				if(kpe.getCharCode()==KeyCodes.KEY_ENTER)
-				geoManager.search(where.getText(), what.getText());
+				if(kpe.getCharCode() == KeyCodes.KEY_ENTER){
+					performSearch();
+				}
 			}
-		});
+		});		
 		
-		what.setText("What?");
 		
+		what.setText(whatString);
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
-				if(what.getText().equals("What?"))
-					clearBox(what);				
+				if(getWhat().length() == 0)
+					what.setText("");
 			}
 		});
-		
 		what.addBlurHandler(new BlurHandler(){
 			public void onBlur(BlurEvent be) {
-				if(what.getText().equals("")){
-					what.setText("What?");
+				if(what.getText().trim().length() == 0){
+					what.setText(whatString);
 				}
 			}
-			
+		});		
+		what.addKeyPressHandler(new KeyPressHandler(){
+			public void onKeyPress(KeyPressEvent kpe) {
+				if(kpe.getCharCode() == KeyCodes.KEY_ENTER)
+					performSearch();
+			}
 		});
 		
 		searchButton.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent ce) {					
-				geoManager.search(getWhere(), getWhat());
-		      }
+			public void onClick(ClickEvent ce) {
+				performSearch();
+			}
 		});
+		
 		
 		searchButton.setSize("80px","45px");
 		myVePanel.add(where);
 		myVePanel.add(what);
 		myHoPanel.add(myVePanel);
 		myHoPanel.add(searchButton);
-		
 	}
-
+	
 	/**
-	 * Clears TextBox
-	 * @param box TextBox to be cleared 
-	 * */
-	public void clearBox(TextBox box){
-		box.setText("");
+	 * Performs the actual search.
+	 */
+	private void performSearch()
+	{
+		geoManager.search(getWhere(), getWhat());
+		where.setText(whereString);
 	}
 	
 	/**
@@ -111,10 +108,11 @@ public class SearchBox extends Composite{
 	 * @return rc String where search String
 	 * */	
 	public String getWhere(){
-		String rc="";
-		if(!where.getText().equals("Where?"))
-			rc=where.getText().trim();
-		 return rc;
+		String retString = where.getText().trim();
+		if (retString.toLowerCase().equals(whereString.toLowerCase()))
+			return ("");
+		else
+			return (retString);
 	}
 	
 	/**
@@ -122,10 +120,11 @@ public class SearchBox extends Composite{
 	 * @return rc String what search String 
 	 * */
 	public String getWhat(){
-		String rc="";
-		if(!what.getText().equals("What?"))
-			rc=what.getText().trim();
-		return rc;
+		String retString = what.getText().trim();
+		if (retString.toLowerCase().equals(whatString.toLowerCase()))
+			return ("");
+		else
+			return (retString);
 	}
 	
 	
@@ -146,6 +145,4 @@ public class SearchBox extends Composite{
 		what.setText(whatStr);
 		geoManager.search(getWhere(), getWhat());
 	}
-
-	
 }
