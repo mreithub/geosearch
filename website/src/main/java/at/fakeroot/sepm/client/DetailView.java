@@ -6,6 +6,8 @@ import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -27,6 +29,9 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	private Label title = null;
 	private HTML detail = null;
 	private FlowPanel tags= null;
+	private HorizontalPanel myHoPa = new HorizontalPanel();
+	private Anchor sourceAnchor;
+	private Image image;
 	
 	
 	public DetailView(ClientGeoObject object, IGeoManager geoManager){
@@ -37,11 +42,18 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		
 		title=new Label(gObject.getTitle());
 		detail = new HTML("Loading...");
+		image = new Image();
+		image.setVisible(false);
+		sourceAnchor = new Anchor();
+		sourceAnchor.setVisible(false);
+		myHoPa.add(image);
+		myHoPa.add(sourceAnchor);
 		tags = new FlowPanel();
 		setTagList();
 		
 		myVePa.add(title);
 		myVePa.add(detail);
+		myVePa.add(myHoPa);
 		myVePa.add(tags);
 	}
 	
@@ -49,8 +61,13 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
  * sets the object details in the InfoWindow
  * @param HTMLStr String text that will be interpreted as HTML
  * */	
-	public void setDetail(String HTMLStr){
+	public void setDetail(String HTMLStr, String link, String thumbnail){
 		detail.setHTML(HTMLStr);
+		sourceAnchor.setText("Details...");
+		image.setUrl(thumbnail);
+		image.setVisible(true);
+		sourceAnchor.setHref(link);
+		sourceAnchor.setVisible(true);
 	}
 	
 /**

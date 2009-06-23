@@ -137,10 +137,10 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 				tags.add(dbSvcObj.getTags()[i]); 
 			}
 			//html for the object together with its tags
-			objDetails = new ObjectDetails(result,tags.toArray(new String[tags.size()]));
+			objDetails = new ObjectDetails(result,tags.toArray(new String[tags.size()]), dbGeoObj.getLink(), dbSvcObj.getThumbnail());
 		}catch(Exception e){
 			///TODO exception handling
-			objDetails = new ObjectDetails("", new String[0]);
+			objDetails = new ObjectDetails("", new String[0], "", "");
 		}
 		
 		return objDetails;

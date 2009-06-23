@@ -188,13 +188,13 @@ public class GeoManager implements IGeoManager{
 		
 		final DetailView waitingDeVi = geoMap.createDetailView(geoObject);
 		
-		objectSearch.getDetailHTML(10, new AsyncCallback<ObjectDetails>(){
+		objectSearch.getDetailHTML(geoObject.getId(), new AsyncCallback<ObjectDetails>(){
 			public void onFailure(Throwable arg0) {
 				System.err.println("" + arg0.getMessage() + " error");	
 			}
 
 			public void onSuccess(ObjectDetails result) {
-				waitingDeVi.setDetail(result.getHTMLString());				
+				waitingDeVi.setDetail(result.getHTMLString(), result.getLink(), result.getThumbnail());				
 			}
 			
 		});
