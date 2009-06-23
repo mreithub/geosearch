@@ -28,15 +28,15 @@ public class GeoObjectManager
 	public class NotFoundException extends Exception {
 		/// default serial version id
 		private static final long serialVersionUID = 1L;
-		
+
 		public NotFoundException() {
 			super();
 		}
-		
+
 		public NotFoundException(String message) {
 			super(message);
 		}
-		
+
 		public NotFoundException(String message, Throwable cause) {
 			super(message, cause);
 		}
@@ -52,7 +52,7 @@ public class GeoObjectManager
 	{
 		dbConn = new DBConnection();
 	}
-	
+
 	protected void finalize() throws SQLException {
 		dbConn.disconnect();
 	}
@@ -95,11 +95,11 @@ public class GeoObjectManager
 			logger.error("SQLException in GeoObjectManager.getObjectId(int svc_id, String uid)", e);
 			throw e;
 		}
-		
+
 		return rc;
 	}
-	
-	
+
+
 	/**
 	 * Get the DBGeoObject with this obj_id
 	 * @param obj_id the object id 
@@ -115,7 +115,7 @@ public class GeoObjectManager
 					+ "FROM geoObject LEFT JOIN expiringObject e USING (obj_id) WHERE obj_id = ? AND (e.valid_until is null or e.valid_until >= now())");
 			pstmt.setLong(1, id);
 			ResultSet res = pstmt.executeQuery();
-			
+
 			if(res.next()){
 				res.first();
 				rc = new DBGeoObject(
@@ -136,10 +136,10 @@ public class GeoObjectManager
 			logger.error("SQLException in GeoObjectManager.getObjectById(long id)", e);
 			throw e;
 		}
-		
+
 		return rc;
 	}
-	
+
 	/**
 	 * Method used to retrieve a limited number of ClientGeoObjects having a set of tags and lying in a particular BoundingBox
 	 * @param tags String[] the desired tags
@@ -159,7 +159,7 @@ public class GeoObjectManager
 			res = queryResult("COUNT(*) FROM geoObject", tags, box, 0, true);
 			res.next();
 			searchResult.setResultCount(res.getInt(1));
-			
+	
 			//Get the result set which contains the selected geoObjects.
 			res = queryResult(requestSql, tags, box, limit, false);
 			
@@ -187,11 +187,11 @@ public class GeoObjectManager
 			logger.error("SQL error in GeoObjectManager.select()", e);
 			searchResult.setErrorMessage(e.getMessage());
 		}
-	
+
 		return searchResult;
 	}
-	
-	private ResultSet queryResult(String requestSql, String[] tags, BoundingBox box, int limit, boolean isCountQuery) throws SQLException {
+
+		private ResultSet queryResult(String requestSql, String[] tags, BoundingBox box, int limit, boolean isCountQuery) throws SQLException {
 		String sql;
 		
 		if (!isCountQuery)
@@ -210,7 +210,7 @@ public class GeoObjectManager
 			for (int i = 0; i < tags.length; i++)
 				sql += "obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) AND ";
 		}
-		
+
 		//Remove the last " AND " from the query string again.
 		sql = sql.substring(0, sql.length() - 5);
 		
@@ -220,7 +220,7 @@ public class GeoObjectManager
 			sql += ") AS subquery ORDER BY obj_id ASC";
 		
 		PreparedStatement stmt = dbConn.prepareStatement(sql);
-		
+	
 		stmt.setDouble(1, box.getX1());
 		stmt.setDouble(2, box.getY1());
 		stmt.setDouble(3, box.getX2());
@@ -231,7 +231,7 @@ public class GeoObjectManager
 
 		return stmt.executeQuery();
 	}
-	
+
 	/**
 	 * Get the Tags for a GeoObject
 	 * @param objId Object ID
@@ -290,7 +290,7 @@ public class GeoObjectManager
 		tagRes.last();
 		rc = new String[tagRes.getRow()];
 		tagRes.beforeFirst();
-		
+
 		while (tagRes.next()) {
 			rc[tagRes.getRow()-1] = tagRes.getString(1);
 		}
@@ -317,11 +317,11 @@ public class GeoObjectManager
 			rc[rs.getRow()-1] = new Property(rs.getString("name"),rs.getString("value"));
 		}
 		pstmt.close();
-		
+
 		return rc;	
 	} 
-	
-	
+
+
 	/**
 	 * Insert a new object in the Database
 	 * @param obj DBGeoObject object to be inserted 
@@ -366,7 +366,6 @@ public class GeoObjectManager
 	public void update (DBGeoObject obj) throws RemoteException
 	{
 		try {
-			dbConn = new DBConnection();
 			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id = ?, uid = ?, title = ?, link = ?, pos = point(?,?) WHERE obj_id = ?");
 			pstmt.setInt(1, obj.getSvc_id());
 			pstmt.setString(2, obj.getUid());
@@ -377,14 +376,52 @@ public class GeoObjectManager
 			pstmt.setLong(7, obj.getId());
 			pstmt.executeUpdate();
 			pstmt.close();
+			//delete existing tags and properties
+			deleteProperties(obj.getId());
+			deleteTags(obj.getId());
+			//insert new tags and properties
+			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES ?, ?)");
+			String tags[] =obj.getTags();
+			for(int i=0; i<tags.length; i++){
+				pstmt2.setString(1, tags[i].toLowerCase());
+				pstmt2.executeUpdate();
+			}
+			
+			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES ?, ?, ?)");
+			Property[] prop = obj.getProperties();
+			for(int i=0; i<prop.length; i++){
+				pstmt3.setString(1, prop[i].getName());
+				pstmt3.setString(2, prop[i].getValue());
+				pstmt3.executeUpdate();
+			}
+
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.update()", e);
 			throw new RemoteException("SQL error in GeoObjectManager.update()", e);
 		}
-		catch (IOException e) {
-			logger.error("IO exception in GeoObjectManager.update()", e);
-			throw new RemoteException("IO exception in GeoObjectManager.update()", e);
-		}
 	}
+
+	/**
+	 * Deletes the tags when object is updated
+	 * @param objId the id of the object to be updated 
+	 * */
+	private void deleteTags(long objId) throws SQLException{
+		PreparedStatement pstmt=dbConn.prepareStatement("DELETE FROM objectTag WHERE obj_id = ?");
+		pstmt.setLong(1, objId);
+		pstmt.executeUpdate();	
+	}
+
+	
+	/**
+	 * Deletes the properties when object is updated
+	 * @param objId the id of the object to be updated 
+	 * */
+	private void deleteProperties(long objId) throws SQLException{
+		PreparedStatement pstmt=dbConn.prepareStatement("DELETE FROM objectProperty WHERE obj_id = ?");
+		pstmt.setLong(1, objId);
+		pstmt.executeUpdate();	
+	}
+	
+	
 }
