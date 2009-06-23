@@ -22,7 +22,8 @@ public class GeoObjectManager
 {
 	private static GeoObjectManager geoObjManager = null;
 	private static final Logger logger = Logger.getRootLogger();
-	
+	DBConnection dbConn;
+
 	public class NotFoundException extends Exception {
 		/// default serial version id
 		private static final long serialVersionUID = 1L;
@@ -43,16 +44,24 @@ public class GeoObjectManager
 
 	/**
 	 * Constructor that establishes the DB Connection
-	 * */
-	private GeoObjectManager()
+	 * @throws IOException if the database configuration could not be read
+	 * @throws SQLException if the database connection could not be made
+	 */
+	private GeoObjectManager() throws SQLException, IOException
 	{
-		
+		dbConn = new DBConnection();
+	}
+	
+	protected void finalize() throws SQLException {
+		dbConn.disconnect();
 	}
 
 	/**
 	 * Method used for obtaining an instance of this Singleton class
-	 * */	
-	public static GeoObjectManager getInstance()
+	 * @throws IOException if the database configuration could not be read
+	 * @throws SQLException if the database connection could not be made
+	 */	
+	public static GeoObjectManager getInstance() throws SQLException, IOException
 	{
 		if(geoObjManager == null)
 			geoObjManager = new GeoObjectManager();
@@ -68,10 +77,8 @@ public class GeoObjectManager
 	 * @throws Exception if no or more than one objects are found
 	 * */	
 	public long getObjectId(int svc_id, String uid) throws NotFoundException, SQLException, IOException {
-		DBConnection dbConn = null;
 		long rc=-1;
 		try{
-			dbConn = new DBConnection();
 			PreparedStatement pstmt = dbConn.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid=?;");
 			pstmt.setInt(1, svc_id);
 			pstmt.setString(2, uid);
@@ -87,10 +94,6 @@ public class GeoObjectManager
 			logger.error("SQLException in GeoObjectManager.getObjectId(int svc_id, String uid)", e);
 			throw e;
 		}
-		finally {
-			if (dbConn != null) dbConn.disconnect();
-		}
-		
 		
 		return rc;
 	}
@@ -103,11 +106,9 @@ public class GeoObjectManager
 	 * @throws Exception if no object with this id is found
 	 * */		
 	public DBGeoObject getObjectbyId(long id) throws NotFoundException, SQLException, IOException {
-		DBConnection dbConn = null;
 		DBGeoObject rc=null;
 
 		try{
-			dbConn = new DBConnection();
 			//long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
 			PreparedStatement pstmt = dbConn.prepareStatement("SELECT title, pos[0] AS xPos, pos[1] AS yPos, svc_id, uid, link, valid_until "
 					+ "FROM geoObject LEFT JOIN expiringObject e USING (obj_id) WHERE obj_id = ? AND (e.valid_until is null or e.valid_until >= now())");
@@ -124,8 +125,8 @@ public class GeoObjectManager
 						res.getString("uid"),
 						res.getString("link"),
 						res.getTimestamp("valid_until"),
-						getProperties(dbConn, id),
-						getTags(dbConn, id));
+						getProperties(id),
+						getTags(id));
 			}
 			else {
 				throw new NotFoundException("obj_id: "+id);
@@ -133,9 +134,6 @@ public class GeoObjectManager
 		}catch(SQLException e){
 			logger.error("SQLException in GeoObjectManager.getObjectById(long id)", e);
 			throw e;
-		}
-		finally {
-			if (dbConn != null) dbConn.disconnect();
 		}
 		
 		return rc;
@@ -150,27 +148,25 @@ public class GeoObjectManager
 	public SearchResult select(String[] tags, BoundingBox box, int limit)
 	{
 		SearchResult searchResult = new SearchResult();
-		DBConnection dbConn = null;
 		ResultSet res;
 
 		try {
 			String requestSql = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail";
-			dbConn = new DBConnection();
 
 			// get the overall result count
-			res = queryResult(dbConn, "COUNT(*)", tags, box, limit);
+			res = queryResult("COUNT(*)", tags, box, 0);
 			
 			res.next();
 			searchResult.setResultCount(res.getInt(1));
 			
-			res = queryResult(dbConn, requestSql, tags, box, limit);
+			res = queryResult(requestSql, tags, box, limit);
 
 			while (res.next()) {
 				searchResult.addResultToList(new ClientGeoObject(
 						res.getInt("obj_id"),
 						res.getString("title"),
 						res.getString("thumbnail"),
-						getTags(dbConn, res.getInt("obj_id")),
+						getTags(res.getInt("obj_id")),
 						res.getDouble("posx"),
 						res.getDouble("posy")));
 			}
@@ -179,25 +175,11 @@ public class GeoObjectManager
 			logger.error("SQL error in GeoObjectManager.select()", e);
 			searchResult.setErrorMessage(e.getMessage());
 		}
-		catch (IOException e) {
-			logger.error("IO exception in GeoObjectManager.select()", e);
-			searchResult.setErrorMessage(e.getMessage());
-		}
-		finally {
-			if (dbConn != null) {
-				try {
-					dbConn.disconnect();
-				}
-				catch (SQLException e) {
-					// do nothing
-				}
-			}
-		}
 	
 		return searchResult;
 	}
 	
-	private ResultSet queryResult(DBConnection dbConn, String requestSql, String[] tags, BoundingBox box, int limit) throws SQLException {
+	private ResultSet queryResult(String requestSql, String[] tags, BoundingBox box, int limit) throws SQLException {
 		String sql = "SELECT "+requestSql+" FROM "
 			+ "geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) WHERE ";
 		int i = 0;
@@ -242,10 +224,10 @@ public class GeoObjectManager
 	 * @return String Array
 	 * @throws SQLException
 	 */
-	private String[] getTags(DBConnection dbConn, long objId) throws SQLException {
+	private String[] getTags(long objId) throws SQLException {
 		PreparedStatement tagStmt = dbConn.prepareStatement("SELECT tag FROM objectTag WHERE obj_id = ?");
 		String[] rc;
-		
+
 		tagStmt.setLong(1, objId);
 		ResultSet tagRes = tagStmt.executeQuery();
 		tagRes.last();
@@ -255,6 +237,7 @@ public class GeoObjectManager
 		while (tagRes.next()) {
 			rc[tagRes.getRow()-1] = tagRes.getString(1);
 		}
+		tagStmt.close();
 
 		return rc;
 	}
@@ -265,7 +248,7 @@ public class GeoObjectManager
 	 * @return Property Array
 	 * @throws SQLException
 	 */
-	private Property[] getProperties(DBConnection dbConn, long obj_id) throws SQLException {
+	private Property[] getProperties(long obj_id) throws SQLException {
 		Property[] rc;
 		PreparedStatement pstmt = dbConn.prepareStatement("SELECT name, value FROM objectProperty WHERE obj_id = ?"); 
 		pstmt.setLong(1, obj_id);
@@ -276,9 +259,9 @@ public class GeoObjectManager
 		while(rs.next()) {
 			rc[rs.getRow()-1] = new Property(rs.getString("name"),rs.getString("value"));
 		}
+		pstmt.close();
 		
-			return rc;	
-			
+		return rc;	
 	} 
 	
 	
@@ -288,10 +271,7 @@ public class GeoObjectManager
 	 * */
 	public void insert (DBGeoObject obj) throws RemoteException
 	{
-		DBConnection dbConn = null;
-
 		try {
-			dbConn = new DBConnection();
 			PreparedStatement pstmt1 = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
 			pstmt1.setInt(1, obj.getSvc_id());
 			pstmt1.setString(2, obj.getUid());
@@ -320,18 +300,6 @@ public class GeoObjectManager
 			logger.error("SQL error in GeoObjectManager.insert", e);
 			throw new RemoteException("SQL error in geoObjectManager.insert", e);
 		}
-		catch (IOException e) {
-			logger.error("IO exception in GeoObjectManager.insert", e);
-			throw new RemoteException("IO exception in geoObjectManager.insert", e);
-		}
-		finally {
-			try {
-				if (dbConn != null) dbConn.disconnect();
-			}
-			catch (SQLException e) {
-				// do nothing
-			}
-		}
 	}
 
 	/**
@@ -340,7 +308,6 @@ public class GeoObjectManager
 	 * */
 	public void update (DBGeoObject obj) throws RemoteException
 	{
-		DBConnection dbConn = null;
 		try {
 			dbConn = new DBConnection();
 			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id = ?, uid = ?, title = ?, link = ?, pos = point(?,?) WHERE obj_id = ?");
@@ -361,14 +328,6 @@ public class GeoObjectManager
 		catch (IOException e) {
 			logger.error("IO exception in GeoObjectManager.update()", e);
 			throw new RemoteException("IO exception in GeoObjectManager.update()", e);
-		}
-		finally {
-			try {
-				if (dbConn != null) dbConn.disconnect();
-			}
-			catch (SQLException e) {
-				// do nothing
-			}
 		}
 	}
 }

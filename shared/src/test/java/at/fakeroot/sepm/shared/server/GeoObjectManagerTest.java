@@ -50,6 +50,7 @@ public class GeoObjectManagerTest extends TestCase {
 				DBGeoObject geoObject = geoObjManager.getObjectbyId(obj_id);
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				fail("couldn't resolve object id "+obj_id+": "+e.getMessage());
 			}
 			
