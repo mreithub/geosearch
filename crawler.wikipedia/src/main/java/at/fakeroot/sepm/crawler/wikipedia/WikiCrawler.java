@@ -67,7 +67,11 @@ public class WikiCrawler extends ACrawler
 			//the service doesn't give any information on how many articles altogether are in the area,
 			//beside the ones, which are returned. so, if there are as many rows returned, as the maximum
 			//is, then the BoundingBox is divided in 4 BoundingBoxes, and for each of them, there will 
-			//be a new request.
+			//be a new request. 
+			//  _____         __ __
+			// |     | --> 1 |__|__| 3
+			// |_____|     2 |__|__| 4
+			
 			if(jsonResultArray.length() >= limit)
 			{
 				crawlBox(new BoundingBox(curBox.getX1(), (curBox.getY1()+ curBox.getY2())/2, (curBox.getX1()+ curBox.getX2())/2, curBox.getY2()));
