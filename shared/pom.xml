@@ -97,33 +97,6 @@
 		<system>Trac</system>
 		<url>http://sepm.fakeroot.at/trac</url>
 	</issueManagement>
-	<profiles>
-		<profile>
-			<id>dbtest</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<psql.host>fakeroot.at</psql.host>
-				<psql.port>5432</psql.port>
-				<psql.db>geosearch_test</psql.db>
-				<psql.user>geosearch_test</psql.user>
-				<psql.pwd>Waerie4Petei4eey</psql.pwd>
-				<psql.testing>true</psql.testing>
-			</properties>
-		</profile>
-		<profile>
-			<id>productive</id>
-			<properties>
-				<psql.host>localhost</psql.host>
-				<psql.port>5432</psql.port>
-				<psql.db>geosearch</psql.db>
-				<psql.user>geosearch_web</psql.user>
-				<psql.pwd>equohghoru4cahhahCoiWieru9ach7lu</psql.pwd>
-				<psql.testing>false</psql.testing>
-			</properties>
-		</profile>
-	</profiles>
 	<properties>
 		<gwt.version>1.6.4</gwt.version>
 	</properties>

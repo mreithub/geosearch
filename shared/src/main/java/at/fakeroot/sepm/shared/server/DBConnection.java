@@ -38,12 +38,13 @@ public class DBConnection {
 			
 			InputStream propStream = getClass().getResourceAsStream("/WEB-INF/jdbc.properties");
 			if (propStream == null) {
-				throw new IOException("Error: Couldn't open property file 'jdbc.properties'");
+				propStream = getClass().getResourceAsStream("/WEB-INF/jdbc_testing.properties");
+				if (propStream == null) throw new IOException("Error: Couldn't open property file 'jdbc_testing.properties'");
 			}
 			prop.load(propStream);
 
-			ds.setServerName(prop.getProperty("host"));
-			ds.setPortNumber(Integer.parseInt(prop.getProperty("port")));
+			ds.setServerName(prop.getProperty("host", "localhost"));
+			ds.setPortNumber(Integer.parseInt(prop.getProperty("port", "5432")));
 			ds.setDatabaseName(prop.getProperty("db"));
 			ds.setUser(prop.getProperty("user"));
 			ds.setPassword(prop.getProperty("pwd"));
