@@ -368,6 +368,20 @@
           </ul>
         </subsection>
       </section>
-    </section>
+      <section name="Besprechungsprotokoll: 16.06.2009">
+        <i> Anwesend: Jürgen Brandstetter, Anca Cismasiu, Ruth Kendlbacher, Mathias Kunter, Christian Mastnak, Manuel Reithuber</i>
+        <br/>
+        <ul>
+          <li>Projektendbericht: Aufgabe des Teamkoordinators (auch möglich: jedes Teammitglied schreibt 3 Sätze für den Bericht); 
+          genauer Inhalt siehe Artefaktenliste; Themen: wie wars, welche Probleme gabs (das war schwierig, damit haben wir uns nicht ausgekannt, was 
+          macht man beim nächsten Projekt anders - was soll so bleiben...)</li>
+          <li>Installationsanleitung: Manuel wird sie auf den neuesten Stand bringen</li>
+          <li>Search-Button: soll optisch ansprechender gemacht werden (in der Größe an die anderen Ränder anpassen oder zentrieren...)</li>
+          <li>Tests und Testbericht sollen abgeschlossen werden; JUnits sollten alle funktionieren (sind im Prinzip uninteressant); 
+          Testbericht umfasst alle Testfälle: grün wenn Test in Ordnung ist, rot wenn er nicht in Ordnung ist; Funktionstests sind von 
+          Bedeutung (nicht so schlimm, wenn nicht alle grün sind, aber es muss argumentiert werden können, warum)</li>
+        </ul>
+      </section>
+      </section>
 	</body>
 </document>
