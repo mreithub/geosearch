@@ -107,39 +107,43 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	public void search(String where)
 	{
 		geoCoder.getLocations(where, new LocationCallback()
-			{	
-				public void onSuccess(JsArray<Placemark> locations)
-				{
-					if (locations.length() == 0)
-						return;
-					
-					blockEventHandler = true;
-					geoMap.setCenter(locations.get(0).getPoint());
-					int resultType = locations.get(0).getAccuracy();
-					if (resultType == GeoAddressAccuracy.COUNTRY)
-						geoMap.setZoomLevel(6);
-					else if (resultType == GeoAddressAccuracy.REGION)
-						geoMap.setZoomLevel(8);
-					else if (resultType == GeoAddressAccuracy.SUB_REGION)
-						geoMap.setZoomLevel(9);
-					else if (resultType == GeoAddressAccuracy.TOWN)
-						geoMap.setZoomLevel(11);
-					else if (resultType == GeoAddressAccuracy.POSTAL_CODE)
-						geoMap.setZoomLevel(12);
-					else if (resultType == GeoAddressAccuracy.STREET)
-						geoMap.setZoomLevel(13);
-					else if (resultType == GeoAddressAccuracy.INTERSECTION)
-						geoMap.setZoomLevel(15);
-					else if (resultType == GeoAddressAccuracy.ADDRESS)
-						geoMap.setZoomLevel(16);
-					blockEventHandler = false;
-					onMoveEnd(null);
-				}
+		{
+			public void onSuccess(JsArray<Placemark> locations)
+			{
+				if (locations.length() == 0)
+					return;
 				
-				public void onFailure(int statusCode)
-				{
-				}
-			});
+				blockEventHandler = true;
+				geoMap.setCenter(locations.get(0).getPoint());
+				int resultType = locations.get(0).getAccuracy();
+				if (resultType == GeoAddressAccuracy.COUNTRY)
+					geoMap.setZoomLevel(6);
+				else if (resultType == GeoAddressAccuracy.REGION)
+					geoMap.setZoomLevel(8);
+				else if (resultType == GeoAddressAccuracy.SUB_REGION)
+					geoMap.setZoomLevel(9);
+				else if (resultType == GeoAddressAccuracy.TOWN)
+					geoMap.setZoomLevel(11);
+				else if (resultType == GeoAddressAccuracy.POSTAL_CODE)
+					geoMap.setZoomLevel(12);
+				else if (resultType == GeoAddressAccuracy.STREET)
+					geoMap.setZoomLevel(13);
+				else if (resultType == GeoAddressAccuracy.INTERSECTION)
+					geoMap.setZoomLevel(15);
+				else if (resultType == GeoAddressAccuracy.ADDRESS)
+					geoMap.setZoomLevel(16);
+				blockEventHandler = false;
+				
+				//Perform the search query now *after* the geo-coding has finished.
+				geoManager.setBoundingBox(getBoundingBox());
+			}
+			
+			public void onFailure(int statusCode)
+			{
+				//Perform the search query now *after* the geo-coding has finished.
+				geoManager.setBoundingBox(getBoundingBox());
+			}
+		});
 	}
 	
 	/**
@@ -195,6 +199,8 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		if (blockEventHandler)
 			return;
 		geoManager.setBoundingBox(getBoundingBox());
+		//Clear the "Where" string within the SearchBox since we changed the currently displayed map region.
+		geoManager.clearWhereString();
 	}
 	
 	/**

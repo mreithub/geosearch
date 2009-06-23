@@ -36,8 +36,8 @@ public class GeoManager implements IGeoManager{
 	private TagCloud tagCloud;
 	private GeoMap geoMap;
 	
-	private String myWhat="";
-	private BoundingBox myBound;
+	//The currently displayed region of the map, stored within a bounding box.
+	private BoundingBox curBoundingBox;
 	 
 	public GeoManager() {
 		this.geoMap=new GeoMap(this);
@@ -70,16 +70,19 @@ public class GeoManager implements IGeoManager{
 		infoPop.setPopupPosition(XOFFSET, YOFFSET+130);
 		infoPop.show();
 		
-		//TagCloude
+		//TagCloud
 		PopupPanel tagPop = new PopupPanel(false);
 		tagPop.setWidget(tagCloud);
 		tagPop.setPopupPosition(5, 230);
 		tagPop.show();
 		
 		
+		//Use a history listener in order to be able to use a search history and command-line arguments.
+		
+		//TODO: This listener causes duplicate search queries and is therefore commented out for now. 
 		
 		//HistroyListener
-		History.addValueChangeHandler(new ValueChangeHandler<String>(){
+		/*History.addValueChangeHandler(new ValueChangeHandler<String>(){
 			String oldToken="";
 			public void onValueChange(ValueChangeEvent<String> event) {
 				System.out.println("histroy: "+event.getValue());
@@ -93,8 +96,11 @@ public class GeoManager implements IGeoManager{
 							//geoMap.setCenter(Double.parseDouble(pos[1]), Double.parseDouble(pos[0]));
 						}else if(tokens[i].split("=")[0].equals("q")){
 							String[] var = tokens[i].split("=");
-							if (var.length > 1) searchBox.setWhat(var[1]);
-							System.out.println("q");
+							if (var.length > 1)
+							{
+								searchBox.setWhat(var[1]);
+								searchByTags(searchBox.getWhat());
+							}
 						}
 					}
 					
@@ -104,7 +110,7 @@ public class GeoManager implements IGeoManager{
 			}
 		});
 		
-		History.fireCurrentHistoryState();
+		History.fireCurrentHistoryState();*/
 	}
 	
 	/**
@@ -112,30 +118,34 @@ public class GeoManager implements IGeoManager{
 	 * @param tag 
 	 */
 	public void addSearchTag(String tag) {
-		if(searchBox.getWhat().equals(""))
+		if (searchBox.getWhat().length() == 0)
 			searchBox.setWhat(tag);
-		else searchBox.setWhat(searchBox.getWhat()+" "+tag);
-		
+		else
+			searchBox.setWhat(searchBox.getWhat() + " " + tag);
+		searchByTags(searchBox.getWhat());
 	}
 
 	/**
-	 * Starts a standard search
-	 * @param where eg.: Linz, Wien
-	 * @param what eg.: kirche
+	 * Performs a search for given tags at a given location. This function only takes
+	 * the location string as parameter because the tag string is read out from the search
+	 * box separately later. This is nescessary because we have to wait on the event handler
+	 * function within the GeoMap to finish before we can process a search query.
+	 * @param location eg.: Linz, Wien
 	 */
-	public void search(String where, String what) {
-		myWhat=what;
-		geoMap.search(where);
-		search(myWhat);
+	public void searchByLocationAndTags(String location) {
+		//We have to wait until the geoMap finds the position where to search.
+		//The actual search is therefore called from within the geoMap.
+		geoMap.search(location);
 	}
 
 	/**
-	 * Starts a search with available BoundingBox 
-	 * @param what eg.: kirche
+	 * Performs a search for given tags within the currently displayed region on the map.
+	 * @param tags eg.: kirche
 	 */
-	public void search(String what) {
-		History.newItem("q="+what.trim());
-		objectSearch.search(myBound, what.trim(), new AsyncCallback<SearchResult>()
+	public void searchByTags(String tags) {
+		History.newItem("q="+tags.trim());
+		System.out.println("performs a search for " + tags);
+		objectSearch.search(curBoundingBox, tags.trim(), new AsyncCallback<SearchResult>()
 		{
 			public void onFailure(Throwable e) {
 				showErrorMessage(e.getMessage());
@@ -157,8 +167,17 @@ public class GeoManager implements IGeoManager{
 	 * @param box  
 	 */
 	public void setBoundingBox(BoundingBox box) {
-		myBound=box;
-		search(myWhat);
+		curBoundingBox = box;
+		//Read out the what string again - it might has changed in the meantime.
+		searchByTags(searchBox.getWhat());
+	}
+	
+	/**
+	 * This function clears the where input field of the search box.
+	 */
+	public void clearWhereString()
+	{
+		searchBox.setWhere("");
 	}
 
 	/**
@@ -180,21 +199,6 @@ public class GeoManager implements IGeoManager{
 			}
 			
 		});
-		
-		
-		///TODO benotigt ObjectDetail		
-		//detailView.setDetail(....);
-		/*
-		final String wasSollISagen="testWaitsuper";
-		
-		
-		Timer t = new Timer(){
-			public void run() {
-				waitingDeVi.setDetail(wasSollISagen+": "+Math.random());					
-			}				
-		};
-		t.schedule(1000);
-		*/
 	}
 	
 	/**

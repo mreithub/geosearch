@@ -10,8 +10,9 @@ import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 public interface IGeoManager
 {
 	public void addSearchTag(String tag);
-	public void search(String where, String what);
-	public void search(String what);
+	public void searchByLocationAndTags(String location);
+	public void searchByTags(String tags);
 	public void setBoundingBox(BoundingBox box);
 	public void showDetailView(ClientGeoObject obj);
+	public void clearWhereString();
 }

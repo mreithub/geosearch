@@ -99,8 +99,7 @@ public class SearchBox extends Composite{
 	 */
 	private void performSearch()
 	{
-		geoManager.search(getWhere(), getWhat());
-		where.setText(whereString);
+		geoManager.searchByLocationAndTags(getWhere());
 	}
 	
 	/**
@@ -130,19 +129,24 @@ public class SearchBox extends Composite{
 	
 	/**
 	 * Sets String in the where-TextBox for the area search
-	 * @param whereStr 
+	 * @param location 
 	 * */
-	public void setWhere(String whereStr) {
-		where.setText(whereStr);
+	public void setWhere(String location) {
+		if (location.trim().length() == 0)
+			where.setText(whereString);
+		else
+			where.setText(location);
 	}
 	
 	
 	/**
 	 * Adds String to the what-TextBox for the tag search
-	 * @param whatStr 
+	 * @param tagString 
 	 * */	
-	public void setWhat(String whatStr){
-		what.setText(whatStr);
-		geoManager.search(getWhere(), getWhat());
+	public void setWhat(String tagString){
+		if (tagString.trim().length() == 0)
+			what.setText(whatString);
+		else
+			what.setText(tagString);
 	}
 }
