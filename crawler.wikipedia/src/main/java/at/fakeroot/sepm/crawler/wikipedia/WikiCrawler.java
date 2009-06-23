@@ -82,7 +82,7 @@ public class WikiCrawler extends ACrawler
 					jsonResult = jsonResultArray.getJSONObject(i);
 					ArrayList<String> tags = new ArrayList<String>();
 					String title = jsonResult.getString("title");
-					tags.add(title);
+					parseStringIntoTags(title, tags, false);
 					double xPos = jsonResult.getDouble("lng");
 					double yPos = jsonResult.getDouble("lat");
 					String link = jsonResult.getString("wikipediaUrl");
