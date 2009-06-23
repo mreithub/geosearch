@@ -105,7 +105,7 @@ public class GeoObjectManager
 	 * @param obj_id the object id 
 	 * @return  the DBGeoObject with this id
 	 * @throws Exception if no object with this id is found
-	 * */		
+	 * */
 	public DBGeoObject getObjectbyId(long id) throws NotFoundException, SQLException, IOException {
 		DBGeoObject rc=null;
 
