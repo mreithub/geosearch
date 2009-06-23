@@ -196,7 +196,7 @@ public class TagCloud extends Composite implements ClickHandler {
 			if (e != null) s = e.getStyle();
 			else s = null;
 			// calculation source: German Wikipedia
-			if (max > min) fontsize = (int) (70+Math.ceil(130*(tagStat.get(tag)-min))/(max-min));
+			if (max > min) fontsize = (int) (70+Math.ceil(120*(tagStat.get(tag)-min))/(max-min));
 
 			if (s != null) s.setProperty("fontSize", fontsize+"%");
 

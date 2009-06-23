@@ -379,21 +379,26 @@ public class GeoObjectManager
 			//delete existing tags and properties
 			deleteProperties(obj.getId());
 			deleteTags(obj.getId());
+
 			//insert new tags and properties
 			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES ?, ?)");
 			String tags[] =obj.getTags();
+			pstmt2.setLong(1, obj.getId());
 			for(int i=0; i<tags.length; i++){
-				pstmt2.setString(1, tags[i].toLowerCase());
+				pstmt2.setString(2, tags[i].toLowerCase());
 				pstmt2.executeUpdate();
 			}
+			pstmt2.close();
 			
 			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES ?, ?, ?)");
 			Property[] prop = obj.getProperties();
+			pstmt3.setLong(1, obj.getId());
 			for(int i=0; i<prop.length; i++){
-				pstmt3.setString(1, prop[i].getName());
-				pstmt3.setString(2, prop[i].getValue());
+				pstmt3.setString(2, prop[i].getName());
+				pstmt3.setString(3, prop[i].getValue());
 				pstmt3.executeUpdate();
 			}
+			pstmt3.close();
 
 		}
 		catch (SQLException e) {
@@ -409,7 +414,7 @@ public class GeoObjectManager
 	private void deleteTags(long objId) throws SQLException{
 		PreparedStatement pstmt=dbConn.prepareStatement("DELETE FROM objectTag WHERE obj_id = ?");
 		pstmt.setLong(1, objId);
-		pstmt.executeUpdate();	
+		pstmt.executeUpdate();
 	}
 
 	
@@ -420,7 +425,7 @@ public class GeoObjectManager
 	private void deleteProperties(long objId) throws SQLException{
 		PreparedStatement pstmt=dbConn.prepareStatement("DELETE FROM objectProperty WHERE obj_id = ?");
 		pstmt.setLong(1, objId);
-		pstmt.executeUpdate();	
+		pstmt.executeUpdate();
 	}
 	
 	
