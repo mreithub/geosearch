@@ -151,10 +151,11 @@ public class GeoObjectManager
 		ResultSet res;
 
 		try {
-			String requestSql = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail";
+			String requestSql = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail "
+				+"FROM geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id)";
 
 			// get the overall result count
-			res = queryResult("COUNT(*)", tags, box, 0);
+			res = queryResult("COUNT(*) FROM geoObject", tags, box, 0);
 			
 			res.next();
 			searchResult.setResultCount(res.getInt(1));
@@ -180,8 +181,18 @@ public class GeoObjectManager
 	}
 	
 	private ResultSet queryResult(String requestSql, String[] tags, BoundingBox box, int limit) throws SQLException {
-		String sql = "SELECT "+requestSql+" FROM "
-			+ "geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) WHERE ";
+		/*
+			SELECT ... FROM ...
+			WHERE obj_id IN (
+				SELECT obj_id FROM objecttag WHERE
+				tag in ('gemeinde', 'oberösterreich')
+				GROUP BY obj_id HAVING count(*) = 2
+			)
+			AND pos @ box(point(0,0), point(50,50))
+;
+
+		 */
+		String sql = "SELECT "+requestSql + " WHERE ";
 		int i = 0;
 		
 		if (tags.length > 0) {
@@ -192,15 +203,12 @@ public class GeoObjectManager
 				if (i < tags.length-1) sql += ',';
 			}
 			
-			sql += ") AND ";
+			sql += ") GROUP BY obj_id HAVING count(*) = "+tags.length+") AND ";
 		}
 		
 		// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
-		sql += "obj_id IN (select obj_id from geoobject where pos @ box(point(?,?),point(?,?)))";
+		sql += "pos @ box(point(?,?),point(?,?))";
 		
-		
-		if (tags.length > 0) sql += " GROUP BY obj_id HAVING COUNT(*) = "+tags.length+")";
-
 		if (limit > 0) sql += " ORDER BY RANDOM() LIMIT "+limit; 
 		
 		PreparedStatement stmt = dbConn.prepareStatement(sql);

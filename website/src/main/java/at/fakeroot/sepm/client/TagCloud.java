@@ -66,18 +66,23 @@ public class TagCloud extends Composite implements ClickHandler {
 	 * Panel in which the tags are drawn
 	 */
 	private FlowPanel tagPanel = new FlowPanel();
+	
 	/**
 	 * Widget Container
 	 */
 	private VerticalPanel vPanel = new VerticalPanel();
+	
 	/**
 	 * Tag reference count statistics
 	 */
 	private HashMap<String, Integer> tagStat = new HashMap<String, Integer>();
+	
 	/**
 	 * GeoManager reference
 	 */
 	private IGeoManager geoManager;
+	
+	private int objectCount = 0; 
 	
 	/**
 	 * Constructor
@@ -124,7 +129,8 @@ public class TagCloud extends Composite implements ClickHandler {
 	}
 	
 	/**
-	 * If there are more than 20 tags in the TagCloud, remove those with the least reference count
+	 * If there are more than 20 tags in the TagCloud, remove those with the least reference count.
+	 * Additionally, remove all tags that all GeoObjects have
 	 */
 	private void cleanupTags() {
 		if (tagStat.size() > 20) {
@@ -137,9 +143,12 @@ public class TagCloud extends Composite implements ClickHandler {
 			Iterator<String> it = keys.iterator();
 
 			int i = 0;
-			while (tagStat.size() > 20 && it.hasNext()) {
+			while (it.hasNext()) {
 				String k = it.next();
-				if (k != null) {
+				if (k != null && tagStat.size() > 20) {
+					tagStat.remove(k);
+				}
+				else if (tagStat.get(k) == objectCount) {
 					tagStat.remove(k);
 				}
 				i++;
@@ -171,7 +180,7 @@ public class TagCloud extends Composite implements ClickHandler {
 			
 			i = tagStat.get(tag);
 			if (i < min) min = i;
-			if (i > max) max = i;
+			if (i > max && i < objectCount) max = i;
 		}
 		
 		it = c.iterator();
@@ -205,10 +214,12 @@ public class TagCloud extends Composite implements ClickHandler {
 		ClientGeoObject o;
 
 		tagStat.clear();
+		objectCount = 0;
 
 		while (it.hasNext()) {
 			o = it.next();
 			addTags(o.getTags());
+			objectCount++;
 		}
 
 		tagPanel.clear();
