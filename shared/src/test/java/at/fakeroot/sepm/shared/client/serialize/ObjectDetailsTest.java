@@ -16,8 +16,10 @@ public class ObjectDetailsTest extends TestCase {
 	public void testSimple(){
 		String HTMLString = "htmltest";
 		String[] tags ={"tag1","tag2"};
+		String link = "www.bla.com";
+		String thumbnail = "thumbnail";
 		
-		ObjectDetails testObject = new ObjectDetails(HTMLString,tags);
+		ObjectDetails testObject = new ObjectDetails(HTMLString,tags, link, thumbnail);
 		assertNotNull(testObject);
 		assertEquals(HTMLString, testObject.getHTMLString());
 		assertEquals(tags[0], testObject.getTags()[0]);

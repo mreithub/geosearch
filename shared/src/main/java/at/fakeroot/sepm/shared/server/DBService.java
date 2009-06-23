@@ -15,6 +15,7 @@ public class DBService {
 	private int sType_id;
 	private String bubbleHTML;
 	private String[] tags;
+	private String thumbnail;
 
 	/**
 	 * Constructor 
@@ -27,7 +28,7 @@ public class DBService {
 	 * @param _bubbleHTML the HTML to be displayed in the DetailView
 	 * 
 	 * */
-	public DBService(int _svc_id, String _name, String _title, String _homepage, String _description, int _sType_id, String _bubbleHTML ){
+	public DBService(int _svc_id, String _name, String _title, String _homepage, String _description, int _sType_id, String _bubbleHTML, String _thumbnail ){
 		svc_id=_svc_id;
 		name=_name;
 		title=_title;
@@ -35,6 +36,8 @@ public class DBService {
 		description=_description;
 		sType_id=_sType_id;
 		bubbleHTML=_bubbleHTML;
+		thumbnail = _thumbnail;
+		
 	}
 
 	
@@ -94,6 +97,11 @@ public class DBService {
 		return bubbleHTML;
 	}
 	
+	public String getThumbnail()
+	{
+		return (thumbnail);
+	}
+	
 	/**
 	 * Getter for the service tags
 	 * @return service tags
@@ -109,6 +117,8 @@ public class DBService {
 	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
+	
+	
 	
 	
 }

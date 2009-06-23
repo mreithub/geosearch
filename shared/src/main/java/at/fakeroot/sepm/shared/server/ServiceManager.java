@@ -61,7 +61,7 @@ public class ServiceManager
 			if(rs.next())
 			{	
 				result = new DBService(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getInt(6), rs.getString(7));
+						rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
 			}
 			//the service tags for this object, are readout separately from the table 'serviceTag'
 			pstmt = dbConn.prepareStatement("select tag from serviceTag where svc_id = ?");
@@ -110,7 +110,7 @@ public class ServiceManager
 			if(rs.next())
 			{
 				result = new DBService(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-					rs.getString(5), rs.getInt(6), rs.getString(7));
+					rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
 
 				//the service tags for this object, are readout separately from the table 'serviceTag'
 				pstmt = dbConn.prepareStatement("select tag from serviceTag where svc_id = ?");

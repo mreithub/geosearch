@@ -18,8 +18,9 @@ public class DBServiceTest extends TestCase {
 		String description = "Describing myService";
 		int sTypeId = 1;
 		String bubbleHTML = "bubble";
+		String thumbnail = "www.myServiceThumbnail.com";
 		
-		DBService serv = new DBService(svc_id, name, title, homepage, description, sTypeId, bubbleHTML);
+		DBService serv = new DBService(svc_id, name, title, homepage, description, sTypeId, bubbleHTML, thumbnail);
 		
 		assertEquals(svc_id, serv.getSvc_id());
 		assertEquals(name, serv.getName());

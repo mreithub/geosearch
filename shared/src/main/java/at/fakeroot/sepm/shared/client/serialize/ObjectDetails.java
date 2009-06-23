@@ -8,6 +8,8 @@ public class ObjectDetails implements Serializable
 	private static final long serialVersionUID = 1L;
 	private String HTMLString;
 	private String[] tags;
+	private String link;
+	private String thumbnail;
 	
 	/**
 	 * StandardConstruction. Is required for the serializeation
@@ -21,10 +23,12 @@ public class ObjectDetails implements Serializable
 	 * @param HTMLString The detail HTML String.
 	 * @param tags The tag array.
 	 */
-	public ObjectDetails(String HTMLString, String[] tags)
+	public ObjectDetails(String HTMLString, String[] tags, String link, String thumbnail)
 	{
 		this.HTMLString = HTMLString;
 		this.tags = tags;
+		this.link = link;
+		this.thumbnail = thumbnail;
 	}
 	
 	/**
@@ -41,5 +45,15 @@ public class ObjectDetails implements Serializable
 	public String[] getTags()
 	{
 		return(tags);
+	}
+	
+	public String getLink()
+	{
+		return (link);
+	}
+	
+	public String getThumbnail()
+	{
+		return (thumbnail);
 	}
 }
