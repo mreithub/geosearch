@@ -85,7 +85,7 @@ public class WikiCrawler extends ACrawler
 					parseStringIntoTags(title, tags, false);
 					double xPos = jsonResult.getDouble("lng");
 					double yPos = jsonResult.getDouble("lat");
-					String link = jsonResult.getString("wikipediaUrl");
+					String link = "http://" + jsonResult.getString("wikipediaUrl");
 					Property[] property = {new Property("summary", jsonResult.getString("summary"))};
 					parseStringIntoTags(jsonResult.getString("summary"), tags, true);
 					String[] dbObjTags = tags.toArray(new String[tags.size()]);
