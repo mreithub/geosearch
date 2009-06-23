@@ -8,6 +8,8 @@ CREATE TABLE objectProperty (
 	FOREIGN KEY (obj_id) REFERENCES geoObject(obj_id)
 );
 
+CREATE INDEX objectProperty_obj_id ON objectProperty (obj_id);
+
 ALTER TABLE objectProperty OWNER TO ${psql.user};
 
 COMMIT;

@@ -7,6 +7,8 @@ CREATE TABLE expiringObject (
 	FOREIGN KEY (obj_id) REFERENCES geoObject (obj_id)
 );
 
+CREATE INDEX expiringObject_valid_until ON expiringObject (valid_until); 
+
 ALTER TABLE expiringObject OWNER TO ${psql.user};
 
 COMMIT;

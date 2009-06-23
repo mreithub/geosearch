@@ -13,6 +13,10 @@ CREATE TABLE geoObject (
 	UNIQUE (svc_id, uid)
 );
 
+CREATE INDEX geoObject_svc_id ON geoObject (svc_id);
+CREATE INDEX geoObject_uid ON geoObject (uid);
+CREATE INDEX geoObject_pos ON geoobject using rtree (box(pos,pos));
+
 ALTER TABLE geoObject OWNER TO ${psql.user};
 
 COMMIT;
