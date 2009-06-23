@@ -144,7 +144,6 @@ public class GeoManager implements IGeoManager{
 	 */
 	public void searchByTags(String tags) {
 		History.newItem("q="+tags.trim());
-		System.out.println("performs a search for " + tags);
 		objectSearch.search(curBoundingBox, tags.trim(), new AsyncCallback<SearchResult>()
 		{
 			public void onFailure(Throwable e) {
