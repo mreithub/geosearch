@@ -20,6 +20,8 @@ import at.fakeroot.sepm.shared.server.Property;
 
 public class PanoramioCrawler extends ACrawler {
 
+	private int stepSize=100;
+	
 	/**
 	 * Main method
 	 * creates a new PanoramioCrawler and starts it in an endless loop
@@ -43,63 +45,80 @@ public class PanoramioCrawler extends ACrawler {
 	 * @param curBox the BoundingBox to be crawled 
 	 * */
 	protected void crawlBox(BoundingBox curBox) {
-		
+		recCrawl(curBox, 0);
+	}
+	
+	private void recCrawl(BoundingBox curBox, int start){
 		ArrayList<DBGeoObject> foundObjects = new ArrayList<DBGeoObject>();
-		int from=0, to=1, count=0;
+		//int from=0, to=1, count=100;
 		String url="";
 		String responseStr = "";
 		
 
-		while(to<=count){
-			url = "http://www.panoramio.com/map/get_panoramas.php?order=popularity&set=public" +
-					"&from=" + from + "&to=" + to +
-					"&minx=" + curBox.getX1()+ "&miny=" + curBox.getY1()+ 
-					"&maxx=" + curBox.getX2()+ "&maxy=" + curBox.getY2()+ "&size=small";
+		url = "http://www.panoramio.com/map/get_panoramas.php?order=popularity&set=public" +
+				"&from=" + start + "&to=" + (start+stepSize) +
+				"&minx=" + curBox.getX1()+ "&miny=" + curBox.getY1()+ 
+				"&maxx=" + curBox.getX2()+ "&maxy=" + curBox.getY2()+ "&size=small";
+	
+		responseStr = requestUrl(url);
 		
-			responseStr = requestUrl(url);
+		System.out.println(url);
+	
+		try {
+			JSONObject jsonResponse = new JSONObject(responseStr);
+			JSONArray photoArray = jsonResponse.getJSONArray("photos");
+			System.err.println("photoArray: "+photoArray.length());
+			DBGeoObject[] saveDBArray = new DBGeoObject[photoArray.length()];
+			for(int i=0; i<photoArray.length(); i++){
+				//System.err.println("photoArray:"+photoArray.getJSONObject(i));
+				//JSONObject jsonObj = new JSONObject(photoArray.getJSONObject(i));
+				//System.err.println("jsonObj:"+photoArray.getJSONObject(i).getString("owner_name"));
+				
+				Property[] tmpProp = new Property[2];
+				tmpProp[0]= new Property("owner", photoArray.getJSONObject(i).getString("owner_name"));
+				tmpProp[1]= new Property("photo_url", photoArray.getJSONObject(i).getString("photo_url"));
+				
+				ArrayList<String> tags=new ArrayList<String>();
+				parseStringIntoTags( photoArray.getJSONObject(i).getString("photo_title"), tags, true);
+				
+				DBGeoObject tmpObj = new DBGeoObject(
+						photoArray.getJSONObject(i).getString("photo_title"), 
+						photoArray.getJSONObject(i).getDouble("longitude"),
+						photoArray.getJSONObject(i).getDouble("latitude"), 
+						getSvcID(), 
+						JSONObject.numberToString(photoArray.getJSONObject(i).getInt("photo_id")),
+						photoArray.getJSONObject(i).getString("photo_url"),
+						null, 
+						tmpProp,
+						tags.toArray(new String[tags.size()]) );
+				//foundObjects.add(tmpObj);
+				saveDBArray[i]=tmpObj;
+				
+			}
 			
-			System.out.println(url);
+			System.out.println("panoramio.com");
+			saveObject(saveDBArray);
+			
+			
+			if(photoArray.length()==stepSize){
+				System.err.println("rec");
+				recCrawl(curBox, start+stepSize);
+			}else{
+				System.err.println("noRec");
+			}
+			
+			
+			/*
+			from=to+1;
+			if(count>to+100)
+				to+=100;
+			else to=count;
+			*/
 		
-			try {
-				JSONObject jsonResponse = new JSONObject(responseStr);
-				JSONArray photoArray = jsonResponse.getJSONArray("photos");
-				
-				for(int i=0; i<photoArray.length(); i++){
-					
-					JSONObject jsonObj = new JSONObject(photoArray.getJSONObject(i));
-					
-					Property[] tmpProp = new Property[2];
-					tmpProp[0]= new Property("owner", jsonObj.getString("owner_name"));
-					tmpProp[1]= new Property("photo_url", jsonObj.getString("photo_url"));
-					
-					ArrayList<String> tags=new ArrayList<String>();
-					parseStringIntoTags( jsonObj.getString("photo_title"), tags, true);
-					
-					DBGeoObject tmpObj = new DBGeoObject(jsonObj.getString("photo_title"), 
-														jsonObj.getDouble("longitude"),
-														jsonObj.getDouble("latitude"), 
-														getSvcID(), 
-														JSONObject.numberToString(jsonObj.getInt("photo_id")),
-														jsonObj.getString("photo_url"),
-														null, 
-														tmpProp,
-														(String [])tags.toArray() );
-					foundObjects.add(tmpObj);
-				}
-				
-				System.out.println("panoramio.com");
-				saveObject((DBGeoObject[])foundObjects.toArray());
-				
-				count=jsonResponse.getInt("count");
-				from=to+1;
-				if(count>to+100)
-					to+=100;
-				else to=count;
-			
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}	
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}	
+		
 	}
 
 	
