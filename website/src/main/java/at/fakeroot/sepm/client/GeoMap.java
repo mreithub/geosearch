@@ -8,8 +8,6 @@ import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 
 import com.google.gwt.core.client.JsArray;
-
-import com.google.gwt.maps.client.InfoWindow;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.ControlAnchor;

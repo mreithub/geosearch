@@ -102,7 +102,7 @@ public class TagCloud extends Composite implements ClickHandler {
 		vPanel.add(l);
 		vPanel.setCellHeight(l, "1.2em");
 		initWidget(vPanel);
-		setWidth("200px");
+		setWidth("240px");
 		
 		Style s = l.getElement().getStyle();
 		s.setProperty("borderBottom", "1px solid black");

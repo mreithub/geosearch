@@ -1,16 +1,15 @@
 package at.fakeroot.sepm.client;
 
+import at.fakeroot.sepm.client.serialize.ObjectSearchService;
+import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
-import at.fakeroot.sepm.client.serialize.ObjectSearchService;
-import at.fakeroot.sepm.client.serialize.ObjectSearchServiceAsync;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;

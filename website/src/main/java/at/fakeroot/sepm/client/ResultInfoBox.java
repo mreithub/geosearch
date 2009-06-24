@@ -17,9 +17,9 @@ public class ResultInfoBox extends Composite
 	{
 		VerticalPanel vPanel = new VerticalPanel();
 		numText = new Label();
-		numText.setSize("200px", "30px");
-		zoomText = new Label("Fuer Details bitte hineinzoomen!");
-		zoomText.setSize("200px", "30px");
+		numText.setSize("240px", "30px");
+		zoomText = new Label("Zoom in for further results.");
+		zoomText.setSize("240px", "30px");
 		zoomText.setVisible(false);
 		vPanel.add(numText);
 		vPanel.add(zoomText);
@@ -36,24 +36,24 @@ public class ResultInfoBox extends Composite
 	{
 		if(shown == 0)
 		{
-			numText.setText("Ihre Suche ergab keinen Treffer.");
+			numText.setText("No results found.");
 			zoomText.setVisible(false);
 		}
 		else if(shown == 1)
 		{
-			numText.setText(shown + " Ergebnis");
+			numText.setText(shown + " result");
 			zoomText.setVisible(false);
 		}
 		else
 		{
 			if(available > -1 && shown == available)
 			{
-				numText.setText(shown + " Ergebnisse");
+				numText.setText(shown + " results");
 				zoomText.setVisible(false);
 			}
 			else
 			{
-				numText.setText(shown + " Ergebnisse von " + available);
+				numText.setText(shown + " results out of more than " + available);
 				zoomText.setVisible(true);
 			}
 		}

@@ -87,6 +87,8 @@ public class SearchBox extends Composite{
 		});
 		
 		
+		where.setWidth("160px");
+		what.setWidth("160px");
 		searchButton.setSize("80px","45px");
 		myVePanel.add(where);
 		myVePanel.add(what);
