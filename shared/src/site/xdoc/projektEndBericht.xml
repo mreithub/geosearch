@@ -1,0 +1,44 @@
+<document>
+	<properties>
+		<author email="manuel.reithuber@student.tuwien.ac.at">Manuel Reithuber</author>
+		<author email="brandiatmuhkuh@gmail.com">Jürgen Brandstetter</author>
+		<author email="e0726383@student.tuwien.ac.at">Ruth Kendlbacher</author>
+		<author email="e0625658@student.tuwien.ac.at">Mathias Kunter</author>
+		<author email="e0727280@student.tuwien.ac.at">Anca Cismasiu</author>
+		<title>GUI-Skizzen</title>
+	</properties>
+	<head>
+		<style type="text/css">
+			ol li {
+				margin-bottom: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<section name="Planung">
+		Der in der Planungsfase geschätzte Aufwand von insgesamt 940h wurde mit 540h weit unterschritten.
+Das Unterschreitet dieses Aufwandes ist hauptsächlich durch die gute und genau Planung zurückzuführen, und durch ein kompetentes Fachwissen,  da es so möglich war eine effiziente Arbeitsaufteilung zu machen.  
+		</section>	
+		<section name="Probleme">
+		Die größten Probleme traten in Kombination mit Maven auf. Da Maven eine komplett neue Technik für uns alle war, musst in die Einarbeitung sehr viel Zeit investiert werden. (Vor allem vom TechManager) 
+Die Problemlösung wurde durch einlesen in Dokus im Internet und der Wissensaustausch im Team geschaffen. 
+		</section>
+		<section name="Team">
+		Die Arbeit im Team hat sehr gut funktioniert. Durch eine gute Aufgabenteilung  der Spezialbereiche (TechManager, TestManager, …) und das Einbeziehen jedes Einzelnen in alle Bereiche des Projekts konnte ihm Team  Erfahrungen sehr schnell ausgetauscht werden, und es war auch keine einseitige Arbeit gegeben. 
+Die größten Stärken im Team waren das Vertraut sein der Teammitglieder (wir kannten uns alle) und der TechManager. Unser TechManager konnte in allen Bereichen sehr rasch mit kompetenten Infos weiterhelfen.
+		</section>
+		<section name="Fazit">
+			<subsection name="JB">
+			Da ich noch nie mit einem Team ein so großes Projekt gemacht habe war es eine besondere (tolle) Herausforderung. Leider ist der Zeitaufwand für diese Übung sehr groß, wodurch anderes in den Hintergrund rutscht. Toll finde ich jedoch dass wir uns das Projekt selbst aussuchen durften. 
+			</subsection>
+			<subsection name="AC">
+			</subsection>
+			<subsection name="RK">
+			</subsection>
+			<subsection name="MK">
+			</subsection>
+			<subsection name="MR">
+			</subsection>
+		</section>
+	</body>
+</document>
