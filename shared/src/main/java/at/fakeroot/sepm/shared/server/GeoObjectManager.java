@@ -209,7 +209,7 @@ public class GeoObjectManager
 		String sql = "SELECT " + requestSql + " AND ";
 		
 		//Create the WHERE clause for the geographical location.
-		sql += "lng >= ? AND lng <= ? AND lat >= ? AND lng <= ? AND ";
+		sql += "lng >= ? AND lng <= ? AND lat >= ? AND lat <= ? AND ";
 		
 		//Create a where clause for each passed tag.
 		if (tags.length > 0)
