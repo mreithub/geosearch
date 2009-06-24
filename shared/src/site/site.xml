@@ -26,6 +26,8 @@ http://maven.apache.org/guides/mini/guide-site.html
 			<item name="GANTT" href="gantt.html" />
 			<item name="KlassenDiagramm" href="klassenDiagramm.html" />
 			<item name="TestPlan" href="testplanNeu.html" />
+			<item name="TestEndBericht" href="testbericht.html" />
+			<item name="ProjectEndBericht" href="projektEndBericht.html" />
 		</menu>
 		<menu name="Infrastruktur">
 			<item name="Einrichtung" href="einrichtung.html" />
