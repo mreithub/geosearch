@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<section name="Planung">
-		Der in der Planungsphase geschätzte Aufwand von insgesamt 940h wurde mit 540h weit unterschritten. Das ist primär darauf 
+		Der in der Planungsphase geschätzte Aufwand von insgesamt 940h wurde mit ca. 600h weit unterschritten. Das ist primär darauf 
     zurückzuführen, dass in die Planung und den Entwurf viel Zeit investiert wurde und somit bei der Implementierung einiges an
     Aufwand eingespart werden konnte.  Es gab kaum Problemfelder, die nicht schon im Vorfeld diskutiert und berücksichtigt wurden, 
     außerdem ist die gesamte Systemarchitektur sehr genau mit allen Teammitgliedern besprochen worden, sodass jeder gut alleine 
