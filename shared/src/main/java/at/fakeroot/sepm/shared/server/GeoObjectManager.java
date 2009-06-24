@@ -161,11 +161,12 @@ public class GeoObjectManager
 		ResultSet res;
 
 		try {
-			String requestSql = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail "
-				+ "FROM geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id)";
-
+			String baseRequest = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail FROM geoObject o " +
+				"INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) ";
+			String expiringClause = "LEFT JOIN expiringObject e USING (obj_id) WHERE (e.valid_until IS null OR e.valid_until >= now())"; 
+			
 			//Get the overall result count
-			pstmt = getQueryStatement("COUNT(*) FROM geoObject", tags, box, 0);
+			pstmt = getQueryStatement("COUNT(*) FROM geoObject " + expiringClause, tags, box, 0);
 			res = pstmt.executeQuery();
 			res.next();
 			searchResult.setResultCount(res.getInt(1));
@@ -173,7 +174,7 @@ public class GeoObjectManager
 			pstmt.close();
 	
 			//Get the result set which contains the selected geoObjects.
-			pstmt = getQueryStatement(requestSql, tags, box, limit);
+			pstmt = getQueryStatement(baseRequest + expiringClause, tags, box, limit);
 			res = pstmt.executeQuery();
 			
 			//Get the object tags for all those selected objects. Use a single query for that.
@@ -207,7 +208,7 @@ public class GeoObjectManager
 	}
 
 	private PreparedStatement getQueryStatement(String requestSql, String[] tags, BoundingBox box, int limit) throws SQLException {
-		String sql = "SELECT " + requestSql + " WHERE ";
+		String sql = "SELECT " + requestSql + " AND ";
 		
 		//Create the WHERE clause for the geographical location.
 		// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
