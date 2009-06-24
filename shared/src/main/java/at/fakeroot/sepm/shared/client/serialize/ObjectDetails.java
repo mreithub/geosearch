@@ -10,6 +10,7 @@ public class ObjectDetails implements Serializable
 	private String[] tags;
 	private String link;
 	private String thumbnail;
+	private String homepage;
 	
 	/**
 	 * StandardConstruction. Is required for the serializeation
@@ -23,12 +24,13 @@ public class ObjectDetails implements Serializable
 	 * @param HTMLString The detail HTML String.
 	 * @param tags The tag array.
 	 */
-	public ObjectDetails(String HTMLString, String[] tags, String link, String thumbnail)
+	public ObjectDetails(String HTMLString, String[] tags, String link, String thumbnail, String homepage)
 	{
 		this.HTMLString = HTMLString;
 		this.tags = tags;
 		this.link = link;
 		this.thumbnail = thumbnail;
+		this.homepage = homepage;
 	}
 	
 	/**
@@ -55,5 +57,10 @@ public class ObjectDetails implements Serializable
 	public String getThumbnail()
 	{
 		return (thumbnail);
+	}
+	
+	public String getHomepage()
+	{
+		return (homepage);
 	}
 }
