@@ -487,8 +487,8 @@ public class GeoObjectManager
 				dbWrite.rollback();
 			}
 			catch (SQLException ex) {}
-			logger.error("SQL error in GeoObjectManager.update() (geoobj: "+obj+")", e);
-			throw new RemoteException("SQL error in GeoObjectManager.update() (geoobj: "+obj+")", e);
+			logger.error("Error in GeoObjectManager.update()", e);
+			throw new RemoteException("Error in GeoObjectManager.update()", e);
 		}
 	}
 
