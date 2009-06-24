@@ -124,6 +124,11 @@ public class GeoObject implements Serializable {
 
 	public void setTags(String[] tags) {
 		this.tags = tags;
+		
+		// truncate the tags
+		for (int i = 0; i < tags.length; i++) {
+			if (tags[i].length() > 255) tags[i] = truncate(tags[i], 255);
+		}
 	}
 
 	public String toString() {
