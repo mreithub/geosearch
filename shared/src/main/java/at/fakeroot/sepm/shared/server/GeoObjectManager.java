@@ -305,6 +305,15 @@ public class GeoObjectManager
 		
 		tagRes.close();
 		tagStmt.close();
+		
+		//Check if there are objects where we didn't find any tags.
+		iter = geoObjects.iterator();
+		while (iter.hasNext())
+		{
+			ClientGeoObject loopObj = iter.next();
+			if (loopObj.getTags() == null)
+				loopObj.setTags(new String[0]);
+		}
 	}
 	
 	private String[] queryTags(long objId) throws SQLException {
