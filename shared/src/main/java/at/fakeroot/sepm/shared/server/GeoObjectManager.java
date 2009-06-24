@@ -377,14 +377,14 @@ public class GeoObjectManager
 			String tags[] = obj.getTags();
 			TreeSet<String> tagSet = new TreeSet<String>();
 			for (int i = 0; i < tags.length; i++) {
-				tagSet.add(tags[i]);
+				tagSet.add(tags[i].toLowerCase());
 			}
 
 			//insert new tags
 			pstmt = dbWrite.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (currval('geoobject_obj_id_seq'), ?)");
 			Iterator<String> it = tagSet.iterator();
 			while(it.hasNext()) {
-				pstmt.setString(1, it.next().toLowerCase());
+				pstmt.setString(1, it.next());
 				pstmt.executeUpdate();
 			}
 			pstmt.close();
@@ -409,6 +409,10 @@ public class GeoObjectManager
 			dbWrite.commit();
 		}
 		catch (SQLException e) {
+			try {
+				dbWrite.rollback();
+			}
+			catch (SQLException ex) {}
 			logger.error("SQL error in GeoObjectManager.insert", e);
 			throw new RemoteException("SQL error in geoObjectManager.insert", e);
 		}
@@ -421,14 +425,12 @@ public class GeoObjectManager
 	public void update (DBGeoObject obj) throws RemoteException
 	{
 		try {
-			PreparedStatement pstmt = dbWrite.prepareStatement("UPDATE geoObject SET svc_id = ?, uid = ?, title = ?, link = ?, pos = point(?,?), last_updated = now() WHERE obj_id = ?");
-			pstmt.setInt(1, obj.getSvc_id());
-			pstmt.setString(2, obj.getUid());
-			pstmt.setString(3, obj.getTitle());
-			pstmt.setString(4, obj.getLink());
-			pstmt.setDouble(5, obj.getXPos());
-			pstmt.setDouble(6, obj.getYPos());
-			pstmt.setLong(7, obj.getId());
+			PreparedStatement pstmt = dbWrite.prepareStatement("UPDATE geoObject SET title = ?, link = ?, pos = point(?,?), last_updated = now() WHERE obj_id = ?");
+			pstmt.setString(1, obj.getTitle());
+			pstmt.setString(2, obj.getLink());
+			pstmt.setDouble(3, obj.getXPos());
+			pstmt.setDouble(4, obj.getYPos());
+			pstmt.setLong(5, obj.getId());
 			pstmt.executeUpdate();
 
 
@@ -437,7 +439,7 @@ public class GeoObjectManager
 			String tags[] = obj.getTags();
 			TreeSet<String> tagSet = new TreeSet<String>();
 			for (int i = 0; i < tags.length; i++) {
-				tagSet.add(tags[i]);
+				tagSet.add(tags[i].toLowerCase());
 			}
 
 			// overwrite tags
@@ -445,8 +447,9 @@ public class GeoObjectManager
 			pstmt = dbWrite.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
 			Iterator<String> it = tagSet.iterator();
 			while(it.hasNext()){
+				String tag = it.next();
 				pstmt.setLong(1, obj.getId());
-				pstmt.setString(2, it.next().toLowerCase());
+				pstmt.setString(2, tag);
 				pstmt.executeUpdate();
 			}
 			pstmt.close();
@@ -479,8 +482,12 @@ public class GeoObjectManager
 			dbWrite.commit();
 		}
 		catch (SQLException e) {
-			logger.error("SQL error in GeoObjectManager.update()", e);
-			throw new RemoteException("SQL error in GeoObjectManager.update()", e);
+			try {
+				dbWrite.rollback();
+			}
+			catch (SQLException ex) {}
+			logger.error("SQL error in GeoObjectManager.update() (geoobj: "+obj+")", e);
+			throw new RemoteException("SQL error in GeoObjectManager.update() (geoobj: "+obj+")", e);
 		}
 	}
 
