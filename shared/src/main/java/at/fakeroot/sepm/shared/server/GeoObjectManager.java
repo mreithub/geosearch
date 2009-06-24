@@ -375,7 +375,7 @@ public class GeoObjectManager
 			pstmt.setDouble(6, obj.getYPos());
 			pstmt.setLong(7, obj.getId());
 			pstmt.executeUpdate();
-			pstmt.close();
+
 			//delete existing tags and properties
 			deleteProperties(obj.getId());
 			deleteTags(obj.getId());
@@ -388,7 +388,6 @@ public class GeoObjectManager
 				pstmt2.setString(2, tags[i].toLowerCase());
 				pstmt2.executeUpdate();
 			}
-			pstmt2.close();
 			
 			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
 			Property[] prop = obj.getProperties();
@@ -398,8 +397,6 @@ public class GeoObjectManager
 				pstmt3.setString(3, prop[i].getValue());
 				pstmt3.executeUpdate();
 			}
-			pstmt3.close();
-
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.update()", e);
