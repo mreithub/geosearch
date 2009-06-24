@@ -124,8 +124,10 @@ public class GeoObject implements Serializable {
 		this.tags = tags;
 		
 		// truncate the tags
-		for (int i = 0; i < tags.length; i++) {
-			if (tags[i].length() > 255) tags[i] = truncate(tags[i], 255);
+		if (tags != null) {
+			for (int i = 0; i < tags.length; i++) {
+				if (tags[i].length() > 255) tags[i] = truncate(tags[i], 255);
+			}
 		}
 	}
 
