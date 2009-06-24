@@ -27,7 +27,7 @@ public class GeoObjectManager
 {
 	private static GeoObjectManager geoObjManager = null;
 	private static final Logger logger = Logger.getRootLogger();
-	DBConnection dbConn;
+	DBConnection dbRead, dbWrite;
 
 	public class NotFoundException extends Exception {
 		/// default serial version id
@@ -54,11 +54,15 @@ public class GeoObjectManager
 	 */
 	private GeoObjectManager() throws SQLException, IOException
 	{
-		dbConn = new DBConnection();
+		dbRead = new DBConnection();
+		dbWrite = new DBConnection();
+		dbWrite.setAutoCommit(false);
 	}
 
 	protected void finalize() throws SQLException {
-		dbConn.disconnect();
+		dbRead.disconnect();
+		dbWrite.setAutoCommit(true);
+		dbWrite.disconnect();
 	}
 
 	/**
@@ -84,7 +88,7 @@ public class GeoObjectManager
 	public long getObjectId(int svc_id, String uid) throws NotFoundException, SQLException, IOException {
 		long rc=-1;
 		try{
-			PreparedStatement pstmt = dbConn.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid=?;");
+			PreparedStatement pstmt = dbRead.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid=?;");
 			pstmt.setInt(1, svc_id);
 			pstmt.setString(2, uid);
 			ResultSet result= pstmt.executeQuery();
@@ -115,7 +119,7 @@ public class GeoObjectManager
 
 		try{
 			//long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
-			PreparedStatement pstmt = dbConn.prepareStatement("SELECT title, pos[0] AS xPos, pos[1] AS yPos, svc_id, uid, link, valid_until "
+			PreparedStatement pstmt = dbRead.prepareStatement("SELECT title, pos[0] AS xPos, pos[1] AS yPos, svc_id, uid, link, valid_until "
 					+ "FROM geoObject LEFT JOIN expiringObject e USING (obj_id) WHERE obj_id = ?");
 			pstmt.setLong(1, id);
 			ResultSet res = pstmt.executeQuery();
@@ -225,7 +229,7 @@ public class GeoObjectManager
 		if (limit > 0)
 			sql += " ORDER BY RANDOM() LIMIT " + limit; 
 		
-		PreparedStatement stmt = dbConn.prepareStatement(sql);
+		PreparedStatement stmt = dbRead.prepareStatement(sql);
 	
 		stmt.setDouble(1, box.getX1());
 		stmt.setDouble(2, box.getY1());
@@ -258,7 +262,7 @@ public class GeoObjectManager
 		sql = sql.substring(0, sql.length() - 2) + ") ORDER BY obj_id";
 		
 		//Execute the query.
-		PreparedStatement tagStmt = dbConn.prepareStatement(sql);
+		PreparedStatement tagStmt = dbRead.prepareStatement(sql);
 		ResultSet tagRes = tagStmt.executeQuery();
 		long lastID = -1, curID;
 		while (tagRes.next())
@@ -304,7 +308,7 @@ public class GeoObjectManager
 	}
 	
 	private String[] queryTags(long objId) throws SQLException {
-		PreparedStatement tagStmt = dbConn.prepareStatement("SELECT tag FROM objectTag WHERE obj_id = ?");
+		PreparedStatement tagStmt = dbRead.prepareStatement("SELECT tag FROM objectTag WHERE obj_id = ?");
 		String[] rc;
 
 		tagStmt.setLong(1, objId);
@@ -329,7 +333,7 @@ public class GeoObjectManager
 	 */
 	private Property[] getProperties(long obj_id) throws SQLException {
 		Property[] rc;
-		PreparedStatement pstmt = dbConn.prepareStatement("SELECT name, value FROM objectProperty WHERE obj_id = ?"); 
+		PreparedStatement pstmt = dbRead.prepareStatement("SELECT name, value FROM objectProperty WHERE obj_id = ?"); 
 		pstmt.setLong(1, obj_id);
 		ResultSet rs= pstmt.executeQuery();
 		rs.last();
@@ -351,7 +355,7 @@ public class GeoObjectManager
 	public void insert (DBGeoObject obj) throws RemoteException
 	{
 		try {
-			PreparedStatement pstmt = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = dbWrite.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
 			pstmt.setInt(1, obj.getSvc_id());
 			pstmt.setString(2, obj.getUid());
 			pstmt.setString(3, obj.getTitle());
@@ -368,7 +372,7 @@ public class GeoObjectManager
 			}
 
 			//insert new tags
-			pstmt = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (currval('geoobject_obj_id_seq'), ?)");
+			pstmt = dbWrite.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (currval('geoobject_obj_id_seq'), ?)");
 			Iterator<String> it = tagSet.iterator();
 			while(it.hasNext()) {
 				pstmt.setString(1, it.next().toLowerCase());
@@ -377,7 +381,7 @@ public class GeoObjectManager
 			pstmt.close();
 
 			//save the properties
-			pstmt=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (currval('geoobject_obj_id_seq'), ?, ?)");
+			pstmt=dbWrite.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (currval('geoobject_obj_id_seq'), ?, ?)");
 			Property[] prop = obj.getProperties();
 			for(int i=0; i<prop.length; i++) {
 				pstmt.setString(1, prop[i].getName());
@@ -389,10 +393,11 @@ public class GeoObjectManager
 			// expiring objects
 			Timestamp valid_until = obj.getValid_until();
 			if (valid_until != null) {
-				pstmt = dbConn.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (currval('geoobject_obj_id_seq'),?)");
+				pstmt = dbWrite.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (currval('geoobject_obj_id_seq'),?)");
 				pstmt.setTimestamp(1, valid_until);
 				pstmt.close();
 			}
+			dbWrite.commit();
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.insert", e);
@@ -407,7 +412,7 @@ public class GeoObjectManager
 	public void update (DBGeoObject obj) throws RemoteException
 	{
 		try {
-			PreparedStatement pstmt = dbConn.prepareStatement("UPDATE geoObject SET svc_id = ?, uid = ?, title = ?, link = ?, pos = point(?,?), last_updated = now() WHERE obj_id = ?");
+			PreparedStatement pstmt = dbWrite.prepareStatement("UPDATE geoObject SET svc_id = ?, uid = ?, title = ?, link = ?, pos = point(?,?), last_updated = now() WHERE obj_id = ?");
 			pstmt.setInt(1, obj.getSvc_id());
 			pstmt.setString(2, obj.getUid());
 			pstmt.setString(3, obj.getTitle());
@@ -428,7 +433,7 @@ public class GeoObjectManager
 
 			// overwrite tags
 			deleteTags(obj.getId());
-			pstmt = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
+			pstmt = dbWrite.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
 			Iterator<String> it = tagSet.iterator();
 			while(it.hasNext()){
 				pstmt.setLong(1, obj.getId());
@@ -439,7 +444,7 @@ public class GeoObjectManager
 			
 			// overwrite properties
 			deleteProperties(obj.getId());
-			pstmt=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
+			pstmt=dbWrite.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
 			Property[] prop = obj.getProperties();
 			for(int i=0; i<prop.length; i++){
 				pstmt.setLong(1, obj.getId());
@@ -450,18 +455,19 @@ public class GeoObjectManager
 			pstmt.close();
 			
 			// overwrite expiringObject
-			pstmt = dbConn.prepareStatement("DELETE FROM expiringObject where obj_id = ?");
+			pstmt = dbWrite.prepareStatement("DELETE FROM expiringObject where obj_id = ?");
 			pstmt.setLong(1, obj.getId());
 			pstmt.executeUpdate();
 			pstmt.close();
 			
 			Timestamp valid_until = obj.getValid_until();
 			if (valid_until != null) {
-				pstmt = dbConn.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (?,?)");
+				pstmt = dbWrite.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (?,?)");
 				pstmt.setLong(1, obj.getId());
 				pstmt.setTimestamp(2, valid_until);
 				pstmt.close();
 			}
+			dbWrite.commit();
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.update()", e);
@@ -474,7 +480,7 @@ public class GeoObjectManager
 	 * @param objId the id of the object to be updated 
 	 * */
 	private void deleteTags(long objId) throws SQLException{
-		PreparedStatement pstmt=dbConn.prepareStatement("DELETE FROM objectTag WHERE obj_id = ?");
+		PreparedStatement pstmt=dbWrite.prepareStatement("DELETE FROM objectTag WHERE obj_id = ?");
 		pstmt.setLong(1, objId);
 		pstmt.executeUpdate();
 	}
@@ -485,7 +491,7 @@ public class GeoObjectManager
 	 * @param objId the id of the object to be updated 
 	 * */
 	private void deleteProperties(long objId) throws SQLException{
-		PreparedStatement pstmt=dbConn.prepareStatement("DELETE FROM objectProperty WHERE obj_id = ?");
+		PreparedStatement pstmt=dbWrite.prepareStatement("DELETE FROM objectProperty WHERE obj_id = ?");
 		pstmt.setLong(1, objId);
 		pstmt.executeUpdate();
 	}

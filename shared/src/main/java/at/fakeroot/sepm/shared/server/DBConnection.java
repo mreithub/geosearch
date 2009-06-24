@@ -84,6 +84,18 @@ public class DBConnection {
 		return getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 	
+	public void setAutoCommit(boolean value) throws SQLException {
+		if (!isTesting) getConnection().setAutoCommit(value);
+	}
+	
+	public void commit() throws SQLException {
+		if (!isTesting) getConnection().commit();
+	}
+	
+	public void rollback() throws SQLException {
+		getConnection().rollback();
+	}
+	
 	public boolean isTesting() {
 		return isTesting;
 	}
