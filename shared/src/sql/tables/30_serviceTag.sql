@@ -7,6 +7,10 @@ CREATE TABLE serviceTag (
 	FOREIGN KEY (svc_id) REFERENCES service (svc_id)
 );
 
+CREATE INDEX serviceTag_svc_id ON serviceTag (svc_id);
+CREATE INDEX serviceTag_tag ON serviceTag (tag);
+
+
 ALTER TABLE serviceTag OWNER TO ${psql.user};
 
 COMMIT;

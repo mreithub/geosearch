@@ -6,8 +6,10 @@ CREATE TABLE geoObject (
 	uid		varchar(255)	NOT NULL,
 	title		varchar(255)	NOT NULL,
 	link		varchar(4096)	NOT NULL,
-	pos		point		NOT NULL,
+	lat		float		NOT NULL,
+	lng		float		NOT NULL,
 	last_updated	timestamp	NOT NULL	DEFAULT now(),
+
 	PRIMARY KEY (obj_id),
 	FOREIGN KEY (svc_id) REFERENCES service (svc_id),
 	UNIQUE (svc_id, uid)
@@ -15,7 +17,8 @@ CREATE TABLE geoObject (
 
 CREATE INDEX geoObject_svc_id ON geoObject (svc_id);
 CREATE INDEX geoObject_uid ON geoObject (uid);
-CREATE INDEX geoObject_pos ON geoobject using rtree (box(pos,pos));
+CREATE INDEX geoObject_lat ON geoObject (lat);
+CREATE INDEX geoObject_lng ON geoObject (lng);
 
 ALTER TABLE geoObject OWNER TO ${psql.user};
 
