@@ -21,7 +21,9 @@ public class Property implements Serializable {
 	 * */	
 	public Property(String name, String value){
 		this.name=name;
-		this.value=value;
+		// maximum value length: 1000
+		if (value.length() > 1000) this.value=value.substring(0, 1000);
+		else this.value = value;
 	}
 
 	/**
