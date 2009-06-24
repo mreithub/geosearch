@@ -194,7 +194,7 @@ public class GeoManager implements IGeoManager{
 			}
 
 			public void onSuccess(ObjectDetails result) {
-				waitingDeVi.setDetail(result.getHTMLString(), result.getLink(), result.getThumbnail());
+				waitingDeVi.setDetail(result.getHTMLString(), result.getLink(), result.getThumbnail(), result.getHomepage());
 			}
 			
 		});

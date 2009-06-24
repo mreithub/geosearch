@@ -33,7 +33,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	private FlowPanel tags= null;
 	private HorizontalPanel myHoPa = new HorizontalPanel();
 	private Anchor sourceAnchor;
-	private Image image;
+	private HTML image;
 	
 	
 	public DetailView(ClientGeoObject object, IGeoManager geoManager){
@@ -44,8 +44,9 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		
 		title=new HTML("<font size=\"4\"><span style=\"color:fuchsia\"><b>" + gObject.getTitle() + "</b></span></font>");
 		detail = new HTML("Loading...");
-		image = new Image();
+		image = new HTML();
 		image.setVisible(false);
+		
 		sourceAnchor = new Anchor();
 		sourceAnchor.setVisible(false);
 		myHoPa.add(image);
@@ -66,11 +67,12 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
  * sets the object details in the InfoWindow
  * @param HTMLStr String text that will be interpreted as HTML
  * */	
-	public void setDetail(String HTMLStr, String link, String thumbnail){
+	public void setDetail(String HTMLStr, String link, String thumbnail, String homepage){
 		detail.setHTML(HTMLStr);
 		sourceAnchor.setText("Details...");
-		image.setUrl(thumbnail);
+		image.setHTML("<a href=\"" + homepage + "\"><img src=\"" + thumbnail + "\" border=\"0\">");
 		image.setVisible(true);
+		
 		sourceAnchor.setHref(link);
 		sourceAnchor.setVisible(true);
 	}
