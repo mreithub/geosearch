@@ -26,7 +26,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ObjectSearchServiceImpl extends RemoteServiceServlet implements ObjectSearchService
 {
 	// a max. limit for the hits, which are shown on the map
-	private static final int limit = 50;
+	private static final int displayLimit = 50, countLimit = 500;
 	private GeoObjectManager geoObjManager;
 	private ServiceManager svcManager;
 	private Logger logger = Logger.getRootLogger();
@@ -62,7 +62,7 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 			tags = what.toLowerCase().split(" ");
 		else
 			tags = new String[0];
-		return (geoObjManager.select(tags, box, limit)); 
+		return (geoObjManager.select(tags, box, displayLimit, countLimit)); 
 	}
 	/**
 	 * gets the entry for the 'BubbleHTML' from the table service and the properties from the 
