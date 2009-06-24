@@ -1,11 +1,8 @@
 package at.fakeroot.sepm.shared.server;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import junit.framework.TestCase;

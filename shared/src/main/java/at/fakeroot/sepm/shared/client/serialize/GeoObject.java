@@ -2,8 +2,6 @@ package at.fakeroot.sepm.shared.client.serialize;
 
 import java.io.Serializable;
 
-import com.google.gwt.maps.client.geom.LatLng;
-
 /**
  * Contains the main parts of an GeoObject. 
  * @author JB

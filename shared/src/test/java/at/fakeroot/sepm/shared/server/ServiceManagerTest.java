@@ -1,7 +1,5 @@
 package at.fakeroot.sepm.shared.server;
 
-import java.sql.Statement;
-
 import junit.framework.TestCase;
 
 public class ServiceManagerTest extends TestCase{
