@@ -42,7 +42,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		gObject=object;
 		gManager=geoManager;
 		
-		title=new HTML("<font size=\"4\"><span style=\"color:fuchsia\"><b>" + gObject.getTitle() + "</b></span></font>");
+		title=new HTML("<font size=\"4\"><span style=\"color:#3366FF\"><b>" + gObject.getTitle() + "</b></span></font>");
 		detail = new HTML("Loading...");
 		image = new HTML();
 		image.setVisible(false);
@@ -57,8 +57,11 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		setTagList();
 		
 		myVePa.add(title);
+		myVePa.add(new HTML("<br/>"));
 		myVePa.add(detail);
 		myVePa.add(myHoPa);
+		myVePa.add(new HTML("<hr color=\"#FF3399\" size=\"1\">"));
+		myVePa.add(new HTML("<b><font size=\"3\"><span style=\"color:#3366FF\">Tags:</span></font></b>"));
 		myVePa.add(tags);
 
 	}
@@ -68,7 +71,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
  * @param HTMLStr String text that will be interpreted as HTML
  * */	
 	public void setDetail(String HTMLStr, String link, String thumbnail, String homepage){
-		detail.setHTML(HTMLStr);
+		detail.setHTML(HTMLStr + "<br/><hr color=\"#FF3399\" size=\"1\">");
 		sourceAnchor.setText("Details...");
 		image.setHTML("<a href=\"" + homepage + "\"><img src=\"" + thumbnail + "\" border=\"0\">");
 		image.setVisible(true);
