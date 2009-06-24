@@ -228,7 +228,7 @@ public abstract class ACrawler  {
 	 * 
 	 * @return Next BoundingBox in the gives search area. 
 	 */
-	protected BoundingBox nextCrawlBox(){		
+	private BoundingBox nextCrawlBox(){		
 		return nextBox(curBox);
 	}
 	
@@ -431,7 +431,7 @@ public abstract class ACrawler  {
 	}
 	
 	/**
-	 * Hier muss der Eigene Crawler gemacht werden.
+	 * Here you have to create the own crawler.
 	 * @param curBox
 	 */
 	protected abstract void crawlBox(BoundingBox curBox);
