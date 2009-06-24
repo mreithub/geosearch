@@ -56,6 +56,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		tags = new FlowPanel();
 		setTagList();
 		
+		myVePa.setWidth("325px");
 		myVePa.add(title);
 		myVePa.add(new HTML("<br/>"));
 		myVePa.add(detail);
