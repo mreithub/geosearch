@@ -1,5 +1,7 @@
 package at.fakeroot.sepm.client;
 
+import org.apache.tools.ant.taskdefs.Sleep;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.maps.client.InfoWindowContent;
@@ -10,6 +12,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -24,7 +27,8 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	
 	private IGeoManager gManager =null;
 	private ClientGeoObject gObject=null;
-	private static SimplePanel mySiPa = new SimplePanel();
+	//private static SimplePanel mySiPa = new SimplePanel();
+	private static ScrollPanel scroll = new ScrollPanel();
 	private VerticalPanel myVePa=new VerticalPanel();
 	private Label title = null;
 	private HTML detail = null;
@@ -35,8 +39,8 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	
 	
 	public DetailView(ClientGeoObject object, IGeoManager geoManager){
-		super(mySiPa);
-		mySiPa.setWidget(myVePa);
+		super(setSize());
+		scroll.setWidget(myVePa);
 		gObject=object;
 		gManager=geoManager;
 		
@@ -55,6 +59,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		myVePa.add(detail);
 		myVePa.add(myHoPa);
 		myVePa.add(tags);
+
 	}
 	
 /**
@@ -93,6 +98,10 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		gManager.addSearchTag(((Anchor)ce.getSource()).getText());
 	}
 
-	
+	private static ScrollPanel setSize()
+	{
+		scroll.setSize("350px", "300px");
+		return scroll;
+	}
 	
 }

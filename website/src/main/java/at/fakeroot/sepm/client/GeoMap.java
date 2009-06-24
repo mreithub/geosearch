@@ -9,6 +9,7 @@ import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 
 import com.google.gwt.core.client.JsArray;
 
+import com.google.gwt.maps.client.InfoWindow;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.ControlAnchor;
@@ -31,6 +32,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	private Geocoder geoCoder;
 	private ArrayList<GeoPin> geoPins;
 	private boolean blockEventHandler;
+
 	
 	/**
 	 * Constructor.
@@ -228,4 +230,6 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		//TODO Anmerkung: die DetailView benoetigt wohl auch noch das InfoWindow von Google Maps.
 		return detailView;
 	}
+	
+	
 }
