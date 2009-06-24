@@ -110,29 +110,29 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		{
 			public void onSuccess(JsArray<Placemark> locations)
 			{
-				if (locations.length() == 0)
-					return;
-				
-				blockEventHandler = true;
-				geoMap.setCenter(locations.get(0).getPoint());
-				int resultType = locations.get(0).getAccuracy();
-				if (resultType == GeoAddressAccuracy.COUNTRY)
-					geoMap.setZoomLevel(6);
-				else if (resultType == GeoAddressAccuracy.REGION)
-					geoMap.setZoomLevel(8);
-				else if (resultType == GeoAddressAccuracy.SUB_REGION)
-					geoMap.setZoomLevel(9);
-				else if (resultType == GeoAddressAccuracy.TOWN)
-					geoMap.setZoomLevel(11);
-				else if (resultType == GeoAddressAccuracy.POSTAL_CODE)
-					geoMap.setZoomLevel(12);
-				else if (resultType == GeoAddressAccuracy.STREET)
-					geoMap.setZoomLevel(13);
-				else if (resultType == GeoAddressAccuracy.INTERSECTION)
-					geoMap.setZoomLevel(15);
-				else if (resultType == GeoAddressAccuracy.ADDRESS)
-					geoMap.setZoomLevel(16);
-				blockEventHandler = false;
+				if (locations.length() > 0)
+				{
+					blockEventHandler = true;
+					geoMap.setCenter(locations.get(0).getPoint());
+					int resultType = locations.get(0).getAccuracy();
+					if (resultType == GeoAddressAccuracy.COUNTRY)
+						geoMap.setZoomLevel(6);
+					else if (resultType == GeoAddressAccuracy.REGION)
+						geoMap.setZoomLevel(8);
+					else if (resultType == GeoAddressAccuracy.SUB_REGION)
+						geoMap.setZoomLevel(9);
+					else if (resultType == GeoAddressAccuracy.TOWN)
+						geoMap.setZoomLevel(11);
+					else if (resultType == GeoAddressAccuracy.POSTAL_CODE)
+						geoMap.setZoomLevel(12);
+					else if (resultType == GeoAddressAccuracy.STREET)
+						geoMap.setZoomLevel(13);
+					else if (resultType == GeoAddressAccuracy.INTERSECTION)
+						geoMap.setZoomLevel(15);
+					else if (resultType == GeoAddressAccuracy.ADDRESS)
+						geoMap.setZoomLevel(16);
+					blockEventHandler = false;
+				}
 				
 				//Perform the search query now *after* the geo-coding has finished.
 				geoManager.setBoundingBox(getBoundingBox());
