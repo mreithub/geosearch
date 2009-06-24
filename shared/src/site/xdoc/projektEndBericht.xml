@@ -19,20 +19,20 @@
 		Der in der Planungsphase geschätzte Aufwand von insgesamt 940h wurde mit ca. 600h weit unterschritten. Das ist primär darauf 
     zurückzuführen, dass in die Planung und den Entwurf viel Zeit investiert wurde und somit bei der Implementierung einiges an
     Aufwand eingespart werden konnte.  Es gab kaum Problemfelder, die nicht schon im Vorfeld diskutiert und berücksichtigt wurden, 
-    außerdem ist die gesamte Systemarchitektur sehr genau mit allen Teammitgliedern besprochen worden, sodass jeder gut alleine 
+    außerdem wurde die gesamte Systemarchitektur sehr genau mit allen Teammitgliedern besprochen, sodass jeder gut alleine 
     arbeiten konnte. Die einzelnen Teilgebiete des Projekts konnten, nach genauer Analyse der Abhängigkeiten der Klassen untereinander, sehr 
     effizient aufgeteilt werden. Ein weiterer Vorteil bestand darin, dass einige Teammitglieder schon sehr fundiertes Wissen bezüglich 
     der Aufgabenstellung in die Arbeit einbrachten, dadurch konnten sich alle relativ schnell in die Materie einarbeiten. 
 		</section>	
 		<section name="Probleme">
 		Die größten Probleme traten in Kombination mit Maven auf. Da Maven eine komplett neue Technik für uns alle war, musste in die Einarbeitung sehr viel Zeit investiert werden 
-    (vor allem unser Technischer Architekt hat sich sehr genau mit Maven beschäftigt, und uns anderen Teammitgliedern die Arbeit diesbezüglich größten Teils abgenommen). 
+    (vor allem unser Technischer Architekt hat sich sehr genau mit Maven beschäftigt, und uns anderen Teammitgliedern die Arbeit diesbezüglich größtenteils abgenommen). 
     Die meisten Probleme, die im Zusammenhang mit Maven entstanden sind, wurden durch das Einlesen in Dokus im Internet gelöst. Anschließend wurden die wichtigsten Schritte
     und 'Fallen' an das ganze Team kommuniziert.
 		</section>
 		<section name="Team">
 		Die Arbeit im Team hat sehr gut funktioniert. Durch eine gute Einteilung der Verantwortlichkeiten für die Spezialgebiete (Team-Koordinator, Technischer Architekt, Test-Beauftragter...) und das Einbeziehen jedes Einzelnen in alle Teilbereiche des Projekts,
-    konnten ihm Team Erfahrungen sehr schnell ausgetauscht werden. Da jedes Teammitglied in jedes Gebiet hineinschnuppern konnte, war die Arbeit für uns sehr abwechslungsreich (auch wenn nicht alles allen Spaß gemacht hat). 
+    konnten im Team Erfahrungen sehr schnell ausgetauscht werden. Da jedes Teammitglied in jedes Gebiet hineinschnuppern konnte, war die Arbeit für uns sehr abwechslungsreich (auch wenn nicht alles allen Spaß gemacht hat). 
     Eine große Stärke unseres Teams war die Vertrautheit untereinander. Da wir uns alle schon vor dem Projekt kannten, waren unsere Stärken, Schwächen, Vorlieben und Abneigungen den anderen bereits bekannt.
     Das erspart einige Überraschungen, die sonst während dem Entwicklungsprozess auftreten können. Auch die Aufgabenverteilung fällt leichter und ist auch effizienter, wenn man sich schon kennt. Ein weiterer 
     Bonus für die Teamarbeit war unser Technischer Architekt, der praktisch rund um die Uhr mit Rat und Tat zur Stelle war.  

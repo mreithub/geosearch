@@ -57,7 +57,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Ort = Hüttschlag; <b>Ergebnis:</b> Hüttschlag wird angezeigt, ResultInfo zeigt 'Ihre Suche ergab keinen Treffer.', TagCloud liefert keine Ergebnisse
@@ -68,7 +70,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>Fehlerbehandlung existiert, nicht funktionieren der GM-API nicht simulierbar</td>
         </tr>
@@ -77,7 +81,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>Fehlermeldung</td>
         </tr>
@@ -86,7 +92,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Tag = Schloss; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, Ergebnisse durch Marker gekennzeichnet, TagCloud zeigt Tags (z.B.: Landkreis, Jahrhundert, Hügel,...), ResultInfo zeigt '50 Ergebnisse von 313' (für Details hineinzoomen)<br/>
@@ -98,7 +106,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Tag = Buchstabe; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, TagCloud liefert keine Ergebnisse, ResultInfo zeigt 'Ihre Suche ergab keinen Treffer.'
@@ -127,7 +137,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Gebiet = Wien, Tag = Universität; <b>Ergebnis:</b> Wien wird angezeigt, Ergebnisse durch Marker gekennzeichnet, TagCloud zeigt Tags (z.B.: Fakultät, Studierende, Künste...), ResultInfo zeigt '20 Ergebnisse'<br/>
@@ -139,7 +151,9 @@
           <td>
             <span style="color:green">OK</span> 
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Gebiet = Kuchenstadt, Tag = Turm; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, Ergebnisse durch Marker gekennzeichnet, TagCloud zeigt Tags (z.B.: Kirche, Architekt, Meter,...), ResultInfo zeigt '50 Ergebnisse von 64'<br/>
@@ -150,7 +164,9 @@
           <td>
             <span style="color:green">OK</span>  
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Gebiet = Lienz, Tag = Buchstabe; <b>Ergebnis:</b> Lienz wird angezeigt, ResultInfo zeigt 'Ihre Suche ergab keinen Treffer.', TagCloud liefert keine Ergebnisse
@@ -179,7 +195,9 @@
           <td>
             <span style="color:green">OK</span> 
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Vorbedingung (Gebiet = Bregenz, Tag = Kirche), in TagCloud angeklickt = Drachenstein; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, ResultInfo zeigt '1 Ergebnis', TagCloud zeigt Tags (z.B.: Wallburg, Burgruine, Stadt,...)
@@ -208,7 +226,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Vorbedingung (Gebiet = Wien) <b>Ergebnis:</b> aktueller Kartenausschnitt wird angezeigt (detailiertere Ansicht), Ergebnisse durch Marker gekennzeichnet, TagCloud zeigt Tags (z.B.: Gemeindebezirk, Donaukanal, Cafe,...), ResultInfo zeigt '50 Ergebnisse von 1040' (für Details hineinzoomen)
@@ -219,7 +239,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Vorbedingung (Gebiet = Wien) <b>Ergebnis:</b> aktueller Kartenausschnitt wird angezeigt (gröbere Ansicht), Ergebnisse durch Marker gekennzeichnet, TagCloud zeigt Tags (z.B.: Gemeindebezirk, Teil, Freyung,...), ResultInfo zeigt '50 Ergebnisse von 1323' (für Details hineinzoomen)
@@ -248,10 +270,13 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
-            <b>Eingabe:</b> Vorbedingung (Gebiet = Wien, Marker bei Augarten angezeigt) <b>Ergebnis:</b> durch Klick auf Marker Detailansicht geöffnet, 'Loading...' angezeigt, Titel angezeigt, Tags angezeigt, <span style="color:red">Inhalt der Detailansicht (Foto, Artikel, Eventdetails) fehlt</span>
+            <b>Eingabe:</b> Vorbedingung (Gebiet = Wien, Marker bei Augarten angezeigt) <b>Ergebnis:</b> durch Klick auf Marker Detailansicht geöffnet, 'Loading...' angezeigt, Titel angezeigt, Tags angezeigt, <span style="color:red">Inhalt der Detailansicht (Foto, Artikel, Eventdetails) fehlt</span><br/>
+            <b>2. Iteration:</b> DetailView wird komplett mit Inhalt (Artikel, Foto, Event) angezeigt
           </td>
         </tr>
         <tr>
@@ -277,7 +302,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Vorbedingung (Detailansicht ist geöffnet) <b>Ergebnis:</b> Detailansicht ist geschlossen
@@ -288,10 +315,15 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
-            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span>
+            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span><br/>
+            <b>2. Iteration:</b> 
+            <b>Eingabe:</b> Vorbedingung (Detailansicht ist geöffnet) Artikel 'Ursulau' geöffnet, Service-Logo von externen Service anklicken 
+            <b>Ergebnis:</b> die Homepage vom externen Service Wikipedia wird geöffnet
           </td>
         </tr>
         <tr>
@@ -299,10 +331,13 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
-            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span>
+            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span><br/>
+            <b>2. Iteration:</b> externes Service nicht verfügbar ist nicht simulierbar; Browser für Fehlerhandling verantwortlich
           </td>
         </tr>
         <tr>
@@ -310,10 +345,14 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
-            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span>
+            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span><br/>
+            <b>2. Iteration:</b> <b>Eingabe:</b> Vorbedingung (Detailansicht ist geöffnet) Artikel 'Ursulau' geöffnet, 'Details...' anklicken  
+            <b>Ergebnis:</b> der externe Artikel von Wikipedia zur Ursulau wird geöffnet
           </td>
         </tr>
         <tr>
@@ -321,10 +360,13 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
-            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span>
+            <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span><br/>
+            <b>2. Iteration:</b> externes Service nicht verfügbar ist nicht simulierbar; Browser für Fehlerhandling verantwortlich
           </td>
         </tr>
         <tr>
@@ -332,7 +374,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Vorbedingung (Detailansicht geöffnet) <b>Ergebnis:</b> durch Klick auf einen Tag in der Detailansicht neue Suche in aktuellen Kartenausschnitt mit diesem Tag ausgelöst und Ergebnisse angezeigt
@@ -361,7 +405,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Ergebnis:</b> aktueller Kartenausschnitt wird angezeigt (verschobene Ansicht), Ergebnisse durch Marker gekennzeichnet, TagCloud zeigt Tags, ResultInfo zeigt Anzahl der Ergebnisse an
@@ -372,7 +418,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Ergebnis:</b> aktueller Kartenausschnitt wird angezeigt (verschobene Ansicht), TagCloud liefert keine Ergebnisse, ResultInfo zeigt 'Ihre Suche ergab keinen Treffer.'
@@ -401,7 +449,9 @@
           <td>
             <span style="color:green">OK</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> Vorbedingung (in Menü wird ein Ansichtsmodus gewählt) <b>Ergebnis:</b> Karte in gewünschtem Ansichtsmodus dargestellt
@@ -421,7 +471,9 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:red">FEHLER</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span>
@@ -432,7 +484,9 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:red">FEHLER</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span>
@@ -443,7 +497,9 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:red">FEHLER</span>
+          </td>
           <td></td>
           <td>
             <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span>
