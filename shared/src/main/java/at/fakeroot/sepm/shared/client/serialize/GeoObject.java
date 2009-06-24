@@ -33,7 +33,7 @@ public class GeoObject implements Serializable {
 	 */
 	public GeoObject(long id, String title, double xPos, double yPos){
 		this.id=id;
-		this.title=title;
+		this.title=truncate(title, 255);
 		this.xPos=xPos;
 		this.yPos=yPos;
 	}
@@ -45,7 +45,7 @@ public class GeoObject implements Serializable {
 	 * @param yPos (Lat=Latitude)
 	 */
 	public GeoObject(String title, double xPos, double yPos){
-		this.title=title;
+		this.title=truncate(title, 255);
 		this.xPos=xPos;
 		this.yPos=yPos;
 	}
@@ -95,10 +95,10 @@ public class GeoObject implements Serializable {
 
 	/**
 	 * Sets the Title of the GeoObject
-	 * @param title
+	 * @param title title of the GeoObject, will be truncated to 255 characters
 	 */
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = truncate(title, 255);
 	}
 
 	
@@ -132,6 +132,21 @@ public class GeoObject implements Serializable {
 			strTags+=tags[i]+", ";
 		}
 		return "id: "+id+", title: "+title+", xPos(lng): "+xPos+", yPos(lat): "+yPos+", Tags: "+strTags;
+	}
+	
+	/**
+	 * truncate a String if necessary (and append '...' to it)
+	 * @param str String to truncate after len characters
+	 * @param len maximum String length
+	 * @return truncated String
+	 */
+	public static String truncate(String str, int len) {
+		String rc;
+		
+		if (str.length() > len) rc = str.substring(0, len-3)+"...";
+		else rc = str;
+		
+		return rc;
 	}
 	
 }

@@ -25,7 +25,7 @@ public class DBGeoObject extends GeoObject {
 	 *@param yPos Latitude
 	 *@param serviceID service id
 	 *@param uniqueID the unique id 
-	 *@param link object link
+	 *@param link object link (maximum length: 4096)
 	 *@param valid_until time, when objects expire
 	 *@param properties object properties array
 	 *@param tags object tag array 

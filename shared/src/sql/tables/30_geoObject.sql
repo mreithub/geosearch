@@ -5,7 +5,7 @@ CREATE TABLE geoObject (
 	svc_id		integer		NOT NULL,
 	uid		varchar(255)	NOT NULL,
 	title		varchar(255)	NOT NULL,
-	link		varchar(255)	NOT NULL,
+	link		varchar(4096)	NOT NULL,
 	pos		point		NOT NULL,
 	last_updated	timestamp	NOT NULL	DEFAULT now(),
 	PRIMARY KEY (obj_id),
