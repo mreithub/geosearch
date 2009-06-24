@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.TreeSet;
 
 import org.postgresql.geometric.PGpoint;
 import org.apache.log4j.Logger;
@@ -349,28 +351,47 @@ public class GeoObjectManager
 	public void insert (DBGeoObject obj) throws RemoteException
 	{
 		try {
-			PreparedStatement pstmt1 = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
-			pstmt1.setInt(1, obj.getSvc_id());
-			pstmt1.setString(2, obj.getUid());
-			pstmt1.setString(3, obj.getTitle());
-			pstmt1.setString(4, obj.getLink());
-			pstmt1.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
-			pstmt1.executeUpdate();
-			pstmt1.close();
-			//save the tags
-			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (currval('geoobject_obj_id_seq'), ?)");
-			String tags[] =obj.getTags();
-			for(int i=0; i<tags.length; i++){
-				pstmt2.setString(1, tags[i].toLowerCase());
-				pstmt2.executeUpdate();
+			PreparedStatement pstmt = dbConn.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
+			pstmt.setInt(1, obj.getSvc_id());
+			pstmt.setString(2, obj.getUid());
+			pstmt.setString(3, obj.getTitle());
+			pstmt.setString(4, obj.getLink());
+			pstmt.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			// filter double tags
+			String tags[] = obj.getTags();
+			TreeSet<String> tagSet = new TreeSet<String>();
+			for (int i = 0; i < tags.length; i++) {
+				tagSet.add(tags[i]);
 			}
+
+			//insert new tags
+			pstmt = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (currval('geoobject_obj_id_seq'), ?)");
+			Iterator<String> it = tagSet.iterator();
+			while(it.hasNext()) {
+				pstmt.setString(1, it.next().toLowerCase());
+				pstmt.executeUpdate();
+			}
+			pstmt.close();
+
 			//save the properties
-			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (currval('geoobject_obj_id_seq'), ?, ?)");
+			pstmt=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (currval('geoobject_obj_id_seq'), ?, ?)");
 			Property[] prop = obj.getProperties();
-			for(int i=0; i<prop.length; i++){
-				pstmt3.setString(1, prop[i].getName());
-				pstmt3.setString(2, prop[i].getValue());
-				pstmt3.executeUpdate();
+			for(int i=0; i<prop.length; i++) {
+				pstmt.setString(1, prop[i].getName());
+				pstmt.setString(2, prop[i].getValue());
+				pstmt.executeUpdate();
+			}
+			pstmt.close();
+
+			// expiring objects
+			Timestamp valid_until = obj.getValid_until();
+			if (valid_until != null) {
+				pstmt = dbConn.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (currval('geoobject_obj_id_seq'),?)");
+				pstmt.setTimestamp(1, valid_until);
+				pstmt.close();
 			}
 		}
 		catch (SQLException e) {
@@ -396,26 +417,50 @@ public class GeoObjectManager
 			pstmt.setLong(7, obj.getId());
 			pstmt.executeUpdate();
 
-			//delete existing tags and properties
-			deleteProperties(obj.getId());
-			deleteTags(obj.getId());
 
-			//insert new tags and properties
-			PreparedStatement pstmt2 = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
-			String tags[] =obj.getTags();
-			pstmt2.setLong(1, obj.getId());
-			for(int i=0; i<tags.length; i++){
-				pstmt2.setString(2, tags[i].toLowerCase());
-				pstmt2.executeUpdate();
-			}
 			
-			PreparedStatement pstmt3=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
+			// filter double tags
+			String tags[] = obj.getTags();
+			TreeSet<String> tagSet = new TreeSet<String>();
+			for (int i = 0; i < tags.length; i++) {
+				tagSet.add(tags[i]);
+			}
+
+			// overwrite tags
+			deleteTags(obj.getId());
+			pstmt = dbConn.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
+			Iterator<String> it = tagSet.iterator();
+			while(it.hasNext()){
+				pstmt.setLong(1, obj.getId());
+				pstmt.setString(2, it.next().toLowerCase());
+				pstmt.executeUpdate();
+			}
+			pstmt.close();
+			
+			// overwrite properties
+			deleteProperties(obj.getId());
+			pstmt=dbConn.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
 			Property[] prop = obj.getProperties();
-			pstmt3.setLong(1, obj.getId());
 			for(int i=0; i<prop.length; i++){
-				pstmt3.setString(2, prop[i].getName());
-				pstmt3.setString(3, prop[i].getValue());
-				pstmt3.executeUpdate();
+				pstmt.setLong(1, obj.getId());
+				pstmt.setString(2, prop[i].getName());
+				pstmt.setString(3, prop[i].getValue());
+				pstmt.executeUpdate();
+			}
+			pstmt.close();
+			
+			// overwrite expiringObject
+			pstmt = dbConn.prepareStatement("DELETE FROM expiringObject where obj_id = ?");
+			pstmt.setLong(1, obj.getId());
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			Timestamp valid_until = obj.getValid_until();
+			if (valid_until != null) {
+				pstmt = dbConn.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (?,?)");
+				pstmt.setLong(1, obj.getId());
+				pstmt.setTimestamp(2, valid_until);
+				pstmt.close();
 			}
 		}
 		catch (SQLException e) {
@@ -444,6 +489,4 @@ public class GeoObjectManager
 		pstmt.setLong(1, objId);
 		pstmt.executeUpdate();
 	}
-	
-	
 }
