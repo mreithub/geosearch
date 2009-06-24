@@ -28,7 +28,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	//private static SimplePanel mySiPa = new SimplePanel();
 	private static ScrollPanel scroll = new ScrollPanel();
 	private VerticalPanel myVePa=new VerticalPanel();
-	private Label title = null;
+	private HTML title = null;
 	private HTML detail = null;
 	private FlowPanel tags= null;
 	private HorizontalPanel myHoPa = new HorizontalPanel();
@@ -42,7 +42,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		gObject=object;
 		gManager=geoManager;
 		
-		title=new Label(gObject.getTitle());
+		title=new HTML("<font size=\"4\"><span style=\"color:fuchsia\"><b>" + gObject.getTitle() + "</b></span></font>");
 		detail = new HTML("Loading...");
 		image = new Image();
 		image.setVisible(false);
@@ -50,6 +50,8 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		sourceAnchor.setVisible(false);
 		myHoPa.add(image);
 		myHoPa.add(sourceAnchor);
+		myHoPa.setCellWidth(image, "80%");
+		myHoPa.setCellWidth(sourceAnchor, "20%");
 		tags = new FlowPanel();
 		setTagList();
 		
@@ -81,7 +83,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		String[] tagArray = gObject.getTags(); 
 		final Anchor[] anchor = new Anchor[tagArray.length];
 		for(int i=0; i<tagArray.length; i++){
-			anchor[i]=new Anchor(tagArray[i]);
+			anchor[i]=new Anchor("<font size=\"2\">" + tagArray[i] + "</font>", true);
 			anchor[i].setHref("javascript:void()");
 			anchor[i].addClickHandler(this);
 			tags.add(anchor[i]);
