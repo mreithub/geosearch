@@ -150,29 +150,44 @@ public class GeoObjectManager
 	 * Method used to retrieve a limited number of ClientGeoObjects having a set of tags and lying in a particular BoundingBox
 	 * @param tags String[] the desired tags
 	 * @param box BoundingBox the search area
-	 * @param limit int the number of retrieved results 
+	 * @param displayLimit int the number of results to fetch
+	 * @param countLimit int the number of results to count
 	 * */
-	public SearchResult select(String[] tags, BoundingBox box, int limit)
+	public SearchResult select(String[] tags, BoundingBox box, int displayLimit, int countLimit)
 	{
 		SearchResult searchResult = new SearchResult();
 		PreparedStatement pstmt;
 		ResultSet res;
 
 		try {
-			String baseRequest = "obj_id, svc_id, o.title, lng, lat, t.thumbnail FROM geoObject o " +
-				"INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) ";
-			String expiringClause = "LEFT JOIN expiringObject e USING (obj_id) WHERE (e.valid_until IS null OR e.valid_until >= now())";
+			String joinStmt = "LEFT JOIN expiringObject e USING (obj_id) ";
 			
-			//Get the overall result count
-			pstmt = getQueryStatement("COUNT(*) FROM geoObject " + expiringClause, tags, box, 0);
+			//Get the result count
+			String sql = "SELECT COUNT(subquery.obj_id) FROM (SELECT obj_id FROM geoObject " + joinStmt +
+				getWhereClause(box, tags.length, false, countLimit) + ") AS subquery";
+			pstmt = dbRead.prepareStatement(sql);
+			for (int i = 0; i < tags.length; i++)
+			{
+				pstmt.setString(i * 2 + 1, tags[i]);
+				pstmt.setString(i * 2 + 2, tags[i]);
+			}
 			res = pstmt.executeQuery();
 			res.next();
 			searchResult.setResultCount(res.getInt(1));
 			res.close();
 			pstmt.close();
 	
+			
 			//Get the result set which contains the selected geoObjects.
-			pstmt = getQueryStatement(baseRequest + expiringClause, tags, box, limit);
+			sql = "SELECT obj_id, svc_id, o.title, lng, lat, t.thumbnail FROM geoObject o " +
+				"INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) " +
+				joinStmt + getWhereClause(box, tags.length, true, displayLimit);
+			pstmt = dbRead.prepareStatement(sql);
+			for (int i = 0; i < tags.length; i++)
+			{
+				pstmt.setString(i * 2 + 1, tags[i]);
+				pstmt.setString(i * 2 + 2, tags[i]);
+			}
 			res = pstmt.executeQuery();
 			
 			//Get the object tags for all those selected objects. Use a single query for that.
@@ -205,16 +220,16 @@ public class GeoObjectManager
 		return searchResult;
 	}
 
-	private PreparedStatement getQueryStatement(String requestSql, String[] tags, BoundingBox box, int limit) throws SQLException {
-		String sql = "SELECT " + requestSql + " AND ";
+	private String getWhereClause(BoundingBox box, int numberTags, boolean randomOrder, int limit) throws SQLException {
+		String sql = "WHERE (e.valid_until IS null OR e.valid_until >= now()) AND ";
 		
 		//Create the WHERE clause for the geographical location.
-		sql += "lng >= ? AND lng <= ? AND lat >= ? AND lat <= ? AND ";
+		sql += "(lng BETWEEN " + box.getX1() + " AND " + box.getX2() + ") AND (lat BETWEEN " + box.getY1() + " AND " + box.getY2() + ") AND ";
 		
 		//Create a where clause for each passed tag.
-		if (tags.length > 0)
+		if (numberTags > 0)
 		{
-			for (int i = 0; i < tags.length; i++)
+			for (int i = 0; i < numberTags; i++)
 			{
 				sql += "(obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) " +
 					"OR svc_id IN (SELECT svc_id FROM servicetag WHERE tag = ?)) AND ";
@@ -224,21 +239,12 @@ public class GeoObjectManager
 		//Remove the last " AND " from the query string again.
 		sql = sql.substring(0, sql.length() - 5);
 		
+		if (randomOrder)
+			sql += " ORDER BY rndval";
 		if (limit > 0)
-			sql += " ORDER BY rndval LIMIT " + limit; 
-		
-		PreparedStatement stmt = dbRead.prepareStatement(sql);
-	
-		stmt.setDouble(1, box.getX1());
-		stmt.setDouble(2, box.getX2());
-		stmt.setDouble(3, box.getY1());
-		stmt.setDouble(4, box.getY2());
-		for (int i = 0; i < tags.length; i++) {
-			stmt.setString(i * 2 + 5, tags[i]);
-			stmt.setString(i * 2 + 6, tags[i]);
-		}
-		
-		return (stmt);
+			sql += " LIMIT " + limit; 
+				
+		return (sql);
 	}
 
 	/**
