@@ -424,7 +424,7 @@ public class GeoObjectManager
 	public void update (DBGeoObject obj) throws RemoteException
 	{
 		try {
-			PreparedStatement pstmt = dbWrite.prepareStatement("UPDATE geoObject SET title = ?, link = ?, pos = point(?,?), last_updated = now() WHERE obj_id = ?");
+			PreparedStatement pstmt = dbWrite.prepareStatement("UPDATE geoObject SET title = ?, link = ?, lng = ?, lat = ?, last_updated = now() WHERE obj_id = ?");
 			pstmt.setString(1, obj.getTitle());
 			pstmt.setString(2, obj.getLink());
 			pstmt.setDouble(3, obj.getXPos());
