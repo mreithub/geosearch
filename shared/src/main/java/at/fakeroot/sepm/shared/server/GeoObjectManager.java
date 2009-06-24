@@ -5,7 +5,9 @@ import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.postgresql.geometric.PGpoint;
 import org.apache.log4j.Logger;
@@ -232,33 +234,66 @@ public class GeoObjectManager
 	}
 
 	/**
-	 * Get the Tags for a GeoObject
-	 * @param objId Object ID
-	 * @return String Array
+	 * Fills the geoObjects with tags.
+	 * @param result The search result, containing the objects to fill.
 	 * @throws SQLException
 	 */
-	private void queryTags(SearchResult result) throws SQLException {
-		//Set up the SQL query string.
-		String sql = "SELECT tag FROM objectTag WHERE obj_id = ?";
-		PreparedStatement tagStmt = dbConn.prepareStatement(sql);
+	private void queryTags(SearchResult result) throws SQLException
+	{
+		ArrayList<ClientGeoObject> geoObjects = result.getResults();
 		ArrayList<String> curObjTags = new ArrayList<String>();
+		Iterator<ClientGeoObject> iter;
 		
-		ResultSet tagRes;
-		for (int i = 0; i < result.getResults().size(); i++)
+		//Set up the SQL query string.
+		String sql = "SELECT obj_id, tag FROM objectTag WHERE obj_id IN (";
+		iter = geoObjects.iterator(); 
+		while (iter.hasNext())
+			sql += iter.next().getId() + ", ";
+		sql = sql.substring(0, sql.length() - 2) + ") ORDER BY obj_id";
+		
+		//Execute the query.
+		PreparedStatement tagStmt = dbConn.prepareStatement(sql);
+		ResultSet tagRes = tagStmt.executeQuery();
+		long lastID = -1, curID;
+		while (tagRes.next())
 		{
-			ClientGeoObject curResultObj = result.getResults().get(i);
-			tagStmt.setLong(1, curResultObj.getId());
-			
-			//Execute the query.
-			tagRes = tagStmt.executeQuery();
-			curObjTags.clear();
-			while (tagRes.next())
-				curObjTags.add(tagRes.getString("tag"));
-			tagRes.close();
-			
-			//Set the tags of this object.
-			curResultObj.setTags(curObjTags.toArray(new String[curObjTags.size()]));
+			curID = tagRes.getLong("obj_id");
+			if (curID != lastID)
+			{
+				if (lastID != -1)
+				{
+					//Get the index of the object with the lastID within the array.
+					iter = geoObjects.iterator();
+					while (iter.hasNext())
+					{
+						ClientGeoObject loopObj = iter.next();
+						if (loopObj.getId() == lastID)
+						{
+							loopObj.setTags(curObjTags.toArray(new String[curObjTags.size()]));
+							break;
+						}
+					}
+				}
+				curObjTags.clear();
+				lastID = curID;
+			}
+			curObjTags.add(tagRes.getString("tag"));
 		}
+		
+		//Set the tags of the last object too.
+		//Get the index of the object with the lastID within the array.
+		iter = geoObjects.iterator();
+		while (iter.hasNext())
+		{
+			ClientGeoObject loopObj = iter.next();
+			if (loopObj.getId() == lastID)
+			{
+				loopObj.setTags(curObjTags.toArray(new String[curObjTags.size()]));
+				break;
+			}
+		}
+		
+		tagRes.close();
 		tagStmt.close();
 	}
 	
