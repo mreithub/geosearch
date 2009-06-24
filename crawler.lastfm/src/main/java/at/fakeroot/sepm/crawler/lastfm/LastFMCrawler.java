@@ -11,8 +11,6 @@ import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.google.gwt.maps.client.geom.LatLng;
-
 import at.fakeroot.sepm.crawler.ACrawler;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
