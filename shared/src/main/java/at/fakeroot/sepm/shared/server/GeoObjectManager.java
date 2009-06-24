@@ -211,7 +211,10 @@ public class GeoObjectManager
 		if (tags.length > 0)
 		{
 			for (int i = 0; i < tags.length; i++)
-				sql += "obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) AND ";
+			{
+				sql += "(obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) " +
+					"OR svc_id IN (SELECT svc_id FROM servicetag WHERE tag = ?)) AND ";
+			}
 		}
 
 		//Remove the last " AND " from the query string again.
@@ -227,7 +230,8 @@ public class GeoObjectManager
 		stmt.setDouble(3, box.getX2());
 		stmt.setDouble(4, box.getY2());
 		for (int i = 0; i < tags.length; i++) {
-			stmt.setString(i + 5, tags[i]);
+			stmt.setString(i * 2 + 5, tags[i]);
+			stmt.setString(i * 2 + 6, tags[i]);
 		}
 		
 		return (stmt);
