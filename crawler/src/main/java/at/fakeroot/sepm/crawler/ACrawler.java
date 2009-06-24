@@ -1,8 +1,6 @@
 package at.fakeroot.sepm.crawler;
-import java.io.*;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RMISecurityManager;
+import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -16,8 +14,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.log4j.Logger;
-
-import com.google.gwt.maps.client.geom.LatLng;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
