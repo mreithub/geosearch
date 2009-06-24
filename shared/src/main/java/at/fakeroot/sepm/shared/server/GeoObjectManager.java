@@ -5,13 +5,11 @@ import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import org.postgresql.geometric.PGpoint;
 import org.apache.log4j.Logger;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
@@ -119,7 +117,7 @@ public class GeoObjectManager
 
 		try{
 			//long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
-			PreparedStatement pstmt = dbRead.prepareStatement("SELECT title, pos[0] AS xPos, pos[1] AS yPos, svc_id, uid, link, valid_until "
+			PreparedStatement pstmt = dbRead.prepareStatement("SELECT title, lng, lat, svc_id, uid, link, valid_until "
 					+ "FROM geoObject LEFT JOIN expiringObject e USING (obj_id) WHERE obj_id = ?");
 			pstmt.setLong(1, id);
 			ResultSet res = pstmt.executeQuery();
@@ -129,7 +127,7 @@ public class GeoObjectManager
 				rc = new DBGeoObject(
 						id,
 						res.getString("title"),
-						res.getDouble("xPos"), res.getDouble("yPos"),
+						res.getDouble("lng"), res.getDouble("lat"),
 						res.getInt("svc_id"),
 						res.getString("uid"),
 						res.getString("link"),
@@ -161,9 +159,9 @@ public class GeoObjectManager
 		ResultSet res;
 
 		try {
-			String baseRequest = "obj_id, svc_id, o.title, pos[0] AS posx, pos[1] AS posy, t.thumbnail FROM geoObject o " +
+			String baseRequest = "obj_id, svc_id, o.title, lng, lat, t.thumbnail FROM geoObject o " +
 				"INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) ";
-			String expiringClause = "LEFT JOIN expiringObject e USING (obj_id) WHERE (e.valid_until IS null OR e.valid_until >= now())"; 
+			String expiringClause = "LEFT JOIN expiringObject e USING (obj_id) WHERE (e.valid_until IS null OR e.valid_until >= now())";
 			
 			//Get the overall result count
 			pstmt = getQueryStatement("COUNT(*) FROM geoObject " + expiringClause, tags, box, 0);
@@ -187,8 +185,8 @@ public class GeoObjectManager
 					res.getString("title"),
 					res.getString("thumbnail"),
 					null,
-					res.getDouble("posx"),
-					res.getDouble("posy")));
+					res.getDouble("lng"),
+					res.getDouble("lat")));
 			}
 			res.close();
 			pstmt.close();
@@ -211,8 +209,7 @@ public class GeoObjectManager
 		String sql = "SELECT " + requestSql + " AND ";
 		
 		//Create the WHERE clause for the geographical location.
-		// @> operator: "contains" (pre-postgres 8.2: '@'-operator)
-		sql += "pos @ box(point(?, ?), point(?, ?)) AND ";
+		sql += "lng >= ? AND lng <= ? AND lat >= ? AND lng <= ? AND ";
 		
 		//Create a where clause for each passed tag.
 		if (tags.length > 0)
@@ -233,8 +230,8 @@ public class GeoObjectManager
 		PreparedStatement stmt = dbRead.prepareStatement(sql);
 	
 		stmt.setDouble(1, box.getX1());
-		stmt.setDouble(2, box.getY1());
-		stmt.setDouble(3, box.getX2());
+		stmt.setDouble(2, box.getX2());
+		stmt.setDouble(3, box.getY1());
 		stmt.setDouble(4, box.getY2());
 		for (int i = 0; i < tags.length; i++) {
 			stmt.setString(i * 2 + 5, tags[i]);
@@ -365,12 +362,13 @@ public class GeoObjectManager
 	public void insert (DBGeoObject obj) throws RemoteException
 	{
 		try {
-			PreparedStatement pstmt = dbWrite.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, pos) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = dbWrite.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, lng, lat) VALUES (?, ?, ?, ?, ?, ?)");
 			pstmt.setInt(1, obj.getSvc_id());
 			pstmt.setString(2, obj.getUid());
 			pstmt.setString(3, obj.getTitle());
 			pstmt.setString(4, obj.getLink());
-			pstmt.setObject(5, new PGpoint(obj.getXPos(), obj.getYPos()));
+			pstmt.setDouble(5, obj.getXPos());
+			pstmt.setDouble(6, obj.getYPos());
 			pstmt.executeUpdate();
 			pstmt.close();
 			
