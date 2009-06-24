@@ -225,7 +225,7 @@ public class GeoObjectManager
 		sql = sql.substring(0, sql.length() - 5);
 		
 		if (limit > 0)
-			sql += " ORDER BY RANDOM() LIMIT " + limit; 
+			sql += " ORDER BY rndval LIMIT " + limit; 
 		
 		PreparedStatement stmt = dbRead.prepareStatement(sql);
 	
