@@ -49,8 +49,6 @@ public class PanoramioCrawler extends ACrawler {
 	}
 	
 	private void recCrawl(BoundingBox curBox, int start){
-		ArrayList<DBGeoObject> foundObjects = new ArrayList<DBGeoObject>();
-		//int from=0, to=1, count=100;
 		String url="";
 		String responseStr = "";
 		
