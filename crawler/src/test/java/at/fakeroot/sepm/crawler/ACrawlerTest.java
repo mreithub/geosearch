@@ -1,6 +1,7 @@
 package at.fakeroot.sepm.crawler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import junit.framework.TestCase;
@@ -30,6 +31,11 @@ public class ACrawlerTest extends TestCase {
 			// diese assertion kann nicht sichergestellt werden, da der Test keinen einfluss auf die Datenbank hat
 			//assertEquals(5, myTestCrawler.getSvcID());
 			
+			ArrayList<String> myList = new ArrayList<String>();
+			myTestCrawler.parseStringIntoTags("Haus Mauer",myList,true);
+			System.out.println(myList.get(0));
+			assertEquals("Haus", myList.get(0));
+			assertEquals("Mauer", myList.get(1));
 			
 			String tesURL= myTestCrawler.requestUrl("http://weristin.com/php/httptest");
 			assertEquals(tesURL, "httptest");
