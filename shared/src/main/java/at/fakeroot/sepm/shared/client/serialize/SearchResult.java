@@ -17,6 +17,13 @@ public class SearchResult implements Serializable {
 	private String errMsg = null;
 	private int countLimit;
 	
+	/**
+	 * StandardConstruction. Is required for the serializeation
+	 */
+	public SearchResult() 
+	{
+	}
+	
 	public SearchResult(int maxCount){
 		result=new ArrayList<ClientGeoObject>();
 		totalHits = -1;
