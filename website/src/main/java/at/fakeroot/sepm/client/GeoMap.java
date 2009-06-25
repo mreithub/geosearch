@@ -135,13 +135,13 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 				}
 				
 				//Perform the search query now *after* the geo-coding has finished.
-				geoManager.setBoundingBox(getBoundingBox());
+				geoManager.setBoundingBox(getBoundingBox(), locations.length() > 0);
 			}
 			
 			public void onFailure(int statusCode)
 			{
 				//Perform the search query now *after* the geo-coding has finished.
-				geoManager.setBoundingBox(getBoundingBox());
+				geoManager.setBoundingBox(getBoundingBox(), false);
 			}
 		});
 	}
@@ -198,7 +198,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	{
 		if (blockEventHandler)
 			return;
-		geoManager.setBoundingBox(getBoundingBox());
+		geoManager.setBoundingBox(getBoundingBox(), true);
 		//Clear the "Where" string within the SearchBox since we changed the currently displayed map region.
 		geoManager.clearWhereString();
 	}

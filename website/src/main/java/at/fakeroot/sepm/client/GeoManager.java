@@ -164,10 +164,12 @@ public class GeoManager implements IGeoManager{
 	 * Sets the rectangle where the search engine will search.
 	 * @param box  
 	 */
-	public void setBoundingBox(BoundingBox box) {
+	public void setBoundingBox(BoundingBox box, boolean regionFound) {
 		curBoundingBox = box;
 		//Read out the what string again - it might has changed in the meantime.
 		searchByTags(searchBox.getWhat());
+		if(regionFound == false && searchBox.getWhere().trim().length() != 0)
+			areaNotFoundMessage();
 	}
 	
 	/**
@@ -214,6 +216,24 @@ public class GeoManager implements IGeoManager{
 		errBox.setText("Server Error!");
 		
 		vPanel.add(new Label(msg));
+		Button ok = new Button("Ok");
+		ok.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				errBox.hide();
+			}
+		});
+		vPanel.add(ok);
+		errBox.center();
+	}
+	
+	public void areaNotFoundMessage() {
+		final DialogBox errBox = new DialogBox(false, true);
+		VerticalPanel vPanel = new VerticalPanel();
+		errBox.setWidget(vPanel);
+		errBox.setText("Region not found!");
+		
+		vPanel.add(new Label("The region you searched for, couldn't be found!"));
 		Button ok = new Button("Ok");
 		ok.addClickHandler(new ClickHandler() {
 			@Override
