@@ -15,10 +15,12 @@ public class SearchResult implements Serializable {
 	private ArrayList<ClientGeoObject> result=null;
 	private int totalHits;
 	private String errMsg = null;
+	private int countLimit;
 	
-	public SearchResult(){
+	public SearchResult(int maxCount){
 		result=new ArrayList<ClientGeoObject>();
 		totalHits = -1;
+		this.countLimit = maxCount;
 	}
 
 	/**
@@ -48,6 +50,11 @@ public class SearchResult implements Serializable {
 	public void setResultCount(int totalHits)
 	{
 		this.totalHits = totalHits;
+	}
+	
+	public int getCountLimit()
+	{
+		return (countLimit);
 	}
 	
 	public boolean hasError() {

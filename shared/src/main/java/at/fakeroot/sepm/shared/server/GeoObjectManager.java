@@ -155,7 +155,7 @@ public class GeoObjectManager
 	 * */
 	public SearchResult select(String[] tags, BoundingBox box, int displayLimit, int countLimit)
 	{
-		SearchResult searchResult = new SearchResult();
+		SearchResult searchResult = new SearchResult(countLimit);
 		PreparedStatement pstmt;
 		ResultSet res;
 

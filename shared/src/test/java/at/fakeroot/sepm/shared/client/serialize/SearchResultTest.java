@@ -15,7 +15,8 @@ public class SearchResultTest extends TestCase
 	public void testSimple(){
 		ClientGeoObject cgo = new ClientGeoObject(2,"bla", null, new String[]{"eins", "zwei", "drei"}, 14.987, 15.564);
 		int hits = 7;
-		SearchResult testObject = new SearchResult();
+		int countLimit = 50;
+		SearchResult testObject = new SearchResult(countLimit);
 		testObject.addResultToList(cgo);
 		testObject.setResultCount(hits);
 		
