@@ -11,6 +11,8 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -89,10 +91,13 @@ public class SearchBox extends Composite{
 		
 		where.setWidth("160px");
 		what.setWidth("160px");
-		searchButton.setSize("80px","45px");
+		searchButton.setSize("80px","55px");
+		myVePanel.setHeight("100%");
 		myVePanel.add(where);
 		myVePanel.add(what);
+		myVePanel.setCellVerticalAlignment(what, HasVerticalAlignment.ALIGN_BOTTOM);
 		myHoPanel.add(myVePanel);
+		myHoPanel.setCellHeight(myVePanel, "100%");
 		myHoPanel.add(searchButton);
 	}
 	
