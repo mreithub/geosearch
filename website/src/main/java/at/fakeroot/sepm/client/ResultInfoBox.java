@@ -32,7 +32,7 @@ public class ResultInfoBox extends Composite
 	 * @param shown the number of results, which are shown on the map
 	 * @param available the number of results, which are found in the area
 	 */
-	public void refresh(int shown, int available)
+	public void refresh(int shown, int available, int countLimit)
 	{
 		if(shown == 0)
 		{
@@ -53,8 +53,16 @@ public class ResultInfoBox extends Composite
 			}
 			else
 			{
-				numText.setText(shown + " results out of more than " + available);
-				zoomText.setVisible(true);
+				if(available > -1 && available == countLimit)
+				{
+					numText.setText(shown + " results out of more than " + available);
+					zoomText.setVisible(true);
+				}
+				else
+				{
+					numText.setText(shown + " results out of " + available);
+					zoomText.setVisible(true);
+				}
 			}
 		}
 	}
