@@ -46,10 +46,13 @@
           <td>
             <span style="color:red">FEHLER</span>
           </td>
-          <td></td>
+          <td>
+            <span style="color:green">OK</span>
+          </td>
           <td></td>
           <td>
-            <b>Eingabe:</b> Ort = Kuchenstadt; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, <span style="color:red">keine Fehlermeldung</span>
+            <b>Eingabe:</b> Ort = Kuchenstadt; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, <span style="color:red">keine Fehlermeldung</span><br/>
+            <b>2. Iteration: Ergebnis:</b> Kartenausschnitt bleibt unverändert, Dialogbox zeigt 'The region you searched for, couldn't be found!'
           </td>
         </tr>
         <tr>
@@ -156,7 +159,8 @@
           </td>
           <td></td>
           <td>
-            <b>Eingabe:</b> Gebiet = Kuchenstadt, Tag = Turm; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, Ergebnisse durch Marker gekennzeichnet, TagCloud zeigt Tags (z.B.: Kirche, Architekt, Meter,...), ResultInfo zeigt '50 Ergebnisse von 64'<br/>
+            <b>Eingabe:</b> Gebiet = Kuchenstadt, Tag = Turm; <b>Ergebnis:</b> Kartenausschnitt bleibt unverändert, Dialogbox zeigt 'The region you searched for, couldn't be found!', Ergebnisse zu 'Turm' im aktuellen Kartenausschnitt durch Marker gekennzeichnet,
+            TagCloud zeigt Tags (z.B.: Kirche, Architekt, Meter,...), ResultInfo zeigt '50 Ergebnisse von 64'<br/>
           </td>
         </tr>
         <tr>
@@ -321,7 +325,7 @@
           <td></td>
           <td>
             <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span><br/>
-            <b>2. Iteration:</b> 
+            <b>2. Iteration: </b> 
             <b>Eingabe:</b> Vorbedingung (Detailansicht ist geöffnet) Artikel 'Ursulau' geöffnet, Service-Logo von externen Service anklicken 
             <b>Ergebnis:</b> die Homepage vom externen Service Wikipedia wird geöffnet
           </td>
@@ -351,7 +355,7 @@
           <td></td>
           <td>
             <b>Eingabe:</b> --- <b>Ergebnis:</b> ---  <span style="color:red">noch nicht fertiggestellt</span><br/>
-            <b>2. Iteration:</b> <b>Eingabe:</b> Vorbedingung (Detailansicht ist geöffnet) Artikel 'Ursulau' geöffnet, 'Details...' anklicken  
+            <b>2. Iteration: </b> <b>Eingabe:</b> Vorbedingung (Detailansicht ist geöffnet) Artikel 'Ursulau' geöffnet, 'Details...' anklicken  
             <b>Ergebnis:</b> der externe Artikel von Wikipedia zur Ursulau wird geöffnet
           </td>
         </tr>
@@ -508,13 +512,6 @@
       </table>
 
       <br/><br/>
-      Textuell:
-      <ul>
-        <li> Welche Fehlerfalle konnten bei dieser Testiteration beobachtet werden?</li>
-        <li>Welche Maßnahmen werden gesetzt?</li>
-        <li>Welche Änderungen (im Projekt, zeitlicher Ablauf, etc.) ergeben sich durch diese Testiteration?</li>
-        <li>Welche neuen Testfalle haben sich durch diese Testiteration ergeben (z.B. durch einen Fehlerfall mussen Teile detaillierter getestet werden, oder es hat sich ergeben, dass Teile nicht ausreichend abgedeckt sind)? </li>
-      </ul>
     </section>
   </body>
 </document>
