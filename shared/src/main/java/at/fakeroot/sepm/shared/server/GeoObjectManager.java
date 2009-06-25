@@ -240,7 +240,7 @@ public class GeoObjectManager
 		sql = sql.substring(0, sql.length() - 5);
 		
 		if (randomOrder)
-			sql += " ORDER BY rndval";
+			sql += " ORDER BY rndVal DESC";
 		if (limit > 0)
 			sql += " LIMIT " + limit; 
 				
