@@ -164,12 +164,11 @@ public class GeoObjectManager
 			
 			//Get the result count
 			String sql = "SELECT COUNT(subquery.obj_id) FROM (SELECT obj_id FROM geoObject " + joinStmt +
-				getWhereClause(box, tags.length, false, countLimit) + ") AS subquery";
+				getWhereClause(box, tags, false, countLimit) + ") AS subquery";
 			pstmt = dbRead.prepareStatement(sql);
 			for (int i = 0; i < tags.length; i++)
 			{
-				pstmt.setString(i * 2 + 1, tags[i]);
-				pstmt.setString(i * 2 + 2, tags[i]);
+				pstmt.setString(i + 1, tags[i]);
 			}
 			res = pstmt.executeQuery();
 			res.next();
@@ -181,12 +180,11 @@ public class GeoObjectManager
 			//Get the result set which contains the selected geoObjects.
 			sql = "SELECT obj_id, svc_id, o.title, lng, lat, t.thumbnail FROM geoObject o " +
 				"INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) " +
-				joinStmt + getWhereClause(box, tags.length, true, displayLimit);
+				joinStmt + getWhereClause(box, tags, true, displayLimit);
 			pstmt = dbRead.prepareStatement(sql);
 			for (int i = 0; i < tags.length; i++)
 			{
-				pstmt.setString(i * 2 + 1, tags[i]);
-				pstmt.setString(i * 2 + 2, tags[i]);
+				pstmt.setString(i + 1, tags[i]);
 			}
 			res = pstmt.executeQuery();
 			
@@ -220,31 +218,48 @@ public class GeoObjectManager
 		return searchResult;
 	}
 
-	private String getWhereClause(BoundingBox box, int numberTags, boolean randomOrder, int limit) throws SQLException {
+	private String getWhereClause(BoundingBox box, String[] tags, boolean randomOrder, int limit) throws SQLException {
 		String sql = "WHERE (e.valid_until IS null OR e.valid_until >= now()) AND ";
 		
 		//Create the WHERE clause for the geographical location.
-		sql += "(lng BETWEEN " + box.getX1() + " AND " + box.getX2() + ") AND (lat BETWEEN " + box.getY1() + " AND " + box.getY2() + ") AND ";
+		sql += "(lng BETWEEN " + box.getX1() + " AND " + box.getX2() + ") AND (lat BETWEEN " + box.getY1() + " AND " + box.getY2() + ") ";
 		
 		//Create a where clause for each passed tag.
-		if (numberTags > 0)
+		for (int i = 0; i < tags.length; i++)
 		{
-			for (int i = 0; i < numberTags; i++)
-			{
-				sql += "(obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) " +
-					"OR svc_id IN (SELECT svc_id FROM servicetag WHERE tag = ?)) AND ";
-			}
+			
+			sql += "AND (obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) " +
+				getServiceListByTag(tags[i])+ ") ";
 		}
 
-		//Remove the last " AND " from the query string again.
-		sql = sql.substring(0, sql.length() - 5);
-		
 		if (randomOrder)
 			sql += " ORDER BY rndVal DESC";
 		if (limit > 0)
 			sql += " LIMIT " + limit; 
 				
 		return (sql);
+	}
+	
+	private String getServiceListByTag(String tag) throws SQLException {
+		PreparedStatement stmt = dbRead.prepareStatement("SELECT svc_id from servicetag where tag = ?");
+		String rc = "";
+		
+		stmt.setString(1, tag);
+		
+		ResultSet res = stmt.executeQuery();
+		res.last();
+		int numRows = res.getRow();
+		res.beforeFirst();
+		if (numRows > 0) {
+			rc = "OR svc_id IN (";
+			while (res.next()) {
+				rc += res.getInt(1)+",";
+				
+			}
+			rc = rc.substring(0, rc.length()-1);
+			rc+= ")";
+		}
+		return rc;
 	}
 
 	/**
