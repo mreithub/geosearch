@@ -47,23 +47,10 @@ public abstract class ACrawler  {
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
 	
-	private static String[] stopWords = new String[] {
-		"aber", "als", "am", "an", "auch", "auf", "aus", "bei", "bin", "bis", "bist", "da", "dadurch",
-		"daher", "darum", "das", "daß", "dass", "dein", "deine", "dem", "den", "der", "des", "dessen",
-		"deshalb", "die", "dies", "dieser", "dieses", "doch", "dort", "du", "durch", "ein", "eine", "einem",
-		"einen", "einer", "eines", "er", "es", "euer", "eure", "für", "hatte", "hatten", "hattest", "hattet",
-		"hier", "hinter", "ich", "ihr", "ihre", "im", "in", "ist", "ja", "jede", "jedem", "jeden", "jeder",
-		"jedes", "jener", "jenes", "jetzt", "kann", "kannst", "können", "könnt", "machen", "mein", "meine",
-		"mit", "muß", "mußt", "musst", "müssen", "müßt", "nach", "nachdem", "nein", "nicht", "nun", "oder",
-		"seid", "seit", "sein", "seine", "sich", "sie", "sind", "soll", "sollen", "sollst", "sollt", "sonst", "soweit",
-		"sowie", "über", "und", "unser", "unsere", "unter", "vom", "von", "vor", "wann", "warum", "was", "weiter",
-		"weitere", "wenn", "wer", "werde", "werden", "werdet", "weshalb", "wie", "wieder", "wieso", "wir",
-		"wird", "wirst", "wo", "woher", "wohin", "zu", "zum", "zur" };
+	private static String[] stopWords;
 	
 	//Define the split characters. Include characters [10] and [13] in order to split at line breaks.
-	private static String splitChars = " <>|^°!\"§$%&/{([)]=}?\\´`+*~#'-_.:,;" +
-		new Character((char)10).toString() + new Character((char)13).toString();
-
+	private static String splitChars;
 	
 	private IGeoSave geoSaver;
 	
@@ -110,6 +97,8 @@ public abstract class ACrawler  {
 		// Request Service ID
 		//System.out.println("id: "+requestServiceID(svcName));
 		serviceID=requestServiceID(svcName);
+		stopWords=getStopWords();
+		splitChars=getSplitChars();
 	}
 	
 	/**
@@ -252,8 +241,8 @@ public abstract class ACrawler  {
 		return serviceID;
 	}
 	
-	public String toString() {
-		return curBox.toString();
+	public String toString() {		
+		return "curBox: "+curBox.toString()+", serviceID: "+serviceID+", stopWords: "+stopWords+", splitChars: "+splitChars;
 	}
 	
 	private int requestServiceID(String svcName) {
@@ -266,6 +255,32 @@ public abstract class ACrawler  {
 			return -1;
 		}
 
+		return rc;
+	}
+	
+	
+	private String[] getStopWords(){
+		String[] rc;
+		try{
+			rc = geoSaver.getStopWords();
+		}catch (RemoteException e) {
+			logger.error("Error: No StopWords",e);
+			e.printStackTrace();
+			return null;
+		}
+		return rc;
+	}
+	
+	private String getSplitChars(){
+		String rc;
+		try{
+			rc = geoSaver.getSplitChars();
+		}catch (RemoteException e) {
+			logger.error("Error: No SplitChars",e);
+			e.printStackTrace();
+			return null;
+		}
+		
 		return rc;
 	}
 	
@@ -425,6 +440,7 @@ public abstract class ACrawler  {
 	protected String getSecKey(){
 		return secKey;
 	}
+	
 	
 	/**
 	 * Here you have to create the own crawler.

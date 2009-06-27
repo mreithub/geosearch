@@ -5,6 +5,9 @@ import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import at.fakeroot.sepm.shared.server.DBGeoObject;
+import at.fakeroot.sepm.shared.server.Property;
+
 import junit.framework.TestCase;
 
 public class GeoObjectManagerTest extends TestCase {

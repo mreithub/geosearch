@@ -20,7 +20,8 @@ public class LocrCrawler extends ACrawler {
 	
 	public static void main(String main[]) throws IOException, NotBoundException{
 		LocrCrawler test = new LocrCrawler();
-		test.crawl();
+		System.out.println("out: "+test);
+		//test.crawl();
 	}
 	
 	public LocrCrawler() throws IOException, NotBoundException {
@@ -29,7 +30,9 @@ public class LocrCrawler extends ACrawler {
 
 
 	protected void crawlBox(BoundingBox curBox) {
-		recCrawl(curBox, 0);
+		
+		System.out.println("rec");
+		//recCrawl(curBox, 0);
 	}
 	
 	private void recCrawl(BoundingBox curBox, int start){

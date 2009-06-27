@@ -23,4 +23,19 @@ public interface IGeoSave extends Remote {
 	 * @param svcName serviceName (eg. panoramio.com)
 	 */
 	public int getServiceID(String svcName)throws RemoteException;
+	
+	
+	/**
+	 * 
+	 * @return Returns the StopWords (German)
+	 * @throws RemoteException
+	 */
+	public String[] getStopWords() throws RemoteException;
+	
+	/**
+	 * 
+	 * @return Returns SplitCharacters
+	 * @throws RemoteException
+	 */
+	public String getSplitChars() throws RemoteException;
 }

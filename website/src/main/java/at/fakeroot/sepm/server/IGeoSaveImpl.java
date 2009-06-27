@@ -95,5 +95,44 @@ public class IGeoSaveImpl implements IGeoSave {
 		}
 	}
 
+	
+	/**
+	 * 
+	 * @return Returns the StopWords (German)
+	 * @throws RemoteException
+	 */
+	public String[] getStopWords() throws RemoteException{
+		SplitStopWordManager swManager = SplitStopWordManager.getInstance();
+		String[] rc;
+		try {
+			rc = swManager.getStopWords();
+		} catch (SQLException e) {
+			throw new RemoteException("IGeoSaveImpl.getStopWords failed", e);
+		} catch (IOException e) {
+			throw new RemoteException("IGeoSaveImpl.getStopWords failed", e);
+		}
+		
+		return rc;		
+	}
+	
+	/**
+	 * 
+	 * @return Returns SplitCharacters
+	 * @throws RemoteException
+	 */
+	public String getSplitChars() throws RemoteException{
+		SplitStopWordManager swManager = SplitStopWordManager.getInstance();
+		String rc;
+		
+		try {
+			rc = swManager.getSplitChars();
+		} catch (SQLException e) {
+			throw new RemoteException("IGeoSaveImpl.getSplitChars failed", e);
+		} catch (IOException e) {
+			throw new RemoteException("IGeoSaveImpl.getSplitChars failed", e);
+		}
+		
+		return rc;
+	}
 
 }

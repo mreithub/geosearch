@@ -25,4 +25,14 @@ public class GeoSaveTest implements IGeoSave {
 		}
 	}
 
+	@Override
+	public String getSplitChars() throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public String[] getStopWords() throws RemoteException {
+		return new String[]{};
+	}
+
 }
