@@ -9,8 +9,7 @@ CREATE TABLE geoObject (
 	lat		float		NOT NULL,
 	lng		float		NOT NULL,
 	last_updated	timestamp	NOT NULL	DEFAULT now(),
-	rndVal		int		NOT NULL	DEFAULT random()*32768,
-
+	rndVal		int		NOT NULL	DEFAULT random()*2147483647,
 	PRIMARY KEY (obj_id),
 	FOREIGN KEY (svc_id) REFERENCES service (svc_id),
 	UNIQUE (svc_id, uid)
