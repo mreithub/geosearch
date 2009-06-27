@@ -241,8 +241,12 @@ public abstract class ACrawler  {
 		return serviceID;
 	}
 	
-	public String toString() {		
-		return "curBox: "+curBox.toString()+", serviceID: "+serviceID+", stopWords: "+stopWords+", splitChars: "+splitChars;
+	public String toString() {
+		String showStopWord = "";
+		for(int i=0;i<stopWords.length;i++){
+			showStopWord+=", "+stopWords[i];
+		}
+		return "curBox: "+curBox.toString()+", serviceID: "+serviceID+", stopWords: "+showStopWord+", splitChars: "+splitChars;
 	}
 	
 	private int requestServiceID(String svcName) {
