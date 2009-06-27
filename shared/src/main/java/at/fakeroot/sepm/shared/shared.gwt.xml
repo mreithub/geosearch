@@ -4,7 +4,6 @@
 <module rename-to="geoSearch">
 	<!-- Inherit the core Web Toolkit stuff.                        -->
 	<inherits name='com.google.gwt.user.User'/>
-	<entry-point class='at.fakeroot.sepm.shared.client.GeoSearch' />
 
 	<!--  inherit css based theme -->
 	<inherits name='com.google.gwt.user.theme.standard.Standard'/>
