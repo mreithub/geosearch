@@ -8,12 +8,9 @@ import org.apache.log4j.Logger;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
-import at.fakeroot.sepm.shared.server.DBService;
-import at.fakeroot.sepm.shared.server.GeoObjectManager;
 import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
 import at.fakeroot.sepm.client.serialize.ObjectSearchService;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
-import at.fakeroot.sepm.shared.server.ServiceManager;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

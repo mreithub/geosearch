@@ -1,7 +1,7 @@
 /**
  * 
  */
-package at.fakeroot.sepm.shared.server;
+package at.fakeroot.sepm.server;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

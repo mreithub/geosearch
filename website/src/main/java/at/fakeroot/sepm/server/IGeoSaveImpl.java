@@ -6,11 +6,8 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import at.fakeroot.sepm.shared.server.DBGeoObject;
-import at.fakeroot.sepm.shared.server.DBService;
-import at.fakeroot.sepm.shared.server.GeoObjectManager;
 import at.fakeroot.sepm.shared.server.IGeoSave;
-import at.fakeroot.sepm.shared.server.ServiceManager;
-import at.fakeroot.sepm.shared.server.GeoObjectManager.NotFoundException;
+import at.fakeroot.sepm.server.GeoObjectManager.NotFoundException;
 
 /**
  * Implements the Crawler RMI (RPC) Connections

@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.shared.server;
+package at.fakeroot.sepm.server;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
+import at.fakeroot.sepm.shared.server.DBGeoObject;
+import at.fakeroot.sepm.shared.server.Property;
 
 /**
  * Class representing the DAO for the GeoObjects, that reads from and writes to the database
