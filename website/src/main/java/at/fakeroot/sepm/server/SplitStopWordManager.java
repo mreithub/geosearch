@@ -27,7 +27,7 @@ public class SplitStopWordManager {
 	 * @return Returns the StopWords (German)
 	 */
 	public String[] getStopWords()  throws SQLException, IOException{
-		/*
+		
 		ResultSet rs = null;
 		String[] result = null;
 		ArrayList<String> stopWords = new ArrayList<String>();
@@ -59,9 +59,9 @@ public class SplitStopWordManager {
 		}
 		
 		return result;
-		*/
 		
-		return new String[] {"test"};
+		
+		//return new String[] {"test"};
 		
 	}
 	
@@ -70,7 +70,7 @@ public class SplitStopWordManager {
 	 * @return Returns SplitCharacters
 	 */
 	public String getSplitChars()  throws SQLException, IOException{
-		/*
+		
 		ResultSet rs = null;
 		String result = null;
 		DBConnection dbConn = null;
@@ -100,11 +100,11 @@ public class SplitStopWordManager {
 		}
 		
 		return result;
-		*/
 		
 		
+		/*
 		return " <>|^°!\"§$%&/{([)]=}?\\´`+*~#'-_.:,;" +
 		new Character((char)10).toString() + new Character((char)13).toString();
-		
+		*/
 	}
 }
