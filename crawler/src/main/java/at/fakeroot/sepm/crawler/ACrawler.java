@@ -74,7 +74,7 @@ public abstract class ACrawler  {
 			loadProperties(svcName+".properties");
 		}
 		catch (IOException e) {
-			logger.error("Couldn't open "+svcName+".properties", e);
+			logger.info("Couldn't open "+svcName+".properties", e);
 		}
 
 		// init RMI		
@@ -338,23 +338,6 @@ public abstract class ACrawler  {
 				_curPos.getY2()+yOffset);
 		}
 	}
-	
-	private BoundingBox nextLeft(BoundingBox _curPos){
-		return new BoundingBox(
-				_curPos.getX1()-xOffset,
-				_curPos.getY1(),
-				_curPos.getX1(),
-				_curPos.getY2());
-	}
-	
-	private BoundingBox nextUp(BoundingBox _curPos){
-		return new BoundingBox(
-				_curPos.getX1(),
-				_curPos.getY1()-yOffset,
-				_curPos.getX2(),
-				_curPos.getY1());
-	}
-	
 	
 	/**
 	 * This function parses a given string into tags.
