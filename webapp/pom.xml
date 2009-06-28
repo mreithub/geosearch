@@ -6,10 +6,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.fakeroot.sepm</groupId>
-	<artifactId>geoSearch.website</artifactId>
+	<artifactId>geoSearch.webapp</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>geoSearch.website</name>
+	<name>geoSearch.webapp</name>
 	<url>http://maven.apache.org</url>
 	<pluginRepositories>
 		<pluginRepository>
@@ -116,8 +116,8 @@
 		</resources>
 	</build>
 	<scm>
-		<developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk/website</developerConnection>
-		<url>https://fakeroot.at/svn/sepm/trunk/website</url>
+		<developerConnection>scm:svn:https://fakeroot.at/svn/sepm/trunk/webapp</developerConnection>
+		<url>https://fakeroot.at/svn/sepm/trunk/webapp</url>
 	</scm>
 	<issueManagement>
 		<system>Trac</system>
