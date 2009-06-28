@@ -24,6 +24,10 @@ public class SearchResult implements Serializable {
 	{
 	}
 	
+	/**
+	 * Constructor
+	 * @param maxCount int limit for the results which are displayed (relevant for GUI ResultInfoBox)
+	 */
 	public SearchResult(int maxCount){
 		result=new ArrayList<ClientGeoObject>();
 		totalHits = -1;
@@ -51,14 +55,23 @@ public class SearchResult implements Serializable {
 	 * @return int number of results
 	 * */
 	public int getResultCount(){
-		return totalHits;
+		return (totalHits);
 	}
 	
+	/**
+	 * Setter for the number of hits for a search in the DB
+	 * @param totalHits int number of hits
+	 */
 	public void setResultCount(int totalHits)
 	{
 		this.totalHits = totalHits;
 	}
 	
+	/**
+	 * Getter for the limit of results which are displayed in ResultInfoBox (GUI) as total
+	 * total hits in the DB
+	 * @return int the limit
+	 */
 	public int getCountLimit()
 	{
 		return (countLimit);

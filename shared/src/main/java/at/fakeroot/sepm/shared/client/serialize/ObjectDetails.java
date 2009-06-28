@@ -34,7 +34,7 @@ public class ObjectDetails implements Serializable
 	}
 	
 	/**
-	 * @return The HTML detail string.
+	 * @return String The HTML detail string.
 	 */
 	public String getHTMLString()
 	{
@@ -42,23 +42,32 @@ public class ObjectDetails implements Serializable
 	}
 	
 	/**
-	 * @return The tag String array.
+	 * @return String[] The tag String array.
 	 */
 	public String[] getTags()
 	{
 		return(tags);
 	}
 	
+	/**
+	 * @return String The link to the source.
+	 */
 	public String getLink()
 	{
 		return (link);
 	}
 	
+	/**
+	 * @return String The link to the thumbnail of the service-logo
+	 */
 	public String getThumbnail()
 	{
 		return (thumbnail);
 	}
 	
+	/**
+	 * @return String The link to the Homepage of the service
+	 */
 	public String getHomepage()
 	{
 		return (homepage);
