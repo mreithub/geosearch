@@ -14,7 +14,11 @@ import org.apache.log4j.Logger;
 import at.fakeroot.sepm.shared.server.IGeoSave;
 
 
-public class GeoSave extends HttpServlet
+/**
+ * Java Servlet that initializes the RMI server 
+ * @author Manuel Reithuber
+ */
+public class GeoSaveInit extends HttpServlet
 {
 	// default serial version id
 	private static final long serialVersionUID = 1L;
@@ -22,7 +26,7 @@ public class GeoSave extends HttpServlet
 	private static IGeoSave geoSaver;
 	private static IGeoSave geoStub;
 	
-	public GeoSave() throws ServletException
+	public GeoSaveInit() throws ServletException
 	{
 	}
 	
@@ -43,7 +47,6 @@ public class GeoSave extends HttpServlet
 		    
 		    registry.rebind("IGeoSave", geoStub);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			throw new ServletException("Couldn't init RMI server", e);
 		}
 	}
