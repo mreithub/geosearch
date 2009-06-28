@@ -29,7 +29,9 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	private Logger logger = Logger.getRootLogger();
 
 
-	//Constructor
+	/**
+	 * Constructor.
+	 */
 	public ObjectSearchServiceImpl()
 	{
 		try {
@@ -83,7 +85,7 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 			for(int i = 0; i < html.length(); i++)
 			{
 				//the placeholder in the 'BubbleHTML' for the objects property-values is 
-				//structured %PROPERTY_NAME%
+				//structured %property_name%
 				if(html.charAt(i) == '%')
 				{
 					//begin points at the first found '%'
@@ -135,8 +137,8 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 			}
 			//html for the object together with its tags
 			objDetails = new ObjectDetails(result,tags.toArray(new String[tags.size()]), dbGeoObj.getLink(), dbSvcObj.getThumbnail(), dbSvcObj.getHomepage());
-		}catch(Exception e){
-			///TODO exception handling
+		}catch(Exception e)
+		{
 			objDetails = new ObjectDetails("", new String[0], "", "", "");
 		}
 		

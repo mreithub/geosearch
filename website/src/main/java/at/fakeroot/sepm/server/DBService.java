@@ -25,8 +25,8 @@ public class DBService {
 	 * @param _homepage  service homepage
 	 * @param _description servce description
 	 * @param _sType_id teh service type id (eg. Photos, Events, etc)
-	 * @param _bubbleHTML the HTML to be displayed in the DetailView
-	 * 
+	 * @param _bubbleHTML String the HTML to be displayed in the DetailView
+	 * @param _thumbnail String link to the thumbnail of the service-logo
 	 * */
 	public DBService(int _svc_id, String _name, String _title, String _homepage, String _description, int _sType_id, String _bubbleHTML, String _thumbnail ){
 		svc_id=_svc_id;
@@ -97,6 +97,10 @@ public class DBService {
 		return bubbleHTML;
 	}
 	
+	/**
+	 * Getter for the thumbnail
+	 * @return String link to the thumbnail service-logo
+	 */
 	public String getThumbnail()
 	{
 		return (thumbnail);

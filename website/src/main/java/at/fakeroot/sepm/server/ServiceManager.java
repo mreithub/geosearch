@@ -22,9 +22,7 @@ public class ServiceManager
 	 * protected Constructor, tries to connect with DB
 	 */
 	protected ServiceManager()
-	{
-
-	}
+	{}
 	
 	/**
 	 * returns a reference to the instance of ServiceManager
@@ -42,7 +40,7 @@ public class ServiceManager
 	 * returns a DBService object with the Data from the 'service' table of the Database, selected
 	 * by the svc_id, which is the parameter for this method
 	 * @param svcId int ID of the service 
-	 * @return DBService 
+	 * @return DBService an object with all the information from the table 'service'
 	 */
 	public DBService select(int svcId) throws SQLException, IOException
 	{
@@ -93,7 +91,7 @@ public class ServiceManager
 	 * returns a DBService object with the Data from the 'service' table of the Database, selected
 	 * by its name, which is the parameter for this method
 	 * @param name String the name of the service
-	 * @return DBService
+	 * @return DBService an object with all the information from the table 'service'
 	 */
 	public DBService select(String name) throws SQLException, IOException
 	{
