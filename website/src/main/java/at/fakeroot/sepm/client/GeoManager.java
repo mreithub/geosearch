@@ -168,6 +168,8 @@ public class GeoManager implements IGeoManager{
 		curBoundingBox = box;
 		//Read out the what string again - it might has changed in the meantime.
 		searchByTags(searchBox.getWhat());
+		//if the user enters an area which doesn't exist (e.g. 'hahahahah') an InfoBox
+		//will be shown
 		if(regionFound == false && searchBox.getWhere().trim().length() != 0)
 			areaNotFoundMessage();
 	}
@@ -209,6 +211,10 @@ public class GeoManager implements IGeoManager{
 		return geoMap;
 	}
 
+	/**
+	 * An ErrorMessage which is displayed, if there are problems with the Server or the AsyncCallback
+	 * @param msg String the error-message
+	 */
 	public void showErrorMessage(String msg) {
 		final DialogBox errBox = new DialogBox(false, true);
 		VerticalPanel vPanel = new VerticalPanel();
@@ -227,13 +233,16 @@ public class GeoManager implements IGeoManager{
 		errBox.center();
 	}
 	
+	/**
+	 * A DialogBox which appears, if the user enters an area which doesn't exist (e.g. 'hahahahah')
+	 */
 	public void areaNotFoundMessage() {
 		final DialogBox errBox = new DialogBox(false, true);
 		VerticalPanel vPanel = new VerticalPanel();
 		errBox.setWidget(vPanel);
 		errBox.setText("Region not found!");
 		
-		vPanel.add(new Label("The region you searched for, couldn't be found!"));
+		vPanel.add(new Label("The region you searched for couldn't be found!"));
 		Button ok = new Button("Ok");
 		ok.addClickHandler(new ClickHandler() {
 			@Override

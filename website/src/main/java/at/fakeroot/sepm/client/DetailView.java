@@ -22,7 +22,6 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	
 	private IGeoManager gManager =null;
 	private ClientGeoObject gObject=null;
-	//private static SimplePanel mySiPa = new SimplePanel();
 	private static ScrollPanel scroll = new ScrollPanel();
 	private VerticalPanel myVePa=new VerticalPanel();
 	private HTML title = null;
@@ -32,7 +31,11 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	private Anchor sourceAnchor;
 	private HTML image;
 	
-	
+	/**
+	 * Constructor. Builds the look of the DetailView
+	 * @param object ClientGeoObject the object for which the DetailView is built
+	 * @param geoManager IGeoManager is needed to communicate with the GeoManager
+	 */
 	public DetailView(ClientGeoObject object, IGeoManager geoManager){
 		super(setSize());
 		scroll.setWidget(myVePa);
@@ -64,13 +67,17 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 
 	}
 	
-/**
- * sets the object details in the InfoWindow
- * @param HTMLStr String text that will be interpreted as HTML
- * */	
+	/**
+	 * sets the object details in the InfoWindow
+	 * @param HTMLStr String text that will be interpreted as HTML
+	 * @param link String the link to the source of the picture, article, event,...
+	 * @param thumbnail String the link to the thumbnail of the service-logo, which is displayed
+	 * @param homepage String the link to the homepage of the given service
+	 */
 	public void setDetail(String HTMLStr, String link, String thumbnail, String homepage){
 		detail.setHTML(HTMLStr + "<br/><hr color=\"#FF3399\" size=\"1\">");
 		sourceAnchor.setText("Details...");
+		//the thumbnail is a link to the homepage
 		image.setHTML("<a href=\"" + homepage + "\"><img src=\"" + thumbnail + "\" border=\"0\">");
 		image.setVisible(true);
 		
@@ -78,10 +85,9 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		sourceAnchor.setVisible(true);
 	}
 	
-/**
- * private method used to set the tag list in the InfoWindow
- * 
- * */	
+	/**
+	 * private method used to set the tag list in the InfoWindow
+	 * */	
 	private void setTagList() {
 		String[] tagArray = gObject.getTags(); 
 		final Anchor[] anchor = new Anchor[tagArray.length];
@@ -94,13 +100,17 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		}
 	}
 
-/**
- * inherited method from ClickHandler-interface
- * */
+	/**
+	 * inherited method from ClickHandler-interface
+	 * */
 	public void onClick(ClickEvent ce) {
 		gManager.addSearchTag(((Anchor)ce.getSource()).getText());
 	}
 
+	/**
+	 * A static method to set the size of the ScrollPanel in the Constructor's super() call
+	 * @return ScrollPanel with the desired size
+	 */
 	private static ScrollPanel setSize()
 	{
 		scroll.setSize("350px", "300px");

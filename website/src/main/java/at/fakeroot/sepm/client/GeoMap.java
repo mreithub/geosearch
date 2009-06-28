@@ -225,7 +225,6 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	{
 		DetailView detailView=new DetailView(obj, geoManager);
 		geoMap.getInfoWindow().open(obj.getPoint(), detailView);
-		//TODO Anmerkung: die DetailView benoetigt wohl auch noch das InfoWindow von Google Maps.
 		return detailView;
 	}
 	

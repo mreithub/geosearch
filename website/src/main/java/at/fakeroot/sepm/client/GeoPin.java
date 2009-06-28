@@ -37,10 +37,21 @@ public class GeoPin extends Marker implements MarkerClickHandler
 		geoManager.showDetailView(clientGeoObject);
 	}
 
+	/**
+	 * Getter for the ClientGeoObject, which is represented by the Pin
+	 * @return ClientGeoObject
+	 */
 	public ClientGeoObject getClientGeoObject() {
 		return (clientGeoObject);
 	}
 	
+	/**
+	 * A static method, which sets the right MarkerOptions (the Icon for the Pin, the Title of the Pin).
+	 * It is needed for the super() call in the Constructor (all values must be set, before invoking the
+	 * super constructor)
+	 * @param cgo ClientGeoObject which will be represented by the Pin
+	 * @return MarkerOptions an object that contains all settings for the Marker
+	 */
 	private static MarkerOptions markerOpt(ClientGeoObject cgo)
 	{
 		//MarkerOptions
