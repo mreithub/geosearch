@@ -1,7 +1,5 @@
 package at.fakeroot.sepm.crawler;
 
-import java.rmi.RemoteException;
-
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.IGeoSave;
 

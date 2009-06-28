@@ -26,33 +26,61 @@ import at.fakeroot.sepm.shared.server.IGeoSave;
  */
 public abstract class ACrawler  {
 	private static final Logger logger = Logger.getRootLogger();
-	private BoundingBox crawlArea = new BoundingBox(0, -90, 360, 90);
 	private BoundingBox curBox;
+	private boolean newCircle=false;
+	private int serviceID;
+	// words that shouldn't be used as tags
+	private static String[] stopWords;
+	// characters to split words
+	private static String splitChars;
+	private IGeoSave geoSaver;
+
 	
+
+	//
+	// default property values
+	//  (will be overwritten with the contents of crawler.properties
+	//  and <crawler-name>.properties)
+	//
+	/**
+	 * Area to crawl in
+	 */
+	private BoundingBox crawlArea = new BoundingBox(0, -90, 360, 90);
+	
+	/**
+	 * X size of the crawl rectangles
+	 */
 	private double xOffset=0.5;
+	
+	/**
+	 * Y size of the crawl rectangles
+	 */
 	private double yOffset=0.5;
 	
-	// time between two crawlBox() calls (msec)
+	/**
+	 *  time between two crawlBox() calls (msec)
+	 */
 	private long interval=1000;
 
-	private boolean newCircle=false;
-	
-	private int serviceID;
+	/**
+	 * API key for the service (if any)
+	 */
 	private String apiKey = null;
+
+	/**
+	 * security key of the service (if any)
+	 */
 	private String secKey = null;
 	
+	/**
+	 * RMI server
+	 */
 	private String rmiServer = "localhost";
+	
+	/**
+	 * RMI port
+	 */
 	private int rmiPort = 1099;
-
-	// Create an instance of HttpClient.
-	private HttpClient client = new HttpClient();
-	
-	private static String[] stopWords;
-	
-	//Define the split characters. Include characters [10] and [13] in order to split at line breaks.
-	private static String splitChars;
-	
-	private IGeoSave geoSaver;
 	
 	/**
 	 * Standard constructor 
@@ -66,6 +94,11 @@ public abstract class ACrawler  {
 		init(svcName);
 	}
 	
+	/**
+	 * private init function called by all Constructors 
+	 * @param svcName service name
+	 * @throws IOException e.g. when crawler.properties couldn't be read 
+	 */
 	private void init(String svcName) throws IOException {
 		logger.info("Crawler "+svcName+" started");
 		// specific properties overwrite the global ones
@@ -102,7 +135,8 @@ public abstract class ACrawler  {
 	}
 	
 	/**
-	 * Reads the Object's properties from a file
+	 * Reads the Crawler's properties from a file
+	 * 
 	 * @param filename file to read
 	 * @throws IOException
 	 */
@@ -159,6 +193,8 @@ public abstract class ACrawler  {
 	 * @return Response String (eg. xml, json, ...)
 	 */
 	protected String requestUrl(String url){
+		// Create an instance of HttpClient.
+		HttpClient client = new HttpClient();
 		// Create a method instance.
 		GetMethod method = new GetMethod(url);
 		
@@ -249,6 +285,11 @@ public abstract class ACrawler  {
 		return "curBox: "+curBox.toString()+", serviceID: "+serviceID+", stopWords: "+showStopWord+", splitChars: "+splitChars;
 	}
 	
+	/**
+	 * get the Crawler's service ID from the IGeoSave RMI server 
+	 * @param svcName unique service name 
+	 * @return service ID
+	 */
 	private int requestServiceID(String svcName) {
 		int rc;
 		try {
@@ -262,7 +303,10 @@ public abstract class ACrawler  {
 		return rc;
 	}
 	
-	
+	/**
+	 * get the stop word list from the IGeoSave RMI server
+	 * @return String array filled with stop words
+	 */
 	private String[] getStopWords(){
 		String[] rc;
 		try{
@@ -275,6 +319,10 @@ public abstract class ACrawler  {
 		return rc;
 	}
 	
+	/**
+	 * get the list of word separating characters from the IGeoSave interface
+	 * @return
+	 */
 	private String getSplitChars(){
 		String rc;
 		try{
@@ -288,12 +336,15 @@ public abstract class ACrawler  {
 		return rc;
 	}
 	
+	/**
+	 * internal function to calculate the next BoundingBox to crawl
+	 * @param _curPos current BoundingBox
+	 * @return next BoundingBox
+	 */
 	private BoundingBox nextBox(BoundingBox _curPos){
-		
 		curBox=nextRight(_curPos);
 		
 		if(newCircle){
-			//System.out.println("rein");
 			curBox=nextDown(curBox);
 			newCircle=false;
 		}
@@ -302,9 +353,13 @@ public abstract class ACrawler  {
 		
 	}
 	
+	/**
+	 * Get the BoundingBox right of the current one 
+	 * @param _curPos current BoundingBox
+	 * @return new BoundingBox right to _curPos
+	 */
 	private BoundingBox nextRight(BoundingBox _curPos){
 		if(_curPos.getX1()+xOffset>crawlArea.getX2()){
-			//System.err.println("rumpRight "+_curPos);
 			newCircle=true;
 			return new BoundingBox(
 					crawlArea.getX1(),
@@ -322,9 +377,13 @@ public abstract class ACrawler  {
 		
 	}
 	
+	/**
+	 * get the BoundingBox below the current one
+	 * @param _curPos current BoundingBox
+	 * @return new BoundingBox below the current one
+	 */
 	private BoundingBox nextDown(BoundingBox _curPos){
 		if(_curPos.getY1()+yOffset>crawlArea.getY2()){
-			//System.err.println("JumpDown ");
 			return new BoundingBox(
 					_curPos.getX1(),
 					crawlArea.getY1(),
