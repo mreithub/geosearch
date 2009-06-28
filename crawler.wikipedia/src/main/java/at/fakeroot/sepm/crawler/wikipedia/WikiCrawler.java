@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,6 +24,7 @@ public class WikiCrawler extends ACrawler
 {
 	//limit for the number of articles, for one request
 	private static final int limit = 200;
+	private Logger logger = Logger.getRootLogger();
 	
 	/**
 	 * Constructor
@@ -103,7 +105,7 @@ public class WikiCrawler extends ACrawler
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Exception in crawlBox() von WikipediaCrawler: ", e);
 		}
 		
 	}
