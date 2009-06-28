@@ -52,6 +52,7 @@ public class WikiCrawler extends ACrawler
 	protected void crawlBox(BoundingBox curBox) 
 	{
 		ArrayList<DBGeoObject> dbGeoArray = new ArrayList<DBGeoObject>();
+		//the request-url for wikipedia
 		String request = "http://ws.geonames.org/wikipediaBoundingBoxJSON?north=" + curBox.getY2()
 		+ "&south=" + curBox.getY1() + "&east=" + curBox.getX2() + "&west=" + curBox.getX1()
 		+ "&lang=de&maxRows=200";
@@ -66,7 +67,7 @@ public class WikiCrawler extends ACrawler
 				return;
 			//the service doesn't give any information on how many articles altogether are in the area,
 			//beside the ones, which are returned. so, if there are as many rows returned, as the maximum
-			//is, then the BoundingBox is divided in 4 BoundingBoxes, and for each of them, there will 
+			//(int limit) is, then the BoundingBox is divided into 4 BoundingBoxes, and for each of them, there will 
 			//be a new request. 
 			//  _____         __ __
 			// |     | --> 1 |__|__| 3
@@ -83,6 +84,7 @@ public class WikiCrawler extends ACrawler
 			{
 				for(int i = 0; i < jsonResultArray.length(); i++)
 				{
+					//read-out the values from JSONArray into a DBGeoObject
 					jsonResult = jsonResultArray.getJSONObject(i);
 					ArrayList<String> tags = new ArrayList<String>();
 					String title = jsonResult.getString("title");
