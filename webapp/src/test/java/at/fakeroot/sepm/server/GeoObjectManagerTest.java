@@ -1,6 +1,5 @@
 package at.fakeroot.sepm.server;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -41,6 +40,12 @@ public class GeoObjectManagerTest extends TestCase {
 		if (dbConn != null && dbConn.isTesting()) {
 			try {
 				obj_id = geoObjManager.getObjectId(svcId, "test_karlskirche");
+				DBGeoObject outObj = geoObjManager.getObjectbyId(obj_id);
+				
+				assertEquals("Karlskirche", outObj.getTitle());
+				assertEquals("http://de.wikipedia.org/wiki/Wiener_Karlskirche", outObj.getLink());
+				assertEquals(16.371422, outObj.getXPos());
+				assertEquals(48.198247, outObj.getYPos());
 			}
 			catch (Exception e) {
 				fail("object 'test_karlskirche' not found! "+e.getMessage());
@@ -56,30 +61,13 @@ public class GeoObjectManagerTest extends TestCase {
 			}
 			
 			try{
+				// we can't try to get the data out again because GeoObjectManager uses two
+				// different DBConnections to read/write data to the database
 				geoObjManager.insert(inObj);
-/*				long outObjId= geoObjManager.getObjectId(panoramio_id, "test_panoramio");
-				DBGeoObject outObj = geoObjManager.getObjectbyId(outObjId);
 				
-				assertEquals(inObj.getTitle(), outObj.getTitle());
-				assertEquals(inObj.getLink(), outObj.getLink());
-				assertEquals(inObj.getSvc_id(), outObj.getSvc_id());
-				assertEquals(inObj.getUid(), outObj.getUid());
-				assertEquals(inObj.getXPos(), outObj.getXPos());
-				assertEquals(inObj.getYPos(), outObj.getYPos());
-				assertArrayEquals(inObj.getProperties(), outObj.getProperties());
-				assertArrayEquals(inObj.getTags(), outObj.getTags());*/
-/*			}catch(GeoObjectManager.NotFoundException e){
-				e.printStackTrace();
-				fail("Object not found: "+e.getMessage());
-			}catch (SQLException e) {
-				e.printStackTrace();
-				fail("SQLException: "+e.getMessage());*/
 			}catch (RemoteException e) {
 				e.printStackTrace();
 				fail("RemoteException: "+e.getMessage());
-			}catch (IOException e) {
-				e.printStackTrace();
-				fail("IOException: "+e.getMessage());
 			}
 		}
 	}
