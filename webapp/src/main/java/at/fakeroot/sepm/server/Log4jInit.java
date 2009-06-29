@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.PropertyConfigurator;
 
 public class Log4jInit extends HttpServlet {
+	/**
+	 * default serial version ID
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void init(ServletConfig config) throws ServletException {
 		Properties prop = new Properties();
 		String logfile = getInitParameter("log4j-init-file");

@@ -48,6 +48,7 @@ public class GeoObjectManagerTest extends TestCase {
 			
 			try {
 				DBGeoObject geoObject = geoObjManager.getObjectbyId(obj_id);
+				assertEquals(obj_id, geoObject.getId());
 			}
 			catch (Exception e) {
 				e.printStackTrace();
