@@ -5,8 +5,8 @@ import java.io.Serializable;
 import at.fakeroot.sepm.shared.client.serialize.GeoObject;
 
 /**
- * @author Anca Cismasiu
  * Class representing object properties
+ * @author AC
  * */
 
 public class Property implements Serializable {

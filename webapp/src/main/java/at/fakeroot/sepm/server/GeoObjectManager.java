@@ -21,7 +21,7 @@ import at.fakeroot.sepm.shared.server.Property;
 /**
  * Class representing the DAO for the GeoObjects, that reads from and writes to the database
  * Based on the Singleton pattern.
- * @author Anca Cismasiu
+ * @author AC
  */
 public class GeoObjectManager 
 {
@@ -29,6 +29,10 @@ public class GeoObjectManager
 	private static final Logger logger = Logger.getRootLogger();
 	DBConnection dbRead, dbWrite;
 
+
+	/**
+	 * Inner Exception Class, thrown when the searched-for object does not exist in the database 
+	 * */
 	public class NotFoundException extends Exception {
 		/// default serial version id
 		private static final long serialVersionUID = 1L;
@@ -125,7 +129,6 @@ public class GeoObjectManager
 			ResultSet res = pstmt.executeQuery();
 
 			if(res.next()){
-				res.first();
 				rc = new DBGeoObject(
 						id,
 						res.getString("title"),
@@ -220,6 +223,13 @@ public class GeoObjectManager
 		return searchResult;
 	}
 
+	/**
+	 * Gets the Where-Clause for a query. The objects lie in this BoundingBox and have these tags. Random order is optional. The maximum number is set by limit.
+	 * @param box where the objects lie
+	 * @param tags the object tags
+	 * @param randomOrder set true if a random set of objects should be returned, false for the first limit objects
+	 * @param limit the number of returned objects
+	 * */
 	private String getWhereClause(BoundingBox box, String[] tags, boolean randomOrder, int limit) throws SQLException {
 		String sql = "WHERE (e.valid_until IS null OR e.valid_until >= now()) AND ";
 		
@@ -242,6 +252,10 @@ public class GeoObjectManager
 		return (sql);
 	}
 	
+	/**
+	 * Method used by getWhereClause to get the svc_id of services having this service tag
+	 * @param tag service tag
+	 * */
 	private String getServiceListByTag(String tag) throws SQLException {
 		PreparedStatement stmt = dbRead.prepareStatement("SELECT svc_id from servicetag where tag = ?");
 		String rc = "";
@@ -337,6 +351,10 @@ public class GeoObjectManager
 		}
 	}
 	
+	/**
+	 * Get the tags for a object
+	 * @param objID the object's id
+	 * */
 	private String[] queryTags(long objId) throws SQLException {
 		PreparedStatement tagStmt = dbRead.prepareStatement("SELECT tag FROM objectTag WHERE obj_id = ?");
 		String[] rc;

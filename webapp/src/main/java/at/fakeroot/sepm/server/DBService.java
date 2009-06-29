@@ -2,7 +2,7 @@ package at.fakeroot.sepm.server;
 
 /**
  * Class representing a Service with all the necessary properties to be stored in and read from the Database
- * @author Anca Cismasiu
+ * @author AC
  * */
 
 public class DBService {

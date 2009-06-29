@@ -16,6 +16,7 @@ import at.fakeroot.sepm.shared.server.Property;
 /**
  * Class representing a crawler for the website panoramio.com. 
  * The maximum number of photos we can retrieve in one query is 100.
+ * @author AC
  * */
 
 public class PanoramioCrawler extends ACrawler {
@@ -48,6 +49,9 @@ public class PanoramioCrawler extends ACrawler {
 		recCrawl(curBox, 0);
 	}
 	
+	/**
+	 * Recursive method, 
+	 * */
 	private void recCrawl(BoundingBox curBox, int start){
 		String url="";
 		String responseStr = "";
@@ -68,10 +72,6 @@ public class PanoramioCrawler extends ACrawler {
 			System.err.println("photoArray: "+photoArray.length());
 			DBGeoObject[] saveDBArray = new DBGeoObject[photoArray.length()];
 			for(int i=0; i<photoArray.length(); i++){
-				//System.err.println("photoArray:"+photoArray.getJSONObject(i));
-				//JSONObject jsonObj = new JSONObject(photoArray.getJSONObject(i));
-				//System.err.println("jsonObj:"+photoArray.getJSONObject(i).getString("owner_name"));
-				
 				Property[] tmpProp = new Property[2];
 				tmpProp[0]= new Property("owner", photoArray.getJSONObject(i).getString("owner_name"));
 				tmpProp[1]= new Property("photo_url", photoArray.getJSONObject(i).getString("photo_file_url"));
@@ -89,13 +89,10 @@ public class PanoramioCrawler extends ACrawler {
 						null, 
 						tmpProp,
 						tags.toArray(new String[tags.size()]) );
-				//foundObjects.add(tmpObj);
 				saveDBArray[i]=tmpObj;
 				
 			}
 			
-			//System.out.println("panoramio.com: "+saveDBArray[0].getUid());
-			//System.out.println("panoramio.com: "+saveDBArray[1].getUid());
 			saveObject(saveDBArray);
 			
 			
@@ -106,14 +103,7 @@ public class PanoramioCrawler extends ACrawler {
 				System.err.println("noRec");
 			}
 			
-			
-			/*
-			from=to+1;
-			if(count>to+100)
-				to+=100;
-			else to=count;
-			*/
-		
+				
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}	

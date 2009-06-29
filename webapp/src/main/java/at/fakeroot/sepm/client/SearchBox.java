@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Class representing the Search Input Box.
- * @author Anca Cismasiu
+ * @author AC
  */
 public class SearchBox extends Composite{
 
@@ -29,14 +29,18 @@ public class SearchBox extends Composite{
 	private TextBox where=new TextBox();
 	private TextBox what=new TextBox();
 	private Button searchButton = new Button("Search");
-	
+
 	private final String whereString = "Where?";
 	private final String whatString = "What?";
 
+	/**
+	 * Constructor
+	 * @param gm a IGeoManager instance
+	 * */
 	public SearchBox(IGeoManager gm){
 		initWidget(myHoPanel);
 		geoManager=gm;		
-		
+
 		where.setText(whereString);
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
@@ -58,8 +62,8 @@ public class SearchBox extends Composite{
 				}
 			}
 		});		
-		
-		
+
+
 		what.setText(whatString);
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
@@ -80,14 +84,14 @@ public class SearchBox extends Composite{
 					performSearch();
 			}
 		});
-		
+
 		searchButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent ce) {
 				performSearch();
 			}
 		});
-		
-		
+
+
 		where.setWidth("160px");
 		what.setWidth("160px");
 		searchButton.setSize("80px","55px");
@@ -99,7 +103,7 @@ public class SearchBox extends Composite{
 		myHoPanel.setCellHeight(myVePanel, "55px");
 		myHoPanel.add(searchButton);
 	}
-	
+
 	/**
 	 * Performs the actual search.
 	 */
@@ -107,10 +111,10 @@ public class SearchBox extends Composite{
 	{
 		geoManager.searchByLocationAndTags(getWhere());
 	}
-	
+
 	/**
 	 * Returns String currently in the where-TextBox
-	 * @return rc String where search String
+	 * @return retString where-search String
 	 * */	
 	public String getWhere(){
 		String retString = where.getText().trim();
@@ -119,10 +123,10 @@ public class SearchBox extends Composite{
 		else
 			return (retString);
 	}
-	
+
 	/**
 	 * Returns String currently in the what-TextBox
-	 * @return rc String what search String 
+	 * @return retString String what-search String 
 	 * */
 	public String getWhat(){
 		String retString = what.getText().trim();
@@ -131,8 +135,8 @@ public class SearchBox extends Composite{
 		else
 			return (retString);
 	}
-	
-	
+
+
 	/**
 	 * Sets String in the where-TextBox for the area search
 	 * @param location 
@@ -143,8 +147,8 @@ public class SearchBox extends Composite{
 		else
 			where.setText(location);
 	}
-	
-	
+
+
 	/**
 	 * Adds String to the what-TextBox for the tag search
 	 * @param tagString 

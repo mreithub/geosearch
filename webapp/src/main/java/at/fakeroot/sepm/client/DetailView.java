@@ -14,8 +14,8 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * @author Anca Cismasiu
- * Class containung the object details shown in the InfoWindow
+ * Class containing the object details shown in the InfoWindow
+ * @author AC
  */
 
 public class DetailView extends InfoWindowContent implements ClickHandler{

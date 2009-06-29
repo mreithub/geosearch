@@ -13,7 +13,7 @@ public class ObjectDetails implements Serializable
 	private String homepage;
 	
 	/**
-	 * StandardConstruction. Is required for the serializeation
+	 * StandardConstruction. Is required for the serialization
 	 */
 	public ObjectDetails()
 	{

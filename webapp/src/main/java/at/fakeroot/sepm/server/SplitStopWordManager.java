@@ -60,9 +60,6 @@ public class SplitStopWordManager {
 		
 		return result;
 		
-		
-		//return new String[] {"test"};
-		
 	}
 	
 	/**
@@ -100,11 +97,6 @@ public class SplitStopWordManager {
 		}
 		
 		return result;
-		
-		
-		/*
-		return " <>|^°!\"§$%&/{([)]=}?\\´`+*~#'-_.:,;" +
-		new Character((char)10).toString() + new Character((char)13).toString();
-		*/
+
 	}
 }

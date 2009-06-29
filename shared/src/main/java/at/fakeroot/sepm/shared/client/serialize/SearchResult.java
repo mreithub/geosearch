@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 /**
- * @author Anca Cismasiu
  * Class that stores the search result in an ArrayList of ClientGeoObjects
+ * @author AC
  * */
 
 public class SearchResult implements Serializable {
@@ -18,7 +18,7 @@ public class SearchResult implements Serializable {
 	private int countLimit;
 	
 	/**
-	 * StandardConstruction. Is required for the serializeation
+	 * StandardConstruction. Is required for the serialization
 	 */
 	public SearchResult() 
 	{
