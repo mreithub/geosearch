@@ -91,9 +91,9 @@ public class GeoObjectManager
 	 * @param svc_id the service id 
 	 * @param uid the unique id 
 	 * @return the obj_id 
-	 * @throws Exception if no or more than one objects are found
+	 * @throws NotFoundException if no object was found
 	 * */	
-	public long getObjectId(int svc_id, String uid) throws NotFoundException, SQLException, IOException {
+	public long getObjectId(int svc_id, String uid) throws NotFoundException, SQLException {
 		long rc=-1;
 		try{
 			PreparedStatement pstmt = dbRead.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid=?;");
@@ -122,7 +122,7 @@ public class GeoObjectManager
 	 * @return  the DBGeoObject with this id
 	 * @throws Exception if no object with this id is found
 	 * */
-	public DBGeoObject getObjectbyId(long id) throws NotFoundException, SQLException, IOException {
+	public DBGeoObject getObjectbyId(long id) throws NotFoundException, SQLException {
 		DBGeoObject rc=null;
 
 		try{

@@ -1,11 +1,15 @@
 package at.fakeroot.sepm.server;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class ServiceManagerTest extends TestCase{
+import org.junit.Before;
+import org.junit.Test;
+
+public class ServiceManagerTest {
 
 	ServiceManager servManager;
 
+	@Test
 	public void testSimple(){
 		int wikiId=-1;
 	
@@ -40,8 +44,8 @@ public class ServiceManagerTest extends TestCase{
 		
 	}
 
-	@Override
-	protected void setUp() throws Exception{
+	@Before
+	public void setUp() throws Exception{
 		servManager = ServiceManager.getInstance();
 	}
 }
