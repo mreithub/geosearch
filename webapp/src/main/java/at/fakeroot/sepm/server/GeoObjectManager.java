@@ -59,8 +59,12 @@ public class GeoObjectManager
 	private GeoObjectManager() throws SQLException, IOException
 	{
 		dbRead = new DBConnection();
-		dbWrite = new DBConnection();
-		dbWrite.setAutoCommit(false);
+		// when we're on the testing database, use only one DBConnection
+		if (dbRead.isTesting()) dbWrite = dbRead;
+		else {
+			dbWrite = new DBConnection();
+			dbWrite.setAutoCommit(false);
+		}
 	}
 
 	protected void finalize() throws SQLException {
@@ -149,6 +153,38 @@ public class GeoObjectManager
 		}
 
 		return rc;
+	}
+	
+	/**
+	 * Delete a specific geoObject from the database
+	 * @param objId ID of the object to be deleted (can be queried by getObjectId() or by GeoObject.getId()
+	 * @throws NotFoundException when the object to delete doesn't exist
+	 * @throws SQLException on any other database related error
+	 */
+	public void delete(long objId) throws NotFoundException, SQLException {
+		PreparedStatement pstmt = dbWrite.prepareStatement("DELETE FROM geoObject WHERE obj_id = ?");
+		pstmt.setLong(1, objId);
+		
+		if (pstmt.executeUpdate() == 0) {
+			throw new NotFoundException("GeoObjectManager.delete: objId="+objId);
+		}
+	}
+	
+	/**
+	 * Delete a specific geoObject via it's service ID and it's UID
+	 * @param svcId service ID for the geoObject
+	 * @param uid service-unique ID of the geoObject 
+	 * @throws NotFoundException when no matching geoObject is found in the database
+	 * @throws SQLException on any other database related problem
+	 */
+	public void delete(int svcId, String uid) throws NotFoundException, SQLException {
+		PreparedStatement pstmt = dbWrite.prepareStatement("DELETE FROM geoObject WHERE svc_id = ? AND uid = ?");
+		pstmt.setInt(1, svcId);
+		pstmt.setString(2, uid);
+		
+		if (pstmt.executeUpdate() == 0) {
+			throw new NotFoundException("GeoObjectManager.delete: svcId="+svcId+", uid='"+uid+"'");
+		}
 	}
 
 	/**
