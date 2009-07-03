@@ -20,7 +20,7 @@ INSERT INTO objectProperty (obj_id, name, value) VALUES (
 INSERT INTO objectProperty (obj_id, name, value) VALUES (
 (SELECT obj_id FROM geoObject WHERE uid='test_schoenbrunn'),
 'description', '<p>Das Schloss Schönbrunn ist eines der bedeutendsten Kulturgüter Österreichs und seit den 1960er Jahren eine der meistbesuchten Sehenswürdigkeiten Wiens. Es liegt westlich der Wiener Innenstadt im Bezirk Hietzing.</p>
-<p>Sein Name geht auf einen Kaiser Matthias zugeschriebenen Ausspruch zurück, der hier auf der Jagd einen artesischen Brunnen „entdeckt“ und ausgerufen haben soll: „Welch\' schöner Brunn“. Aus diesem Brunnen wurde bis zum Bau der Hochquellwasserleitung auch Trinkwasser für den Hof gezapft.</p>
+<p>Sein Name geht auf einen Kaiser Matthias zugeschriebenen Ausspruch zurück, der hier auf der Jagd einen artesischen Brunnen „entdeckt“ und ausgerufen haben soll: „Welch'' schöner Brunn“. Aus diesem Brunnen wurde bis zum Bau der Hochquellwasserleitung auch Trinkwasser für den Hof gezapft.</p>
 <p>Eine Hauptattraktion im Schlosspark ist der älteste noch bestehende Zoo der Welt, der Tiergarten Schönbrunn.</p>
 <p>1996 wurden Schloss und Park von Schönbrunn (englisch Palace and Gardens of Schönbrunn) von der UNESCO zum Weltkulturerbe erklärt.</p>
 <p>Das Schloss und die Gärten von Schönbrunn bilden eine der 89 Wiener Katastralgemeinden.</p>');
