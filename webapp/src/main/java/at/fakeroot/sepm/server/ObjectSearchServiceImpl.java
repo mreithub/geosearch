@@ -32,16 +32,18 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 	/**
 	 * Constructor.
 	 */
-	public ObjectSearchServiceImpl()
+	public ObjectSearchServiceImpl() throws SQLException, IOException
 	{
 		try {
 			geoObjManager = GeoObjectManager.getInstance();
 		}
 		catch (SQLException e) {
 			logger.error("SQLException in ObjectSearchServiceImpl() constructor", e);
+			throw e;
 		}
 		catch (IOException e) {
 			logger.error("IOException in ObjectSearchServiceImpl() constructor", e);
+			throw e;
 		}
 		
 		svcManager = ServiceManager.getInstance();
