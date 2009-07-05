@@ -81,7 +81,10 @@ public class TagCloud extends Composite implements ClickHandler {
 	 */
 	private IGeoManager geoManager;
 	
-	private int objectCount = 0; 
+	/**
+	 * count of GeoObjects added to the current tag statistics 
+	 */
+	private int objectCount = 0;
 	
 	/**
 	 * Constructor
@@ -144,7 +147,7 @@ public class TagCloud extends Composite implements ClickHandler {
 				if (k != null && tagStat.size() > 20) {
 					tagStat.remove(k);
 				}
-				else if (tagStat.get(k) == objectCount) {
+				else if (objectCount > 1 && tagStat.get(k) == objectCount) {
 					tagStat.remove(k);
 				}
 				i++;
@@ -167,7 +170,7 @@ public class TagCloud extends Composite implements ClickHandler {
 		
 		Set<String> c = tagStat.keySet();
 		
-		int min = tagStat.size(), max = 0;
+		int min = objectCount, max = 0;
 
 		// get the minimal and maximal Tag frequency
 		Iterator<String> it = c.iterator();
