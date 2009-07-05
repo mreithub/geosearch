@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class ResultInfoBox extends Composite
 {
+	Label title;
 	Label numText;
 	Label zoomText;
 
@@ -30,13 +31,20 @@ public class ResultInfoBox extends Composite
 	 */
 	public ResultInfoBox()
 	{
-		FlowPanel vPanel = new FlowPanel();
+		FlowPanel fPanel = new FlowPanel();
+		fPanel.getElement().setId("resultInfoBox");
+		
+		title = new Label();
+		title.setText("Result info");
+		title.setStyleName("title");
+		
 		numText = new Label();
 		zoomText = new Label("Zoom in for further results.");
 		zoomText.setVisible(false);
-		vPanel.add(numText);
-		vPanel.add(zoomText);
-		initWidget(vPanel);
+		fPanel.add(title);
+		fPanel.add(numText);
+		fPanel.add(zoomText);
+		initWidget(fPanel);
 	}
 	
 	/**
@@ -91,7 +99,7 @@ public class ResultInfoBox extends Composite
 	public void startLoading() {
 		zoomText.setVisible(false);
 		numText.setText("Loading");
-		loadingTimer.scheduleRepeating(750);
+		loadingTimer.scheduleRepeating(500);
 	}
 	
 	public void stopLoading() {

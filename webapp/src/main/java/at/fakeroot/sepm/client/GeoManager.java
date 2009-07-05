@@ -14,6 +14,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -28,7 +29,7 @@ public class GeoManager implements IGeoManager {
 	private final ObjectSearchServiceAsync objectSearch = GWT.create(ObjectSearchService.class);
 	private int XOFFSET=5;
 	private int YOFFSET=5;
-	private Image logo = new Image("images/design/logo_no_shaddow.png");
+	private Image logo = new Image("images/design/logo_no_shadow.png");
 	private SearchBox searchBox;
 	private ResultInfoBox resultBox;
 	private TagCloud tagCloud;
@@ -61,19 +62,18 @@ public class GeoManager implements IGeoManager {
 		searchPop.setPopupPosition(XOFFSET, YOFFSET+60);
 		searchPop.show();		
 		
-		//ResultBox
+		// ResultInfoBox + TagCloud; 
 		PopupPanel infoPop = new PopupPanel(false);
-		infoPop.setWidget(resultBox);
+		FlowPanel fp = new FlowPanel();
+		
+		fp.add(resultBox);
+		
+		fp.add(tagCloud);
+		
+		infoPop.setWidget(fp);
 		infoPop.setPopupPosition(XOFFSET, YOFFSET+130);
 		infoPop.show();
-		
-		//TagCloud
-		PopupPanel tagPop = new PopupPanel(false);
-		tagPop.setWidget(tagCloud);
-		tagPop.setPopupPosition(5, 230);
-		tagPop.show();
-		
-		
+				
 		//Use a history listener in order to be able to use a search history and command-line arguments.
 		
 		//TODO: This listener causes duplicate search queries and is therefore commented out for now. 

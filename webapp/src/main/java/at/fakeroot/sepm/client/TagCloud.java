@@ -18,7 +18,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * TagCloud-Widget class
@@ -70,7 +69,7 @@ public class TagCloud extends Composite implements ClickHandler {
 	/**
 	 * Widget Container
 	 */
-	private VerticalPanel vPanel = new VerticalPanel();
+	private FlowPanel fPanel = new FlowPanel();
 	
 	/**
 	 * Tag reference count statistics
@@ -98,15 +97,12 @@ public class TagCloud extends Composite implements ClickHandler {
 	 */
 	private void init() {
 		Label l = new Label("TagCloud");
-		l.setHeight("1.2em");
-		vPanel.add(l);
-		vPanel.setCellHeight(l, "1.2em");
-		initWidget(vPanel);
+		l.setStyleName("title");
+		fPanel.add(l);
+		initWidget(fPanel);
 		setWidth("240px");
 		
-		Style s = l.getElement().getStyle();
-		s.setProperty("borderBottom", "1px solid black");
-		vPanel.add(tagPanel);
+		fPanel.add(tagPanel);
 	}
 	
 	/**

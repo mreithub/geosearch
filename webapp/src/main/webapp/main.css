@@ -1,0 +1,10 @@
+div.title {
+	font-weight: bold;
+	font-size: 115%;
+	color: #048;
+	border-bottom: 1px solid black;
+}
+
+div#resultInfoBox {
+	margin-bottom: 0.5em;
+}
