@@ -5,4 +5,6 @@ CREATE TABLE stopWords (
 	PRIMARY KEY (word)
 );
 
+ALTER TABLE stopWords OWNER TO ${psql.user}
+
 COMMIT;
