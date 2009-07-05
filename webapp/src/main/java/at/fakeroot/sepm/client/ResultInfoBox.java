@@ -2,8 +2,8 @@ package at.fakeroot.sepm.client;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * The InfoBox informs the User about the number of results for the recent search
  * @author RK
@@ -17,7 +17,7 @@ public class ResultInfoBox extends Composite
 		@Override
 		public void run() {
 			String newText = numText.getText();
-			newText = newText+".";
+			newText += ".";
 			if (newText.equals("Loading....")) newText = "Loading";
 			numText.setText(newText);
 		}
@@ -30,7 +30,7 @@ public class ResultInfoBox extends Composite
 	 */
 	public ResultInfoBox()
 	{
-		VerticalPanel vPanel = new VerticalPanel();
+		FlowPanel vPanel = new FlowPanel();
 		numText = new Label();
 		zoomText = new Label("Zoom in for further results.");
 		zoomText.setVisible(false);
