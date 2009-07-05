@@ -3,6 +3,7 @@
  */
 package at.fakeroot.sepm.server;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -30,7 +31,16 @@ public class DBConnection {
 	private static boolean isTesting = false;
 	private PooledConnection dbConn;
 	
-	public DBConnection() throws SQLException, IOException {
+	/**
+	 * constructor
+	 * 
+	 * Tries to get the DB configuration from the file jdbc.properties in the classpath.
+	 * If jdbc.properties isn't found, jdbc_testing.properties is opened.  
+	 * @throws SQLException if the database connection couldn't be made
+	 * @throws FileNotFoundException if jdbc_testing.properties isn't found 
+	 * @throws IOException if any other property-file related problem occurs
+	 */
+	public DBConnection() throws SQLException, IOException, FileNotFoundException {
 		if (dataSource == null)	{
 			Properties prop = new Properties();
 
@@ -39,9 +49,10 @@ public class DBConnection {
 			InputStream propStream = getClass().getResourceAsStream("/WEB-INF/jdbc.properties");
 			if (propStream == null) {
 				propStream = getClass().getResourceAsStream("/WEB-INF/jdbc_testing.properties");
-				if (propStream == null) throw new IOException("Error: Couldn't open property file 'jdbc_testing.properties'");
+				if (propStream == null) throw new FileNotFoundException("Error: Couldn't open property file 'jdbc_testing.properties'");
 			}
 			prop.load(propStream);
+			propStream.close();
 
 			ds.setServerName(prop.getProperty("host", "localhost"));
 			ds.setPortNumber(Integer.parseInt(prop.getProperty("port", "5432")));
@@ -53,6 +64,13 @@ public class DBConnection {
 		}
 	}
 	
+	/**
+	 * release the DBConnection
+	 * 
+	 * This function releases the internal PooledConnection.
+	 * @throws SQLException if the transaction rollback (if in testing mode)
+	 *	or the db closing fails 
+	 */
 	public void disconnect() throws SQLException {
 		if (dbConn != null) {
 			if (isTesting) {
@@ -64,6 +82,12 @@ public class DBConnection {
 		}
 	}
 	
+	/**
+	 * returns the internal Connection object
+	 * (requests one from the connection pool if there is none yet)
+	 * @return internal Connection object
+	 * @throws SQLException if the pooled connection couldn't be requested
+	 */
 	public Connection getConnection() throws SQLException {
 		if (dbConn == null) {
 			dbConn = dataSource.getPooledConnection();
@@ -75,27 +99,60 @@ public class DBConnection {
 		}
 		return dbConn.getConnection();
 	}
-	
+
+	/**
+	 * returns a PreparedStatement with scrollable ResultSets enabled
+	 * @param stmt SQL statement to prepare
+	 * @return PreparedStatement
+	 * @throws SQLException if the database call fails
+	 */
 	public PreparedStatement prepareStatement(String stmt) throws SQLException {
 		return getConnection().prepareStatement(stmt, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 	
+	/**
+	 * creates and returns a plain Statement with scrollable ResultSets enabled
+	 * @return Statement
+	 * @throws SQLException if the database call fails
+	 */
 	public Statement createStatement() throws SQLException {
 		return getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 	
+	/**
+	 * thin wrapper around Connection.setAutoCommit() (use this with commit() and rollback()) 
+	 * @param value determines if auto commit will be enabled
+	 * @throws SQLException if the database call fails
+	 */
 	public void setAutoCommit(boolean value) throws SQLException {
 		if (!isTesting) getConnection().setAutoCommit(value);
 	}
-	
+
+	/**
+	 * commit current transaction (thin wrapper around Connection.commit())
+	 * @throws SQLException if the database call fails
+	 */
 	public void commit() throws SQLException {
 		if (!isTesting) getConnection().commit();
 	}
 	
+	/**
+	 * cancels the current transaction (thin wrapper around Connection.rollback())
+	 * @throws SQLException if the database call fails
+	 */
 	public void rollback() throws SQLException {
 		getConnection().rollback();
 	}
 	
+	/**
+	 * returns true if DBConnection is set to testing mode.
+	 * 
+	 * Testing mode can be enabled/disabled in jdbc.properties.
+	 * If enabled, all queries are put into a transaction that is rolled back
+	 * when the connection is released (using disconnect()). 
+	 * 
+	 * @return true: DBConnection is in testing mode, false otherwise
+	 */
 	public boolean isTesting() {
 		return isTesting;
 	}
