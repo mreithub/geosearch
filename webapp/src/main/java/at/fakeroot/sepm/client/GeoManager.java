@@ -24,8 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author JB
  *
  */
-public class GeoManager implements IGeoManager{
-	
+public class GeoManager implements IGeoManager {
 	private final ObjectSearchServiceAsync objectSearch = GWT.create(ObjectSearchService.class);
 	private int XOFFSET=5;
 	private int YOFFSET=5;
@@ -39,11 +38,10 @@ public class GeoManager implements IGeoManager{
 	private BoundingBox curBoundingBox;
 	 
 	public GeoManager() {
-		this.geoMap=new GeoMap(this);
-		this.searchBox=new SearchBox(this);
-		this.tagCloud = new TagCloud(this);
-		this.resultBox = new ResultInfoBox();		
-		
+		geoMap=new GeoMap(this);
+		searchBox=new SearchBox(this);
+		tagCloud = new TagCloud(this);
+		resultBox = new ResultInfoBox();		
 	}
 	
 	/**
@@ -143,10 +141,12 @@ public class GeoManager implements IGeoManager{
 	 */
 	public void searchByTags(String tags) {
 		History.newItem("q="+tags.trim());
+		resultBox.startLoading();
 		objectSearch.search(curBoundingBox, tags.trim(), new AsyncCallback<SearchResult>()
 		{
 			public void onFailure(Throwable e) {
 				showErrorMessage(e.getMessage());
+				resultBox.stopLoading();
 			}
 
 			public void onSuccess(SearchResult result) {

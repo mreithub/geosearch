@@ -1,5 +1,6 @@
 package at.fakeroot.sepm.client;
 
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -11,7 +12,19 @@ public class ResultInfoBox extends Composite
 {
 	Label numText;
 	Label zoomText;
+
+	private class LoadingTimer extends Timer {
+		@Override
+		public void run() {
+			String newText = numText.getText();
+			newText = newText+".";
+			if (newText.equals("Loading....")) newText = "Loading";
+			numText.setText(newText);
+		}
+	}
 	
+	Timer loadingTimer = new LoadingTimer();
+
 	/**
 	 * Constructor. Sets the Layout of the Box
 	 */
@@ -19,9 +32,7 @@ public class ResultInfoBox extends Composite
 	{
 		VerticalPanel vPanel = new VerticalPanel();
 		numText = new Label();
-		numText.setSize("240px", "30px");
 		zoomText = new Label("Zoom in for further results.");
-		zoomText.setSize("240px", "30px");
 		zoomText.setVisible(false);
 		vPanel.add(numText);
 		vPanel.add(zoomText);
@@ -38,17 +49,18 @@ public class ResultInfoBox extends Composite
 	 */
 	public void refresh(int shown, int available, int countLimit)
 	{
+		// stop the timer
+		stopLoading();
+		
 		//No results
 		if(shown == 0)
 		{
 			numText.setText("No results found.");
-			zoomText.setVisible(false);
 		}
 		//1 result
 		else if(shown == 1)
 		{
 			numText.setText(shown + " result");
-			zoomText.setVisible(false);
 		}
 		else
 		{
@@ -56,7 +68,6 @@ public class ResultInfoBox extends Composite
 			if(available > -1 && shown == available)
 			{
 				numText.setText(shown + " results");
-				zoomText.setVisible(false);
 			}
 			else
 			{
@@ -75,5 +86,16 @@ public class ResultInfoBox extends Composite
 				}
 			}
 		}
+	}
+	
+	public void startLoading() {
+		zoomText.setVisible(false);
+		numText.setText("Loading");
+		loadingTimer.scheduleRepeating(750);
+	}
+	
+	public void stopLoading() {
+		loadingTimer.cancel();
+		numText.setText("");
 	}
 }
