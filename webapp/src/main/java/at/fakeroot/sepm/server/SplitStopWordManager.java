@@ -69,7 +69,7 @@ public class SplitStopWordManager {
 	public String getSplitChars()  throws SQLException, IOException{
 		
 		ResultSet rs = null;
-		String result = null;
+		String result = "";
 		DBConnection dbConn = null;
 		
 		try
