@@ -46,9 +46,11 @@ public class DBConnection {
 
 			PGConnectionPoolDataSource ds = new PGConnectionPoolDataSource();
 			
-			InputStream propStream = getClass().getResourceAsStream("/WEB-INF/jdbc.properties");
-			if (propStream == null) {
-				propStream = getClass().getResourceAsStream("/WEB-INF/jdbc_testing.properties");
+			ClassLoader cl = Thread.currentThread().getContextClassLoader();
+			InputStream propStream = cl.getResourceAsStream("conf/jdbc.properties");
+			
+			if (propStream == null) { // jdbc.properties not found => try jdbc_testing.properties
+				propStream = cl.getResourceAsStream("conf/jdbc_testing.properties");
 				if (propStream == null) throw new FileNotFoundException("Error: Couldn't open property file 'jdbc_testing.properties'");
 			}
 			prop.load(propStream);
