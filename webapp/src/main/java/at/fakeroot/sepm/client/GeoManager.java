@@ -18,6 +18,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -50,16 +52,16 @@ public class GeoManager implements IGeoManager {
 	 */
 	public void drawGUI(){
 		//Logo
-		PopupPanel logoPop = new PopupPanel(false);
+		SimplePanel logoPnl = new SimplePanel();
 		logo.setPixelSize(190, 40);
-		logoPop.setWidget(this.logo);
-		logoPop.show();
-		logoPop.setPopupPosition(XOFFSET, YOFFSET);
-		
+		logoPnl.setWidget(this.logo);
+		logoPnl.getElement().setId("logo");
+		RootPanel.get().add(logoPnl);
+
 		//SearchBox
 		PopupPanel searchPop = new PopupPanel(false);
 		searchPop.setWidget(this.searchBox);
-		searchPop.setPopupPosition(XOFFSET, YOFFSET+60);
+		searchPop.setPopupPosition(XOFFSET, YOFFSET);
 		searchPop.show();		
 		
 		// ResultInfoBox + TagCloud; 
@@ -67,11 +69,10 @@ public class GeoManager implements IGeoManager {
 		FlowPanel fp = new FlowPanel();
 		
 		fp.add(resultBox);
-		
 		fp.add(tagCloud);
 		
 		infoPop.setWidget(fp);
-		infoPop.setPopupPosition(XOFFSET, YOFFSET+130);
+		infoPop.setPopupPosition(XOFFSET, YOFFSET+70);
 		infoPop.show();
 				
 		//Use a history listener in order to be able to use a search history and command-line arguments.
