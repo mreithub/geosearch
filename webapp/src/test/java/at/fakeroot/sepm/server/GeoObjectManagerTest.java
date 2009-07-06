@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.SortedSet;
@@ -65,8 +66,13 @@ public class GeoObjectManagerTest{
 		assertEquals(obj.getXPos(), obj2.getXPos(), 0.00001);
 		assertEquals(obj.getYPos(), obj2.getYPos(), 0.00001);
 		_compareProperties(obj.getProperties(), obj2.getProperties());
-		assertArrayEquals(obj.getTags(), obj2.getTags());
+		_compareTags(obj.getTags(), obj2.getTags());
 		assertEquals(obj.getValid_until(), obj2.getValid_until());
+	}
+	
+	@Test(expected= IndexOutOfBoundsException.class)
+	public void fooTest() {
+		throw new IndexOutOfBoundsException("TestException");
 	}
 	
 	public void testSimple() {
@@ -96,8 +102,8 @@ public class GeoObjectManagerTest{
 				
 				assertEquals("Karlskirche", outObj.getTitle());
 				assertEquals("http://de.wikipedia.org/wiki/Wiener_Karlskirche", outObj.getLink());
-				assertEquals(16.371422, outObj.getXPos());
-				assertEquals(48.198247, outObj.getYPos());
+				assertEquals(16.371422, outObj.getXPos(), 0.00001);
+				assertEquals(48.198247, outObj.getYPos(), 0.00001);
 			}
 			catch (Exception e) {
 				fail("object 'test_karlskirche' not found! "+e.getMessage());
@@ -129,9 +135,23 @@ public class GeoObjectManagerTest{
 			fail("_compareProperties: array length differs: (expected.length="+expected.length+", actual.length="+actual.length);
 		}
 		for (int i = 0; i < expected.length; i++) {
-			assertEquals(expected[i].getName(), actual[i].getName());
-			assertEquals(expected[i].getValue(), actual[i].getValue());
+			boolean found = false;
+			for (int j = 0; j < actual.length; j++) {
+				if (actual[j].getName().equals(expected[i].getName())) {
+					assertEquals(expected[i].getName(), actual[j].getName());
+					assertEquals(expected[i].getValue(), actual[j].getValue());
+					found = true;
+				}
+			}
+			assertTrue("expected Property not found: "+expected[i], found);
 		}
+	}
+	
+	private void _compareTags(String[] expected, String[] actual) {
+		Arrays.sort(expected, String.CASE_INSENSITIVE_ORDER);
+		Arrays.sort(actual, String.CASE_INSENSITIVE_ORDER);
+		
+		assertArrayEquals(expected, actual);
 	}
 
 	@Before
