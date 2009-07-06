@@ -36,11 +36,19 @@ public class DBConnection {
 	 * 
 	 * Tries to get the DB configuration from the file jdbc.properties in the classpath.
 	 * If jdbc.properties isn't found, jdbc_testing.properties is opened.  
-	 * @throws SQLException if the database connection couldn't be made
 	 * @throws FileNotFoundException if jdbc_testing.properties isn't found 
 	 * @throws IOException if any other property-file related problem occurs
 	 */
-	public DBConnection() throws SQLException, IOException, FileNotFoundException {
+	public DBConnection() throws IOException, FileNotFoundException {
+		_init();
+	}
+	
+	/**
+	 * initialize the static properties
+	 * @throws FileNotFoundException if no property file is found
+	 * @throws IOException if any other file access error occurs
+	 */
+	private static void _init() throws FileNotFoundException, IOException {
 		if (dataSource == null)	{
 			Properties prop = new Properties();
 
@@ -156,6 +164,25 @@ public class DBConnection {
 	 * @return true: DBConnection is in testing mode, false otherwise
 	 */
 	public boolean isTesting() {
+		return isTesting;
+	}
+	
+	/**
+	 * returns true if DBConnection is set to testing mode.
+	 * 
+	 * Testing mode can be enabled/disabled in jdbc.properties.
+	 * If enabled, all queries are put into a transaction that is rolled back
+	 * when the connection is released (using disconnect()).
+	 * 
+	 * This is the static version of the function which means it may have to initialize the database connection pool.
+	 * That's why it's possible that this function throws Exceptions.
+	 * 
+	 * @return true: DBConnection is in testing mode, false otherwise
+	 * @throws FileNotFoundException if the property file could not be read
+	 * @throws IOException if any other file system related problem occurs
+	 */
+	public static boolean staticIsTesting() throws FileNotFoundException, IOException {
+		_init();
 		return isTesting;
 	}
 }

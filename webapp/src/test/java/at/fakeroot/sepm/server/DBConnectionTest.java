@@ -44,7 +44,7 @@ public class DBConnectionTest extends TestCase {
 				// make sure that the DB transaction is rolled back before we run an assert 
 				db.disconnect();
 			
-				assertEquals(5, rowcount);
+				assertEquals(3, rowcount);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
