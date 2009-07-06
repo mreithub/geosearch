@@ -17,6 +17,9 @@ public class SearchResult implements Serializable {
 	private String errMsg = null;
 	private int countLimit;
 	
+	/// time the search took in milliseconds
+	private long duration;
+	
 	/**
 	 * StandardConstruction. Is required for the serialization
 	 */
@@ -77,15 +80,43 @@ public class SearchResult implements Serializable {
 		return (countLimit);
 	}
 	
+	/**
+	 * returns true if the search caused an error (if the error message was previously set)
+	 * @return true if the search failed
+	 */
 	public boolean hasError() {
 		return errMsg != null;
 	}
 	
+	/**
+	 * returns the error message if an error occured
+	 * @return error message
+	 */
 	public String getErrorMessage() {
 		return errMsg;
 	}
 	
+	/**
+	 * sets an error message that can be received using getErrorMessage() or hasError()  
+	 * @param msg error message
+	 */
 	public void setErrorMessage(String msg) {
 		errMsg = msg;
+	}
+	
+	/**
+	 * sets the duration of the search
+	 * @param millis duration in milliseconds
+	 */
+	public void setDuration(long millis) {
+		duration = millis;
+	}
+	
+	/**
+	 * returns the duration of the search
+	 * @return duration in milliseconds
+	 */
+	public long getDuration() {
+		return duration;
 	}
 }

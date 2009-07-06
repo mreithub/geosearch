@@ -152,7 +152,7 @@ public class GeoManager implements IGeoManager {
 			public void onSuccess(SearchResult result) {
 				geoMap.setPins(result.getResults());
 				tagCloud.refresh(result.getResults().iterator());
-				resultBox.refresh(result.getResults().size(), result.getResultCount(), result.getCountLimit());
+				resultBox.refresh(result);
 				if (result.hasError()) {
 					showErrorMessage(result.getErrorMessage());
 				}

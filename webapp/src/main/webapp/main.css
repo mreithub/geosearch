@@ -8,3 +8,7 @@ div.title {
 div#resultInfoBox {
 	margin-bottom: 0.5em;
 }
+
+.floatright {
+	float:right;
+}

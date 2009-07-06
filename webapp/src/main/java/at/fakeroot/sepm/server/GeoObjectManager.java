@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -200,6 +201,8 @@ public class GeoObjectManager
 		PreparedStatement pstmt;
 		ResultSet res;
 
+		long startTime = Calendar.getInstance().getTimeInMillis();
+
 		try {
 			String joinStmt = "LEFT JOIN expiringObject e USING (obj_id) ";
 			
@@ -256,6 +259,8 @@ public class GeoObjectManager
 			searchResult.setErrorMessage(e.getMessage());
 		}
 
+		searchResult.setDuration(Calendar.getInstance().getTimeInMillis()-startTime);
+		
 		return searchResult;
 	}
 
