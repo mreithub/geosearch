@@ -26,7 +26,7 @@ public class GeoObjectManagerTest{
 	String[] tags;
 	Property[] prop;
 	DBGeoObject inObj;
-	int panoramio_id;
+	int svcId;
 	
 	SortedSet<Long> createdObjects = new TreeSet<Long>();
 	
@@ -37,7 +37,7 @@ public class GeoObjectManagerTest{
 				"Test Object",
 				23,
 				42,
-				panoramio_id,
+				svcId,
 				uid,
 				"http://localhost",
 				null,
@@ -54,7 +54,7 @@ public class GeoObjectManagerTest{
 		
 		geoObjManager.insert(obj);
 		
-		long objId = geoObjManager.getObjectId(panoramio_id, uid);
+		long objId = geoObjManager.getObjectId(svcId, uid);
 		DBGeoObject obj2 = geoObjManager.getObjectbyId(objId);
 		
 		// check if the two objects  match
@@ -130,7 +130,7 @@ public class GeoObjectManagerTest{
 		}
 	}
 	
-	private void _compareProperties(Property expected[], Property actual[]) {
+	static void _compareProperties(Property expected[], Property actual[]) {
 		if (expected.length != actual.length) {
 			fail("_compareProperties: array length differs: (expected.length="+expected.length+", actual.length="+actual.length);
 		}
@@ -147,7 +147,7 @@ public class GeoObjectManagerTest{
 		}
 	}
 	
-	private void _compareTags(String[] expected, String[] actual) {
+	static void _compareTags(String[] expected, String[] actual) {
 		Arrays.sort(expected, String.CASE_INSENSITIVE_ORDER);
 		Arrays.sort(actual, String.CASE_INSENSITIVE_ORDER);
 		
@@ -159,8 +159,8 @@ public class GeoObjectManagerTest{
 		geoObjManager = GeoObjectManager.getInstance();
 		tags= new String[]{"nacht", "see", "baum"};
 		prop = new Property[]{new Property("owner", "lacitot")};
-		panoramio_id= ServiceManager.getInstance().select("panoramio.com").getSvc_id();
-		inObj = new DBGeoObject("Night", 21.440957, 48.427236, panoramio_id, "test_panoramio", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
+		svcId = ServiceManager.getInstance().select("example.com").getSvc_id();
+		inObj = new DBGeoObject("Night", 21.440957, 48.427236, svcId, "test_panoramio", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
 		
 	}
 	

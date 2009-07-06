@@ -1,6 +1,12 @@
 package at.fakeroot.sepm.server;
 
+import static at.fakeroot.sepm.server.GeoObjectManagerTest.*;
+
 import static org.junit.Assert.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,38 +16,30 @@ public class ServiceManagerTest {
 	ServiceManager servManager;
 
 	@Test
-	public void testSimple(){
-		int wikiId=-1;
+	public void testGetServiceInfo_shouldSucceed() throws FileNotFoundException, IOException, SQLException{
+		int svcId=-1;
 	
-		try{
-			DBService dbSvc = servManager.select("de.wikipedia.org");
-			wikiId=dbSvc.getSvc_id();
-	//		assertEquals(1, dbSvc.getSvc_id());
-			assertEquals("de.wikipedia.org", dbSvc.getName());
-			assertEquals("Wikipedia", dbSvc.getTitle());
-			assertEquals("http://de.wikipedia.org/", dbSvc.getHomepage());
-			assertEquals("Deutsche Wikipedia (freies Online-Lexicon)", dbSvc.getDescription());
-			assertEquals(3, dbSvc.getSType_id());
-			assertEquals("%summary%", dbSvc.getBubbleHTML());
-			
-		}catch(Exception e){
-			fail("could not retrieve service by name:"+ e.getMessage());
-			
-		}
-			try{
-			DBService dbServ = servManager.select(wikiId);
-			assertEquals("de.wikipedia.org", dbServ.getName());
-			assertEquals("Wikipedia", dbServ.getTitle());
-			assertEquals("http://de.wikipedia.org/", dbServ.getHomepage());
-			assertEquals("Deutsche Wikipedia (freies Online-Lexicon)", dbServ.getDescription());
-			assertEquals(3, dbServ.getSType_id());
-			assertEquals("%summary%", dbServ.getBubbleHTML());
-
-			}
-		catch(Exception e){
-			fail("could not retrieve service by id:"+ e.getMessage());
-		}
+		if (!DBConnection.staticIsTesting()) return;
 		
+		DBService dbSvc = servManager.select("example.com");
+		svcId=dbSvc.getSvc_id();
+
+		assertEquals("example.com", dbSvc.getName());
+		assertEquals("TestService", dbSvc.getTitle());
+		assertEquals("http://www.example.com/", dbSvc.getHomepage());
+		assertEquals("Test-Service", dbSvc.getDescription());
+		//assertEquals(3, dbSvc.getSType_id());
+		assertEquals("%description%", dbSvc.getBubbleHTML());
+		
+		// query the service a second time, but this time with the other select function
+		DBService dbSvc2 = servManager.select(svcId);
+		assertEquals(dbSvc.getName(), dbSvc2.getName());
+		assertEquals(dbSvc.getTitle(), dbSvc2.getTitle());
+		assertEquals(dbSvc.getHomepage(), dbSvc2.getHomepage());
+		assertEquals(dbSvc.getDescription(), dbSvc2.getDescription());
+		assertEquals(dbSvc.getSType_id(), dbSvc2.getSType_id());
+		assertEquals(dbSvc.getBubbleHTML(), dbSvc2.getBubbleHTML());
+		_compareTags(dbSvc.getTags(), dbSvc2.getTags());
 	}
 
 	@Before
