@@ -1,3 +1,5 @@
+BEGIN;
+
 INSERT INTO stopWords (word) VALUES ('a');
 INSERT INTO stopWords (word) VALUES ('aber');
 INSERT INTO stopWords (word) VALUES ('als');
@@ -154,3 +156,5 @@ INSERT INTO stopWords (word) VALUES ('z');
 INSERT INTO stopWords (word) VALUES ('zu');
 INSERT INTO stopWords (word) VALUES ('zum');
 INSERT INTO stopWords (word) VALUES ('zur');
+
+COMMIT;
