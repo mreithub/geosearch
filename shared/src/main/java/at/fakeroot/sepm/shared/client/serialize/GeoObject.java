@@ -43,9 +43,7 @@ public class GeoObject implements Serializable {
 	 * @param yPos (Lat=Latitude)
 	 */
 	public GeoObject(String title, double xPos, double yPos){
-		this.title=truncate(title, 255);
-		this.xPos=xPos;
-		this.yPos=yPos;
+		this(0, title, xPos, yPos);
 	}
 	
 	
