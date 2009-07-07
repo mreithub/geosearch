@@ -29,9 +29,7 @@ public class ClientGeoObject extends GeoObject implements Serializable {
 	 * @param tags GeoObject Tags
 	 */
 	public ClientGeoObject(String title, String imageUrl, String[] tags, double xPos, double yPos){
-		super(title,xPos,yPos);
-		this.imageUrl=imageUrl;
-		setTags(tags);
+		this(0, title, imageUrl, tags, xPos, yPos);
 	}
 
 	/**
