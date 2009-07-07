@@ -31,13 +31,7 @@ public class DBGeoObject extends GeoObject {
 	 *@param tags object tag array 
 	 * */
 	public DBGeoObject(String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
-		super(title, xPos, yPos);
-		svc_id= serviceID;
-		uid=uniqueID;
-		this.link=link;
-		this.valid_until=valid_until;
-		this.properties=properties;
-		setTags(tags);
+		this(0, title, xPos, yPos, serviceID, uniqueID, link, valid_until, properties, tags);
 	}
 	
 	/**
