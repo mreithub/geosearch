@@ -33,8 +33,7 @@ public abstract class ACrawler  {
 	private static String[] stopWords;
 	// characters to split words
 	private static String splitChars;
-	private IGeoSave geoSaver;
-
+	private CrawlerOutput crawlerOutput;
 	
 
 	//
@@ -72,15 +71,11 @@ public abstract class ACrawler  {
 	 */
 	private String secKey = null;
 	
-	/**
-	 * RMI server
-	 */
-	private String rmiServer = "localhost";
 	
 	/**
-	 * RMI port
+	 * Crawler TypeR
 	 */
-	private int rmiPort = 1099;
+	private String crawlerTyp="SQL";
 	
 	/**
 	 * Standard constructor 
@@ -109,29 +104,19 @@ public abstract class ACrawler  {
 		catch (IOException e) {
 			logger.info("Couldn't open "+svcName+".properties", e);
 		}
-
-		// init RMI		
-		Registry reg = LocateRegistry.getRegistry(rmiServer, rmiPort);
-		for(int i=0;i<reg.list().length;i++){
-			System.out.println("reg: "+reg.list()[i]);
-		}
-		try {
-			//geoSaver = (IGeoSave) reg.lookup("rmi://"+rmiServer+":"+rmiPort+"/IGeoSave");
-			geoSaver = (IGeoSave) reg.lookup("IGeoSave");
-			logger.info("RMI connection opened on "+rmiServer+":"+rmiPort);
-		}
-		catch (Exception e) {
-			// if we can't get a RMI connection, enter testing mode
-			geoSaver = new GeoSaveTest();
-			logger.error("RMI connection failt on "+rmiServer+":"+rmiPort,e);
+	
+		if(crawlerTyp.equals("SQL")){
+			crawlerOutput=new SQLOutput(svcName);
+		}else if(crawlerTyp.equals("RMI")){
+			crawlerOutput=new RMIOutput(svcName);
 		}
 		
 
 		// Request Service ID
 		//System.out.println("id: "+requestServiceID(svcName));
-		serviceID=requestServiceID(svcName);
-		stopWords=getStopWords();
-		splitChars=getSplitChars();
+		serviceID=crawlerOutput.getSvcID();
+		stopWords=crawlerOutput.getStopWords();
+		splitChars=crawlerOutput.getSplitChars();
 	}
 	
 	/**
@@ -165,9 +150,8 @@ public abstract class ACrawler  {
 		apiKey = prop.getProperty("crawler.apiKey", apiKey);
 		secKey = prop.getProperty("crawler.secKey", secKey);
 		
-		rmiServer = prop.getProperty("rmi.server", rmiServer);
-		rmiPort = Integer.parseInt(prop.getProperty("rmi.port", Integer.toString(rmiPort)));
 
+		crawlerTyp = prop.getProperty("crawler.typ",crawlerTyp);
 	}
 	
 	/**
@@ -260,12 +244,7 @@ public abstract class ACrawler  {
 	 */
 	protected void saveObject(DBGeoObject[] newObjects) {		
 		
-		try {
-			geoSaver.saveObjects(newObjects);
-		} catch (RemoteException e) {
-			logger.error("Error: Saving Objects",e);
-			e.printStackTrace();
-		} 
+		crawlerOutput.saveObjects(newObjects);
 		
 	}
 	
@@ -285,56 +264,7 @@ public abstract class ACrawler  {
 		return "curBox: "+curBox.toString()+", serviceID: "+serviceID+", stopWords: "+showStopWord+", splitChars: "+splitChars;
 	}
 	
-	/**
-	 * get the Crawler's service ID from the IGeoSave RMI server 
-	 * @param svcName unique service name 
-	 * @return service ID
-	 */
-	private int requestServiceID(String svcName) {
-		int rc;
-		try {
-			rc = geoSaver.getServiceID(svcName);
-		} catch (RemoteException e) {
-			logger.error("Error: No ServiceId",e);
-			e.printStackTrace();
-			return -1;
-		}
 
-		return rc;
-	}
-	
-	/**
-	 * get the stop word list from the IGeoSave RMI server
-	 * @return String array filled with stop words
-	 */
-	private String[] getStopWords(){
-		String[] rc;
-		try{
-			rc = geoSaver.getStopWords();
-		}catch (RemoteException e) {
-			logger.error("Error: No StopWords",e);
-			e.printStackTrace();
-			return null;
-		}
-		return rc;
-	}
-	
-	/**
-	 * get the list of word separating characters from the IGeoSave interface
-	 * @return
-	 */
-	private String getSplitChars(){
-		String rc;
-		try{
-			rc = geoSaver.getSplitChars();
-		}catch (RemoteException e) {
-			logger.error("Error: No SplitChars",e);
-			e.printStackTrace();
-			return null;
-		}
-		
-		return rc;
-	}
 	
 	/**
 	 * internal function to calculate the next BoundingBox to crawl

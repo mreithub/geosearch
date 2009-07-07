@@ -3,6 +3,9 @@ package at.fakeroot.sepm.crawler;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
+
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import junit.framework.TestCase;
 
@@ -45,6 +48,16 @@ public class ACrawlerTest extends TestCase {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Before
+	public void setUp() throws Exception {
+		System.out.println("setUp");
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("tearDown");
 	}
 }
 
