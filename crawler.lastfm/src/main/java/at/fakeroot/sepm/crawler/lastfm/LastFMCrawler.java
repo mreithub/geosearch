@@ -224,7 +224,7 @@ public class LastFMCrawler extends ACrawler
 						}
 						
 						//Add a new DB geo object with the parsed values.
-						geoObjects.add(new DBGeoObject(0, title, xPos, yPos, getSvcID(), uniqueID, link, validUntil,
+						geoObjects.add(new DBGeoObject(0, title, xPos, yPos, 0, uniqueID, link, validUntil,
 							properties.toArray(new Property[properties.size()]),
 							tags.toArray(new String[tags.size()])));
 					}

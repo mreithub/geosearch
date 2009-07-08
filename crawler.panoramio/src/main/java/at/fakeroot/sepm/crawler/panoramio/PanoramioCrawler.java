@@ -83,7 +83,7 @@ public class PanoramioCrawler extends ACrawler {
 						photoArray.getJSONObject(i).getString("photo_title"), 
 						photoArray.getJSONObject(i).getDouble("longitude"),
 						photoArray.getJSONObject(i).getDouble("latitude"), 
-						getSvcID(), 
+						0, 
 						JSONObject.numberToString(photoArray.getJSONObject(i).getInt("photo_id")),
 						photoArray.getJSONObject(i).getString("photo_url"),
 						null, 

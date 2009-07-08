@@ -29,8 +29,9 @@ public class WikiCrawler extends ACrawler
 	/**
 	 * Constructor
 	 * @throws IOException
+	 * @throws NotBoundException
 	 */
-	public WikiCrawler() throws IOException
+	public WikiCrawler() throws IOException, NotBoundException
 	{
 		super("de.wikipedia.org");
 	}
@@ -97,7 +98,7 @@ public class WikiCrawler extends ACrawler
 					Property[] property = {new Property("summary", jsonResult.getString("summary"))};
 					parseStringIntoTags(jsonResult.getString("summary"), tags, true);
 					String[] dbObjTags = tags.toArray(new String[tags.size()]);
-					dbGeoArray.add(new DBGeoObject(title, xPos, yPos, getSvcID(), title, link, null, property, dbObjTags));
+					dbGeoArray.add(new DBGeoObject(title, xPos, yPos, 0, title, link, null, property, dbObjTags));
 				}
 				//the found informations are saved in a DBGeoObject, which is going to be saved in the DB
 				saveObject(dbGeoArray.toArray(new DBGeoObject[dbGeoArray.size()]));
