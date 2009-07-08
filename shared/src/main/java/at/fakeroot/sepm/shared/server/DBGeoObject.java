@@ -12,7 +12,7 @@ public class DBGeoObject extends GeoObject {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 	
-	private int svc_id;
+	private int svcId;
 	private String uid;
 	private String link;
 	private Timestamp valid_until;
@@ -49,7 +49,7 @@ public class DBGeoObject extends GeoObject {
 	 * */
 	public DBGeoObject(long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
 		super(id, title, xPos, yPos);
-		svc_id= serviceID;
+		svcId= serviceID;
 		uid=uniqueID;
 		this.link=link;
 		this.valid_until=valid_until;
@@ -60,9 +60,27 @@ public class DBGeoObject extends GeoObject {
 	/**
 	 * Getter for service id
 	 * @return service id 
-	 * */
+	 * @deprecated use getSvcId() instead
+	 */
+	@Deprecated
 	public int getSvc_id() {
-		return svc_id;
+		return svcId;
+	}
+	
+	/**
+	 * Getter for service ID
+	 * @return service ID
+	 */
+	public int getSvcId() {
+		return svcId;
+	}
+	
+	/**
+	 * changes the service id for this DBGeoObject
+	 * @param svcID new service ID
+	 */
+	public void setSvcId(int svcID) {
+		this.svcId = svcID;
 	}
 
 	/**
@@ -102,6 +120,6 @@ public class DBGeoObject extends GeoObject {
 		for(int i=0;i<properties.length;i++){
 			propStr+=i+".) "+properties[i].toString();
 		}
-		return super.toString()+", title: "+ getTitle()+", svc_id: "+svc_id+", uid: "+uid+", link: "+link+", valid_until: "+valid_until+", properties: "+propStr;
+		return super.toString()+", title: "+ getTitle()+", svc_id: "+svcId+", uid: "+uid+", link: "+link+", valid_until: "+valid_until+", properties: "+propStr;
 	}
 }
