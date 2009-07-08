@@ -1,9 +1,7 @@
 package at.fakeroot.sepm.crawler;
 import java.io.IOException;
 import java.io.InputStream;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -17,7 +15,6 @@ import org.apache.log4j.Logger;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
-import at.fakeroot.sepm.shared.server.IGeoSave;
 
 /**
  * Abstract Crawler Class. Includes all necessary functions for crawling, and the communication with the server.   
@@ -28,7 +25,6 @@ public abstract class ACrawler  {
 	private static final Logger logger = Logger.getRootLogger();
 	private BoundingBox curBox;
 	private boolean newCircle=false;
-	private int serviceID = 23;
 	// words that shouldn't be used as tags
 	private static String[] stopWords;
 	// characters to split words
@@ -73,9 +69,11 @@ public abstract class ACrawler  {
 	
 	
 	/**
-	 * Crawler TypeR
+	 * output method
 	 */
-	private String crawlerTyp="SQL";
+	private String outputMethod = "SQL";
+	
+	private Properties myProperties = new Properties();
 	
 	/**
 	 * Standard constructor 
@@ -84,19 +82,22 @@ public abstract class ACrawler  {
 	 * * ServerPort is RMI-Std. Port
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
 	 * @throws IOException 
+	 * @throws NotBoundException if RMI output is used and the RMI connection couldn't be established
 	 */
-	public ACrawler(String svcName) throws IOException {
+	public ACrawler(String svcName) throws IOException, NotBoundException {
 		init(svcName);
 	}
 	
 	/**
 	 * private init function called by all Constructors 
 	 * @param svcName service name
-	 * @throws IOException e.g. when crawler.properties couldn't be read 
+	 * @throws IOException e.g. when crawler.properties couldn't be read
+	 * @throws NotBoundException if RMI output is used and the RMI connection couldn't be established
 	 */
-	private void init(String svcName) throws IOException {
+	private void init(String svcName) throws IOException, NotBoundException {
 		logger.info("Crawler "+svcName+" started");
-		// specific properties overwrite the global ones
+		
+		// more specific properties overwrite the global ones
 		loadProperties("crawler.properties");
 		try {
 			loadProperties(svcName+".properties");
@@ -104,29 +105,26 @@ public abstract class ACrawler  {
 		catch (IOException e) {
 			logger.info("Couldn't open "+svcName+".properties", e);
 		}
+		
+		readProperties();
 	
-		if(crawlerTyp.equals("SQL")){
-			crawlerOutput=new SQLOutput(svcName);
-		}else if(crawlerTyp.equals("RMI")){
-			crawlerOutput=new RMIOutput(svcName);
+		if(outputMethod.equals("SQL")){
+			crawlerOutput=new SQLOutput(svcName, myProperties);
+		}else if(outputMethod.equals("RMI")){
+			crawlerOutput=new RMIOutput(svcName, myProperties);
 		}
 		
 
-		// Request Service ID
-		//System.out.println("id: "+requestServiceID(svcName));
-		//serviceID=crawlerOutput.getSvcID();
 		stopWords=crawlerOutput.getStopWords();
 		splitChars=crawlerOutput.getSplitChars();
 	}
 	
 	/**
-	 * Reads the Crawler's properties from a file
-	 * 
-	 * @param filename file to read
-	 * @throws IOException
+	 * reads a properties file
 	 */
 	private void loadProperties(String filename) throws IOException {
-		Properties prop = new Properties();
+		// 
+		Properties prop = new Properties(myProperties);
 		InputStream propStream = getClass().getResourceAsStream("/"+filename);
 		
 		if (propStream == null) {
@@ -134,24 +132,32 @@ public abstract class ACrawler  {
 			throw new IOException("Error: Couldn't open property file '"+filename+"'");
 		}
 		prop.load(propStream);
-
+		myProperties = prop;
+	}
+	
+	/**
+	 * Interpretes the previously by loadProperties() loaded properties
+	 * 
+	 * @throws IOException
+	 */
+	private void readProperties() throws IOException {
 		crawlArea=new BoundingBox(
-				Double.parseDouble(prop.getProperty("crawler.box.x1", Double.toString(crawlArea.getX1()))),
-				Double.parseDouble(prop.getProperty("crawler.box.y1", Double.toString(crawlArea.getY1()))),
-				Double.parseDouble(prop.getProperty("crawler.box.x2", Double.toString(crawlArea.getX2()))),
-				Double.parseDouble(prop.getProperty("crawler.box.y2", Double.toString(crawlArea.getY2()))));
+				Double.parseDouble(myProperties.getProperty("crawler.box.x1", Double.toString(crawlArea.getX1()))),
+				Double.parseDouble(myProperties.getProperty("crawler.box.y1", Double.toString(crawlArea.getY1()))),
+				Double.parseDouble(myProperties.getProperty("crawler.box.x2", Double.toString(crawlArea.getX2()))),
+				Double.parseDouble(myProperties.getProperty("crawler.box.y2", Double.toString(crawlArea.getY2()))));
 		
-		xOffset = Double.parseDouble(prop.getProperty("crawler.stepSize", Double.toString(xOffset)));
+		xOffset = Double.parseDouble(myProperties.getProperty("crawler.stepSize", Double.toString(xOffset)));
 		yOffset = xOffset;
 
-		interval = Long.parseLong(prop.getProperty("crawler.interval", Long.toString(interval)));
+		interval = Long.parseLong(myProperties.getProperty("crawler.interval", Long.toString(interval)));
 
 		curBox = crawlArea;
-		apiKey = prop.getProperty("crawler.apiKey", apiKey);
-		secKey = prop.getProperty("crawler.secKey", secKey);
+		apiKey = myProperties.getProperty("crawler.apiKey", apiKey);
+		secKey = myProperties.getProperty("crawler.secKey", secKey);
 		
 
-		crawlerTyp = prop.getProperty("crawler.typ",crawlerTyp);
+		outputMethod = myProperties.getProperty("crawler.output",outputMethod);
 	}
 	
 	/**
@@ -248,20 +254,12 @@ public abstract class ACrawler  {
 		
 	}
 	
-	/**
-	 * Returns the ServiceID
-	 * @return Returns the ServiceID
-	 */
-	protected int getSvcID(){
-		return serviceID;
-	}
-	
 	public String toString() {
 		String showStopWord = "";
 		for(int i=0;i<stopWords.length;i++){
 			showStopWord+=", "+stopWords[i];
 		}
-		return "curBox: "+curBox.toString()+",  stopWords: "+showStopWord+", splitChars: "+splitChars;
+		return "curBox: "+curBox.toString()+", outputMethod: "+outputMethod+", stopWords: "+showStopWord+", splitChars: "+splitChars;
 	}
 	
 

@@ -3,7 +3,6 @@ package at.fakeroot.sepm.crawler;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -12,38 +11,34 @@ import at.fakeroot.sepm.shared.server.DBGeoObject;
 
 public class SQLOutput implements CrawlerOutput {
 	private static final Logger logger = Logger.getRootLogger();
-	private int serviceID=23;
-	private String fileName="objects.sql";
+	private String outputFileName="objects.sql";
 	private FileWriter writer;
 	private File file;
 	private String splitChars=" \r\n.,!?\"`´°\\\'";
 	private String[] stopWords=new String[]{"der", "die", "das", "in", "ein", "aus", "für"};
 	
-	public SQLOutput(String svcName) throws IOException {
-		init(svcName);
+	/**
+	 * constructor
+	 * @param svcName service Name
+	 * @param props init Properties 
+	 * @throws IOException if the output file couldn't be opened
+	 */
+	public SQLOutput(String svcName, Properties props) throws IOException {
+		init(svcName, props);
 	}
 	
 	/**
 	 * private init function called by all Constructors 
 	 * @param svcName service name
-	 * @throws IOException e.g. when crawler.properties couldn't be read 
+	 * @throws IOException if the output file couldn't be opened
 	 */
-	private void init(String svcName) throws IOException {
+	private void init(String svcName, Properties props) throws IOException {
 		logger.info("Crawler "+svcName+" started");
 		// specific properties overwrite the global ones
-		loadProperties("SQLOutput.properties");
-		try {
-			loadProperties(svcName+".SQLOutput.properties");
-		}
-		catch (IOException e) {
-			logger.info("Couldn't open SQLOutput.properties", e);
-		}
+		loadProperties(props);
 
-		file = new File(fileName);
-		writer = new FileWriter(file ,true);
-		
-		//writer.close();
-		
+		file = new File(outputFileName);
+		writer = new FileWriter(file ,false);
 	}
 
 	@Override
@@ -57,24 +52,11 @@ public class SQLOutput implements CrawlerOutput {
 	}
 
 
-	@Override
-	public void loadProperties(String filename) throws IOException {
-		Properties prop = new Properties();
-		InputStream propStream = getClass().getResourceAsStream("/"+filename);
+	private void loadProperties(Properties props) {
+		outputFileName = props.getProperty("sql.filename", outputFileName);
+		splitChars = props.getProperty("sql.SplitChars",splitChars);
 		
-		if (propStream == null) {
-			logger.error("Error: Couldn't open property file '"+filename+"'");
-			throw new IOException("Error: Couldn't open property file '"+filename+"'");
-		}
-		prop.load(propStream);
-
-		
-		//serviceID = prop.getProperty("sql.SvcId", serviceID);
-		serviceID = Integer.parseInt(prop.getProperty("sql.SvcId", Integer.toString(serviceID)));
-		splitChars = prop.getProperty("sql.SplitChars",splitChars);
-		
-		String stopWordsTest=null;
-		String stopWordsString = prop.getProperty("sql.StopWords", stopWordsTest);
+		String stopWordsString = props.getProperty("sql.StopWords");
 		
 		if(stopWordsString!=null){
 			stopWords=stopWordsString.split(",");
@@ -85,7 +67,7 @@ public class SQLOutput implements CrawlerOutput {
 	public void saveObjects(DBGeoObject[] newObjects) {
 		System.err.println("GeoSave.saveObjects ("+newObjects.length+")");
 		for (int i = 0; i < newObjects.length; i++) {
-			System.err.println("GeoSave.saveObjects ("+newObjects[i].getSvc_id()+")");
+			System.err.println("GeoSave.saveObjects ("+newObjects[i].getSvcId()+")");
 			
 			try {
 				writer.write("INSER INTO XXX (" +

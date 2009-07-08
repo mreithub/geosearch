@@ -1,14 +1,13 @@
 package at.fakeroot.sepm.crawler;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
-import at.fakeroot.sepm.shared.server.DBGeoObjectTest;
 import at.fakeroot.sepm.shared.server.IGeoSave;
 
 public class RMIOutput implements CrawlerOutput {
@@ -27,65 +26,45 @@ public class RMIOutput implements CrawlerOutput {
 	 */
 	private int rmiPort = 1099;
 	
-	public RMIOutput(String svcName) throws IOException {
-		init(svcName);
+	/**
+	 * Constructor
+	 * @param svcName service name
+	 * @throws IOException if the crawler's properties couldn't be read
+	 * @throws NotBoundException if no RMI connection could be established
+	 */
+	public RMIOutput(String svcName, Properties props) throws IOException, NotBoundException {
+		init(svcName, props);
 	}
 	
 	/**
 	 * private init function called by all Constructors 
 	 * @param svcName service name
 	 * @throws IOException e.g. when crawler.properties couldn't be read 
+	 * @throws NotBoundException if no RMI connection could be established
 	 */
-	private void init(String svcName) throws IOException {
+	private void init(String svcName, Properties props) throws IOException, NotBoundException {
 		logger.info("Crawler "+svcName+" started");
-		// specific properties overwrite the global ones
-		loadProperties("RMIOutput.properties");
-		try {
-			loadProperties(svcName+".RMIOutput.properties");
-		}
-		catch (IOException e) {
-			logger.info("Couldn't open "+svcName+".RMIOutput.properties", e);
-		}
+
+		loadProperties(props);
 
 		// init RMI		
 		Registry reg = LocateRegistry.getRegistry(rmiServer, rmiPort);
 		for(int i=0;i<reg.list().length;i++){
 			System.out.println("reg: "+reg.list()[i]);
 		}
-		try {
-			//geoSaver = (IGeoSave) reg.lookup("rmi://"+rmiServer+":"+rmiPort+"/IGeoSave");
-			geoSaver = (IGeoSave) reg.lookup("IGeoSave");
-			logger.info("RMI connection opened on "+rmiServer+":"+rmiPort);
-		}
-		catch (Exception e) {
-			// if we can't get a RMI connection, enter testing mode
-			geoSaver = new GeoSaveTest();
-			logger.error("RMI connection failt on "+rmiServer+":"+rmiPort,e);
-		}
-		
+
+		//geoSaver = (IGeoSave) reg.lookup("rmi://"+rmiServer+":"+rmiPort+"/IGeoSave");
+		geoSaver = (IGeoSave) reg.lookup("IGeoSave");
+		logger.info("RMI connection opened on "+rmiServer+":"+rmiPort);
 
 		// Request Service ID
-		//System.out.println("id: "+requestServiceID(svcName));
 		serviceID=requestServiceID(svcName);
 
 	}
 
-	@Override
-	public void loadProperties(String filename) throws IOException {
-		Properties prop = new Properties();
-		InputStream propStream = getClass().getResourceAsStream("/"+filename);
-		
-		if (propStream == null) {
-			logger.error("Error: Couldn't open property file '"+filename+"'");
-			throw new IOException("Error: Couldn't open property file '"+filename+"'");
-		}
-		prop.load(propStream);
-
-		
-		rmiServer = prop.getProperty("rmi.server", rmiServer);
-		rmiPort = Integer.parseInt(prop.getProperty("rmi.port", Integer.toString(rmiPort)));
-
-		
+	private void loadProperties(Properties props) throws IOException {
+		rmiServer = props.getProperty("rmi.server", rmiServer);
+		rmiPort = Integer.parseInt(props.getProperty("rmi.port", Integer.toString(rmiPort)));
 	}
 
 	/**
@@ -93,23 +72,12 @@ public class RMIOutput implements CrawlerOutput {
 	 * @param newObjects Array of new Objects
 	 */
 	public void saveObjects(DBGeoObject[] newObjects) {
-		DBGeoObject[] saveObjects = new DBGeoObject[newObjects.length];
  		for(int i=0;i<newObjects.length;i++){
- 			saveObjects[i]=new DBGeoObject(
- 					newObjects[i].getId(),
- 					newObjects[i].getTitle(),
- 					newObjects[i].getXPos(),
- 					newObjects[i].getYPos(),
- 					serviceID,
- 					newObjects[i].getUid(),
- 					newObjects[i].getLink(),
- 					newObjects[i].getValid_until(),
- 					newObjects[i].getProperties(),
- 					newObjects[i].getTags());
+ 			newObjects[i].setSvcId(serviceID);
 		}
 		
 		try {
-			geoSaver.saveObjects(saveObjects);
+			geoSaver.saveObjects(newObjects);
 		} catch (RemoteException e) {
 			logger.error("Error: Saving Objects",e);
 			e.printStackTrace();
@@ -133,7 +101,6 @@ public class RMIOutput implements CrawlerOutput {
 
 		return rc;
 	}
-
 
 	/**
 	 * get the stop word list from the IGeoSave RMI server
