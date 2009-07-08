@@ -1,6 +1,7 @@
 package at.fakeroot.sepm.crawler;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -15,10 +16,11 @@ public class ACrawlerTest extends TestCase {
 		return ("at.fakeroot.sepm.crawler.ACrawlerTest");
 	}
 	
-	public void testSimple(){
+	public void testSimple() throws IOException, NotBoundException {
 		class myTestCrawler extends ACrawler{
 
-			public myTestCrawler(String svcName) throws IOException {
+			public myTestCrawler(String svcName) throws IOException, NotBoundException {
+				// TODO use test CrawlerOutput class
 				super(svcName);			
 				
 			}
@@ -28,26 +30,20 @@ public class ACrawlerTest extends TestCase {
 			}
 			
 		}
-		try {
-			//Hier muss ein service verwendet werden den es sicher gibt!
-			myTestCrawler myTestCrawler = new myTestCrawler("de.wikipedia.org");
-			// diese assertion kann nicht sichergestellt werden, da der Test keinen einfluss auf die Datenbank hat
-			//assertEquals(5, myTestCrawler.getSvcID());
-			
-			ArrayList<String> myList = new ArrayList<String>();
-			myTestCrawler.parseStringIntoTags("Haus Mauer",myList,true);
-			System.out.println(myList.get(0));
-			assertEquals("Haus", myList.get(0));
-			assertEquals("Mauer", myList.get(1));
-			
-			String tesURL= myTestCrawler.requestUrl("http://weristin.com/php/httptest");
-			assertEquals(tesURL, "httptest");
-			
-		} catch (IOException e) {
-			assertEquals(true, false);
-			e.printStackTrace();
-		}
+
+		//Hier muss ein service verwendet werden den es sicher gibt!
+		myTestCrawler myTestCrawler = new myTestCrawler("de.wikipedia.org");
+		// diese assertion kann nicht sichergestellt werden, da der Test keinen einfluss auf die Datenbank hat
+		//assertEquals(5, myTestCrawler.getSvcID());
 		
+		ArrayList<String> myList = new ArrayList<String>();
+		myTestCrawler.parseStringIntoTags("Haus Mauer",myList,true);
+		System.out.println(myList.get(0));
+		assertEquals("Haus", myList.get(0));
+		assertEquals("Mauer", myList.get(1));
+		
+		String tesURL= myTestCrawler.requestUrl("http://weristin.com/php/httptest");
+		assertEquals(tesURL, "httptest");
 	}
 
 	@Before
