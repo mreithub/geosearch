@@ -6,16 +6,16 @@ import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import junit.framework.TestCase;
 
 public class ACrawlerTest extends TestCase {
-	public String getModulName()
-	{
-		return ("at.fakeroot.sepm.crawler.ACrawlerTest");
-	}
+	private ACrawler aCrawler;
 	
+	/*
+	@Test
 	public void testSimple() throws IOException, NotBoundException {
 		class myTestCrawler extends ACrawler{
 
@@ -45,10 +45,39 @@ public class ACrawlerTest extends TestCase {
 		String tesURL= myTestCrawler.requestUrl("http://weristin.com/php/httptest");
 		assertEquals(tesURL, "httptest");
 	}
-
+	*/
+	
+	@Test
+	public void testSplitChar(){
+		System.out.println("splitCharTest");
+		ArrayList<String> myList = new ArrayList<String>();
+		aCrawler.parseStringIntoTags("Haus Mauer der",myList,true);
+		assertEquals("Haus", myList.get(0));
+		assertEquals("Mauer", myList.get(1));		
+		
+		assertTrue(!myList.contains("der"));
+	}
+	
+	@Test
+	public void testRequestUrl(){
+		String tesURL= aCrawler.requestUrl("http://weristin.com/php/httptest");
+		assertEquals(tesURL, "httptest");
+	}
+	
+	
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("setUp");
+		
+		aCrawler = new ACrawler("test"){
+
+			@Override
+			protected void crawlBox(BoundingBox curBox) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
 	}
 
 	@After
