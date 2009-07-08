@@ -81,20 +81,32 @@ public abstract class ACrawler  {
 	 * * ServerHost is localhost
 	 * * ServerPort is RMI-Std. Port
 	 * @param SvcName Service Name (eg. Wiki_de, Panoramio)
-	 * @throws IOException 
+	 * @throws IOException if the Properties-file couldn't be read
 	 * @throws NotBoundException if RMI output is used and the RMI connection couldn't be established
 	 */
 	public ACrawler(String svcName) throws IOException, NotBoundException {
-		init(svcName);
+		init(svcName, null);
+	}
+	
+	/**
+	 * constructor for testing purposes
+	 * @param svcName service name
+	 * @param output output method
+	 * @throws IOException if the Properties-file couldn't be read
+	 * @throws NotBoundException if RMO output is used and the RMI connection couldn't be established
+	 */
+	public ACrawler(String svcName, CrawlerOutput output) throws IOException, NotBoundException {
+		init(svcName, output);
 	}
 	
 	/**
 	 * private init function called by all Constructors 
 	 * @param svcName service name
+	 * @param output CrawlerOutput object to be used or null to read the output method from the property files
 	 * @throws IOException e.g. when crawler.properties couldn't be read
 	 * @throws NotBoundException if RMI output is used and the RMI connection couldn't be established
 	 */
-	private void init(String svcName) throws IOException, NotBoundException {
+	private void init(String svcName, CrawlerOutput output) throws IOException, NotBoundException {
 		logger.info("Crawler "+svcName+" started");
 		
 		// more specific properties overwrite the global ones
@@ -108,11 +120,14 @@ public abstract class ACrawler  {
 		
 		readProperties();
 	
-		if(outputMethod.equals("SQL")){
-			crawlerOutput=new SQLOutput(svcName, myProperties);
-		}else if(outputMethod.equals("RMI")){
-			crawlerOutput=new RMIOutput(svcName, myProperties);
+		if (output == null) {
+			if(outputMethod.equals("SQL")){
+				crawlerOutput=new SQLOutput(svcName, myProperties);
+			}else if(outputMethod.equals("RMI")){
+				crawlerOutput=new RMIOutput(svcName, myProperties);
+			}
 		}
+		else crawlerOutput = output;
 		
 
 		stopWords=crawlerOutput.getStopWords();
