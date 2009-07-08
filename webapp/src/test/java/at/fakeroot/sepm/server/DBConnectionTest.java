@@ -3,31 +3,27 @@
  */
 package at.fakeroot.sepm.server;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import junit.framework.TestCase;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Manuel Reithuber
  *
  */
-public class DBConnectionTest extends TestCase {
-	public String getModulName(){
-		return "at.fakeroot.sepm.server.DBConnection";
-	}
+public class DBConnectionTest {
+	DBConnection db = null;
 
+	@Test
 	public void testSimple(){
-		DBConnection db = null;
 
-		try {
-			db = new DBConnection();
-		}
-		catch (Exception e) {
-			System.err.println("Database connection failed:");
-			e.printStackTrace(System.err);
-			System.exit (0);
-		}
 
 		// only do this if we are on the testing database
 		if (db.isTesting()) {
@@ -60,5 +56,15 @@ public class DBConnectionTest extends TestCase {
 				}
 			}
 		}
+	}
+
+	@Before
+	public void bringUp() throws IOException {
+		db = new DBConnection();
+	}
+	
+	@After
+	public void tearDown() {
+		
 	}
 }
