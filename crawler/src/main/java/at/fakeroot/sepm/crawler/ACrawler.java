@@ -28,7 +28,7 @@ public abstract class ACrawler  {
 	private static final Logger logger = Logger.getRootLogger();
 	private BoundingBox curBox;
 	private boolean newCircle=false;
-	private int serviceID;
+	private int serviceID = 23;
 	// words that shouldn't be used as tags
 	private static String[] stopWords;
 	// characters to split words
@@ -114,7 +114,7 @@ public abstract class ACrawler  {
 
 		// Request Service ID
 		//System.out.println("id: "+requestServiceID(svcName));
-		serviceID=crawlerOutput.getSvcID();
+		//serviceID=crawlerOutput.getSvcID();
 		stopWords=crawlerOutput.getStopWords();
 		splitChars=crawlerOutput.getSplitChars();
 	}
@@ -261,7 +261,7 @@ public abstract class ACrawler  {
 		for(int i=0;i<stopWords.length;i++){
 			showStopWord+=", "+stopWords[i];
 		}
-		return "curBox: "+curBox.toString()+", serviceID: "+serviceID+", stopWords: "+showStopWord+", splitChars: "+splitChars;
+		return "curBox: "+curBox.toString()+",  stopWords: "+showStopWord+", splitChars: "+splitChars;
 	}
 	
 

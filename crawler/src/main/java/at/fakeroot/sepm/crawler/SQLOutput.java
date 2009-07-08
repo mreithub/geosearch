@@ -14,8 +14,10 @@ public class SQLOutput implements CrawlerOutput {
 	private static final Logger logger = Logger.getRootLogger();
 	private int serviceID=23;
 	private String fileName="objects.sql";
-	FileWriter writer;
-	File file;
+	private FileWriter writer;
+	private File file;
+	private String splitChars=" \r\n.,!?\"`´°\\\'";
+	private String[] stopWords=new String[]{"der", "die", "das", "in", "ein", "aus", "für"};
 	
 	public SQLOutput(String svcName) throws IOException {
 		init(svcName);
@@ -29,11 +31,12 @@ public class SQLOutput implements CrawlerOutput {
 	private void init(String svcName) throws IOException {
 		logger.info("Crawler "+svcName+" started");
 		// specific properties overwrite the global ones
+		loadProperties("SQLOutput.properties");
 		try {
-			loadProperties("RMIOutput.properties");
+			loadProperties(svcName+".SQLOutput.properties");
 		}
 		catch (IOException e) {
-			logger.info("Couldn't open RMIOutput.properties", e);
+			logger.info("Couldn't open SQLOutput.properties", e);
 		}
 
 		file = new File(fileName);
@@ -45,18 +48,14 @@ public class SQLOutput implements CrawlerOutput {
 
 	@Override
 	public String getSplitChars() {
-		return " \r\n.,!?\"`´°\\\'";
+		return splitChars;
 	}
 
 	@Override
 	public String[] getStopWords() {
-		return new String[]{"der", "die", "das", "in", "ein", "aus", "für"};
+		return stopWords;
 	}
 
-	@Override
-	public int getSvcID() {
-		return serviceID;
-	}
 
 	@Override
 	public void loadProperties(String filename) throws IOException {
@@ -72,7 +71,14 @@ public class SQLOutput implements CrawlerOutput {
 		
 		//serviceID = prop.getProperty("sql.SvcId", serviceID);
 		serviceID = Integer.parseInt(prop.getProperty("sql.SvcId", Integer.toString(serviceID)));
-
+		splitChars = prop.getProperty("sql.SplitChars",splitChars);
+		
+		String stopWordsTest=null;
+		String stopWordsString = prop.getProperty("sql.StopWords", stopWordsTest);
+		
+		if(stopWordsString!=null){
+			stopWords=stopWordsString.split(",");
+		}
 	}
 
 	@Override
@@ -83,7 +89,7 @@ public class SQLOutput implements CrawlerOutput {
 			
 			try {
 				writer.write("INSER INTO XXX (" +
-						"name) VALUES (" +
+						"%servicename_id%) VALUES (" +
 						newObjects[i].getTitle()+");");
 				writer.write(System.getProperty("line.separator"));
 				writer.flush();

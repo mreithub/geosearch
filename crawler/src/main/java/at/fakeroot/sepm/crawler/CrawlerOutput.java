@@ -10,7 +10,7 @@ public interface CrawlerOutput {
 	
 	void saveObjects(DBGeoObject[] newObjects);
 	
-	int getSvcID();
+	//int getSvcID();
 	
 	String getSplitChars();
 	

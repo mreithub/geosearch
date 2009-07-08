@@ -8,6 +8,7 @@ import java.rmi.registry.Registry;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
+import at.fakeroot.sepm.shared.server.DBGeoObjectTest;
 import at.fakeroot.sepm.shared.server.IGeoSave;
 
 public class RMIOutput implements CrawlerOutput {
@@ -38,11 +39,12 @@ public class RMIOutput implements CrawlerOutput {
 	private void init(String svcName) throws IOException {
 		logger.info("Crawler "+svcName+" started");
 		// specific properties overwrite the global ones
+		loadProperties("RMIOutput.properties");
 		try {
-			loadProperties("RMIOutput.properties");
+			loadProperties(svcName+".RMIOutput.properties");
 		}
 		catch (IOException e) {
-			logger.info("Couldn't open RMIOutput.properties", e);
+			logger.info("Couldn't open "+svcName+".RMIOutput.properties", e);
 		}
 
 		// init RMI		
@@ -91,8 +93,23 @@ public class RMIOutput implements CrawlerOutput {
 	 * @param newObjects Array of new Objects
 	 */
 	public void saveObjects(DBGeoObject[] newObjects) {
+		DBGeoObject[] saveObjects = new DBGeoObject[newObjects.length];
+ 		for(int i=0;i<newObjects.length;i++){
+ 			saveObjects[i]=new DBGeoObject(
+ 					newObjects[i].getId(),
+ 					newObjects[i].getTitle(),
+ 					newObjects[i].getXPos(),
+ 					newObjects[i].getYPos(),
+ 					serviceID,
+ 					newObjects[i].getUid(),
+ 					newObjects[i].getLink(),
+ 					newObjects[i].getValid_until(),
+ 					newObjects[i].getProperties(),
+ 					newObjects[i].getTags());
+		}
+		
 		try {
-			geoSaver.saveObjects(newObjects);
+			geoSaver.saveObjects(saveObjects);
 		} catch (RemoteException e) {
 			logger.error("Error: Saving Objects",e);
 			e.printStackTrace();
@@ -117,10 +134,6 @@ public class RMIOutput implements CrawlerOutput {
 		return rc;
 	}
 
-	@Override
-	public int getSvcID() {
-		return serviceID;
-	}
 
 	/**
 	 * get the stop word list from the IGeoSave RMI server
