@@ -24,8 +24,8 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 {
 	// a max. limit for the hits, which are shown on the map
 	private static final int displayLimit = 50, countLimit = 500;
-	private GeoObjectManager geoObjManager;
-	private ServiceManager svcManager;
+	private IGeoObjectManager geoObjManager;
+	private IServiceManager svcManager;
 	private Logger logger = Logger.getRootLogger();
 
 
@@ -78,7 +78,7 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 
 		try{
 			DBGeoObject dbGeoObj = geoObjManager.getObjectbyId(objId);
-			DBService dbSvcObj = svcManager.select(dbGeoObj.getSvc_id());
+			DBService dbSvcObj = svcManager.select(dbGeoObj.getSvcId());
 			String html = dbSvcObj.getBubbleHTML();
 			int begin = 0;
 			int end = 0;
@@ -139,7 +139,8 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 			}
 			//html for the object together with its tags
 			objDetails = new ObjectDetails(result,tags.toArray(new String[tags.size()]), dbGeoObj.getLink(), dbSvcObj.getThumbnail(), dbSvcObj.getHomepage());
-		}catch(Exception e)
+		}
+		catch(Exception e)
 		{
 			objDetails = new ObjectDetails("", new String[0], "", "", "");
 		}

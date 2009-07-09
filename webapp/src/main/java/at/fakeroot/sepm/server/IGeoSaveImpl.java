@@ -17,7 +17,7 @@ import at.fakeroot.sepm.server.GeoObjectManager.NotFoundException;
 public class IGeoSaveImpl implements IGeoSave {
 	
 	private static final Logger logger = Logger.getRootLogger();
-	private GeoObjectManager geoManager;
+	private IGeoObjectManager geoManager;
 	
 	/**
 	 * constructer 
@@ -69,7 +69,7 @@ public class IGeoSaveImpl implements IGeoSave {
 	 * @param svcName serviceName (eg. panoramio.com)
 	 */
 	public int getServiceID(String svcName) throws RemoteException {
-		ServiceManager serviceManager = ServiceManager.getInstance();
+		IServiceManager serviceManager = ServiceManager.getInstance();
 		DBService svc;
 		
 		try {

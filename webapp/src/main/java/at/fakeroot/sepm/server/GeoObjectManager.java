@@ -24,9 +24,9 @@ import at.fakeroot.sepm.shared.server.Property;
  * Based on the Singleton pattern.
  * @author AC
  */
-public class GeoObjectManager 
+public class GeoObjectManager implements IGeoObjectManager, IGeoObjectManager 
 {
-	private static GeoObjectManager geoObjManager = null;
+	private static IGeoObjectManager geoObjManager = null;
 	private static final Logger logger = Logger.getRootLogger();
 	DBConnection dbRead, dbWrite;
 
@@ -79,7 +79,7 @@ public class GeoObjectManager
 	 * @throws IOException if the database configuration could not be read
 	 * @throws SQLException if the database connection could not be made
 	 */	
-	public static GeoObjectManager getInstance() throws SQLException, IOException
+	public static IGeoObjectManager getInstance() throws SQLException, IOException
 	{
 		if(geoObjManager == null)
 			geoObjManager = new GeoObjectManager();
@@ -87,13 +87,9 @@ public class GeoObjectManager
 	}
 
 
-	/**
-	 * Method used to get the obj_id of the DBGeoObject with the given svc_id and uid
-	 * @param svc_id the service id 
-	 * @param uid the unique id 
-	 * @return the obj_id 
-	 * @throws NotFoundException if no object was found
-	 * */	
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IGeoObjectManager#getObjectId(int, java.lang.String)
+	 */	
 	public long getObjectId(int svc_id, String uid) throws NotFoundException, SQLException {
 		long rc=-1;
 		try{
@@ -117,12 +113,9 @@ public class GeoObjectManager
 	}
 
 
-	/**
-	 * Get the DBGeoObject with this obj_id
-	 * @param obj_id the object id 
-	 * @return  the DBGeoObject with this id
-	 * @throws Exception if no object with this id is found
-	 * */
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IGeoObjectManager#getObjectbyId(long)
+	 */
 	public DBGeoObject getObjectbyId(long id) throws NotFoundException, SQLException {
 		DBGeoObject rc=null;
 
@@ -156,11 +149,8 @@ public class GeoObjectManager
 		return rc;
 	}
 	
-	/**
-	 * Delete a specific geoObject from the database
-	 * @param objId ID of the object to be deleted (can be queried by getObjectId() or by GeoObject.getId()
-	 * @throws NotFoundException when the object to delete doesn't exist
-	 * @throws SQLException on any other database related error
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IGeoObjectManager#delete(long)
 	 */
 	public void delete(long objId) throws NotFoundException, SQLException {
 		PreparedStatement pstmt = dbWrite.prepareStatement("DELETE FROM geoObject WHERE obj_id = ?");
@@ -171,12 +161,8 @@ public class GeoObjectManager
 		}
 	}
 	
-	/**
-	 * Delete a specific geoObject via it's service ID and it's UID
-	 * @param svcId service ID for the geoObject
-	 * @param uid service-unique ID of the geoObject 
-	 * @throws NotFoundException when no matching geoObject is found in the database
-	 * @throws SQLException on any other database related problem
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IGeoObjectManager#delete(int, java.lang.String)
 	 */
 	public void delete(int svcId, String uid) throws NotFoundException, SQLException {
 		PreparedStatement pstmt = dbWrite.prepareStatement("DELETE FROM geoObject WHERE svc_id = ? AND uid = ?");
@@ -188,13 +174,9 @@ public class GeoObjectManager
 		}
 	}
 
-	/**
-	 * Method used to retrieve a limited number of ClientGeoObjects having a set of tags and lying in a particular BoundingBox
-	 * @param tags String[] the desired tags
-	 * @param box BoundingBox the search area
-	 * @param displayLimit int the number of results to fetch
-	 * @param countLimit int the number of results to count
-	 * */
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IGeoObjectManager#select(java.lang.String[], at.fakeroot.sepm.shared.client.serialize.BoundingBox, int, int)
+	 */
 	public SearchResult select(String[] tags, BoundingBox box, int displayLimit, int countLimit)
 	{
 		SearchResult searchResult = new SearchResult(countLimit);
@@ -437,10 +419,9 @@ public class GeoObjectManager
 	} 
 
 
-	/**
-	 * Insert a new object in the Database
-	 * @param obj DBGeoObject object to be inserted 
-	 * */
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IGeoObjectManager#insert(at.fakeroot.sepm.shared.server.DBGeoObject)
+	 */
 	public void insert (DBGeoObject obj) throws RemoteException
 	{
 		try {
@@ -499,10 +480,9 @@ public class GeoObjectManager
 		}
 	}
 
-	/**
-	 * Update an object in the database
-	 * @param the new object, that will overwrite the old one with the same object id (obj_id)
-	 * */
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IGeoObjectManager#update(at.fakeroot.sepm.shared.server.DBGeoObject)
+	 */
 	public void update (DBGeoObject obj) throws RemoteException
 	{
 		try {

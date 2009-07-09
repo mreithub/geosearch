@@ -22,7 +22,7 @@ import at.fakeroot.sepm.shared.server.Property;
 
 public class GeoObjectManagerTest{
 	
-	GeoObjectManager geoObjManager;
+	IGeoObjectManager geoObjManager;
 	String[] tags;
 	Property[] prop;
 	DBGeoObject inObj;

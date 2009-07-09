@@ -13,9 +13,9 @@ import org.apache.log4j.Logger;
  * table service; this class realizes the Singleton pattern
  * @author RK
  */
-public class ServiceManager 
+public class ServiceManager implements IServiceManager 
 {
-	private static ServiceManager svcManager = null;
+	private static IServiceManager svcManager = null;
 	private static final Logger logger = Logger.getRootLogger();
 	
 	/**
@@ -28,7 +28,7 @@ public class ServiceManager
 	 * returns a reference to the instance of ServiceManager
 	 * @return ServiceManager
 	 */
-	public static ServiceManager getInstance()
+	public static IServiceManager getInstance()
 	{
 		//checks whether the svcManager has been initialized
 		if(svcManager == null)
@@ -36,11 +36,8 @@ public class ServiceManager
 		return svcManager;
 	}
 	
-	/**
-	 * returns a DBService object with the Data from the 'service' table of the Database, selected
-	 * by the svc_id, which is the parameter for this method
-	 * @param svcId int ID of the service 
-	 * @return DBService an object with all the information from the table 'service'
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IServiceManager#select(int)
 	 */
 	public DBService select(int svcId) throws SQLException, IOException
 	{
@@ -87,11 +84,8 @@ public class ServiceManager
 		
 	}
 	
-	/**
-	 * returns a DBService object with the Data from the 'service' table of the Database, selected
-	 * by its name, which is the parameter for this method
-	 * @param name String the name of the service
-	 * @return DBService an object with all the information from the table 'service'
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IServiceManager#select(java.lang.String)
 	 */
 	public DBService select(String name) throws SQLException, IOException
 	{

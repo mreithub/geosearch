@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class ServiceManagerTest {
 
-	ServiceManager servManager;
+	IServiceManager servManager;
 
 	@Test
 	public void testGetServiceInfo_shouldSucceed() throws FileNotFoundException, IOException, SQLException{
