@@ -117,8 +117,11 @@ public class DBGeoObject extends GeoObject {
 	
 	public String toString() {
 		String propStr="";
-		for(int i=0;i<properties.length;i++){
-			propStr+=i+".) "+properties[i].toString();
+		if (properties != null)
+		{
+			for(int i=0;i<properties.length;i++){
+				propStr+=i+".) "+properties[i].toString();
+			}
 		}
 		return super.toString()+", title: "+ getTitle()+", svc_id: "+svcId+", uid: "+uid+", link: "+link+", valid_until: "+valid_until+", properties: "+propStr;
 	}

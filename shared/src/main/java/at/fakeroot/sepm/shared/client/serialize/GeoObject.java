@@ -131,8 +131,11 @@ public class GeoObject implements Serializable {
 
 	public String toString() {
 		String strTags="";
-		for(int i=0;i<tags.length;i++){
-			strTags+=tags[i]+", ";
+		if (tags != null)
+		{
+			for(int i=0;i<tags.length;i++){
+				strTags+=tags[i]+", ";
+			}
 		}
 		return "id: "+id+", title: "+title+", xPos(lng): "+xPos+", yPos(lat): "+yPos+", Tags: "+strTags;
 	}
