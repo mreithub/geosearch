@@ -31,7 +31,7 @@ public class SplitStopWordManager {
 		ResultSet rs = null;
 		String[] result = null;
 		ArrayList<String> stopWords = new ArrayList<String>();
-		DBConnection dbConn = null;
+		IDBConnection dbConn = null;
 		
 		try
 		{
@@ -70,7 +70,7 @@ public class SplitStopWordManager {
 		
 		ResultSet rs = null;
 		String result = "";
-		DBConnection dbConn = null;
+		IDBConnection dbConn = null;
 		
 		try
 		{

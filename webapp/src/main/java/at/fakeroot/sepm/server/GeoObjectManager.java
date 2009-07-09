@@ -28,7 +28,7 @@ public class GeoObjectManager implements IGeoObjectManager, IGeoObjectManager
 {
 	private static IGeoObjectManager geoObjManager = null;
 	private static final Logger logger = Logger.getRootLogger();
-	DBConnection dbRead, dbWrite;
+	IDBConnection dbRead, dbWrite;
 
 
 	/**

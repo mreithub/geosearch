@@ -76,7 +76,7 @@ public class GeoObjectManagerTest{
 	}
 	
 	public void testSimple() {
-		DBConnection dbConn = null;
+		IDBConnection dbConn = null;
 		Statement stmt;
 		int svcId = -1;
 		long obj_id = -1;

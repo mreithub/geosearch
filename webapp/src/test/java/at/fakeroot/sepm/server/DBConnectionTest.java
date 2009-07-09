@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  *
  */
 public class DBConnectionTest {
-	DBConnection db = null;
+	IDBConnection db = null;
 
 	@Test
 	public void testSimple(){

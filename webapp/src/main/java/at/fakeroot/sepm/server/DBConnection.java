@@ -25,7 +25,7 @@ import org.postgresql.ds.PGConnectionPoolDataSource;
  * @author Manuel Reithuber
  * 
  */
-public class DBConnection {
+public class DBConnection implements IDBConnection {
 	// shared connection pool
 	private static ConnectionPoolDataSource dataSource;
 	private static boolean isTesting = false;
@@ -74,12 +74,8 @@ public class DBConnection {
 		}
 	}
 	
-	/**
-	 * release the DBConnection
-	 * 
-	 * This function releases the internal PooledConnection.
-	 * @throws SQLException if the transaction rollback (if in testing mode)
-	 *	or the db closing fails 
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#disconnect()
 	 */
 	public void disconnect() throws SQLException {
 		if (dbConn != null) {
@@ -92,11 +88,8 @@ public class DBConnection {
 		}
 	}
 	
-	/**
-	 * returns the internal Connection object
-	 * (requests one from the connection pool if there is none yet)
-	 * @return internal Connection object
-	 * @throws SQLException if the pooled connection couldn't be requested
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#getConnection()
 	 */
 	public Connection getConnection() throws SQLException {
 		if (dbConn == null) {
@@ -110,58 +103,43 @@ public class DBConnection {
 		return dbConn.getConnection();
 	}
 
-	/**
-	 * returns a PreparedStatement with scrollable ResultSets enabled
-	 * @param stmt SQL statement to prepare
-	 * @return PreparedStatement
-	 * @throws SQLException if the database call fails
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#prepareStatement(java.lang.String)
 	 */
 	public PreparedStatement prepareStatement(String stmt) throws SQLException {
 		return getConnection().prepareStatement(stmt, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 	
-	/**
-	 * creates and returns a plain Statement with scrollable ResultSets enabled
-	 * @return Statement
-	 * @throws SQLException if the database call fails
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#createStatement()
 	 */
 	public Statement createStatement() throws SQLException {
 		return getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 	
-	/**
-	 * thin wrapper around Connection.setAutoCommit() (use this with commit() and rollback()) 
-	 * @param value determines if auto commit will be enabled
-	 * @throws SQLException if the database call fails
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#setAutoCommit(boolean)
 	 */
 	public void setAutoCommit(boolean value) throws SQLException {
 		if (!isTesting) getConnection().setAutoCommit(value);
 	}
 
-	/**
-	 * commit current transaction (thin wrapper around Connection.commit())
-	 * @throws SQLException if the database call fails
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#commit()
 	 */
 	public void commit() throws SQLException {
 		if (!isTesting) getConnection().commit();
 	}
 	
-	/**
-	 * cancels the current transaction (thin wrapper around Connection.rollback())
-	 * @throws SQLException if the database call fails
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#rollback()
 	 */
 	public void rollback() throws SQLException {
 		getConnection().rollback();
 	}
 	
-	/**
-	 * returns true if DBConnection is set to testing mode.
-	 * 
-	 * Testing mode can be enabled/disabled in jdbc.properties.
-	 * If enabled, all queries are put into a transaction that is rolled back
-	 * when the connection is released (using disconnect()). 
-	 * 
-	 * @return true: DBConnection is in testing mode, false otherwise
+	/* (non-Javadoc)
+	 * @see at.fakeroot.sepm.server.IDBConnection#isTesting()
 	 */
 	public boolean isTesting() {
 		return isTesting;

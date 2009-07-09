@@ -44,7 +44,7 @@ public class ServiceManager implements IServiceManager
 		ResultSet rs = null;
 		DBService result = null;
 		ArrayList<String> tags = new ArrayList<String>();
-		DBConnection dbConn = null;
+		IDBConnection dbConn = null;
 		
 		try
 		{
@@ -91,7 +91,7 @@ public class ServiceManager implements IServiceManager
 	{
 		ResultSet rs = null;
 		DBService result = null;
-		DBConnection dbConn = null;
+		IDBConnection dbConn = null;
 		ArrayList<String> tags = new ArrayList<String>();
 		try {
 			dbConn = new DBConnection();
