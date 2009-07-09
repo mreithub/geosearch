@@ -8,14 +8,7 @@ import static org.junit.Assert.*;
  */
 public class BoundingBoxTest
 {
-	private double delta = 0.0001;
-	
-	
-	public String getModulName()
-	{
-		return ("at.fakeroot.sepm.client.serialize.BoundingBox");
-	}
-	
+	private double delta = 0.0001;	
 	
 	@Test
 	/**

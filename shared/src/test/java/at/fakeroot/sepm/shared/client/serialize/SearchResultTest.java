@@ -12,11 +12,6 @@ public class SearchResultTest
 {
 	private double delta = 0.0001;
 	
-	public String getModulName()
-	{
-		return ("at.fakeroot.sepm.client.serialize.SearchResult");
-	}
-	
 	@Test
 	public void testSimple(){
 		ClientGeoObject cgo = new ClientGeoObject(2,"bla", null, new String[]{"eins", "zwei", "drei"}, 14.987, 15.564);

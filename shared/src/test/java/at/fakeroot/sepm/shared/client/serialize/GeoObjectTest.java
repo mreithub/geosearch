@@ -11,11 +11,7 @@ import static org.junit.Assert.*;
 public class GeoObjectTest {
 
 	private double delta = 0.0001;
-	
-	public String getModulName(){
-		return "at.fakeroot.sepm.client.serialize.GeoObject";
-	}
-	
+		
 	@Test
 	public void testSimple(){
 		int id=1;

@@ -10,11 +10,7 @@ import static org.junit.Assert.*;
 public class ClientGeoObjectTest {
 
 	private double delta = 0.0001;
-	
-	public String getModulName(){
-		return "at.fakeroot.sepm.client.serialize.ClientGeoObject";
-	}
-	
+		
 	@Test
 	/**
 	 * Test the constructor of the ClientGeoObject.

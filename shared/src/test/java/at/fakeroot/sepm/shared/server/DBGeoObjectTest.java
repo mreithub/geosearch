@@ -2,19 +2,20 @@ package at.fakeroot.sepm.shared.server;
 
 import java.sql.Timestamp;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 
 /**
  * DBGEoObject JUnit Test
  * @author JB
  *
  */
-public class DBGeoObjectTest extends TestCase {
+public class DBGeoObjectTest {
 
-	public String getModulName(){
-		return "at.fakeroot.sepm.server.DBGeoObject";
-	}
+	private double delta = 0.0001;
 	
+	@Test
 	public void testSimple(){
 		int objID = 17;
 		String title = "some title";
@@ -35,9 +36,9 @@ public class DBGeoObjectTest extends TestCase {
 		assertNotNull(testObject);
 		assertEquals(objID, testObject.getId());
 		assertEquals(title, testObject.getTitle());
-		assertEquals(xPos, testObject.getXPos());
-		assertEquals(yPos, testObject.getYPos());
-		assertEquals(svc_id, testObject.getSvc_id());
+		assertEquals(xPos, testObject.getXPos(), delta);
+		assertEquals(yPos, testObject.getYPos(), delta);
+		assertEquals(svc_id, testObject.getSvcId(), delta);
 		assertEquals(uid, testObject.getUid());
 		assertEquals(link, testObject.getLink());
 		assertEquals(valid_until, testObject.getValid_until());

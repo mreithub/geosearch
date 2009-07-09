@@ -10,10 +10,6 @@ import static org.junit.Assert.*;
  */
 public class ObjectDetailsTest {
 
-	public String getModulName(){
-		return "at.fakeroot.sepm.client.serialize.ObjectDetails";
-	}
-	
 	@Test
 	public void testSimple(){
 		String HTMLString = "htmltest";
