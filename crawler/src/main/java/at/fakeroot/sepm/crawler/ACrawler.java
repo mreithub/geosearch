@@ -23,8 +23,7 @@ import at.fakeroot.sepm.shared.server.DBGeoObject;
  */
 public abstract class ACrawler  {
 	private static final Logger logger = Logger.getRootLogger();
-	private BoundingBox curBox;
-	private boolean newCircle=false;
+
 	// words that shouldn't be used as tags
 	private static String[] stopWords;
 	// characters to split words
@@ -167,7 +166,6 @@ public abstract class ACrawler  {
 
 		interval = Long.parseLong(myProperties.getProperty("crawler.interval", Long.toString(interval)));
 
-		curBox = crawlArea;
 		apiKey = myProperties.getProperty("crawler.apiKey", apiKey);
 		secKey = myProperties.getProperty("crawler.secKey", secKey);
 		
@@ -179,8 +177,9 @@ public abstract class ACrawler  {
 	 * infinite loop that calls the crawler-specific crawl function
 	 */
 	public void crawl() {
-		while(true){
-			crawlBox(nextCrawlBox());
+		BoundingBox curBox = null;
+		while((curBox = nextSubBox(curBox)) != null) {
+			crawlBox(curBox);
 			try {
 				Thread.sleep(interval);
 			}
@@ -247,18 +246,8 @@ public abstract class ACrawler  {
 			method.releaseConnection();
 		}	
 		return null;
-	}
-	
-	
-	/**
-	 * 
-	 * @return Next BoundingBox in the gives search area. 
-	 */
-	private BoundingBox nextCrawlBox(){		
-		return nextBox(curBox);
-	}
-	
-	
+	}	
+
 	/**
 	 * Send an array of DBGeoObjects to the Server
 	 * @param newObjects Array of new Objects
@@ -274,73 +263,39 @@ public abstract class ACrawler  {
 		for(int i=0;i<stopWords.length;i++){
 			showStopWord+=", "+stopWords[i];
 		}
-		return "curBox: "+curBox.toString()+", outputMethod: "+outputMethod+", stopWords: "+showStopWord+", splitChars: "+splitChars;
+		return "outputMethod: "+outputMethod+", stopWords: "+showStopWord+", splitChars: "+splitChars;
 	}
 	
+	private BoundingBox nextSubBox(BoundingBox curBox) {
+		BoundingBox rc = null;
+		double newX1, newY1, newX2, newY2;
+		
+		if (curBox == null) {
+			newX1 = crawlArea.getX1();
+			newY1 = crawlArea.getY1();
+		}
+		else {
+			newX1 = curBox.getX2();
+			newY1 = curBox.getY1();
+			
+			// check if we're at the right border
+			if (newX1 + 0.0001 > crawlArea.getX2()) {
+				// jump to the next line
+				newX1 = crawlArea.getX1();
+				newX2 = curBox.getY2();
+			}
+		}
+		
+		newX2 = Math.min(newX1+xOffset, crawlArea.getX2());
+		newY2 = Math.min(newY1+yOffset, crawlArea.getY2());
+		
+		// return null if we're at the bottom of the crawlAreas
+		if (newY1 +0.0001 < crawlArea.getY2()) {
+			rc =  new BoundingBox(newX1, newY1, newX2, newY2);
+		}
+		return rc;
+	}
 
-	
-	/**
-	 * internal function to calculate the next BoundingBox to crawl
-	 * @param _curPos current BoundingBox
-	 * @return next BoundingBox
-	 */
-	private BoundingBox nextBox(BoundingBox _curPos){
-		curBox=nextRight(_curPos);
-		
-		if(newCircle){
-			curBox=nextDown(curBox);
-			newCircle=false;
-		}
-		
-		return curBox;
-		
-	}
-	
-	/**
-	 * Get the BoundingBox right of the current one 
-	 * @param _curPos current BoundingBox
-	 * @return new BoundingBox right to _curPos
-	 */
-	private BoundingBox nextRight(BoundingBox _curPos){
-		if(_curPos.getX1()+xOffset>crawlArea.getX2()){
-			newCircle=true;
-			return new BoundingBox(
-					crawlArea.getX1(),
-					_curPos.getY1(),
-					crawlArea.getX1()+xOffset,
-					_curPos.getY2());
-		}else{
-			return new BoundingBox(
-				_curPos.getX2(),
-				_curPos.getY1(),
-				_curPos.getX2()+xOffset,
-				_curPos.getY2());
-		}
-		
-		
-	}
-	
-	/**
-	 * get the BoundingBox below the current one
-	 * @param _curPos current BoundingBox
-	 * @return new BoundingBox below the current one
-	 */
-	private BoundingBox nextDown(BoundingBox _curPos){
-		if(_curPos.getY1()+yOffset>crawlArea.getY2()){
-			return new BoundingBox(
-					_curPos.getX1(),
-					crawlArea.getY1(),
-					_curPos.getX2(),
-					crawlArea.getY1()+yOffset);
-		}else{		
-			return new BoundingBox(
-				_curPos.getX1(),
-				_curPos.getY2(),
-				_curPos.getX2(),
-				_curPos.getY2()+yOffset);
-		}
-	}
-	
 	/**
 	 * This function parses a given string into tags.
 	 * @param source The source string.
