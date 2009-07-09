@@ -280,7 +280,6 @@ public abstract class ACrawler  {
 			
 			// check if we're at the right border
 			if (newX1 + 0.0001 > crawlArea.getX2()) {
-				System.out.println("lineJump");
 				// jump to the next line
 				newX1 = crawlArea.getX1();
 				newY1 = curBox.getY2();
