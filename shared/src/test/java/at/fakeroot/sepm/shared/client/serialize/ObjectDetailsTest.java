@@ -1,18 +1,20 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * ObjectDetails JUnit Test
  * @author JB
  *
  */
-public class ObjectDetailsTest extends TestCase {
+public class ObjectDetailsTest {
 
 	public String getModulName(){
 		return "at.fakeroot.sepm.client.serialize.ObjectDetails";
 	}
 	
+	@Test
 	public void testSimple(){
 		String HTMLString = "htmltest";
 		String[] tags ={"tag1","tag2"};
@@ -21,6 +23,7 @@ public class ObjectDetailsTest extends TestCase {
 		String homepage = "homepage";
 		
 		ObjectDetails testObject = new ObjectDetails(HTMLString,tags, link, thumbnail, homepage);
+		
 		assertNotNull(testObject);
 		assertEquals(HTMLString, testObject.getHTMLString());
 		assertEquals(tags[0], testObject.getTags()[0]);

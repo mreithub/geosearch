@@ -1,19 +1,22 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * GeoObject JUnit Test
  * @author JB
  *
  */
-public class GeoObjectTest extends TestCase {
+public class GeoObjectTest {
 
+	private double delta = 0.0001;
+	
 	public String getModulName(){
 		return "at.fakeroot.sepm.client.serialize.GeoObject";
 	}
 	
-	
+	@Test
 	public void testSimple(){
 		int id=1;
 		String title = "GeoObjTestString";
@@ -26,8 +29,8 @@ public class GeoObjectTest extends TestCase {
 		assertNotNull(testObject);
 		assertEquals(id, testObject.getId());
 		assertEquals(title, testObject.getTitle());
-		assertEquals(xPos, testObject.getXPos());
-		assertEquals(yPos, testObject.getYPos());
+		assertEquals(xPos, testObject.getXPos(), delta);
+		assertEquals(yPos, testObject.getYPos(), delta);
 		
 		//Test with puts
 		id=2;
@@ -42,16 +45,7 @@ public class GeoObjectTest extends TestCase {
 		assertNotNull(testObject);
 		assertEquals(id, testObject.getId());
 		assertEquals(title, testObject.getTitle());
-		assertEquals(xPos, testObject.getXPos());
-		assertEquals(yPos, testObject.getYPos());
-	}
-	
-	protected void setUp() throws Exception {
-		super.setUp();
-		
-	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
+		assertEquals(xPos, testObject.getXPos(), delta);
+		assertEquals(yPos, testObject.getYPos(), delta);
 	}
 }
