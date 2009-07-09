@@ -3,7 +3,6 @@ package at.fakeroot.sepm.server;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import at.fakeroot.sepm.server.GeoObjectManager.NotFoundException;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import at.fakeroot.sepm.shared.server.DBGeoObject;

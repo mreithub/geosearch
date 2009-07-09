@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.IGeoSave;
-import at.fakeroot.sepm.server.GeoObjectManager.NotFoundException;
+import at.fakeroot.sepm.server.NotFoundException;
 
 /**
  * Implements the Crawler RMI (RPC) Connections
@@ -36,6 +36,20 @@ public class IGeoSaveImpl implements IGeoSave {
 		}
 	}
 	
+	public IGeoSaveImpl(IGeoObjectManager mockManager)
+	{
+		this.geoManager = mockManager;
+	}
+	
+	/**
+	 * Set a different geoManager. Required for MOCK testing.
+	 * @param geoManager The new geoManager.
+	 */
+	public void setGeoManager(IGeoObjectManager geoManager)
+	{
+		this.geoManager = geoManager;
+	}
+	
 	/**
 	 * Insert or update a GeoObject in the DB
 	 * @param newGeoObj 
@@ -50,7 +64,7 @@ public class IGeoSaveImpl implements IGeoSave {
 		long obj_id=0;
 		
 		try{
-			obj_id = geoManager.getObjectId(obj.getSvc_id(), obj.getUid());
+			obj_id = geoManager.getObjectId(obj.getSvcId(), obj.getUid());
 			obj.setId(obj_id);
 			geoManager.update(obj);
 		} catch(NotFoundException e) {

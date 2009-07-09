@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*; 
 
-import at.fakeroot.sepm.server.GeoObjectManager.NotFoundException;
+import at.fakeroot.sepm.server.NotFoundException;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
 
