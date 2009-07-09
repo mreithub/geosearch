@@ -1,42 +1,51 @@
 package at.fakeroot.sepm.server;
 
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
-import junit.framework.TestCase;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class SplitStopWordManagerTest {
+public class SplitStopWordManagerTest
+{
 	SplitStopWordManager swManager;
 	
-	// TODO restliche Funktionalität testen!
+	@Before
+	public void setUp() throws Exception
+	{
+		swManager = new SplitStopWordManager();
+	}
+	
 	
 	@Test
-	public void testSplitChars_shouldSucceed() throws IOException, SQLException {
-		String splitChars = swManager.getSplitChars();
-		if (DBConnection.staticIsTesting()) {
-			assertEquals(5, splitChars.length());
-			assertTrue(splitChars.contains(" "));
-			assertTrue(splitChars.contains("."));
-			assertTrue(splitChars.contains(","));
-			assertTrue(splitChars.contains("!"));
-			assertTrue(splitChars.contains("?"));
+	/**
+	 * Tests if the split chars can be read from the database.
+	 */
+	public void testSplitChars() throws IOException, SQLException
+	{
+		if (DBConnection.staticIsTesting())
+		{
+			String splitChars = swManager.getSplitChars();
+			assertNotNull(splitChars);
+			assertTrue(splitChars.length() > 0);
 		}
 	}
 	
-	@Before
-	public void setUp() throws Exception {
-		swManager = new SplitStopWordManager();
+	@Test
+	/**
+	 * Tests if the stop words can be read from the database.
+	 */
+	public void testStopWords() throws IOException, SQLException
+	{
+		if (DBConnection.staticIsTesting())
+		{
+			String[] stopWords = swManager.getStopWords();
+			assertNotNull(stopWords);
+			assertTrue(stopWords.length > 0);
+		}
 	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 }

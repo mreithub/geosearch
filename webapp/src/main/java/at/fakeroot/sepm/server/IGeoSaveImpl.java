@@ -40,16 +40,7 @@ public class IGeoSaveImpl implements IGeoSave {
 	{
 		this.geoManager = mockManager;
 	}
-	
-	/**
-	 * Set a different geoManager. Required for MOCK testing.
-	 * @param geoManager The new geoManager.
-	 */
-	public void setGeoManager(IGeoObjectManager geoManager)
-	{
-		this.geoManager = geoManager;
-	}
-	
+		
 	/**
 	 * Insert or update a GeoObject in the DB
 	 * @param newGeoObj 
@@ -84,10 +75,9 @@ public class IGeoSaveImpl implements IGeoSave {
 	 */
 	public int getServiceID(String svcName) throws RemoteException {
 		IServiceManager serviceManager = ServiceManager.getInstance();
-		DBService svc;
 		
 		try {
-			svc = serviceManager.select(svcName);
+			return (serviceManager.select(svcName).getSvc_id());
 		}
 		catch (SQLException e) {
 			throw new RemoteException("IGeoSaveImpl.getServiceID failed", e);
@@ -95,8 +85,6 @@ public class IGeoSaveImpl implements IGeoSave {
 		catch (IOException e) {
 			throw new RemoteException("IGeoSaveImpl.getServiceID failed", e);
 		}
-		
-		return svc.getSvc_id();
 	}
 
 	/**
@@ -104,8 +92,10 @@ public class IGeoSaveImpl implements IGeoSave {
 	 * @param objects 
 	 */
 	public void saveObjects(DBGeoObject[] objects) throws RemoteException {
-		for (int i = 0; i < objects.length; i++) {
-			saveObject(objects[i]);
+		if (objects != null)
+		{
+			for (int i = 0; i < objects.length; i++)
+				saveObject(objects[i]);
 		}
 	}
 
@@ -117,16 +107,13 @@ public class IGeoSaveImpl implements IGeoSave {
 	 */
 	public String[] getStopWords() throws RemoteException{
 		SplitStopWordManager swManager = SplitStopWordManager.getInstance();
-		String[] rc;
 		try {
-			rc = swManager.getStopWords();
+			return (swManager.getStopWords());
 		} catch (SQLException e) {
 			throw new RemoteException("IGeoSaveImpl.getStopWords failed", e);
 		} catch (IOException e) {
 			throw new RemoteException("IGeoSaveImpl.getStopWords failed", e);
 		}
-		
-		return rc;		
 	}
 	
 	/**
@@ -136,17 +123,14 @@ public class IGeoSaveImpl implements IGeoSave {
 	 */
 	public String getSplitChars() throws RemoteException{
 		SplitStopWordManager swManager = SplitStopWordManager.getInstance();
-		String rc;
 		
 		try {
-			rc = swManager.getSplitChars();
+			return (swManager.getSplitChars());
 		} catch (SQLException e) {
 			throw new RemoteException("IGeoSaveImpl.getSplitChars failed", e);
 		} catch (IOException e) {
 			throw new RemoteException("IGeoSaveImpl.getSplitChars failed", e);
 		}
-		
-		return rc;
 	}
 
 }
