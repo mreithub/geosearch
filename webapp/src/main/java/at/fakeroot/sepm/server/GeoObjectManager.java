@@ -24,7 +24,7 @@ import at.fakeroot.sepm.shared.server.Property;
  * Based on the Singleton pattern.
  * @author AC
  */
-public class GeoObjectManager implements IGeoObjectManager, IGeoObjectManager 
+public class GeoObjectManager implements IGeoObjectManager
 {
 	private static IGeoObjectManager geoObjManager = null;
 	private static final Logger logger = Logger.getRootLogger();

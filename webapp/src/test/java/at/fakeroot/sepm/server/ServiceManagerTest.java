@@ -1,49 +1,75 @@
 package at.fakeroot.sepm.server;
 
-import static at.fakeroot.sepm.server.GeoObjectManagerTest.*;
-
-import static org.junit.Assert.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.SQLException;
-
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ServiceManagerTest {
-
-	IServiceManager servManager;
-
-	@Test
-	public void testGetServiceInfo_shouldSucceed() throws FileNotFoundException, IOException, SQLException{
-		int svcId=-1;
+/**
+ * tests the select-methods (primarily the sql-Strings) in the ServiceManger Class 
+ * using the test-DB with svc_id = 15 in test_selectSvcId() and name = "example.com" 
+ * in test_selectSvcName() 
+ */
+public class ServiceManagerTest
+{
+	private ServiceManager svcManger;
+	private DBService dbService;
+	private DBService result;
 	
-		if (!DBConnection.staticIsTesting()) return;
-		
-		DBService dbSvc = servManager.select("example.com");
-		svcId=dbSvc.getSvc_id();
-
-		assertEquals("example.com", dbSvc.getName());
-		assertEquals("TestService", dbSvc.getTitle());
-		assertEquals("http://www.example.com/", dbSvc.getHomepage());
-		assertEquals("Test-Service", dbSvc.getDescription());
-		//assertEquals(3, dbSvc.getSType_id());
-		assertEquals("%description%", dbSvc.getBubbleHTML());
-		
-		// query the service a second time, but this time with the other select function
-		DBService dbSvc2 = servManager.select(svcId);
-		assertEquals(dbSvc.getName(), dbSvc2.getName());
-		assertEquals(dbSvc.getTitle(), dbSvc2.getTitle());
-		assertEquals(dbSvc.getHomepage(), dbSvc2.getHomepage());
-		assertEquals(dbSvc.getDescription(), dbSvc2.getDescription());
-		assertEquals(dbSvc.getSType_id(), dbSvc2.getSType_id());
-		assertEquals(dbSvc.getBubbleHTML(), dbSvc2.getBubbleHTML());
-		_compareTags(dbSvc.getTags(), dbSvc2.getTags());
-	}
-
 	@Before
-	public void setUp() throws Exception{
-		servManager = ServiceManager.getInstance();
+	public void setUp()
+	{
+		svcManger = new ServiceManager();
+		dbService = new DBService(15, "example.com", "TestService", "http://www.example.com/", 
+				"Test-Service", 12, "%description%", "images/service/wikipedia.png");
+		dbService.setTags(new String[] {"stag1"});
+	}
+	
+	@Test
+	public void test_selectSvcId() 
+	{
+		try
+		{
+			if(DBConnection.staticIsTesting())
+			{	
+				result = svcManger.select(dbService.getSvc_id());
+				assertNotNull(result);
+				assertEquals(dbService.getName(), result.getName());
+				assertEquals(dbService.getTitle(), result.getTitle());
+				assertEquals(dbService.getHomepage(), result.getHomepage());
+				assertEquals(dbService.getDescription(), result.getDescription());
+				assertEquals(dbService.getSType_id(), result.getSType_id());
+				assertEquals(dbService.getBubbleHTML(), result.getBubbleHTML());
+				assertEquals(dbService.getThumbnail(), result.getThumbnail());
+				assertEquals(dbService.getTags()[0], result.getTags()[0]);
+				assertEquals(dbService.getTags().length, result.getTags().length);
+			}
+		}
+		catch(Exception e)
+		{}
+	}
+	
+	@Test
+	public void test_selectSvcName() 
+	{
+		try
+		{
+			if(DBConnection.staticIsTesting())
+			{	
+				result = svcManger.select(dbService.getName());
+				assertNotNull(result);
+				assertEquals(dbService.getSvc_id(), result.getSvc_id());
+				assertEquals(dbService.getTitle(), result.getTitle());
+				assertEquals(dbService.getHomepage(), result.getHomepage());
+				assertEquals(dbService.getDescription(), result.getDescription());
+				assertEquals(dbService.getSType_id(), result.getSType_id());
+				assertEquals(dbService.getBubbleHTML(), result.getBubbleHTML());
+				assertEquals(dbService.getThumbnail(), result.getThumbnail());
+				assertEquals(dbService.getTags()[0], result.getTags()[0]);
+				assertEquals(dbService.getTags().length, result.getTags().length);
+			}
+		}
+		catch(Exception e)
+		{}
 	}
 }
