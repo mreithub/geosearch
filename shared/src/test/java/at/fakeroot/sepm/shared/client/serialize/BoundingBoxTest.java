@@ -1,4 +1,6 @@
 package at.fakeroot.sepm.shared.client.serialize;
+import junit.framework.TestCase;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -6,7 +8,7 @@ import static org.junit.Assert.*;
  * BoundingBox JUnitTest
  * @author RK
  */
-public class BoundingBoxTest
+public class BoundingBoxTest extends TestCase
 {
 	private double delta = 0.0001;	
 	

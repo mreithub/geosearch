@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +22,7 @@ import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
 
 
-public class GeoObjectManagerTest{
+public class GeoObjectManagerTest {
 	
 	IGeoObjectManager geoObjManager;
 	String[] tags;

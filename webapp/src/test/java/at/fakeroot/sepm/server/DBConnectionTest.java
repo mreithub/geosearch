@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +20,7 @@ import static org.junit.Assert.*;
  * @author Manuel Reithuber
  *
  */
-public class DBConnectionTest {
+public class DBConnectionTest  {
 	IDBConnection db = null;
 
 	@Test

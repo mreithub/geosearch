@@ -1,5 +1,7 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -8,7 +10,7 @@ import static org.junit.Assert.*;
  * @author JB
  *
  */
-public class ObjectDetailsTest {
+public class ObjectDetailsTest extends TestCase {
 
 	@Test
 	public void testSimple(){

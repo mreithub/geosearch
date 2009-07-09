@@ -2,6 +2,8 @@ package at.fakeroot.sepm.server;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 
