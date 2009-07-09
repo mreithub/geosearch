@@ -1,17 +1,16 @@
 package at.fakeroot.sepm.crawler;
 
-import java.io.IOException;
-import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
-import junit.framework.TestCase;
 
-public class ACrawlerTest extends TestCase {
+
+public class ACrawlerTest {
 	private ACrawler aCrawler;
 	
 	/*
