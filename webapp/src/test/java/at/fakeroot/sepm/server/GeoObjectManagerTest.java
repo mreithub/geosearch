@@ -60,7 +60,7 @@ public class GeoObjectManagerTest{
 		// check if the two objects  match
 		//  (obj.getId() is uninitialized)
 		assertEquals(obj.getLink(), obj2.getLink());
-		assertEquals(obj.getSvc_id(), obj2.getSvc_id());
+		assertEquals(obj.getSvcId(), obj2.getSvcId());
 		assertEquals(obj.getTitle(), obj2.getTitle());
 		assertEquals(obj.getUid(), obj2.getUid());
 		assertEquals(obj.getXPos(), obj2.getXPos(), 0.00001);
@@ -75,6 +75,7 @@ public class GeoObjectManagerTest{
 		throw new IndexOutOfBoundsException("TestException");
 	}
 	
+	@Test
 	public void testSimple() {
 		IDBConnection dbConn = null;
 		Statement stmt;
@@ -161,7 +162,6 @@ public class GeoObjectManagerTest{
 		prop = new Property[]{new Property("owner", "lacitot")};
 		svcId = ServiceManager.getInstance().select("example.com").getSvc_id();
 		inObj = new DBGeoObject("Night", 21.440957, 48.427236, svcId, "test_panoramio", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
-		
 	}
 	
 	@After

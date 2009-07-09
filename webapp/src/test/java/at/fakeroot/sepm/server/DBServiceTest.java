@@ -1,14 +1,16 @@
 package at.fakeroot.sepm.server;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * DBService JUnit test
  * @author Anca Cismasiu
  * */
 
-public class DBServiceTest extends TestCase {
+public class DBServiceTest {
 
+	@Test
 	public void testSimple(){
 		
 		int svc_id=10;
@@ -29,7 +31,6 @@ public class DBServiceTest extends TestCase {
 		assertEquals(description, serv.getDescription());
 		assertEquals(sTypeId, serv.getSType_id());
 		assertEquals(bubbleHTML, serv.getBubbleHTML());
-		
 	}
 }
 

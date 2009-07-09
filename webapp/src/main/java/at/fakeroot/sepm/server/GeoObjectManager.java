@@ -426,7 +426,7 @@ public class GeoObjectManager implements IGeoObjectManager, IGeoObjectManager
 	{
 		try {
 			PreparedStatement pstmt = dbWrite.prepareStatement("INSERT INTO geoObject(svc_id, uid, title, link, lng, lat) VALUES (?, ?, ?, ?, ?, ?)");
-			pstmt.setInt(1, obj.getSvc_id());
+			pstmt.setInt(1, obj.getSvcId());
 			pstmt.setString(2, obj.getUid());
 			pstmt.setString(3, obj.getTitle());
 			pstmt.setString(4, obj.getLink());
