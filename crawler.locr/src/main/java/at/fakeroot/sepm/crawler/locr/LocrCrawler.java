@@ -82,7 +82,7 @@ public class LocrCrawler extends ACrawler {
 							(((JSONObject)myArray.get(k)).get("location_name").toString()),
 							Double.parseDouble((((JSONObject)myArray.get(k)).get("latitude").toString())),
 							Double.parseDouble((((JSONObject)myArray.get(k)).get("longitude").toString())),
-							getSvcID(),
+							0,
 							(((JSONObject)myArray.get(k)).get("photo_id").toString()),
 							(((JSONObject)myArray.get(k)).get("photo_url").toString()),
 							null,
