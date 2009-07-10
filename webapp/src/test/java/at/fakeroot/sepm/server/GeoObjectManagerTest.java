@@ -1,6 +1,5 @@
 package at.fakeroot.sepm.server;
 
-import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +23,7 @@ import at.fakeroot.sepm.shared.server.Property;
 
 
 public class GeoObjectManagerTest{
-	private double delta = 0.0001;
+	private static double delta = 0.0001;
 	IDBConnection db;
 	IGeoObjectManager geoObjManager;
 	String[] tags;
@@ -34,54 +33,6 @@ public class GeoObjectManagerTest{
 	
 	SortedSet<Long> createdObjects = new TreeSet<Long>();
 	
-	/**
-	 * - insert() a new GeoObject
-	 * - try to get it via getObjectId() and getObjectById()
-	 * - delete it via delete()
-	 */
-	@Test
-	public void testInsertGetDelete() throws RemoteException, SQLException, NotFoundException {
-		String uid = "testObject"+Calendar.getInstance().getTimeInMillis();
-		
-		// give the object a unique id
-		inObj.setUid(uid);
-		
-		geoObjManager.insert(inObj);
-		
-		long objId = geoObjManager.getObjectId(inObj.getSvcId(), inObj.getUid()); 
-		
-		// the created object will be deleted by tearDown() if any assertion fails
-		createdObjects.add(objId);
-		
-		DBGeoObject outObj = geoObjManager.getObjectbyId(objId);
-		
-		// check if the two objects  match
-		assertEquals(objId, outObj.getId());
-		assertEquals(inObj.getLink(), outObj.getLink());
-		assertEquals(inObj.getSvcId(), outObj.getSvcId());
-		assertEquals(inObj.getTitle(), outObj.getTitle());
-		assertEquals(inObj.getUid(), outObj.getUid());
-		assertEquals(inObj.getXPos(), outObj.getXPos(), delta);
-		assertEquals(inObj.getYPos(), outObj.getYPos(), delta);
-		_compareProperties(inObj.getProperties(), outObj.getProperties());
-		_compareTags(inObj.getTags(), outObj.getTags());
-		
-		// delete the GeoObject
-		geoObjManager.delete(objId);
-		
-		// make sure it has been deleted
-		try {
-			geoObjManager.getObjectbyId(objId);
-			
-			// no NotFoundException was thrown => fail JUnit test
-			fail ("geoObjectManager.delete() failed");
-		}
-		catch (NotFoundException e) {
-			// object doesn't exist anymore => delete the objId from the createdObjects
-			createdObjects.remove(objId);
-		}
-	}
-
 	/**
 	 * try to get an object that's already in the test database
 	 */
@@ -134,6 +85,85 @@ public class GeoObjectManagerTest{
 	}
 
 	/**
+	 * - insert() a new GeoObject
+	 * - try to get it via getObjectId() and getObjectById()
+	 * - delete it via delete()
+	 */
+	@Test
+	public void testInsertGetDelete() throws Exception {
+		// give the object a unique id
+		inObj.setUid(_createUniqUid());
+		
+		geoObjManager.insert(inObj);
+		
+		long objId = geoObjManager.getObjectId(inObj.getSvcId(), inObj.getUid()); 
+		inObj.setId(objId);
+		
+		// the created object will be deleted by tearDown()
+		createdObjects.add(objId);
+		
+		DBGeoObject outObj = geoObjManager.getObjectbyId(objId);
+		
+		// check if the two objects  match
+		_compareGeoObjects(inObj, outObj);
+	}
+	
+	@Test
+	public void testUpdate() throws Exception {
+		long objId = geoObjManager.getObjectId(svcId, "test_karlskirche");
+		
+		inObj.setId(objId);
+		inObj.setUid("test_karlskirche"); // uid is not updatable
+		
+		// overwrite the geoObject test_karlskirche with the temporary one 
+		geoObjManager.update(inObj);
+		
+		DBGeoObject outObj = geoObjManager.getObjectbyId(objId);
+		
+		_compareGeoObjects(inObj, outObj);
+	}
+	
+	/**
+	 * delete a geoObject from the database.
+	 * We are using the testing mode of DBConnection which means
+	 * the changes will be rolled back after calling dbConn.close()  
+	 */
+	@Test
+	public void testDelete() throws SQLException, NotFoundException {
+		long objId = geoObjManager.getObjectId(svcId, "test_karlskirche");
+		// delete the GeoObject
+		geoObjManager.delete(objId);
+		
+		// make sure it has been deleted
+		try {
+			geoObjManager.getObjectbyId(objId);
+			
+			// no NotFoundException was thrown => fail JUnit test
+			fail ("geoObjectManager.delete() failed, the object still exists");
+		}
+		catch (NotFoundException e) {
+			// object doesn't exist anymore => everything alright
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	static void _compareGeoObjects(DBGeoObject expected, DBGeoObject actual) {
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getLink(), actual.getLink());
+		assertEquals(expected.getSvcId(), actual.getSvcId());
+		assertEquals(expected.getTitle(), actual.getTitle());
+		assertEquals(expected.getUid(), actual.getUid());
+		assertEquals(expected.getXPos(), actual.getXPos(), delta);
+		assertEquals(expected.getYPos(), actual.getYPos(), delta);
+		_compareProperties(expected.getProperties(), actual.getProperties());
+		_compareTags(expected.getTags(), actual.getTags());
+	}
+
+	
+	/**
 	 * internal function to compare an object's properties
 	 */
 	static void _compareProperties(Property expected[], Property actual[]) {
@@ -162,12 +192,17 @@ public class GeoObjectManagerTest{
 		
 		assertArrayEquals(expected, actual);
 	}
+	
+	static String _createUniqUid() {
+		return "testObject"+Calendar.getInstance().getTimeInMillis();
+	}
 
 	@Before
 	public void setUp() throws Exception {
 		// we're always using the test database (there's a special jdbc.properties file in src/test/resources)
 		assertTrue("Not using test database!", DBConnection.staticIsTesting());
 
+		
 		geoObjManager = GeoObjectManager.getInstance();
 		
 		// create a test object
