@@ -38,7 +38,7 @@ public class GeoObjectTest  {
 	
 	
 	@Test
-	public void testGetTest(){
+	public void testGetters(){
 		//StdTest
 		assertNotNull(testObject);
 		assertEquals(id, testObject.getId());
@@ -48,7 +48,7 @@ public class GeoObjectTest  {
 	}
 	
 	@Test
-	public void testPutTest(){
+	public void testSetters(){
 		int _id=2;
 		String _title= "GeoObjTestString2";
 		double _xPos = 3.3;
@@ -71,7 +71,7 @@ public class GeoObjectTest  {
 	}
 	
 	@Test
-	public void testTruncateTest(){
+	public void testTruncate(){
 		String[] tags = new String[]{"aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz"+
 				"AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ"+
 				"0123456789"+

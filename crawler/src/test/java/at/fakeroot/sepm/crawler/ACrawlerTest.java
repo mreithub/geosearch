@@ -2,6 +2,7 @@ package at.fakeroot.sepm.crawler;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
+import at.fakeroot.sepm.shared.server.Property;
 
 public class ACrawlerTest {
 	
@@ -161,9 +163,57 @@ public class ACrawlerTest {
 	}
 	
 	
+	@Test
+	/**
+	 * Test if the save obj are correct given to the CrawlerOutput
+	 */
+	public void testSaveObject() throws IOException, NotBoundException{
+		class TestCrawler extends ACrawler {			
+			public TestCrawler(String svcName, CrawlerOutput output)
+					throws IOException, NotBoundException {
+				super(svcName, output);
+			}
+			@Override
+			protected void crawlBox(BoundingBox curBox) {
+			}
+
+		}
+		crawlerOutput=new CrawlerOutput(){
+
+			@Override
+			public String getSplitChars() {
+				return null;
+			}
+			@Override
+			public String[] getStopWords() {
+				return null;
+			}
+			@Override
+			public void saveObjects(DBGeoObject[] newObjects) {
+				if(newObjects==null)
+					fail();
+				
+				assertEquals(newObjects[0].getId(), 10);
+				assertEquals(newObjects[0].getTitle(), "title");
+				assertEquals(newObjects[0].getXPos(), 1.1,0.0001);
+				assertEquals(newObjects[0].getYPos(), 2.2,0.0001);
+				assertEquals(newObjects[0].getUid(), "uID");
+				assertEquals(newObjects[0].getLink(), "link");
+				assertEquals(newObjects[0].getValid_until(), new Timestamp(1000000));
+				assertEquals(newObjects[0].getProperties()[0].getName(),"proName");
+				assertEquals(newObjects[0].getProperties()[0].getValue(),"proVal");
+				assertEquals(newObjects[0].getTags()[0], "tag1");
+			}			
+		};
+		
+		ACrawler aCrawler = new TestCrawler("TestOutput",crawlerOutput);
+		
+		aCrawler.saveObject(new DBGeoObject[]{new DBGeoObject(10,"title",1.1,2.2,1,"uID","link",new Timestamp(1000000),new Property[]{new Property("proName","proVal")}, new String[]{"tag1"})});
+		
+	}
+	
 	@Before
 	public void setUp() throws Exception {
-		System.out.println("setUp");
 		
 		crawlerOutput=new CrawlerOutput(){
 
@@ -186,7 +236,7 @@ public class ACrawlerTest {
 
 	@After
 	public void tearDown() throws Exception {
-		System.out.println("tearDown");
+
 	}
 }
 
