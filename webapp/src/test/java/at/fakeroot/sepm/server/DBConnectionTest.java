@@ -21,7 +21,127 @@ public class DBConnectionTest {
 	IDBConnection db = null;
 
 	@Test
-	public void testSimple(){
+	public void testPreparedStatement() throws SQLException{
+		db.prepareStatement("");
+	}
+	
+	
+	@Test
+	public void testWriteUpdateRead(){
+		// only do this if we are on the testing database
+		if (db.isTesting()) {
+			try {
+				
+				//Insert
+				String testName="testWriteRead2";
+				String testImg="/img/testWriteRead2.png";
+				
+				Statement s = db.createStatement();
+				
+				s.executeUpdate("INSERT INTO serviceType (name, thumbnail) VALUES ('testWriteRead', '/img/testWriteRead1.png')");
+				s.executeUpdate("INSERT INTO serviceType (name, thumbnail) VALUES ('"+testName+"', '"+testImg+"')");
+
+				ResultSet r = s.executeQuery("SELECT * FROM serviceType WHERE name='"+testName+"'");
+				
+				r.next();
+				String testNameBack=r.getString("name");
+				String testImgBack=r.getString("thumbnail");
+
+				
+				//Update
+				String testTestImg="/img/testWriteRead3.png";
+				
+
+				s.executeUpdate("UPDATE serviceType SET thumbnail='"+testTestImg+"' WHERE name='"+testName+"'");
+				r = s.executeQuery("SELECT * FROM serviceType WHERE name='"+testName+"'");
+				
+				r.next();
+				String testTestNameBack=r.getString("name");
+				String testTestImgBack=r.getString("thumbnail");
+				
+				
+				// make sure that the DB transaction is rolled back before we run an assert 
+				db.disconnect();
+				
+				
+				assertEquals(testNameBack, testName);
+				assertEquals(testImgBack, testImg);
+				
+				assertEquals(testNameBack, testTestNameBack);
+				assertEquals(testTestImg, testTestImgBack);
+
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				fail("Exception: "+e.getMessage());
+				
+			}
+			finally {
+				try {
+					if (db != null) db.disconnect();
+				}
+				catch (SQLException e) {
+					// doNothing
+				}
+			}
+		}else{
+			fail();
+		}
+	}
+	
+	@Test
+	public void testWriteRead(){
+		// only do this if we are on the testing database
+		if (db.isTesting()) {
+			try {
+				String testName="testWriteRead2";
+				String testImg="/img/testWriteRead2.png";
+				
+				Statement s = db.createStatement();
+				s.executeUpdate("INSERT INTO serviceType (name, thumbnail) VALUES ('testWriteRead', '/img/testWriteRead1.png')");
+				s.executeUpdate("INSERT INTO serviceType (name, thumbnail) VALUES ('"+testName+"', '"+testImg+"')");
+
+				ResultSet r = s.executeQuery("SELECT * FROM serviceType WHERE name='testWriteRead2'");
+				
+				/*
+				while(r.next()){
+					System.out.println("rowCount: "+r.getRow());
+					System.out.println("n:"+r.getString("name"));
+					System.out.println("i:"+r.getString("thumbnail"));
+				}
+				*/
+				r.next();
+				String testNameBack=r.getString("name");
+				String testImgBack=r.getString("thumbnail");
+
+				// make sure that the DB transaction is rolled back before we run an assert 
+				db.disconnect();
+				
+				
+				assertEquals(testNameBack, testName);
+				assertEquals(testImgBack, testImg);
+
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				fail("Exception: "+e.getMessage());
+				
+			}
+			finally {
+				try {
+					if (db != null) db.disconnect();
+				}
+				catch (SQLException e) {
+					// doNothing
+				}
+			}
+		}else{
+			fail();
+		}
+	}
+	
+	@Test
+	public void testWrite(){
 
 
 		// only do this if we are on the testing database
@@ -32,6 +152,8 @@ public class DBConnectionTest {
 				s.executeUpdate("INSERT INTO serviceType (name, thumbnail) VALUES ('testtype2', '/img/test2.png')");
 
 				ResultSet r = s.executeQuery("SELECT name FROM serviceType");
+				
+
 				// check if rowcount = 5
 				r.last();
 				int rowcount = r.getRow();
@@ -54,6 +176,8 @@ public class DBConnectionTest {
 					// doNothing
 				}
 			}
+		}else{
+			fail();
 		}
 	}
 

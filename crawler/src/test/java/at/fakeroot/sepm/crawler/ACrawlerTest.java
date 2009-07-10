@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import static org.junit.Assert.*;
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
-import junit.framework.TestCase;
 
-public class ACrawlerTest extends TestCase {
+public class ACrawlerTest {
 	
 	private CrawlerOutput crawlerOutput;
 	
