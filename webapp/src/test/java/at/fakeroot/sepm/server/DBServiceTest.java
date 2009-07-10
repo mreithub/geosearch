@@ -26,7 +26,6 @@ public class DBServiceTest {
 	
 	@Test
 	public void testGetter(){
-
 		assertEquals(svc_id, serv.getSvc_id());
 		assertEquals(name, serv.getName());
 		assertEquals(title, serv.getTitle());
@@ -41,17 +40,8 @@ public class DBServiceTest {
 	public void testTags(){
 		String[] tags = new String[]{"tag1","tag2"};
 		
-		assertEquals(serv.getTags().length, 0);
-		
 		serv.setTags(tags);
-		assertEquals(serv.getTags()[0], "tag1");
-		assertEquals(serv.getTags()[1], "tag2");
-	}
-	
-	
-	@After
-	public void tearDown() throws Exception {
-
+		assertArrayEquals(tags, serv.getTags());
 	}
 	
 	@Before
