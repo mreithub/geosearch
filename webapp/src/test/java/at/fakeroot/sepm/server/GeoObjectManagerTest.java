@@ -1,9 +1,8 @@
 package at.fakeroot.sepm.server;
 
 import java.rmi.RemoteException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -17,12 +16,16 @@ import org.junit.Test;
 import static org.junit.Assert.*; 
 
 import at.fakeroot.sepm.server.NotFoundException;
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
+import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
+import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
 
 
 public class GeoObjectManagerTest{
-	
+	private double delta = 0.0001;
+	IDBConnection db;
 	IGeoObjectManager geoObjManager;
 	String[] tags;
 	Property[] prop;
@@ -31,107 +34,108 @@ public class GeoObjectManagerTest{
 	
 	SortedSet<Long> createdObjects = new TreeSet<Long>();
 	
+	/**
+	 * - insert() a new GeoObject
+	 * - try to get it via getObjectId() and getObjectById()
+	 * - delete it via delete()
+	 */
 	@Test
-	public void insertObject_shouldSucceed() throws RemoteException, SQLException, NotFoundException {
+	public void testInsertGetDelete() throws RemoteException, SQLException, NotFoundException {
 		String uid = "testObject"+Calendar.getInstance().getTimeInMillis();
-		DBGeoObject obj = new DBGeoObject(
-				"Test Object",
-				23,
-				42,
-				svcId,
-				uid,
-				"http://localhost",
-				null,
-				new Property[] {
-					new Property("name1", "val1"),
-					new Property("name2", "val2")
-				},
-				new String[] {
-					"testTag1",
-					"testTag2"
-				});
 		
-		obj.setTags(new String[] {"testtag1", "testtag2"});
+		// give the object a unique id
+		inObj.setUid(uid);
 		
-		geoObjManager.insert(obj);
+		geoObjManager.insert(inObj);
 		
-		long objId = geoObjManager.getObjectId(svcId, uid);
-		DBGeoObject obj2 = geoObjManager.getObjectbyId(objId);
+		long objId = geoObjManager.getObjectId(inObj.getSvcId(), inObj.getUid()); 
+		
+		// the created object will be deleted by tearDown() if any assertion fails
+		createdObjects.add(objId);
+		
+		DBGeoObject outObj = geoObjManager.getObjectbyId(objId);
 		
 		// check if the two objects  match
-		//  (obj.getId() is uninitialized)
-		assertEquals(obj.getLink(), obj2.getLink());
-		assertEquals(obj.getSvcId(), obj2.getSvcId());
-		assertEquals(obj.getTitle(), obj2.getTitle());
-		assertEquals(obj.getUid(), obj2.getUid());
-		assertEquals(obj.getXPos(), obj2.getXPos(), 0.00001);
-		assertEquals(obj.getYPos(), obj2.getYPos(), 0.00001);
-		_compareProperties(obj.getProperties(), obj2.getProperties());
-		_compareTags(obj.getTags(), obj2.getTags());
-		assertEquals(obj.getValid_until(), obj2.getValid_until());
-	}
-	
-	@Test(expected= IndexOutOfBoundsException.class)
-	public void fooTest() {
-		throw new IndexOutOfBoundsException("TestException");
-	}
-	
-	@Test
-	public void testSimple() {
-		IDBConnection dbConn = null;
-		Statement stmt;
-		int svcId = -1;
-		long obj_id = -1;
+		assertEquals(objId, outObj.getId());
+		assertEquals(inObj.getLink(), outObj.getLink());
+		assertEquals(inObj.getSvcId(), outObj.getSvcId());
+		assertEquals(inObj.getTitle(), outObj.getTitle());
+		assertEquals(inObj.getUid(), outObj.getUid());
+		assertEquals(inObj.getXPos(), outObj.getXPos(), delta);
+		assertEquals(inObj.getYPos(), outObj.getYPos(), delta);
+		_compareProperties(inObj.getProperties(), outObj.getProperties());
+		_compareTags(inObj.getTags(), outObj.getTags());
 		
-		// get svcId
+		// delete the GeoObject
+		geoObjManager.delete(objId);
+		
+		// make sure it has been deleted
 		try {
-			dbConn = new DBConnection();
-			stmt = dbConn.createStatement();
-			ResultSet r = stmt.executeQuery("SELECT svc_id FROM service WHERE name = 'de.wikipedia.org'");
-			if (r.next()) {
-				svcId = r.getInt(1);
-			}
-		} 
-		catch (Exception e) {
-			fail("couldn't get svc id: "+e.getMessage());
+			geoObjManager.getObjectbyId(objId);
+			
+			// no NotFoundException was thrown => fail JUnit test
+			fail ("geoObjectManager.delete() failed");
 		}
-		
-		// don't mess around with the productive database 
-		if (dbConn != null && dbConn.isTesting()) {
-			try {
-				obj_id = geoObjManager.getObjectId(svcId, "test_karlskirche");
-				DBGeoObject outObj = geoObjManager.getObjectbyId(obj_id);
-				
-				assertEquals("Karlskirche", outObj.getTitle());
-				assertEquals("http://de.wikipedia.org/wiki/Wiener_Karlskirche", outObj.getLink());
-				assertEquals(16.371422, outObj.getXPos(), 0.00001);
-				assertEquals(48.198247, outObj.getYPos(), 0.00001);
-			}
-			catch (Exception e) {
-				fail("object 'test_karlskirche' not found! "+e.getMessage());
-			}
-			
-			try {
-				DBGeoObject geoObject = geoObjManager.getObjectbyId(obj_id);
-				assertEquals(obj_id, geoObject.getId());
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-				fail("couldn't resolve object id "+obj_id+": "+e.getMessage());
-			}
-			
-			try{
-				// we can't try to get the data out again because GeoObjectManager uses two
-				// different DBConnections to read/write data to the database
-				geoObjManager.insert(inObj);
-				
-			}catch (RemoteException e) {
-				e.printStackTrace();
-				fail("RemoteException: "+e.getMessage());
-			}
+		catch (NotFoundException e) {
+			// object doesn't exist anymore => delete the objId from the createdObjects
+			createdObjects.remove(objId);
 		}
 	}
-	
+
+	/**
+	 * try to get an object that's already in the test database
+	 */
+	@Test
+	public void testGetObjectById() throws SQLException, NotFoundException {
+		long objId = geoObjManager.getObjectId(svcId, "test_karlskirche");
+		DBGeoObject outObj = geoObjManager.getObjectbyId(objId);
+
+		assertEquals("Karlskirche", outObj.getTitle());
+		assertEquals("http://de.wikipedia.org/wiki/Wiener_Karlskirche", outObj.getLink());
+		assertEquals(48.198247, outObj.getXPos(), delta);
+		assertEquals(16.371422, outObj.getYPos(), delta);
+		_compareProperties(new Property[]{new Property("description", "Beschreibung Karlskirche")}, outObj.getProperties());
+		_compareTags(new String[]{"karlskirche", "kirche", "karlsplatz", "sehenswürdigkeit"}, outObj.getTags());
+	}
+
+	/**
+	 * testing the search function
+	 */
+	@Test
+	public void testSelect() {
+		int countLimit = 200;
+		SearchResult searchResult = geoObjManager.select(new String[] {"wahrzeichen"}, new BoundingBox(0,-90,360, 90), 50, countLimit);
+		ArrayList<ClientGeoObject> objects = searchResult.getResults();
+		
+		assertEquals(9, searchResult.getResultCount());
+		assertEquals(countLimit, searchResult.getCountLimit());
+		
+		String[] titles = new String[searchResult.getResultCount()];
+		
+		Iterator<ClientGeoObject> it = objects.iterator();
+		
+		int i = 0;
+		while (it.hasNext()) {
+			titles[i] = it.next().getTitle();
+			i++;
+		}
+		_compareTags(
+			new String[] {
+				"Stephansdom",
+				"Goldenes Dachl",
+				"Festung Hohensalzburg",
+				"Pöstlingberg",
+				"Uhrturm",
+				"Martinsturm",
+				"Schloss Esterhazy",
+				"Lindwurmbrunnen",
+				"Rathaus"},
+			titles);
+	}
+
+	/**
+	 * internal function to compare an object's properties
+	 */
 	static void _compareProperties(Property expected[], Property actual[]) {
 		if (expected.length != actual.length) {
 			fail("_compareProperties: array length differs: (expected.length="+expected.length+", actual.length="+actual.length);
@@ -149,6 +153,9 @@ public class GeoObjectManagerTest{
 		}
 	}
 	
+	/**
+	 * internal function to compare an object's tags
+	 */
 	static void _compareTags(String[] expected, String[] actual) {
 		Arrays.sort(expected, String.CASE_INSENSITIVE_ORDER);
 		Arrays.sort(actual, String.CASE_INSENSITIVE_ORDER);
@@ -158,10 +165,15 @@ public class GeoObjectManagerTest{
 
 	@Before
 	public void setUp() throws Exception {
+		// we're always using the test database (there's a special jdbc.properties file in src/test/resources)
+		assertTrue("Not using test database!", DBConnection.staticIsTesting());
+
 		geoObjManager = GeoObjectManager.getInstance();
+		
+		// create a test object
 		tags= new String[]{"nacht", "see", "baum"};
 		prop = new Property[]{new Property("owner", "lacitot")};
-		svcId = ServiceManager.getInstance().select("example.com").getSvc_id();
+		svcId = ServiceManager.getInstance().select("example.com").getSvcId();
 		inObj = new DBGeoObject("Night", 21.440957, 48.427236, svcId, "test_panoramio", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
 	}
 	
