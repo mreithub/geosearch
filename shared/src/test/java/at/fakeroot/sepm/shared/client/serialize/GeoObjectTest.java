@@ -83,22 +83,19 @@ public class GeoObjectTest  {
 	
 	@Test
 	public void testTruncate(){
-		String[] tags = new String[]{"aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz"+
+		String tags = "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz"+
 				"AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ"+
 				"0123456789"+
 				"10111213141516171819"+
-				"20212223242526272829"}; 
-		testObject.setTags(tags);
-		
-		assertEquals(testObject.getTags()[0], tags[0].substring(0, tags[0].length()-3)+"...");
+				"20212223242526272829"; 
+
+		assertEquals(GeoObject.truncate(tags, 255), tags.substring(0, 252)+"...");
+
 	}
 	
-	@Test(expected= NegativeArraySizeException.class)
-	public void testTruncateSmall(){
-		String[] tags = new String[]{"aa"}; 
-		testObject.setTags(tags);
-		
-		assertEquals(testObject.getTags()[0], "aa");
+	@Test 
+	public void testTruncateSmall(){	
+		assertEquals(GeoObject.truncate("aa", 2), "aa");
 	}
 	
 }
