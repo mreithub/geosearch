@@ -16,6 +16,9 @@ public class DBGeoObjectTest {
 
 	private double delta = 0.0001;
 	
+	/**
+	 * test the getters and the constructor
+	 */
 	@Test
 	public void testSimple(){
 		int objID = 17;
@@ -30,11 +33,9 @@ public class DBGeoObjectTest {
 		Property pTest2 = new Property("p_name2","p_value2");
 		Property[] properties = {pTest1,pTest2};
 		String[] tags = {"tag1","tag2"};
-		
+
 		DBGeoObject testObject = new DBGeoObject(objID, title, xPos, yPos, svc_id, uid, link, valid_until, properties, tags);
-		
-		
-		assertNotNull(testObject);
+
 		assertEquals(objID, testObject.getId());
 		assertEquals(title, testObject.getTitle());
 		assertEquals(xPos, testObject.getXPos(), delta);
@@ -42,10 +43,8 @@ public class DBGeoObjectTest {
 		assertEquals(svc_id, testObject.getSvcId(), delta);
 		assertEquals(uid, testObject.getUid());
 		assertEquals(link, testObject.getLink());
-		assertEquals(valid_until, testObject.getValid_until());
-		assertEquals(tags[0], testObject.getTags()[0]);
-		assertEquals(tags[1], testObject.getTags()[1]);
-		assertEquals(properties[0], testObject.getProperties()[0]);
-		assertEquals(properties[1], testObject.getProperties()[1]);
+		assertEquals(valid_until, testObject.getValidUntil());
+		assertArrayEquals(tags, testObject.getTags());
+		assertArrayEquals(properties, testObject.getProperties());
 	}
 }
