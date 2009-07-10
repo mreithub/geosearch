@@ -53,7 +53,11 @@ public class GeoObjectTest  {
 		String _title= "GeoObjTestString2";
 		double _xPos = 3.3;
 		double _yPos = 4.4;
-		String[] tags = new String[]{"tag1","tag2","tag3"}; 
+		String[] tags = new String[1000]; 
+		
+		for(int i=0;i<1000;i++)
+			tags[i]="a";
+		
 		
 		testObject.setId(_id);
 		testObject.setTitle(_title);
@@ -65,9 +69,16 @@ public class GeoObjectTest  {
 		assertEquals(_title, testObject.getTitle());
 		assertEquals(_xPos, testObject.getXPos(), delta);
 		assertEquals(_yPos, testObject.getYPos(), delta);
-		assertEquals(tags[0],testObject.getTags()[0]);
-		assertEquals(tags[1],testObject.getTags()[1]);
-		assertEquals(tags[2],testObject.getTags()[2]);
+		for(int i=0;i<1000;i++)
+			assertEquals(tags[i],testObject.getTags()[i]);
+
+		
+		String[] tags2=new String[1000];
+		for(int i=0;i<1000;i++)
+			tags2[i]="b";
+		testObject.setTags(tags2);
+		for(int i=0;i<1000;i++)
+			assertEquals(tags2[i],testObject.getTags()[i]);
 	}
 	
 	@Test
@@ -79,9 +90,15 @@ public class GeoObjectTest  {
 				"20212223242526272829"}; 
 		testObject.setTags(tags);
 		
-		System.out.println("trunc: "+testObject.getTags()[0]);
-		
 		assertEquals(testObject.getTags()[0], tags[0].substring(0, tags[0].length()-3)+"...");
+	}
+	
+	@Test(expected= NegativeArraySizeException.class)
+	public void testTruncateSmall(){
+		String[] tags = new String[]{"aa"}; 
+		testObject.setTags(tags);
+		
+		assertEquals(testObject.getTags()[0], "aa");
 	}
 	
 }

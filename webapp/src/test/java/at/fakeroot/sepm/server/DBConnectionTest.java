@@ -21,10 +21,6 @@ import org.junit.Test;
 public class DBConnectionTest {
 	IDBConnection db = null;
 
-	@Test
-	public void testPreparedStatement() throws SQLException{
-		db.prepareStatement("");
-	}
 	
 	
 	@Test
