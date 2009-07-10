@@ -492,7 +492,7 @@ public class GeoObjectManager implements IGeoObjectManager
 			}
 
 			// overwrite tags
-			deleteTags(obj.getId());
+			_deleteWhereObjId("objectTag", obj.getId());
 			pstmt = dbWrite.prepareStatement("INSERT INTO objectTag(obj_id, tag) VALUES (?, ?)");
 			Iterator<String> it = tagSet.iterator();
 			while(it.hasNext()){
@@ -504,7 +504,7 @@ public class GeoObjectManager implements IGeoObjectManager
 			pstmt.close();
 			
 			// overwrite properties
-			deleteProperties(obj.getId());
+			_deleteWhereObjId("objectProperty", obj.getId());
 			pstmt=dbWrite.prepareStatement("INSERT INTO objectProperty (obj_id, name, value) VALUES (?, ?, ?)");
 			Property[] prop = obj.getProperties();
 			for(int i=0; i<prop.length; i++){
@@ -516,10 +516,7 @@ public class GeoObjectManager implements IGeoObjectManager
 			pstmt.close();
 			
 			// overwrite expiringObject
-			pstmt = dbWrite.prepareStatement("DELETE FROM expiringObject where obj_id = ?");
-			pstmt.setLong(1, obj.getId());
-			pstmt.executeUpdate();
-			pstmt.close();
+			_deleteWhereObjId("expiringObject", obj.getId());
 			
 			Timestamp valid_until = obj.getValidUntil();
 			if (valid_until != null) {
@@ -538,26 +535,5 @@ public class GeoObjectManager implements IGeoObjectManager
 			logger.error("Error in GeoObjectManager.update()", e);
 			throw new RemoteException("Error in GeoObjectManager.update()", e);
 		}
-	}
-
-	/**
-	 * Deletes the tags when object is updated
-	 * @param objId the id of the object to be updated 
-	 * */
-	private void deleteTags(long objId) throws SQLException{
-		PreparedStatement pstmt=dbWrite.prepareStatement("DELETE FROM objectTag WHERE obj_id = ?");
-		pstmt.setLong(1, objId);
-		pstmt.executeUpdate();
-	}
-
-	
-	/**
-	 * Deletes the properties when object is updated
-	 * @param objId the id of the object to be updated 
-	 * */
-	private void deleteProperties(long objId) throws SQLException{
-		PreparedStatement pstmt=dbWrite.prepareStatement("DELETE FROM objectProperty WHERE obj_id = ?");
-		pstmt.setLong(1, objId);
-		pstmt.executeUpdate();
 	}
 }

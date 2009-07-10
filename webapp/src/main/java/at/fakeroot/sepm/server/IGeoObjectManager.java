@@ -65,6 +65,11 @@ public interface IGeoObjectManager {
 
 	/**
 	 * Update an object in the database
+	 * 
+	 * the object to update will be determined by obj_id.
+	 * 
+	 * UID and svc_id won't be updated
+	 * 
 	 * @param the new object, that will overwrite the old one with the same object id (obj_id)
 	 * */
 	public abstract void update(DBGeoObject obj) throws RemoteException;
