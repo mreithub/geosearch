@@ -20,7 +20,7 @@ public class DBGeoObjectTest {
 	 * test the getters and the constructor
 	 */
 	@Test
-	public void testSimple(){
+	public void testGetters(){
 		int objID = 17;
 		String title = "some title";
 		double xPos = 15.458;
