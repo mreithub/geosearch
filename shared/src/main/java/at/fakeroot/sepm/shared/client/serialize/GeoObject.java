@@ -151,7 +151,7 @@ public class GeoObject implements Serializable {
 		String rc;
 		
 		if (str.length() > len) {
-			if (str.length() > 1) rc = str.substring(0, len-1)+"…";
+			if (len > 1) rc = str.substring(0, len-1)+"…";
 			else rc = str.substring(0, len);
 		}
 		else rc = str;

@@ -1,7 +1,6 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -31,12 +30,9 @@ public class GeoObjectTest  {
 		testObject = new GeoObject(id, title,xPos,yPos);	
 	}
 	
-	@After
-	public void tearDown() throws Exception {
-		System.out.println("tearDown");
-	}
-	
-	
+	/**
+	 * testing GeoObject's getters
+	 */
 	@Test
 	public void testGetters(){
 		//StdTest
@@ -47,6 +43,9 @@ public class GeoObjectTest  {
 		assertEquals(yPos, testObject.getYPos(), delta);
 	}
 	
+	/**
+	 * testing GeoObejct's setters
+	 */
 	@Test
 	public void testSetters(){
 		int _id=2;
@@ -81,26 +80,57 @@ public class GeoObjectTest  {
 			assertEquals(tags2[i],testObject.getTags()[i]);
 	}
 	
+	/**
+	 * testing the setTags() function
+	 */
+	@Test
+	public void testSetTags() {
+		String[] tags = new String[4];
+		// init tags
+		tags[0] = "abcde";
+		for (int i = 0; i < 255; i++) {
+			tags[1] += "a";
+		}
+		for (int i = 0; i < 256; i++) {
+			tags[2] += "b";
+		}
+		for (int i = 0; i < 300; i++) {
+			tags[3] += "c";
+		}
+		
+		testObject.setTags(tags);
+		String outTags[] = testObject.getTags();
+		assertEquals(4, outTags.length);
+		// the empty tag should have been deleted
+		assertEquals(tags[0], outTags[0]);
+		assertEquals(tags[1], outTags[1]);
+		assertEquals(tags[2].substring(0,254)+"…", outTags[2]);
+		assertEquals(tags[3].substring(0,254)+"…", outTags[3]);
+	}
+	
+	/**
+	 * test the truncate function
+	 */
 	@Test
 	public void testTruncate(){
-		String tags = "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz"+
-				"AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ"+
-				"0123456789"+
-				"10111213141516171819"+
-				"20212223242526272829"; 
+		String str = "abcde";
 
-		assertEquals(GeoObject.truncate(tags, 255), tags.substring(0, 254)+"…");
-
+		// len is long enough => shouldn't truncate
+		assertEquals(str, GeoObject.truncate(str, str.length()));
+		
+		// len is too short => truncate
+		assertEquals("abc…", GeoObject.truncate(str, str.length()-1));
+		
+		// len == 1 => truncate returns just the first character
+		assertEquals("a", GeoObject.truncate(str, 1));
 	}
 	
-	@Test 
-	public void testTruncateSmall(){
-		assertEquals(GeoObject.truncate("abcde", 2), "a…");
+	/**
+	 * test truncate with a negative length (which should cause an exception)
+	 */
+	@Test(expected = StringIndexOutOfBoundsException.class)
+	public void testTruncateNegative() {
+		GeoObject.truncate("abcde", -1);
 	}
-	
-	 @Test(expected = StringIndexOutOfBoundsException.class)
-	 public void testTruncateNegative() {
-	  GeoObject.truncate("abcde", -1);
-	 }
 	
 }
