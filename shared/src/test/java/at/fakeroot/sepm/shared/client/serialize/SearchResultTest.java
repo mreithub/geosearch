@@ -1,7 +1,5 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -10,7 +8,7 @@ import static org.junit.Assert.*;
  * @author RK
  */
 
-public class SearchResultTest extends TestCase
+public class SearchResultTest
 {
 	private double delta = 0.0001;
 	

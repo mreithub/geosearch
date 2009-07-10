@@ -1,8 +1,7 @@
 package at.fakeroot.sepm.server;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import junit.framework.TestCase;
+
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +11,7 @@ import org.junit.Test;
  * using the test-DB with svc_id = 15 in test_selectSvcId() and name = "example.com" 
  * in test_selectSvcName() 
  */
-public class ServiceManagerTest  extends TestCase
+public class ServiceManagerTest
 {
 	private ServiceManager svcManger;
 	private DBService dbService;

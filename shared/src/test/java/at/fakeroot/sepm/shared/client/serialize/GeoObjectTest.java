@@ -1,6 +1,5 @@
 package at.fakeroot.sepm.shared.client.serialize;
 
-import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import static org.junit.Assert.*;
  * @author JB
  *
  */
-public class GeoObjectTest extends TestCase  {
+public class GeoObjectTest  {
 
 	private double delta;
 	int id=1;

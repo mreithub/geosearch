@@ -1,7 +1,5 @@
 package at.fakeroot.sepm.shared.server;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -10,7 +8,7 @@ import static org.junit.Assert.*;
  * @author JB
  *
  */
-public class PropertyTest extends TestCase {
+public class PropertyTest {
 	
 	@Test
 	public void testSimple(){

@@ -2,7 +2,6 @@ package at.fakeroot.sepm.shared.server;
 
 import java.sql.Timestamp;
 
-import junit.framework.TestCase;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,7 +12,7 @@ import static org.junit.Assert.*;
  * @author JB
  *
  */
-public class DBGeoObjectTest extends TestCase {
+public class DBGeoObjectTest {
 
 	private double delta = 0.0001;
 	

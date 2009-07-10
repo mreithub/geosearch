@@ -1,6 +1,5 @@
 package at.fakeroot.sepm.server;
 
-import junit.framework.TestCase;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -10,7 +9,7 @@ import static org.junit.Assert.*;
  * @author Anca Cismasiu
  * */
 
-public class DBServiceTest extends TestCase {
+public class DBServiceTest {
 
 	@Test
 	public void testSimple(){
