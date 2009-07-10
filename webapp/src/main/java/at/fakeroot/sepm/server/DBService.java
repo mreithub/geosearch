@@ -7,12 +7,12 @@ package at.fakeroot.sepm.server;
 
 public class DBService {
 
-	private int svc_id;
+	private int svcId;
 	private String name;
 	private String title;
 	private String homepage;
 	private String description;
-	private int sType_id;
+	private int sTypeId;
 	private String bubbleHTML;
 	private String[] tags;
 	private String thumbnail;
@@ -28,25 +28,34 @@ public class DBService {
 	 * @param _bubbleHTML String the HTML to be displayed in the DetailView
 	 * @param _thumbnail String link to the thumbnail of the service-logo
 	 * */
-	public DBService(int _svc_id, String _name, String _title, String _homepage, String _description, int _sType_id, String _bubbleHTML, String _thumbnail ){
-		svc_id=_svc_id;
-		name=_name;
-		title=_title;
-		homepage=_homepage;
-		description=_description;
-		sType_id=_sType_id;
-		bubbleHTML=_bubbleHTML;
-		thumbnail = _thumbnail;
-		tags = new String[0];
+	public DBService(int svcId, String name, String title, String homepage, String description, int sTypeId, String bubbleHTML, String thumbnail){
+		this.svcId = svcId;
+		this.name = name;
+		this.title = title;
+		this.homepage = homepage;
+		this.description = description;
+		this.sTypeId = sTypeId;
+		this.bubbleHTML = bubbleHTML;
+		this.thumbnail = thumbnail;
+		this.tags = new String[0];
 	}
 
 	
 	/**
 	 * Getter for the service id
-	 * @return service is
+	 * @return service id
 	 * */
+	@Deprecated
 	public int getSvc_id() {
-		return svc_id;
+		return svcId;
+	}
+	
+	/**
+	 * Getter for the service ID
+	 * @return service id
+	 */
+	public int getSvcId() {
+		return svcId;
 	}
 
 	/**
@@ -84,9 +93,19 @@ public class DBService {
 	/**
 	 * Getter for the service type id
 	 * @return service type id
+	 * @deprecated use getSTypeId() instead
 	 * */
+	@Deprecated
 	public int getSType_id() {
-		return sType_id;
+		return sTypeId;
+	}
+
+	/**
+	 * Getter for the service type id
+	 * @return service type id
+	 */
+	public int getSTypeId() {
+		return sTypeId;
 	}
 
 	/**
