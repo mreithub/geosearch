@@ -89,13 +89,19 @@ public class GeoObjectTest  {
 				"10111213141516171819"+
 				"20212223242526272829"; 
 
-		assertEquals(GeoObject.truncate(tags, 255), tags.substring(0, 252)+"...");
+		assertEquals(GeoObject.truncate(tags, 255), tags.substring(0, 254)+"…");
 
 	}
 	
 	@Test 
-	public void testTruncateSmall(){	
-		assertEquals(GeoObject.truncate("aa", 2), "aa");
+	public void testTruncateSmall(){
+		System.out.println(GeoObject.truncate("aaa", 2));
+		assertEquals(GeoObject.truncate("aaaaa", 2), "a…");
 	}
+	
+	 @Test(expected = StringIndexOutOfBoundsException.class)
+	 public void testTruncateNegative() {
+	  GeoObject.truncate("abcde", -1);
+	 }
 	
 }
