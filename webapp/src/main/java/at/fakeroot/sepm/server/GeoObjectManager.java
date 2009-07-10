@@ -159,13 +159,7 @@ public class GeoObjectManager implements IGeoObjectManager
 	 * @see at.fakeroot.sepm.server.IGeoObjectManager#delete(int, java.lang.String)
 	 */
 	public void delete(int svcId, String uid) throws NotFoundException, SQLException {
-		PreparedStatement pstmt = dbWrite.prepareStatement("DELETE FROM geoObject WHERE svc_id = ? AND uid = ?");
-		pstmt.setInt(1, svcId);
-		pstmt.setString(2, uid);
-		
-		if (pstmt.executeUpdate() == 0) {
-			throw new NotFoundException("GeoObjectManager.delete: svcId="+svcId+", uid='"+uid+"'");
-		}
+		delete(getObjectId(svcId, uid));
 	}
 
 	/* (non-Javadoc)
