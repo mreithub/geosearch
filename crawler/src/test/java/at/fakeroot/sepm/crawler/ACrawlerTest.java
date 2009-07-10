@@ -199,7 +199,7 @@ public class ACrawlerTest {
 				assertEquals(newObjects[0].getYPos(), 2.2,0.0001);
 				assertEquals(newObjects[0].getUid(), "uID");
 				assertEquals(newObjects[0].getLink(), "link");
-				assertEquals(newObjects[0].getValid_until(), new Timestamp(1000000));
+				assertEquals(newObjects[0].getValidUntil(), new Timestamp(1000000));
 				assertEquals(newObjects[0].getProperties()[0].getName(),"proName");
 				assertEquals(newObjects[0].getProperties()[0].getValue(),"proVal");
 				assertEquals(newObjects[0].getTags()[0], "tag1");
