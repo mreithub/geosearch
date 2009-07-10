@@ -11,17 +11,19 @@ import static org.junit.Assert.*;
  */
 public class ObjectDetailsTest {
 
+	/**
+	 * Test the getters and the constructor
+	 */
 	@Test
-	public void testSimple(){
+	public void testGetters(){
 		String HTMLString = "htmltest";
 		String[] tags ={"tag1","tag2"};
-		String link = "www.bla.com";
+		String link = "www.example.com";
 		String thumbnail = "thumbnail";
 		String homepage = "homepage";
 		
 		ObjectDetails testObject = new ObjectDetails(HTMLString,tags, link, thumbnail, homepage);
 		
-		assertNotNull(testObject);
 		assertEquals(HTMLString, testObject.getHTMLString());
 		assertEquals(tags[0], testObject.getTags()[0]);
 		assertEquals(tags[1], testObject.getTags()[1]);
