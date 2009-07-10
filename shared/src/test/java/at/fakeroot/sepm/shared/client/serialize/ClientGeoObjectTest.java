@@ -14,9 +14,9 @@ public class ClientGeoObjectTest {
 		
 	@Test
 	/**
-	 * Test the constructor of the ClientGeoObject.
+	 * Test the getters and tthe Constructor
 	 */
-	public void testSimple(){
+	public void testGetters(){
 		int id=10;
 		String title="testTitle";
 		String url="pic.png";
@@ -26,13 +26,11 @@ public class ClientGeoObjectTest {
 		
 		ClientGeoObject testObject=new ClientGeoObject(id,title,url,tags,xPos,yPos);
 		
-		assertNotNull(testObject);
 		assertEquals(id, testObject.getId());
 		assertEquals(title, testObject.getTitle());
 		assertEquals(url, testObject.getImageUrl());
-		assertEquals(tags[0], testObject.getTags()[0]);
-		assertEquals(tags[1], testObject.getTags()[1]);
 		assertEquals(xPos, testObject.getXPos(), delta);
 		assertEquals(yPos, testObject.getYPos(), delta);
+		assertArrayEquals(tags, testObject.getTags());
 	}
 }
