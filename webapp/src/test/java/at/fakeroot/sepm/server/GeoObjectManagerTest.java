@@ -146,6 +146,16 @@ public class GeoObjectManagerTest{
 		}
 
 	}
+	
+	@Test(expected=NotFoundException.class)
+	public void testDeleteNonExistent() throws Exception {
+		geoObjManager.delete(-1);
+	}
+
+	@Test(expected=NotFoundException.class)
+	public void testDeleteNonExistentUidAndSvcId() throws Exception {
+		geoObjManager.delete(-1, "test_nonexistent");
+	}
 
 	/**
 	 * 
