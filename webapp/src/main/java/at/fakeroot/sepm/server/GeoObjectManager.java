@@ -69,11 +69,11 @@ public class GeoObjectManager implements IGeoObjectManager
 	/* (non-Javadoc)
 	 * @see at.fakeroot.sepm.server.IGeoObjectManager#getObjectId(int, java.lang.String)
 	 */	
-	public long getObjectId(int svc_id, String uid) throws NotFoundException, SQLException {
+	public long getObjectId(int svcId, String uid) throws NotFoundException, SQLException {
 		long rc=-1;
 		try{
 			PreparedStatement pstmt = dbRead.prepareStatement("SELECT obj_id FROM geoObject WHERE svc_id=? AND uid=?;");
-			pstmt.setInt(1, svc_id);
+			pstmt.setInt(1, svcId);
 			pstmt.setString(2, uid);
 			ResultSet result= pstmt.executeQuery();
 
@@ -81,10 +81,10 @@ public class GeoObjectManager implements IGeoObjectManager
 				rc=result.getLong("obj_id");
 			}
 			else {
-				throw new NotFoundException("svc_id: "+svc_id+", uid: "+uid);
+				throw new NotFoundException("svcId: "+svcId+", uid: "+uid);
 			}
 		} catch(SQLException e) {
-			logger.error("SQLException in GeoObjectManager.getObjectId(int svc_id, String uid)", e);
+			logger.error("SQLException in GeoObjectManager.getObjectId(int svcId, String uid)", e);
 			throw e;
 		}
 
