@@ -17,7 +17,7 @@ public class ACrawlerTest extends TestCase {
 	private CrawlerOutput crawlerOutput;
 	
 	@Test
-	public void testparseStringIntoTags_should() throws IOException, NotBoundException{
+	public void testparseStringIntoTags() throws IOException, NotBoundException{
 		class TestCrawler extends ACrawler {			
 			public TestCrawler(String svcName, CrawlerOutput output)
 					throws IOException, NotBoundException {
@@ -39,7 +39,7 @@ public class ACrawlerTest extends TestCase {
 	}
 	
 	@Test
-	public void testSubBox_should()  throws Exception{
+	public void testSubBox()  throws Exception{
 		class TestCrawler extends ACrawler {
 			
 			private int tc=0;
@@ -104,7 +104,7 @@ public class ACrawlerTest extends TestCase {
 	}
 	
 	@Test
-	public void testSubBoxJump_should() throws IOException, NotBoundException{
+	public void testSubBoxJump() throws IOException, NotBoundException{
 		class TestCrawler extends ACrawler {
 			private int tc=0;
 			BoundingBox oldBox=null;
