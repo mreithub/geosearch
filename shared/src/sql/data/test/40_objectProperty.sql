@@ -7,8 +7,7 @@ BEGIN;
 -- Wien: Karlskirche
 INSERT INTO objectProperty (obj_id, name, value) VALUES (
 (SELECT obj_id FROM geoObject WHERE uid='test_karlskirche'),
-'description', '<p>Die Karlskirche liegt an der Südseite des Karlsplatzes in Wien, am Rande der Innenstadt und 200 m außerhalb der Ringstraße. Sie ist einer der bedeutendsten barocken Kirchenbauten nördlich der Alpen und eines der Wahrzeichen Wiens.</p>
-<p>Seit der Karlsplatz Ende der 1980er wieder als Ensemble hergestellt wurde, wirkt die Karlskirche nicht nur durch ihre Kuppel und die zwei flankierenden Reliefsäulen, sondern auch als architektonisches Gegengewicht zu den Gebäuden von Musikverein und Technischer Universität.</p>');
+'description', 'Beschreibung Karlskirche');
 
 -- Wien: Stephansdom
 INSERT INTO objectProperty (obj_id, name, value) VALUES (
