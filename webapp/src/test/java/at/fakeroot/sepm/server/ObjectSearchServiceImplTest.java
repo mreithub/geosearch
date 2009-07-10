@@ -1,10 +1,16 @@
 package at.fakeroot.sepm.server;
-import static org.easymock.EasyMock.*;
+import static junit.framework.Assert.assertEquals;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import static org.easymock.EasyMock.eq;
+import static org.easymock.EasyMock.aryEq;
 
 import org.junit.Before;
 import org.junit.Test;
-import static junit.framework.Assert.assertEquals;
 
+import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
@@ -32,6 +38,17 @@ public class ObjectSearchServiceImplTest
 		geoObjManagerMock = createMock(IGeoObjectManager.class);
 		svcMangerMock = createMock(IServiceManager.class);
 		objSearchServImpl = new ObjectSearchServiceImpl(geoObjManagerMock, svcMangerMock);
+	}
+	
+	@Test
+	public void test_search()
+	{
+		BoundingBox box = new BoundingBox(15, 16, 17,18);
+		String[] tags = new String[] {"tag1", "tag2"};
+		expect(geoObjManagerMock.select(aryEq(tags), eq(box), eq(50), eq(500))).andReturn(null);
+		replay(geoObjManagerMock);
+		objSearchServImpl.search(box, "tag1 tag2");
+		verify(geoObjManagerMock);
 	}
 	
 	//basic test: the bubblehtml just contains the %name_of_property%
