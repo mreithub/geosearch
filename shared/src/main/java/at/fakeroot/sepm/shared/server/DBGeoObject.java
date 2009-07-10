@@ -15,7 +15,7 @@ public class DBGeoObject extends GeoObject {
 	private int svcId;
 	private String uid;
 	private String link;
-	private Timestamp valid_until;
+	private Timestamp validUntil;
 	private Property[] properties;
 	
 	/**
@@ -47,12 +47,12 @@ public class DBGeoObject extends GeoObject {
 	 *@param properties object properties array
 	 *@param tags object tag array 
 	 * */
-	public DBGeoObject(long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp valid_until, Property[] properties, String[] tags){
+	public DBGeoObject(long id, String title, double xPos, double yPos, int serviceID, String uniqueID, String link, Timestamp validUntil, Property[] properties, String[] tags){
 		super(id, title, xPos, yPos);
 		svcId= serviceID;
 		uid=uniqueID;
 		this.link=link;
-		this.valid_until=valid_until;
+		this.validUntil=validUntil;
 		this.properties=properties;
 		setTags(tags);
 	}
@@ -110,9 +110,19 @@ public class DBGeoObject extends GeoObject {
 	/**
 	 * Getter for object validity date
 	 * @return object validity date
-	 * */
+	 * @deprecated use getValidUntil instead
+	 */
+	@Deprecated
 	public Timestamp getValid_until() {
-		return valid_until;
+		return validUntil;
+	}
+	
+	/**
+	 * Getter for object validity date
+	 * @return object validity date
+	 */
+	public Timestamp getValidUntil() {
+		return validUntil;
 	}
 
 	/**
@@ -131,6 +141,6 @@ public class DBGeoObject extends GeoObject {
 				propStr+=i+".) "+properties[i].toString();
 			}
 		}
-		return super.toString()+", title: "+ getTitle()+", svc_id: "+svcId+", uid: "+uid+", link: "+link+", valid_until: "+valid_until+", properties: "+propStr;
+		return super.toString()+", title: "+ getTitle()+", svcId: "+svcId+", uid: "+uid+", link: "+link+", validUntil: "+validUntil+", properties: "+propStr;
 	}
 }
