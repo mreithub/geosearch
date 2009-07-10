@@ -90,6 +90,14 @@ public class DBGeoObject extends GeoObject {
 	public String getUid() {
 		return uid;
 	}
+	
+	/**
+	 * Setter for the GeoObject's unique ID 
+	 * @param uid service-unique id
+	 */
+	public void setUid(String uid) {
+		this.uid = uid; 
+	}
 
 	/**
 	 * Getter for object link
