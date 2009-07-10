@@ -1,4 +1,4 @@
-bpackage at.fakeroot.sepm.shared.server;
+package at.fakeroot.sepm.shared.server;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
