@@ -51,8 +51,7 @@ public class ServiceManagerTest
 			assertEquals(dbService.getSType_id(), result.getSType_id());
 			assertEquals(dbService.getBubbleHTML(), result.getBubbleHTML());
 			assertEquals(dbService.getThumbnail(), result.getThumbnail());
-			assertEquals(dbService.getTags()[0], result.getTags()[0]);
-			assertEquals(dbService.getTags().length, result.getTags().length);
+			assertArrayEquals(dbService.getTags(), result.getTags());
 		}
 	}
 	
@@ -73,8 +72,7 @@ public class ServiceManagerTest
 			assertEquals(dbService.getSType_id(), result.getSType_id());
 			assertEquals(dbService.getBubbleHTML(), result.getBubbleHTML());
 			assertEquals(dbService.getThumbnail(), result.getThumbnail());
-			assertEquals(dbService.getTags()[0], result.getTags()[0]);
-			assertEquals(dbService.getTags().length, result.getTags().length);
+			assertArrayEquals(dbService.getTags(), result.getTags());
 		}
 	}
 }
