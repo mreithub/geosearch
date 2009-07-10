@@ -52,45 +52,45 @@ public class ACrawlerTest {
 			protected void crawlBox(BoundingBox curBox) {
 				
 				if(tc==0){
-					assertEquals(curBox.getX1(),-1.0);
-					assertEquals(curBox.getY1(),0.0);
-					assertEquals(curBox.getX2(),-0.5);
-					assertEquals(curBox.getY2(),0.5);
+					assertEquals(curBox.getX1(),-1.0,0.0001);
+					assertEquals(curBox.getY1(),0.0,0.0001);
+					assertEquals(curBox.getX2(),-0.5,0.0001);
+					assertEquals(curBox.getY2(),0.5,0.0001);
 				}else if(tc==1){
-					assertEquals(curBox.getX1(),-0.5);
-					assertEquals(curBox.getY1(),0.0);
-					assertEquals(curBox.getX2(),0.0);
-					assertEquals(curBox.getY2(),0.5);
+					assertEquals(curBox.getX1(),-0.5,0.0001);
+					assertEquals(curBox.getY1(),0.0,0.0001);
+					assertEquals(curBox.getX2(),0.0,0.0001);
+					assertEquals(curBox.getY2(),0.5,0.0001);
 				}else if(tc==2){
-					assertEquals(curBox.getX1(),0.0);
-					assertEquals(curBox.getY1(),0.0);
-					assertEquals(curBox.getX2(),0.5);
-					assertEquals(curBox.getY2(),0.5);
+					assertEquals(curBox.getX1(),0.0,0.0001);
+					assertEquals(curBox.getY1(),0.0,0.0001);
+					assertEquals(curBox.getX2(),0.5,0.0001);
+					assertEquals(curBox.getY2(),0.5,0.0001);
 				}else if(tc==3){
-					assertEquals(curBox.getX1(),0.5);
-					assertEquals(curBox.getY1(),0.0);
-					assertEquals(curBox.getX2(),1.0);
-					assertEquals(curBox.getY2(),0.5);
+					assertEquals(curBox.getX1(),0.5,0.0001);
+					assertEquals(curBox.getY1(),0.0,0.0001);
+					assertEquals(curBox.getX2(),1.0,0.0001);
+					assertEquals(curBox.getY2(),0.5,0.0001);
 				}else if(tc==4){
-					assertEquals(curBox.getX1(),-1.0);
-					assertEquals(curBox.getY1(),0.5);
-					assertEquals(curBox.getX2(),-0.5);
-					assertEquals(curBox.getY2(),1.0);
+					assertEquals(curBox.getX1(),-1.0,0.0001);
+					assertEquals(curBox.getY1(),0.5,0.0001);
+					assertEquals(curBox.getX2(),-0.5,0.0001);
+					assertEquals(curBox.getY2(),1.0,0.0001);
 				}else if(tc==5){
-					assertEquals(curBox.getX1(),-0.5);
-					assertEquals(curBox.getY1(),0.5);
-					assertEquals(curBox.getX2(),0.0);
-					assertEquals(curBox.getY2(),1.0);
+					assertEquals(curBox.getX1(),-0.5,0.0001);
+					assertEquals(curBox.getY1(),0.5,0.0001);
+					assertEquals(curBox.getX2(),0.0,0.0001);
+					assertEquals(curBox.getY2(),1.0,0.0001);
 				}else if(tc==6){
-					assertEquals(curBox.getX1(),0.0);
-					assertEquals(curBox.getY1(),0.5);
-					assertEquals(curBox.getX2(),0.5);
-					assertEquals(curBox.getY2(),1.0);
+					assertEquals(curBox.getX1(),0.0,0.0001);
+					assertEquals(curBox.getY1(),0.5,0.0001);
+					assertEquals(curBox.getX2(),0.5,0.0001);
+					assertEquals(curBox.getY2(),1.0,0.0001);
 				}else if(tc==7){
-					assertEquals(curBox.getX1(),0.5);
-					assertEquals(curBox.getY1(),0.5);
-					assertEquals(curBox.getX2(),1.0);
-					assertEquals(curBox.getY2(),1.0);
+					assertEquals(curBox.getX1(),0.5,0.0001);
+					assertEquals(curBox.getY1(),0.5,0.0001);
+					assertEquals(curBox.getX2(),1.0,0.0001);
+					assertEquals(curBox.getY2(),1.0,0.0001);
 				}
 				
 				
@@ -117,9 +117,9 @@ public class ACrawlerTest {
 			protected void crawlBox(BoundingBox curBox) {
 				
 				if(tc%4!=0 && oldBox!=null){
-					assertEquals(curBox.getX1(), oldBox.getX2());
+					assertEquals(curBox.getX1(), oldBox.getX2(),0.0001);
 				}else if(tc%4==0 && oldBox!=null){
-					assertEquals(curBox.getY1(), oldBox.getY2());
+					assertEquals(curBox.getY1(), oldBox.getY2(),0.0001);
 				}
 				
 				tc++;
