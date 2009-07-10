@@ -1,4 +1,4 @@
-package at.fakeroot.sepm.shared.server;
+bpackage at.fakeroot.sepm.shared.server;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -10,14 +10,16 @@ import static org.junit.Assert.*;
  */
 public class PropertyTest {
 	
+	/**
+	 * test the getters and the constructor
+	 */
 	@Test
-	public void testSimple(){
-		String name="protTest";
+	public void testGetters(){
+		String name="propTest";
 		String value="valueTest";
-		
+sv
 		Property testObject = new Property(name,value);
-		
-		assertNotNull(testObject);
+
 		assertEquals(name, testObject.getName());
 		assertEquals(value, testObject.getValue());
 	}
