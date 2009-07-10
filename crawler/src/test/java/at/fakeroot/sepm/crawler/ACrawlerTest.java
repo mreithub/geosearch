@@ -30,11 +30,12 @@ public class ACrawlerTest {
 		ACrawler aCrawler = new TestCrawler("TestOutput",crawlerOutput);
 		
 		ArrayList<String> myList = new ArrayList<String>();
-		aCrawler.parseStringIntoTags("Haus Mauer der",myList,true);
+		aCrawler.parseStringIntoTags("Haus,. Mauer  der",myList,true);
 		assertEquals("Haus", myList.get(0));
 		assertEquals("Mauer", myList.get(1));		
 		
 		assertTrue(!myList.contains("der"));
+		assertEquals(myList.size(), 2);
 	}
 	
 	@Test
