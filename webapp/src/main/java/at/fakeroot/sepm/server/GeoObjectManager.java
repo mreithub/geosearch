@@ -132,12 +132,27 @@ public class GeoObjectManager implements IGeoObjectManager
 	 * @see at.fakeroot.sepm.server.IGeoObjectManager#delete(long)
 	 */
 	public void delete(long objId) throws NotFoundException, SQLException {
-		PreparedStatement pstmt = dbWrite.prepareStatement("DELETE FROM geoObject WHERE obj_id = ?");
-		pstmt.setLong(1, objId);
-		
-		if (pstmt.executeUpdate() == 0) {
-			throw new NotFoundException("GeoObjectManager.delete: objId="+objId);
+		_deleteWhereObjId("expiringObject", objId);
+		_deleteWhereObjId("objectProperty", objId);
+		_deleteWhereObjId("objectTag", objId);
+		if (_deleteWhereObjId("geoObject", objId) == 0) {
+			throw new NotFoundException("GeoObjectManager.delete(): objId="+objId);
 		}
+	}
+	
+	/**
+	 * executes a prepared statement that deletes all entries of table having the given obj_id
+	 * 
+	 * Is used by delete() to delete all references to an object in the different database tables
+	 * @param table table to delete from (not escaped!)
+	 * @param objId object ID to delete
+	 * @return number of affected rows
+	 * @throws SQLException if prepareStatement() or executeUpdate() fail 
+	 */
+	private int _deleteWhereObjId(String table, long objId) throws SQLException {
+		PreparedStatement pstmt = dbWrite.prepareStatement("DELETE FROM " + table + " WHERE obj_id = ?");
+		pstmt.setLong(1, objId);
+		return pstmt.executeUpdate();
 	}
 	
 	/* (non-Javadoc)
@@ -441,7 +456,7 @@ public class GeoObjectManager implements IGeoObjectManager
 			pstmt.close();
 
 			// expiring objects
-			Timestamp valid_until = obj.getValid_until();
+			Timestamp valid_until = obj.getValidUntil();
 			if (valid_until != null) {
 				pstmt = dbWrite.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (currval('geoobject_obj_id_seq'),?)");
 				pstmt.setTimestamp(1, valid_until);
@@ -512,7 +527,7 @@ public class GeoObjectManager implements IGeoObjectManager
 			pstmt.executeUpdate();
 			pstmt.close();
 			
-			Timestamp valid_until = obj.getValid_until();
+			Timestamp valid_until = obj.getValidUntil();
 			if (valid_until != null) {
 				pstmt = dbWrite.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (?,?)");
 				pstmt.setLong(1, obj.getId());
