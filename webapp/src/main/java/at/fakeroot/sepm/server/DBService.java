@@ -37,7 +37,7 @@ public class DBService {
 		sType_id=_sType_id;
 		bubbleHTML=_bubbleHTML;
 		thumbnail = _thumbnail;
-		
+		tags = new String[0];
 	}
 
 	

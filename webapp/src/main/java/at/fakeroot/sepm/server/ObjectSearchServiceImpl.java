@@ -48,6 +48,15 @@ public class ObjectSearchServiceImpl extends RemoteServiceServlet implements Obj
 		
 		svcManager = ServiceManager.getInstance();
 	}
+	
+	/**
+	 * this is just for testing with the mock-objects
+	 */
+	public ObjectSearchServiceImpl(IGeoObjectManager geoObjManagerMock, IServiceManager svcMangerMock)
+	{
+		this.geoObjManager = geoObjManagerMock;
+		this.svcManager = svcMangerMock;
+	}
 
 	/**
 	 * prepares the users request for the DAO and forwards it
