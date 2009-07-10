@@ -13,7 +13,7 @@ public class SearchResultTest
 	private double delta = 0.0001;
 	
 	@Test
-	public void testSimple(){
+	public void testGettersAndSetters(){
 		ClientGeoObject cgo = new ClientGeoObject(2,"bla", null, new String[]{"eins", "zwei", "drei"}, 14.987, 15.564);
 		int hits = 7;
 		int countLimit = 50;
@@ -21,11 +21,10 @@ public class SearchResultTest
 		testObject.addResultToList(cgo);
 		testObject.setResultCount(hits);
 		
-		assertNotNull(testObject);
 		assertEquals(hits, testObject.getResultCount());
 		assertEquals(testObject.getResults().get(0).getId(), cgo.getId());
 		assertEquals(testObject.getResults().get(0).getXPos(), cgo.getXPos(), delta);
 		assertEquals(testObject.getResults().get(0).getTitle(), cgo.getTitle());
-		assertEquals(testObject.getResults().get(0).getTags()[0], cgo.getTags()[0]);
+		assertArrayEquals(testObject.getResults().get(0).getTags(), cgo.getTags());
 	}
 }
