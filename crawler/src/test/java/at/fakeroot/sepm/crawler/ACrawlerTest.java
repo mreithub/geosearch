@@ -39,6 +39,9 @@ public class ACrawlerTest {
 	}
 	
 	@Test
+	/**
+	 * Tests if the jump size is right and if every bbox has the right values, but in a static way.
+	 */
 	public void testSubBox()  throws Exception{
 		class TestCrawler extends ACrawler {
 			
@@ -104,6 +107,9 @@ public class ACrawlerTest {
 	}
 	
 	@Test
+	/**
+	 * Tests if the jump size is right and if every bbox has the right values, but in a dynamic way.
+	 */
 	public void testSubBoxJump() throws IOException, NotBoundException{
 		class TestCrawler extends ACrawler {
 			private int tc=0;
@@ -133,6 +139,9 @@ public class ACrawlerTest {
 	}
 	
 	@Test
+	/**
+	 * Tests the request to an external URL
+	 */
 	public void testRequestUrl() throws IOException, NotBoundException{
 		class TestCrawler extends ACrawler {			
 			public TestCrawler(String svcName, CrawlerOutput output)
