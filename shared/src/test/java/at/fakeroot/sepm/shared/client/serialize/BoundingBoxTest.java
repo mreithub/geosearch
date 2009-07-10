@@ -13,7 +13,7 @@ public class BoundingBoxTest
 	
 	@Test
 	/**
-	 * Test the initzialisation of the bounding box.
+	 * Test the initialization of the bounding box.
 	 */
 	public void testConstructor1(){
 		double x1 = 14.897;
@@ -32,7 +32,7 @@ public class BoundingBoxTest
 	
 	@Test
 	/**
-	 * Test the initzialisation of the bounding box, and check if (x1, y1) actually
+	 * Test the initialization of the bounding box, and check if (x1, y1) actually
 	 * is the lower, left corner of the box.
 	 */
 	public void testConstructor2(){
