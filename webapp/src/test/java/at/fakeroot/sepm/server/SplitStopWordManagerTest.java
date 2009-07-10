@@ -1,8 +1,7 @@
 package at.fakeroot.sepm.server;
 
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,8 +30,13 @@ public class SplitStopWordManagerTest
 		if (DBConnection.staticIsTesting())
 		{
 			String splitChars = swManager.getSplitChars();
-			assertNotNull(splitChars);
-			assertTrue(splitChars.length() > 0);
+			// test for the 5 SplitChars in the test database
+			assertEquals(5, splitChars.length());
+			assertTrue(splitChars.contains(" "));
+			assertTrue(splitChars.contains("."));
+			assertTrue(splitChars.contains(","));
+			assertTrue(splitChars.contains("!"));
+			assertTrue(splitChars.contains("?"));
 		}
 	}
 	
@@ -45,8 +49,9 @@ public class SplitStopWordManagerTest
 		if (DBConnection.staticIsTesting())
 		{
 			String[] stopWords = swManager.getStopWords();
-			assertNotNull(stopWords);
-			assertTrue(stopWords.length > 0);
+			// test for the 5 stopWords in the test database
+			assertEquals(stopWords.length, 5);
+			assertArrayEquals(new String[] {"a", "e", "i", "o", "u"}, stopWords);
 		}
 	}
 }
