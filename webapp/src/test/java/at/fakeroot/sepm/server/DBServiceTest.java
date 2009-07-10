@@ -25,12 +25,12 @@ public class DBServiceTest {
 	
 	@Test
 	public void testGetter(){
-		assertEquals(svc_id, serv.getSvc_id());
+		assertEquals(svc_id, serv.getSvcId());
 		assertEquals(name, serv.getName());
 		assertEquals(title, serv.getTitle());
 		assertEquals(homepage, serv.getHomepage());
 		assertEquals(description, serv.getDescription());
-		assertEquals(sTypeId, serv.getSType_id());
+		assertEquals(sTypeId, serv.getSTypeId());
 		assertEquals(bubbleHTML, serv.getBubbleHTML());
 		assertEquals(thumbnail, serv.getThumbnail());
 	}

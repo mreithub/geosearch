@@ -27,7 +27,7 @@ public class ServiceManagerTest
 		svcManager = new ServiceManager();
 		String svcName = "example.com";
 		// the service id is generated automatically by the database => first request it
-		int svcId = svcManager.select(svcName).getSvc_id();
+		int svcId = svcManager.select(svcName).getSvcId();
 		// initialize a DBService objects with the data of the test service in the database 
 		dbService = new DBService(svcId, svcName, "TestService", "http://www.example.com/", 
 				"Test-Service", 12, "%description%", "images/service/wikipedia.png");
@@ -42,13 +42,13 @@ public class ServiceManagerTest
 	{
 		if(DBConnection.staticIsTesting())
 		{	
-			result = svcManager.select(dbService.getSvc_id());
+			result = svcManager.select(dbService.getSvcId());
 			assertNotNull(result);
 			assertEquals(dbService.getName(), result.getName());
 			assertEquals(dbService.getTitle(), result.getTitle());
 			assertEquals(dbService.getHomepage(), result.getHomepage());
 			assertEquals(dbService.getDescription(), result.getDescription());
-			assertEquals(dbService.getSType_id(), result.getSType_id());
+			assertEquals(dbService.getSTypeId(), result.getSTypeId());
 			assertEquals(dbService.getBubbleHTML(), result.getBubbleHTML());
 			assertEquals(dbService.getThumbnail(), result.getThumbnail());
 			assertArrayEquals(dbService.getTags(), result.getTags());
@@ -65,11 +65,11 @@ public class ServiceManagerTest
 		{	
 			result = svcManager.select(dbService.getName());
 			assertNotNull(result);
-			assertEquals(dbService.getSvc_id(), result.getSvc_id());
+			assertEquals(dbService.getSvcId(), result.getSvcId());
 			assertEquals(dbService.getTitle(), result.getTitle());
 			assertEquals(dbService.getHomepage(), result.getHomepage());
 			assertEquals(dbService.getDescription(), result.getDescription());
-			assertEquals(dbService.getSType_id(), result.getSType_id());
+			assertEquals(dbService.getSTypeId(), result.getSTypeId());
 			assertEquals(dbService.getBubbleHTML(), result.getBubbleHTML());
 			assertEquals(dbService.getThumbnail(), result.getThumbnail());
 			assertArrayEquals(dbService.getTags(), result.getTags());

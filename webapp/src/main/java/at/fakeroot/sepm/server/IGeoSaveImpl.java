@@ -77,7 +77,7 @@ public class IGeoSaveImpl implements IGeoSave {
 		IServiceManager serviceManager = ServiceManager.getInstance();
 		
 		try {
-			return (serviceManager.select(svcName).getSvc_id());
+			return (serviceManager.select(svcName).getSvcId());
 		}
 		catch (SQLException e) {
 			throw new RemoteException("IGeoSaveImpl.getServiceID failed", e);
