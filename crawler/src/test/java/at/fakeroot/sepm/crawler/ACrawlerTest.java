@@ -160,11 +160,11 @@ public class ACrawlerTest extends TestCase {
 
 			@Override
 			public String getSplitChars() {
-				return " \r\n.,!?\"`´°\\";
+				return " \r\n.,!?\"`\\";
 			}
 			@Override
 			public String[] getStopWords() {
-				return new String[]{"der","die","das","in","ein","aus","für"};
+				return new String[]{"der","die","das","in","ein","aus"};
 			}
 			@Override
 			public void saveObjects(DBGeoObject[] newObjects) {
