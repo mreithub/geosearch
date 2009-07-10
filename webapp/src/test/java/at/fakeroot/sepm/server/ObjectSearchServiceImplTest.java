@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
+import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
 
@@ -45,9 +46,11 @@ public class ObjectSearchServiceImplTest
 	{
 		BoundingBox box = new BoundingBox(15, 16, 17,18);
 		String[] tags = new String[] {"tag1", "tag2"};
-		expect(geoObjManagerMock.select(aryEq(tags), eq(box), eq(50), eq(500))).andReturn(null);
+		SearchResult expectedResult = new SearchResult(10);
+		expect(geoObjManagerMock.select(aryEq(tags), eq(box), eq(50), eq(500))).andReturn(expectedResult);
 		replay(geoObjManagerMock);
-		objSearchServImpl.search(box, "tag1 tag2");
+		SearchResult actualResult = objSearchServImpl.search(box, "tag1 tag2");
+		assertEquals(expectedResult, actualResult);
 		verify(geoObjManagerMock);
 	}
 	
