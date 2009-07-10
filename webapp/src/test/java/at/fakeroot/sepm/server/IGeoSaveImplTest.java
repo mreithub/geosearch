@@ -5,13 +5,14 @@ import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import at.fakeroot.sepm.shared.server.DBGeoObject;
 
-public class IGeoSaveImplTest
+public class IGeoSaveImplTest  extends TestCase
 {
 	private IGeoObjectManager mockManager;
 	private IGeoSaveImpl geoSave;

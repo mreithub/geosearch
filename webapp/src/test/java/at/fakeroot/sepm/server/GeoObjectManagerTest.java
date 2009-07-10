@@ -22,7 +22,7 @@ import at.fakeroot.sepm.shared.server.DBGeoObject;
 import at.fakeroot.sepm.shared.server.Property;
 
 
-public class GeoObjectManagerTest {
+public class GeoObjectManagerTest extends TestCase{
 	
 	IGeoObjectManager geoObjManager;
 	String[] tags;

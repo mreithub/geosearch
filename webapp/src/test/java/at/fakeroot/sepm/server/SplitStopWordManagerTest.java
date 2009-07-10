@@ -7,10 +7,12 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 
-public class SplitStopWordManagerTest
+public class SplitStopWordManagerTest  extends TestCase
 {
 	SplitStopWordManager swManager;
 	

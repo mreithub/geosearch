@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * @author Manuel Reithuber
  *
  */
-public class DBConnectionTest  {
+public class DBConnectionTest  extends TestCase {
 	IDBConnection db = null;
 
 	@Test
@@ -61,8 +61,9 @@ public class DBConnectionTest  {
 	}
 
 	@Before
-	public void bringUp() throws IOException {
+	public void setUp() throws IOException {
 		db = new DBConnection();
+		
 	}
 	
 	@After

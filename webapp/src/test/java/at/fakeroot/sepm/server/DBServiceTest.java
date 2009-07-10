@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
  * @author Anca Cismasiu
  * */
 
-public class DBServiceTest  {
+public class DBServiceTest extends TestCase {
 
 	@Test
 	public void testSimple(){

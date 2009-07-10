@@ -12,7 +12,7 @@ import org.junit.Test;
  * using the test-DB with svc_id = 15 in test_selectSvcId() and name = "example.com" 
  * in test_selectSvcName() 
  */
-public class ServiceManagerTest
+public class ServiceManagerTest  extends TestCase
 {
 	private ServiceManager svcManger;
 	private DBService dbService;
