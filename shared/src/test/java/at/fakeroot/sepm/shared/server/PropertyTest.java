@@ -17,7 +17,7 @@ public class PropertyTest {
 	public void testGetters(){
 		String name="propTest";
 		String value="valueTest";
-sv
+
 		Property testObject = new Property(name,value);
 
 		assertEquals(name, testObject.getName());
