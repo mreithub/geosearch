@@ -95,8 +95,7 @@ public class GeoObjectTest  {
 	
 	@Test 
 	public void testTruncateSmall(){
-		System.out.println(GeoObject.truncate("aaa", 2));
-		assertEquals(GeoObject.truncate("aaaaa", 2), "a…");
+		assertEquals(GeoObject.truncate("abcde", 2), "a…");
 	}
 	
 	 @Test(expected = StringIndexOutOfBoundsException.class)
