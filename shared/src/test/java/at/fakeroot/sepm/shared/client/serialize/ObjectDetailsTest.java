@@ -25,7 +25,6 @@ public class ObjectDetailsTest {
 		ObjectDetails testObject = new ObjectDetails(HTMLString,tags, link, thumbnail, homepage);
 		
 		assertEquals(HTMLString, testObject.getHTMLString());
-		assertEquals(tags[0], testObject.getTags()[0]);
-		assertEquals(tags[1], testObject.getTags()[1]);
+		assertArrayEquals(tags, testObject.getTags());
 	}
 }
