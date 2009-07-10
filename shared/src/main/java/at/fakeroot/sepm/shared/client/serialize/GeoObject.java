@@ -145,11 +145,15 @@ public class GeoObject implements Serializable {
 	 * @param str String to truncate after len characters
 	 * @param len maximum String length
 	 * @return truncated String
+	 * @throws StringIndexOutOfBoundsException if len is negative
 	 */
 	public static String truncate(String str, int len) {
 		String rc;
 		
-		if (str.length() > len) rc = str.substring(0, len-3)+"...";
+		if (str.length() > len) {
+			if (str.length() > 1) rc = str.substring(0, len-1)+"…";
+			else rc = str.substring(0, len);
+		}
 		else rc = str;
 		
 		return rc;
