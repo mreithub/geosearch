@@ -18,3 +18,17 @@ div#logo {
 .floatright {
 	float:right;
 }
+
+table#searchBox input {
+	background: white;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 2px center;
+}
+
+table#searchBox input.emptyWhere {
+	background-image: url(/images/design/searchbox/where.png);
+}
+
+table#searchBox input.emptyWhat {
+	background-image: url(/images/design/searchbox/what.png);

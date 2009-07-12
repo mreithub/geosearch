@@ -11,10 +11,9 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 /**
@@ -23,35 +22,37 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class SearchBox extends Composite{
 
-	private HorizontalPanel myHoPanel= new HorizontalPanel();
-	private VerticalPanel myVePanel = new VerticalPanel();
+	private HorizontalPanel hPanel= new HorizontalPanel();
+	private FlowPanel fPanel = new FlowPanel();
 	private IGeoManager geoManager=null;
 	private TextBox where=new TextBox();
 	private TextBox what=new TextBox();
 	private Button searchButton = new Button("Search");
 
-	private final String whereString = "Where?";
-	private final String whatString = "What?";
+	private final String whereString = "";
+	private final String whatString = "";
 
 	/**
 	 * Constructor
 	 * @param gm a IGeoManager instance
 	 * */
 	public SearchBox(IGeoManager gm){
-		initWidget(myHoPanel);
+		hPanel.getElement().setId("searchBox");
+		initWidget(hPanel);
 		geoManager=gm;		
 
 		where.setText(whereString);
+		where.setTitle("Where");
+		where.setStyleName("emptyWhere");
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
-				if(getWhere().length() == 0)
-					where.setText("");
+				where.setStyleName("");	
 			}
 		});
 		where.addBlurHandler(new BlurHandler(){
 			public void onBlur(BlurEvent be) {
 				if(where.getText().trim().length() == 0){
-					where.setText(whereString);
+					where.setStyleName("emptyWhere");
 				}
 			}
 		});
@@ -65,16 +66,17 @@ public class SearchBox extends Composite{
 
 
 		what.setText(whatString);
+		what.setTitle("What");
+		what.setStyleName("emptyWhat");
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
-				if(getWhat().length() == 0)
-					what.setText("");
+				what.setStyleName("");
 			}
 		});
 		what.addBlurHandler(new BlurHandler(){
 			public void onBlur(BlurEvent be) {
 				if(what.getText().trim().length() == 0){
-					what.setText(whatString);
+					what.setStyleName("emptyWhat");
 				}
 			}
 		});		
@@ -95,13 +97,12 @@ public class SearchBox extends Composite{
 		where.setWidth("160px");
 		what.setWidth("160px");
 		searchButton.setSize("80px","55px");
-		myVePanel.setHeight("55px");
-		myVePanel.add(where);
-		myVePanel.add(what);
-		myVePanel.setCellVerticalAlignment(what, HasVerticalAlignment.ALIGN_BOTTOM);
-		myHoPanel.add(myVePanel);
-		myHoPanel.setCellHeight(myVePanel, "55px");
-		myHoPanel.add(searchButton);
+		fPanel.setHeight("55px");
+		fPanel.add(where);
+		fPanel.add(what);
+		hPanel.add(fPanel);
+		hPanel.setCellHeight(fPanel, "55px");
+		hPanel.add(searchButton);
 	}
 
 	/**
