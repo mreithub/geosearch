@@ -42,7 +42,7 @@ public class SearchBox extends Composite{
 		geoManager=gm;		
 
 		where.setText(whereString);
-		where.setTitle("Where");
+		where.setTitle("Where to point the map at");
 		where.setStyleName("emptyWhere");
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
@@ -66,7 +66,7 @@ public class SearchBox extends Composite{
 
 
 		what.setText(whatString);
-		what.setTitle("What");
+		what.setTitle("What to search for");
 		what.setStyleName("emptyWhat");
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
