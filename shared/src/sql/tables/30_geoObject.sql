@@ -20,6 +20,7 @@ CREATE INDEX geoObject_uid ON geoObject (uid);
 CREATE INDEX geoObject_lat ON geoObject (lat);
 CREATE INDEX geoObject_lng ON geoObject (lng);
 CREATE INDEX geoObject_rndVal ON geoObject(rndVal);
+CREATE INDEX geoObject_rndVal_lat_lng ON geoObject (rndVal, lat, lng);
 
 ALTER TABLE geoObject OWNER TO ${psql.user};
 
