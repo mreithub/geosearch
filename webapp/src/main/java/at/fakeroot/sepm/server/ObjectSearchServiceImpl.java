@@ -23,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ObjectSearchServiceImpl extends RemoteServiceServlet implements ObjectSearchService
 {
 	// a max. limit for the hits, which are shown on the map
-	private static final int displayLimit = 50, countLimit = 500;
+	private static final int displayLimit = 50, countLimit = 200;
 	private IGeoObjectManager geoObjManager;
 	private IServiceManager svcManager;
 	private Logger logger = Logger.getRootLogger();
