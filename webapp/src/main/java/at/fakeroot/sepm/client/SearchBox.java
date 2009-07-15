@@ -29,8 +29,8 @@ public class SearchBox extends Composite{
 	private TextBox what=new TextBox();
 	private Button searchButton = new Button("Search");
 
-	private final String whereString = "";
-	private final String whatString = "";
+	private final String emptyWhereStyle = "emptyWhere";
+	private final String emptyWhatStyle = "emptyWhat";
 
 	/**
 	 * Constructor
@@ -41,9 +41,8 @@ public class SearchBox extends Composite{
 		initWidget(hPanel);
 		geoManager=gm;		
 
-		where.setText(whereString);
 		where.setTitle("Where to point the map at");
-		where.setStyleName("emptyWhere");
+		where.setStyleName(emptyWhereStyle);
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
 				where.setStyleName("");	
@@ -52,7 +51,7 @@ public class SearchBox extends Composite{
 		where.addBlurHandler(new BlurHandler(){
 			public void onBlur(BlurEvent be) {
 				if(where.getText().trim().length() == 0){
-					where.setStyleName("emptyWhere");
+					where.setStyleName(emptyWhereStyle);
 				}
 			}
 		});
@@ -65,9 +64,8 @@ public class SearchBox extends Composite{
 		});		
 
 
-		what.setText(whatString);
 		what.setTitle("What to search for");
-		what.setStyleName("emptyWhat");
+		what.setStyleName(emptyWhatStyle);
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
 				what.setStyleName("");
@@ -76,7 +74,7 @@ public class SearchBox extends Composite{
 		what.addBlurHandler(new BlurHandler(){
 			public void onBlur(BlurEvent be) {
 				if(what.getText().trim().length() == 0){
-					what.setStyleName("emptyWhat");
+					what.setStyleName(emptyWhatStyle);
 				}
 			}
 		});		
@@ -118,11 +116,7 @@ public class SearchBox extends Composite{
 	 * @return retString where-search String
 	 * */	
 	public String getWhere(){
-		String retString = where.getText().trim();
-		if (retString.toLowerCase().equals(whereString.toLowerCase()))
-			return ("");
-		else
-			return (retString);
+		return where.getText().trim();
 	}
 
 	/**
@@ -130,11 +124,7 @@ public class SearchBox extends Composite{
 	 * @return retString String what-search String 
 	 * */
 	public String getWhat(){
-		String retString = what.getText().trim();
-		if (retString.toLowerCase().equals(whatString.toLowerCase()))
-			return ("");
-		else
-			return (retString);
+		return what.getText().trim();
 	}
 
 
@@ -143,10 +133,11 @@ public class SearchBox extends Composite{
 	 * @param location 
 	 * */
 	public void setWhere(String location) {
-		if (location.trim().length() == 0)
-			where.setText(whereString);
+		if (location.trim().isEmpty())
+			where.setStyleName(emptyWhereStyle);
 		else
-			where.setText(location);
+			where.setStyleName("");
+		where.setText(location);
 	}
 
 
@@ -155,9 +146,10 @@ public class SearchBox extends Composite{
 	 * @param tagString 
 	 * */	
 	public void setWhat(String tagString){
-		if (tagString.trim().length() == 0)
-			what.setText(whatString);
+		if (tagString.trim().isEmpty())
+			what.setStyleName(emptyWhatStyle);
 		else
-			what.setText(tagString);
+			what.setStyleName("");
+		what.setText(tagString);
 	}
 }
