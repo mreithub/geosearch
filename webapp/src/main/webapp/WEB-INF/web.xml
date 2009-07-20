@@ -30,6 +30,13 @@
 	
 		<load-on-startup>10</load-on-startup>
 	</servlet>
+
+	<servlet>
+		<servlet-name>queueProcessor</servlet-name>
+		<servlet-class>at.fakeroot.sepm.server.QueueProcessor</servlet-class>
+	
+		<load-on-startup>10</load-on-startup>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>objectSearch</servlet-name>
