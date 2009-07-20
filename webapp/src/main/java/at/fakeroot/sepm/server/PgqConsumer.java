@@ -15,17 +15,22 @@ import java.sql.Timestamp;
 public class PgqConsumer {
 	DBConnection dbConn;
 	String queueName, consumerName;
-	PreparedStatement nextBatchStmt, finishBatchStmt, getEventStmt;
 	PgqBatch pgqBatch = null;
 
 	public class PgqBatch {
-		// resultset: ev_id int8, ev_time timestamptz, ev_txid int8, ev_retry int4, ev_type text, ev_data text, ev_extra1, ev_extra2, ev_extra3, ev_extra4
-		Long batchId;
-		ResultSet rs;
+		// ResultSet: ev_id int8, ev_time timestamptz, ev_txid int8, ev_retry int4, ev_type text, ev_data text, ev_extra1, ev_extra2, ev_extra3, ev_extra4
+		private Long batchId;
+		private ResultSet rs;
+		public int resultCount;
+		
 		private PgqBatch(Long batchId) throws SQLException {
 			this.batchId = batchId;
+			PreparedStatement getEventStmt = dbConn.prepareStatement("SELECT * FROM pgq.get_batch_events(?)");
 			getEventStmt.setLong(1, batchId);
 			rs = getEventStmt.executeQuery();
+			rs.last();
+			resultCount = rs.getRow();
+			rs.beforeFirst();
 		}
 		
 		public boolean nextEvent() throws SQLException {
@@ -52,22 +57,36 @@ public class PgqConsumer {
 		 * release the batch. called by PgqConsumer.nextBatch()
 		 * @throws SQLException
 		 */
-	    private void finish() throws SQLException {
-	    	finishBatchStmt.setLong(1, batchId);
-	    	finishBatchStmt.executeUpdate();
-	    	batchId = null;
+	    public void finish() throws SQLException {
+	    	if (batchId != null) {
+	    		PreparedStatement finishBatchStmt = dbConn.prepareStatement("SELECT pgq.finish_batch(?)");
+		    	finishBatchStmt.setLong(1, batchId);
+		    	finishBatchStmt.executeQuery();
+		    	batchId = null;
+	    	}
 	    }
 	}
 	
-	public PgqConsumer(String queueName, String consumerName) throws FileNotFoundException, IOException, SQLException {
+	public PgqConsumer(DBConnection db, String queueName, String consumerName) throws SQLException {
 		this.queueName = queueName;
-		dbConn = new DBConnection();
-		nextBatchStmt = dbConn.prepareStatement("SELECT * FROM pgq.next_batch('queueName', 'consumerName')");
-		finishBatchStmt = dbConn.prepareStatement("SELECT * FROM pgq.finish_batch(?)");
-		getEventStmt = dbConn.prepareStatement("SELECT * FROM pgq.get_batch_events(?)");
+		this.consumerName = consumerName;
+		dbConn = db;
+		PreparedStatement pstmt = db.prepareStatement("SELECT pgq.register_consumer(?,?)");
+		pstmt.setString(1, queueName);
+		pstmt.setString(2, consumerName);
+		pstmt.executeQuery();
+	}
+	
+	public PgqConsumer(String queueName, String consumerName) throws FileNotFoundException, IOException, SQLException {
+		this(new DBConnection(), queueName, consumerName);
 	}
 	
 	protected void finalize() throws SQLException {
+		PreparedStatement pstmt = dbConn.prepareStatement("SELECT pgq.unregister_consumer(?, ?)");
+		pstmt.setString(1, queueName);
+		pstmt.setString(2, consumerName);
+		pstmt.executeQuery();
+		
 		dbConn.disconnect();
 	}
 	
@@ -76,6 +95,7 @@ public class PgqConsumer {
 			pgqBatch.finish();
 			pgqBatch = null;
 		}
+		PreparedStatement nextBatchStmt = dbConn.prepareStatement("SELECT pgq.next_batch(?, ?)");
 		nextBatchStmt.setString(1, queueName);
 		nextBatchStmt.setString(2, consumerName);
 		ResultSet rs = nextBatchStmt.executeQuery();
