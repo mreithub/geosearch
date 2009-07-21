@@ -1,6 +1,7 @@
 package at.fakeroot.sepm.client;
 
 import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
+import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,7 +27,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	private VerticalPanel myVePa=new VerticalPanel();
 	private HTML title = null;
 	private HTML detail = null;
-	private FlowPanel tags= null;
+	private FlowPanel tagPanel= null;
 	private HorizontalPanel myHoPa = new HorizontalPanel();
 	private Anchor sourceAnchor;
 	private HTML image;
@@ -53,8 +54,8 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		myHoPa.add(sourceAnchor);
 		myHoPa.setCellWidth(image, "80%");
 		myHoPa.setCellWidth(sourceAnchor, "20%");
-		tags = new FlowPanel();
-		setTagList();
+		tagPanel = new FlowPanel();
+		setTagList(gObject.getTags());
 		
 		myVePa.setWidth("325px");
 		myVePa.add(title);
@@ -63,7 +64,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		myVePa.add(myHoPa);
 		myVePa.add(new HTML("<hr color=\"#FF3399\" size=\"1\">"));
 		myVePa.add(new HTML("<b><font size=\"3\"><span style=\"color:#3366FF\">Tags:</span></font></b>"));
-		myVePa.add(tags);
+		myVePa.add(tagPanel);
 
 	}
 	
@@ -85,18 +86,22 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		sourceAnchor.setVisible(true);
 	}
 	
+	public void setDetail(ObjectDetails details) {
+		setDetail(details.getHTMLString(), details.getLink(), details.getThumbnail(), details.getHomepage());
+		setTagList(details.getTags());
+	}
+	
 	/**
 	 * private method used to set the tag list in the InfoWindow
 	 * */	
-	private void setTagList() {
-		String[] tagArray = gObject.getTags(); 
-		final Anchor[] anchor = new Anchor[tagArray.length];
-		for(int i=0; i<tagArray.length; i++){
-			anchor[i]=new Anchor("<font size=\"2\">" + tagArray[i] + "</font>", true);
+	private void setTagList(String tags[]) {
+		final Anchor[] anchor = new Anchor[tags.length];
+		for(int i=0; i<tags.length; i++){
+			anchor[i]=new Anchor("<font size=\"2\">" + tags[i] + "</font>", true);
 			anchor[i].setHref("javascript:void()");
 			anchor[i].addClickHandler(this);
-			tags.add(anchor[i]);
-			tags.add(new InlineLabel(" "));
+			tagPanel.add(anchor[i]);
+			tagPanel.add(new InlineLabel(" "));
 		}
 	}
 
