@@ -39,10 +39,10 @@ BEGIN
 		-- search for the least frequent tag
 		FOR var_objId, var_lat, var_lng IN SELECT obj_id, lat, lng FROM geoObject
 		    WHERE obj_id IN (SELECT obj_id FROM objectTag WHERE tag = tagSorted[1])
-		    OR svc_id IN (SELECT svc_id FROM serviceTag WHERE tag = tagSorted[1]) 
+		    OR svc_id IN (SELECT svc_id FROM serviceTag WHERE tag = tagSorted[1])
+		    ORDER BY rndVal DESC 
 		LOOP
 			IF var_objCount >= p_resultLimit THEN
-				raise notice '% >= %', var_objCount, p_resultLimit;
 				return;
 			END IF;
 			IF var_lat BETWEEN p_lat1 AND p_lat2 AND var_lng BETWEEN p_lng1 AND p_lng2 THEN
