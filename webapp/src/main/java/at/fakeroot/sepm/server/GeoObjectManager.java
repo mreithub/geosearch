@@ -29,7 +29,6 @@ public class GeoObjectManager implements IGeoObjectManager
 	private static IGeoObjectManager geoObjManager = null;
 	private static final Logger logger = Logger.getRootLogger();
 	IDBConnection dbRead, dbWrite;
-	
 
 	/**
 	 * Constructor that establishes the DB Connection
@@ -168,43 +167,38 @@ public class GeoObjectManager implements IGeoObjectManager
 	public SearchResult select(String[] tags, BoundingBox box, int displayLimit, int countLimit)
 	{
 		SearchResult searchResult = new SearchResult(countLimit);
-		PreparedStatement pstmt;
 		ResultSet res;
+		String sql;
+		String searchSelect = "SELECT obj_id, svc_id, o.title, lng, lat, t.thumbnail FROM geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) ";
+		String tagArrayString = null;
 
 		long startTime = Calendar.getInstance().getTimeInMillis();
 
 		try {
-			String joinStmt = "LEFT JOIN expiringObject e USING (obj_id) ";
-			
 			//Get the result count
-			String sql = "SELECT COUNT(subquery.obj_id) FROM (SELECT obj_id FROM geoObject " + joinStmt +
-				getWhereClause(box, tags, false, countLimit) + ") AS subquery";
-			pstmt = dbRead.prepareStatement(sql);
-			for (int i = 0; i < tags.length; i++)
-			{
-				pstmt.setString(i + 1, tags[i]);
+			sql = "SELECT COUNT(*) FROM searchObjectsByTags(?::varchar[], ?, ?, ?, ?, ?)";
+			
+			// format: '{"picture", "photo"}' 
+			if (tags.length > 0) {
+				tagArrayString = "{";
+				for (int i = 0; i < tags.length; i++)
+				{
+					tagArrayString += '"'+tags[i]+"\",";
+				}
+				tagArrayString = tagArrayString.substring(0, tagArrayString.length()-1)+"}";
 			}
-			res = pstmt.executeQuery();
+			res = _prepareSearchStatement(sql, tagArrayString, box, countLimit);
 			res.next();
 			searchResult.setResultCount(res.getInt(1));
 			res.close();
-			pstmt.close();
-	
 			
 			//Get the result set which contains the selected geoObjects.
-			sql = "SELECT obj_id, svc_id, o.title, lng, lat, t.thumbnail FROM geoObject o " +
-				"INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) " +
-				joinStmt + getWhereClause(box, tags, true, displayLimit);
-			pstmt = dbRead.prepareStatement(sql);
-			for (int i = 0; i < tags.length; i++)
-			{
-				pstmt.setString(i + 1, tags[i]);
-			}
-			res = pstmt.executeQuery();
+			sql = searchSelect+"WHERE obj_id IN (SELECT * FROM searchObjectsByTags(?::varchar[], ?, ?, ?, ?, ?))";
+
+			res = _prepareSearchStatement(sql, tagArrayString, box, displayLimit);
 			
 			//Get the object tags for all those selected objects. Use a single query for that.
-			while (res.next())
-			{
+			while (res.next()) {
 				//Create the objects with empty tags here. (We can only loop through the result set
 				//once, therefore we have to set the tags later.
 				searchResult.addResultToList(new ClientGeoObject(
@@ -216,8 +210,7 @@ public class GeoObjectManager implements IGeoObjectManager
 					res.getDouble("lat")));
 			}
 			res.close();
-			pstmt.close();
-			
+
 			if (searchResult.getResults().size() > 0)
 			{
 				//Fill in the tags from the database into the ClientGeoObjects.
@@ -226,67 +219,29 @@ public class GeoObjectManager implements IGeoObjectManager
 		}
 		catch (SQLException e) {
 			logger.error("SQL error in GeoObjectManager.select()", e);
-			searchResult.setErrorMessage(e.getMessage());
+			searchResult.setErrorMessage(e.getMessage()+"\n"+e.getStackTrace().toString());
 		}
 
-		searchResult.setDuration(Calendar.getInstance().getTimeInMillis()-startTime);
+		long duration = Calendar.getInstance().getTimeInMillis()-startTime;
+		
+		if (duration > 2000) {
+			// log long queries
+			logger.warn("Search took > 2s: tags='"+tagArrayString+"', bbox='"+box.toString()+"'");
+		}
+		searchResult.setDuration(duration);
 		
 		return searchResult;
 	}
-
-	/**
-	 * Gets the Where-Clause for a query. The objects lie in this BoundingBox and have these tags. Random order is optional. The maximum number is set by limit.
-	 * @param box where the objects lie
-	 * @param tags the object tags
-	 * @param randomOrder set true if a random set of objects should be returned, false for the first limit objects
-	 * @param limit the number of returned objects
-	 * */
-	private String getWhereClause(BoundingBox box, String[] tags, boolean randomOrder, int limit) throws SQLException {
-		String sql = "WHERE (e.valid_until IS null OR e.valid_until >= now()) AND ";
-		
-		//Create the WHERE clause for the geographical location.
-		sql += "(lng BETWEEN " + box.getX1() + " AND " + box.getX2() + ") AND (lat BETWEEN " + box.getY1() + " AND " + box.getY2() + ") ";
-		
-		//Create a where clause for each passed tag.
-		for (int i = 0; i < tags.length; i++)
-		{
-			
-			sql += "AND (obj_id IN (SELECT obj_id FROM objecttag WHERE tag = ?) " +
-				getServiceListByTag(tags[i])+ ") ";
-		}
-
-		if (randomOrder)
-			sql += " ORDER BY rndVal DESC";
-		if (limit > 0)
-			sql += " LIMIT " + limit; 
-				
-		return (sql);
-	}
 	
-	/**
-	 * Method used by getWhereClause to get the svc_id of services having this service tag
-	 * @param tag service tag
-	 * */
-	private String getServiceListByTag(String tag) throws SQLException {
-		PreparedStatement stmt = dbRead.prepareStatement("SELECT svc_id from servicetag where tag = ?");
-		String rc = "";
-		
-		stmt.setString(1, tag);
-		
-		ResultSet res = stmt.executeQuery();
-		res.last();
-		int numRows = res.getRow();
-		res.beforeFirst();
-		if (numRows > 0) {
-			rc = "OR svc_id IN (";
-			while (res.next()) {
-				rc += res.getInt(1)+",";
-				
-			}
-			rc = rc.substring(0, rc.length()-1);
-			rc+= ")";
-		}
-		return rc;
+	private ResultSet _prepareSearchStatement(String query, String tagArrayString, BoundingBox box, int limit) throws SQLException {
+		PreparedStatement pstmt = dbRead.prepareStatement(query);
+		pstmt.setString(1, tagArrayString);
+		pstmt.setDouble(2, box.getY1());
+		pstmt.setDouble(3, box.getY2());
+		pstmt.setDouble(4, box.getX1());
+		pstmt.setDouble(5, box.getX2());
+		pstmt.setInt(6,limit);
+		return pstmt.executeQuery();
 	}
 
 	/**
