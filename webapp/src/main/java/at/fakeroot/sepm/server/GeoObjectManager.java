@@ -360,6 +360,15 @@ public class GeoObjectManager implements IGeoObjectManager
 
 		return rc;	
 	} 
+	
+	/**
+	 * return the database connection used for reading queries,
+	 * for testing purposes only
+	 * @return DBConnection object
+	 */
+	IDBConnection getDbRead() {
+		return dbRead;
+	}
 
 
 	/* (non-Javadoc)
