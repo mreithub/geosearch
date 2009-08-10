@@ -1,3 +1,5 @@
+BEGIN;
+
 DROP FUNCTION IF EXISTS searchObjectsByTags (
 	IN p_tags character varying[],
 	IN p_lat1 double precision,
@@ -35,13 +37,30 @@ BEGIN
 		LOOP
 			RETURN NEXT var_objId;
 		END LOOP;
-	ELSE
-		-- search for the least frequent tag
-		FOR var_objId, var_lat, var_lng IN SELECT obj_id, lat, lng FROM geoObject
-		    WHERE obj_id IN (SELECT obj_id FROM objectTag WHERE tag = tagSorted[1])
-		    OR svc_id IN (SELECT svc_id FROM serviceTag WHERE tag = tagSorted[1])
-		    ORDER BY rndVal DESC 
+	ELSIF COUNT(*) from servicetag where tag = tagSorted[1] then
+		-- a serviceTag exists => just search for the servicetag
+		SET LOCAL enable_sort = off;
+		FOR var_objId IN
+			SELECT obj_id FROM geoObject
+			WHERE svc_id IN (SELECT svc_id FROM serviceTag WHERE tag = tagSorted[1]) AND lat between p_lat1 and p_lat2 and lng between p_lng1 and p_lng2 ORDER BY rndVal DESC
 		LOOP
+			IF var_objCount >= p_resultLimit THEN
+				SET LOCAL enable_sort = on;
+				RETURN;
+			END IF;
+			IF _recSearch(tagSorted, 2, var_objId) THEN
+				RETURN NEXT var_objId;
+				var_objCount := var_objCount+1;
+			END IF;
+		END LOOP;
+		SET LOCAL enable_sort = on;
+	ELSE
+		-- just search for the objectTag
+		FOR var_objId, var_lat, var_lng IN
+			SELECT obj_id, lat, lng FROM geoObject
+			WHERE obj_id IN (SELECT obj_id FROM objectTag WHERE tag = tagSorted[1])
+			ORDER BY rndVal DESC
+		LOOP 
 			IF var_objCount >= p_resultLimit THEN
 				return;
 			END IF;
@@ -55,3 +74,5 @@ BEGIN
 	END IF;
 END
 $$ LANGUAGE 'plpgsql' VOLATILE;
+
+COMMIT;
