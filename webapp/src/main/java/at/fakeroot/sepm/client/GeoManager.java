@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -26,8 +25,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class GeoManager implements IGeoManager {
 	private final ObjectSearchServiceAsync objectSearch = GWT.create(ObjectSearchService.class);
-	private int XOFFSET=5;
-	private int YOFFSET=5;
+	private final int xOffset=5;
+	private final int yOffset=5;
 	private SearchBox searchBox;
 	private ResultInfoBox resultBox;
 	private TagCloud tagCloud;
@@ -49,21 +48,18 @@ public class GeoManager implements IGeoManager {
 	 */
 	public void drawGUI(){
 		//SearchBox
-		PopupPanel searchPop = new PopupPanel(false);
-		searchPop.setWidget(this.searchBox);
-		searchPop.setPopupPosition(XOFFSET, YOFFSET);
-		searchPop.show();		
+		MapControl searchCtl = new MapControl(searchBox, xOffset, yOffset, false, false);
+		searchBox.setStyleName("gwt-PopupPanel"); // style it like a PopupPanel
+		geoMap.addControl(searchCtl);
 		
 		// ResultInfoBox + TagCloud; 
-		PopupPanel infoPop = new PopupPanel(false);
 		FlowPanel fp = new FlowPanel();
-		
 		fp.add(resultBox);
 		fp.add(tagCloud);
+		fp.setStyleName("gwt-PopupPanel"); // style it like a PopupPanel
 		
-		infoPop.setWidget(fp);
-		infoPop.setPopupPosition(XOFFSET, YOFFSET+70);
-		infoPop.show();
+		MapControl infoCtl = new MapControl(fp, xOffset, yOffset+70, false, false);
+		geoMap.addControl(infoCtl);
 				
 		//Use a history listener in order to be able to use a search history and command-line arguments.
 		
@@ -201,7 +197,7 @@ public class GeoManager implements IGeoManager {
 	}
 	
 	/**
-	 * Returns a MapWidget
+	 * Returns the GeoMap widget
 	 * @return
 	 */
 	public GeoMap getGeoMap(){
