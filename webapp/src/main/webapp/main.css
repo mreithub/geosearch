@@ -26,3 +26,10 @@ table#searchBox input.emptyWhere {
 
 table#searchBox input.emptyWhat {
 	background-image: url(/images/design/searchbox/what.png);
+}
+
+.bottomPanel {
+	text-align: right;
+	border-top: 3px solid #C3D9FF;
+	padding: 0.1em 0.5em;
+}

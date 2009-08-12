@@ -10,6 +10,11 @@ import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.maps.client.control.Control;
 import com.google.gwt.maps.client.control.ControlAnchor;
 import com.google.gwt.maps.client.control.ControlPosition;
@@ -18,6 +23,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -36,6 +42,7 @@ public class GeoManager implements IGeoManager {
 	private ResultInfoBox resultBox;
 	private TagCloud tagCloud;
 	private GeoMap geoMap;
+	private HTML bottomPanel;
 	private int activeSearches = 0;
 	
 	//The currently displayed region of the map, stored within a bounding box.
@@ -45,7 +52,8 @@ public class GeoManager implements IGeoManager {
 		geoMap=new GeoMap(this);
 		searchBox=new SearchBox(this);
 		tagCloud = new TagCloud(this);
-		resultBox = new ResultInfoBox();		
+		resultBox = new ResultInfoBox();
+		bottomPanel = new HTML();
 	}
 	
 	/**
@@ -71,6 +79,12 @@ public class GeoManager implements IGeoManager {
 		
 		MapControl infoCtl = new MapControl(fp, xOffset, yOffset+70, false, false);
 		geoMap.addControl(infoCtl);
+		
+		// bottom Panel
+		bottomPanel.setHTML("<a href=\"/impressum.html\" style=\"font-weight: bold\">Impressum</a>"); // fallback content
+		bottomPanel.setStyleName("bottomPanel");
+		
+		requestLinkBar();
 				
 		//Use a history listener in order to be able to use a search history and command-line arguments.
 		
@@ -106,7 +120,12 @@ public class GeoManager implements IGeoManager {
 		});
 		
 		History.fireCurrentHistoryState();*/
-		RootPanel.get().add(geoMap);
+		VerticalPanel vPanel = new VerticalPanel();
+		vPanel.add(geoMap);
+		vPanel.add(bottomPanel);
+		vPanel.setSize("100%", "100%");
+		vPanel.setCellHeight(bottomPanel, "22px");
+		RootPanel.get().add(vPanel);
 	}
 	
 	/**
@@ -249,4 +268,24 @@ public class GeoManager implements IGeoManager {
 		showErrorMessage("The region you searched for couldn't be found!", "Region not found!");
 	}
 	
+	private void requestLinkBar() {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "/bottomPanel.html");
+
+		try {
+			builder.sendRequest(null, new RequestCallback() {
+				@Override
+				public void onError(Request request, Throwable exception) {
+					// nothing (default text will be shown
+			    }
+
+				@Override
+				public void onResponseReceived(Request request, Response response) {
+					bottomPanel.setHTML(response.getText());
+				}
+				
+			});
+		} catch (RequestException e) {
+			// nothing
+		}
+	}
 }
