@@ -22,8 +22,7 @@ import com.google.gwt.maps.client.geocode.LocationCallback;
 import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.FlowPanel;
 
 public class GeoMap extends Composite implements MapMoveEndHandler
 {
@@ -44,8 +43,8 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		this.geoManager = geoManager;
 		
 		//Create a panel which holds the geoMap.
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setSize("100%", "100%");
+		FlowPanel fPanel = new FlowPanel();
+		fPanel.setSize("100%", "100%");
 		
 		//Set the position of the geoMap so that it displays Austria.
 		geoMap = new MapWidget(LatLng.newInstance(47.569114, 13.337402), 7);
@@ -68,10 +67,10 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		geoMap.addMapMoveEndHandler(this);
 		
 		//Add the map to the panel.
-		hPanel.add(geoMap);
+		fPanel.add(geoMap);
 		
 		//Put the panel into a widget (required by GWT).
-		initWidget(hPanel);
+		initWidget(fPanel);
 		
 		//Create the geoCoder which is required to search for locations.
 		geoCoder = new Geocoder();
@@ -81,12 +80,6 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		
 		//Set the block variable to false.
 		blockEventHandler = false;
-		
-		// Logo
-		Image logo = new Image("images/design/logo_no_shadow.png");
-		logo.setPixelSize(190, 40);
-		Control logoCtl = new MapControl(logo, new ControlPosition(ControlAnchor.TOP_RIGHT, 65, 35), true, false);
-		geoMap.addControl(logoCtl);
 	}
 	
 	/**

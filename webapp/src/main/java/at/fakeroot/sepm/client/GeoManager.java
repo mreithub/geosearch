@@ -10,12 +10,17 @@ import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.maps.client.control.Control;
+import com.google.gwt.maps.client.control.ControlAnchor;
+import com.google.gwt.maps.client.control.ControlPosition;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -46,7 +51,13 @@ public class GeoManager implements IGeoManager {
 	/**
 	 * Draws the GUI after creating the object. (Has to be run after inserted to container)
 	 */
-	public void drawGUI(){
+	public void drawGUI() {
+		// Logo
+		Image logo = new Image("images/design/logo_no_shadow.png");
+		logo.setPixelSize(190, 40);
+		Control logoCtl = new MapControl(logo, new ControlPosition(ControlAnchor.TOP_RIGHT, 65, 35), true, false);
+		geoMap.addControl(logoCtl);
+
 		//SearchBox
 		MapControl searchCtl = new MapControl(searchBox, xOffset, yOffset, false, false);
 		searchBox.setStyleName("gwt-PopupPanel"); // style it like a PopupPanel
@@ -95,6 +106,7 @@ public class GeoManager implements IGeoManager {
 		});
 		
 		History.fireCurrentHistoryState();*/
+		RootPanel.get().add(geoMap);
 	}
 	
 	/**
