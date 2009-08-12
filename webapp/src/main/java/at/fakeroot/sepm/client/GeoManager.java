@@ -36,6 +36,7 @@ public class GeoManager implements IGeoManager {
 	private ResultInfoBox resultBox;
 	private TagCloud tagCloud;
 	private GeoMap geoMap;
+	private int activeSearches = 0;
 	
 	//The currently displayed region of the map, stored within a bounding box.
 	private BoundingBox curBoundingBox;
@@ -143,19 +144,25 @@ public class GeoManager implements IGeoManager {
 	public void searchByTags(String tags) {
 		History.newItem("q="+tags.trim());
 		resultBox.startLoading();
+		activeSearches++;
 		objectSearch.search(curBoundingBox, tags.trim(), new AsyncCallback<SearchResult>()
 		{
 			public void onFailure(Throwable e) {
-				showErrorMessage(e.getMessage());
-				resultBox.stopLoading();
+				activeSearches--;
+				showServerError(e.getMessage());
+				if (activeSearches == 0) resultBox.stopLoading();
 			}
 
 			public void onSuccess(SearchResult result) {
-				geoMap.setPins(result.getResults());
-				tagCloud.refresh(result.getResults().iterator());
-				resultBox.refresh(result);
-				if (result.hasError()) {
-					showErrorMessage(result.getErrorMessage());
+				activeSearches--;
+				// only the last search will be shown
+				if (activeSearches == 0) {
+					geoMap.setPins(result.getResults());
+					tagCloud.refresh(result.getResults().iterator());
+					resultBox.refresh(result);
+					if (result.hasError()) {
+						showServerError(result.getErrorMessage());
+					}
 				}
 			}
 		});		
@@ -172,7 +179,7 @@ public class GeoManager implements IGeoManager {
 		//if the user enters an area which doesn't exist (e.g. 'hahahahah') an InfoBox
 		//will be shown
 		if(regionFound == false && searchBox.getWhere().trim().length() != 0)
-			areaNotFoundMessage();
+			showRegionError();
 	}
 	
 	/**
@@ -216,11 +223,11 @@ public class GeoManager implements IGeoManager {
 	 * An ErrorMessage which is displayed, if there are problems with the Server or the AsyncCallback
 	 * @param msg String the error-message
 	 */
-	public void showErrorMessage(String msg) {
+	public void showErrorMessage(String msg, String title) {
 		final DialogBox errBox = new DialogBox(false, true);
 		VerticalPanel vPanel = new VerticalPanel();
 		errBox.setWidget(vPanel);
-		errBox.setText("Server Error!");
+		errBox.setText(title);
 		
 		vPanel.add(new Label(msg));
 		Button ok = new Button("Ok");
@@ -234,25 +241,15 @@ public class GeoManager implements IGeoManager {
 		errBox.center();
 	}
 	
+	public void showServerError(String msg) {
+		showErrorMessage(msg, "Server Error!");
+	}
+	
 	/**
 	 * A DialogBox which appears, if the user enters an area which doesn't exist (e.g. 'hahahahah')
 	 */
-	public void areaNotFoundMessage() {
-		final DialogBox errBox = new DialogBox(false, true);
-		VerticalPanel vPanel = new VerticalPanel();
-		errBox.setWidget(vPanel);
-		errBox.setText("Region not found!");
-		
-		vPanel.add(new Label("The region you searched for couldn't be found!"));
-		Button ok = new Button("Ok");
-		ok.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				errBox.hide();
-			}
-		});
-		vPanel.add(ok);
-		errBox.center();
+	public void showRegionError() {
+		showErrorMessage("The region you searched for couldn't be found!", "Region not found!");
 	}
 	
 }
