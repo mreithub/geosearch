@@ -15,11 +15,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -31,7 +28,6 @@ public class GeoManager implements IGeoManager {
 	private final ObjectSearchServiceAsync objectSearch = GWT.create(ObjectSearchService.class);
 	private int XOFFSET=5;
 	private int YOFFSET=5;
-	private Image logo = new Image("images/design/logo_no_shadow.png");
 	private SearchBox searchBox;
 	private ResultInfoBox resultBox;
 	private TagCloud tagCloud;
@@ -52,13 +48,6 @@ public class GeoManager implements IGeoManager {
 	 * Draws the GUI after creating the object. (Has to be run after inserted to container)
 	 */
 	public void drawGUI(){
-		//Logo
-		SimplePanel logoPnl = new SimplePanel();
-		logo.setPixelSize(190, 40);
-		logoPnl.setWidget(this.logo);
-		logoPnl.getElement().setId("logo");
-		RootPanel.get().add(logoPnl);
-
 		//SearchBox
 		PopupPanel searchPop = new PopupPanel(false);
 		searchPop.setWidget(this.searchBox);

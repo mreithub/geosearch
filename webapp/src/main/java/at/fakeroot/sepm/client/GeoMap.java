@@ -10,6 +10,7 @@ import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.control.Control;
 import com.google.gwt.maps.client.control.ControlAnchor;
 import com.google.gwt.maps.client.control.ControlPosition;
 import com.google.gwt.maps.client.control.LargeMapControl3D;
@@ -22,6 +23,8 @@ import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Widget;
 
 public class GeoMap extends Composite implements MapMoveEndHandler
 {
@@ -79,6 +82,24 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		
 		//Set the block variable to false.
 		blockEventHandler = false;
+		
+		// Logo
+		Control logoCtl = new Control.CustomControl(new ControlPosition(ControlAnchor.TOP_RIGHT, 65, 35), true, false) {
+			@Override
+			protected Widget initialize(MapWidget map) {
+				Image logo = new Image("images/design/logo_no_shadow.png");
+
+				logo.setPixelSize(190, 40);
+
+				return logo;
+			}
+
+			@Override
+			public boolean isSelectable() {
+				return false;
+			}
+		};
+		geoMap.addControl(logoCtl);
 	}
 	
 	/**
