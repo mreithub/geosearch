@@ -13,9 +13,8 @@ public class SearchResult implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<ClientGeoObject> result=null;
-	private int totalHits;
 	private String errMsg = null;
-	private int countLimit;
+	private boolean hasMore = false;
 	
 	/// time the search took in milliseconds
 	private long duration;
@@ -23,25 +22,22 @@ public class SearchResult implements Serializable {
 	/**
 	 * StandardConstruction. Is required for the serialization
 	 */
-	public SearchResult() 
-	{
+	public SearchResult() {
+		result=new ArrayList<ClientGeoObject>();
 	}
 	
 	/**
 	 * Constructor
 	 * @param maxCount int limit for the results which are displayed (relevant for GUI ResultInfoBox)
 	 */
-	public SearchResult(int maxCount){
-		result=new ArrayList<ClientGeoObject>();
-		totalHits = -1;
-		this.countLimit = maxCount;
+	public SearchResult(boolean hasMore){
 	}
 
 	/**
 	 * Method used for adding a result element to the result list
 	 * @param object ClientGeoObject element to be added 
 	 * */
-	public void addResultToList(ClientGeoObject object){
+	public void addResultToList(ClientGeoObject object) {
 		result.add(object);
 	}
 
@@ -49,35 +45,24 @@ public class SearchResult implements Serializable {
 	 * Getter for the result Arraylist
 	 * @return ArrayList<ClientGeoObject> search results 
 	 * */
-	public ArrayList<ClientGeoObject> getResults(){
+	public ArrayList<ClientGeoObject> getResults() {
 		return result;
 	}
 
 	/**
-	 * Getter for the number of search results 
-	 * @return int number of results
-	 * */
-	public int getResultCount(){
-		return (totalHits);
-	}
-	
-	/**
 	 * Setter for the number of hits for a search in the DB
 	 * @param totalHits int number of hits
 	 */
-	public void setResultCount(int totalHits)
-	{
-		this.totalHits = totalHits;
+	public void setHasMore(boolean hasMore) {
+		this.hasMore = hasMore;
 	}
 	
 	/**
-	 * Getter for the limit of results which are displayed in ResultInfoBox (GUI) as total
-	 * total hits in the DB
-	 * @return int the limit
+	 * returns true if there are more results than 
+	 * @return
 	 */
-	public int getCountLimit()
-	{
-		return (countLimit);
+	public boolean hasMore() {
+		return hasMore;
 	}
 	
 	/**

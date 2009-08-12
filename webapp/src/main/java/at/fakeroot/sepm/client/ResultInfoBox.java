@@ -66,45 +66,22 @@ public class ResultInfoBox extends Composite
 	 */
 	public void refresh(SearchResult result)
 	{
-		int shown = result.getResults().size();
-		int available = result.getResultCount();
+		int results = result.getResults().size();
+		boolean hasMore = result.hasMore();
 		
 		// stop the timer
 		stopLoading();
 		
 		//No results
-		if(shown == 0)
-		{
-			numText.setText("No results found.");
-		}
+		if(results == 0) numText.setText("No results found.");
 		//1 result
-		else if(shown == 1)
-		{
-			numText.setText(shown + " result");
+		else if(results == 1) numText.setText("1 result");
+		else if (hasMore) {
+			numText.setText("more than " + results + " results");
+			zoomText.setVisible(true);
 		}
-		else
-		{
-			//there are as many results in the DB, as results are shown on the Map
-			if(available > -1 && shown == available)
-			{
-				numText.setText(shown + " results");
-			}
-			else
-			{
-				//there are countLimit results (available is limited with countLimit)
-				//which means exactly countLimit results or more then countLimit results
-				if(available > -1 && available == result.getCountLimit())
-				{
-					numText.setText(shown + " results out of more than " + available);
-					zoomText.setVisible(true);
-				}
-				else
-				{
-					//there are less then countLimit results
-					numText.setText(shown + " results out of " + available);
-					zoomText.setVisible(true);
-				}
-			}
+		else {
+				numText.setText(results + " results");
 		}
 		
 		// print the duration

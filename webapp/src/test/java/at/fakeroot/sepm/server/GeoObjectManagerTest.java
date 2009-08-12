@@ -54,14 +54,13 @@ public class GeoObjectManagerTest{
 	 */
 	@Test
 	public void testSelect() {
-		int countLimit = 200;
-		SearchResult searchResult = geoObjManager.select(new String[] {"wahrzeichen"}, new BoundingBox(0,-90,360, 90), 50, countLimit);
+		SearchResult searchResult = geoObjManager.select(new String[] {"wahrzeichen"}, new BoundingBox(0,-90,360, 90), 9);
 		ArrayList<ClientGeoObject> objects = searchResult.getResults();
 		
-		assertEquals(9, searchResult.getResultCount());
-		assertEquals(countLimit, searchResult.getCountLimit());
+		assertEquals(9, searchResult.getResults().size());
+		assertEquals(false, searchResult.hasMore());
 		
-		String[] titles = new String[searchResult.getResultCount()];
+		String[] titles = new String[searchResult.getResults().size()];
 		
 		Iterator<ClientGeoObject> it = objects.iterator();
 		
@@ -82,6 +81,16 @@ public class GeoObjectManagerTest{
 				"Lindwurmbrunnen",
 				"Rathaus"},
 			titles);
+	}
+	
+	/**
+	 * test if hasMore is set correctly when calling select() with a too low limit
+	 */
+	@Test
+	public void testHasMore() {
+		SearchResult searchResult = geoObjManager.select(new String[] {"wahrzeichen"}, new BoundingBox(0,-90,360,90), 8);
+		assertEquals(8, searchResult.getResults().size());
+		assertEquals(true, searchResult.hasMore());
 	}
 
 	/**

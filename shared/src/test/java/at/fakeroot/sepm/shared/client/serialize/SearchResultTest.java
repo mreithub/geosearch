@@ -15,16 +15,17 @@ public class SearchResultTest
 	@Test
 	public void testGettersAndSetters(){
 		ClientGeoObject cgo = new ClientGeoObject(2,"bla", null, new String[]{"eins", "zwei", "drei"}, 14.987, 15.564);
-		int hits = 7;
-		int countLimit = 50;
-		SearchResult testObject = new SearchResult(countLimit);
+		SearchResult testObject = new SearchResult();
 		testObject.addResultToList(cgo);
-		testObject.setResultCount(hits);
+		testObject.setHasMore(true);
 		
-		assertEquals(hits, testObject.getResultCount());
+		assertEquals(true, testObject.hasMore());
 		assertEquals(testObject.getResults().get(0).getId(), cgo.getId());
 		assertEquals(testObject.getResults().get(0).getXPos(), cgo.getXPos(), delta);
 		assertEquals(testObject.getResults().get(0).getTitle(), cgo.getTitle());
 		assertArrayEquals(testObject.getResults().get(0).getTags(), cgo.getTags());
+		
+		testObject.setHasMore(false);
+		assertEquals(false, testObject.hasMore());
 	}
 }

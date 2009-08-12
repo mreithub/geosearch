@@ -55,7 +55,7 @@ public interface IGeoObjectManager {
 	 * @param countLimit int the number of results to count
 	 * */
 	public abstract SearchResult select(String[] tags, BoundingBox box,
-			int displayLimit, int countLimit);
+			int limit);
 
 	/**
 	 * Insert a new object in the Database

@@ -164,19 +164,18 @@ public class GeoObjectManager implements IGeoObjectManager
 	/* (non-Javadoc)
 	 * @see at.fakeroot.sepm.server.IGeoObjectManager#select(java.lang.String[], at.fakeroot.sepm.shared.client.serialize.BoundingBox, int, int)
 	 */
-	public SearchResult select(String[] tags, BoundingBox box, int displayLimit, int countLimit)
+	public SearchResult select(String[] tags, BoundingBox box, int limit)
 	{
-		SearchResult searchResult = new SearchResult(countLimit);
+		SearchResult searchResult = new SearchResult();
 		ResultSet res;
-		String sql;
-		String searchSelect = "SELECT obj_id, svc_id, o.title, lng, lat, t.thumbnail FROM geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) ";
+		final String sql= "SELECT obj_id, svc_id, o.title, lng, lat, t.thumbnail "
+			+ "FROM geoObject o INNER JOIN service USING (svc_id) INNER JOIN serviceType t USING (stype_id) "
+			+ "WHERE obj_id IN (SELECT * FROM searchObjectsByTags(?::varchar[], ?, ?, ?, ?, ?))";
 		String tagArrayString = null;
 
 		long startTime = Calendar.getInstance().getTimeInMillis();
 
 		try {
-			//Get the result count
-			sql = "SELECT COUNT(*) FROM searchObjectsByTags(?::varchar[], ?, ?, ?, ?, ?)";
 			
 			// format: '{"picture", "photo"}' 
 			if (tags.length > 0) {
@@ -187,20 +186,15 @@ public class GeoObjectManager implements IGeoObjectManager
 				}
 				tagArrayString = tagArrayString.substring(0, tagArrayString.length()-1)+"}";
 			}
-			res = _prepareSearchStatement(sql, tagArrayString, box, countLimit);
-			res.next();
-			searchResult.setResultCount(res.getInt(1));
-			res.close();
 			
 			//Get the result set which contains the selected geoObjects.
-			sql = searchSelect+"WHERE obj_id IN (SELECT * FROM searchObjectsByTags(?::varchar[], ?, ?, ?, ?, ?))";
-
-			res = _prepareSearchStatement(sql, tagArrayString, box, displayLimit);
+			res = _prepareSearchStatement(sql, tagArrayString, box, limit+1);
 			
 			//Get the object tags for all those selected objects. Use a single query for that.
-			while (res.next()) {
+			int count = 0;
+			while (count < limit && res.next()) {
 				//Create the objects with empty tags here. (We can only loop through the result set
-				//once, therefore we have to set the tags later.
+				//once, therefore we have to set the tags later).
 				searchResult.addResultToList(new ClientGeoObject(
 					res.getLong("obj_id"),
 					res.getString("title"),
@@ -208,10 +202,12 @@ public class GeoObjectManager implements IGeoObjectManager
 					null,
 					res.getDouble("lng"),
 					res.getDouble("lat")));
+				count++;
 			}
+			if (res.next()) searchResult.setHasMore(true);
 			res.close();
 
-			if (searchResult.getResults().size() > 0)
+			if (count > 0)
 			{
 				//Fill in the tags from the database into the ClientGeoObjects.
 				queryTags(searchResult);

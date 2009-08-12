@@ -46,8 +46,8 @@ public class ObjectSearchServiceImplTest
 	{
 		BoundingBox box = new BoundingBox(15, 16, 17,18);
 		String[] tags = new String[] {"tag1", "tag2"};
-		SearchResult expectedResult = new SearchResult(10);
-		expect(geoObjManagerMock.select(aryEq(tags), eq(box), eq(50), eq(500))).andReturn(expectedResult);
+		SearchResult expectedResult = new SearchResult();
+		expect(geoObjManagerMock.select(aryEq(tags), eq(box), eq(50))).andReturn(expectedResult);
 		replay(geoObjManagerMock);
 		SearchResult actualResult = objSearchServImpl.search(box, "tag1 tag2");
 		assertEquals(expectedResult, actualResult);
