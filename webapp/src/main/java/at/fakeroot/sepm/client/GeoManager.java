@@ -59,7 +59,7 @@ public class GeoManager implements IGeoManager {
 		geoMap.addControl(logoCtl);
 
 		//SearchBox
-		MapControl searchCtl = new MapControl(searchBox, xOffset, yOffset, false, false);
+		MapControl searchCtl = new MapControl(searchBox, xOffset, yOffset, false, true);
 		searchBox.setStyleName("gwt-PopupPanel"); // style it like a PopupPanel
 		geoMap.addControl(searchCtl);
 		
