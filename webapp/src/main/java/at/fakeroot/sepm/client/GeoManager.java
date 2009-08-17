@@ -76,6 +76,7 @@ public class GeoManager implements IGeoManager {
 		fp.add(resultBox);
 		fp.add(tagCloud);
 		fp.setStyleName("gwt-PopupPanel"); // style it like a PopupPanel
+		fp.setWidth("240px");
 		
 		MapControl infoCtl = new MapControl(fp, xOffset, yOffset+70, false, false);
 		geoMap.addControl(infoCtl);
