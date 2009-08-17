@@ -1,3 +1,7 @@
+body {
+	font-size: 10px;
+}
+
 div.title {
 	font-weight: bold;
 	font-size: 115%;
@@ -18,7 +22,14 @@ table#searchBox input {
 	display: block;
 	background-repeat: no-repeat;
 	background-position: 2px center;
+	height: 27px;
+	border: 2px solid #ccf;
+	/* ie fix */
+	overflow: visible;
 }
+
+table#searchBox input.searchWhere { border-bottom-width: 1px; }
+table#searchBox input.searchWhat { border-top-width: 1px; }
 
 table#searchBox input.emptyWhere {
 	background-image: url(/images/design/searchbox/where.png);

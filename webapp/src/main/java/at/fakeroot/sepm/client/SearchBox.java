@@ -29,8 +29,10 @@ public class SearchBox extends Composite{
 	private TextBox what=new TextBox();
 	private Button searchButton = new Button("Search");
 
-	private final String emptyWhereStyle = "emptyWhere";
-	private final String emptyWhatStyle = "emptyWhat";
+	private final String whereStyle = "searchWhere";
+	private final String whatStyle = "searchWhat";
+	private final String emptyWhereStyle = "searchWhere emptyWhere";
+	private final String emptyWhatStyle = "searchWhat emptyWhat";
 
 	/**
 	 * Constructor
@@ -45,7 +47,7 @@ public class SearchBox extends Composite{
 		where.setStyleName(emptyWhereStyle);
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
-				where.setStyleName("");	
+				where.setStyleName(whereStyle);	
 			}
 		});
 		where.addBlurHandler(new BlurHandler(){
@@ -68,7 +70,7 @@ public class SearchBox extends Composite{
 		what.setStyleName(emptyWhatStyle);
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
-				what.setStyleName("");
+				what.setStyleName(whatStyle);
 			}
 		});
 		what.addBlurHandler(new BlurHandler(){
@@ -94,7 +96,7 @@ public class SearchBox extends Composite{
 
 		where.setWidth("160px");
 		what.setWidth("160px");
-		searchButton.setSize("80px","55px");
+		searchButton.setSize("80px","54px");
 		fPanel.setHeight("55px");
 		fPanel.add(where);
 		fPanel.add(what);
@@ -136,7 +138,7 @@ public class SearchBox extends Composite{
 		if (location.trim().isEmpty())
 			where.setStyleName(emptyWhereStyle);
 		else
-			where.setStyleName("");
+			where.setStyleName(whereStyle);
 		where.setText(location);
 	}
 
@@ -149,7 +151,7 @@ public class SearchBox extends Composite{
 		if (tagString.trim().isEmpty())
 			what.setStyleName(emptyWhatStyle);
 		else
-			what.setStyleName("");
+			what.setStyleName(whatStyle);
 		what.setText(tagString);
 	}
 }
