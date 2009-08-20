@@ -13,11 +13,6 @@
 	</servlet>
 	
 	<servlet>
-		<servlet-name>dbTest</servlet-name>
-		<servlet-class>at.fakeroot.sepm.server.DBTestServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
 		<servlet-name>log4j-init</servlet-name>
 		<servlet-class>at.fakeroot.sepm.shared.server.Log4jInit</servlet-class>
 	
@@ -41,11 +36,6 @@
 		<url-pattern>/geoSearch/objectsearch</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-		<servlet-name>dbTest</servlet-name>
-		<url-pattern>/geoSearch/dbTest</url-pattern>
-	</servlet-mapping>
-    
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
