@@ -44,3 +44,8 @@ table#searchBox input.emptyWhat {
 	border-top: 3px solid #C3D9FF;
 	padding: 0.1em 0.5em;
 }
+
+.error {
+	color: red;
+	font-weight: bold;
+}

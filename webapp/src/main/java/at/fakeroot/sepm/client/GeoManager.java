@@ -8,8 +8,6 @@ import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
 import at.fakeroot.sepm.shared.client.serialize.SearchResult;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -20,12 +18,9 @@ import com.google.gwt.maps.client.control.ControlAnchor;
 import com.google.gwt.maps.client.control.ControlPosition;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -95,7 +90,7 @@ public class GeoManager implements IGeoManager {
 		/*History.addValueChangeHandler(new ValueChangeHandler<String>(){
 			String oldToken="";
 			public void onValueChange(ValueChangeEvent<String> event) {
-				System.out.println("histroy: "+event.getValue());
+				System.out.println("history: "+event.getValue());
 				if(!oldToken.equals(event.getValue()))
 				{
 					String[] tokens=event.getValue().split("&");
@@ -181,6 +176,7 @@ public class GeoManager implements IGeoManager {
 						showServerError(result.getErrorMessage());
 					}
 				}
+				showErrorMessage("No Error", "Lorem ipsum...");
 			}
 		});		
 	}
@@ -218,7 +214,7 @@ public class GeoManager implements IGeoManager {
 		
 		objectSearch.getDetailHTML(geoObject.getId(), new AsyncCallback<ObjectDetails>(){
 			public void onFailure(Throwable arg0) {
-				System.err.println("" + arg0.getMessage() + " error");	
+				showErrorMessage("Couldn't get Details", arg0.getMessage());	
 			}
 
 			public void onSuccess(ObjectDetails result) {
@@ -238,35 +234,22 @@ public class GeoManager implements IGeoManager {
 
 	/**
 	 * An ErrorMessage which is displayed, if there are problems with the Server or the AsyncCallback
-	 * @param msg String the error-message
+	 * @param msg Short error description
+	 * @param detail detailed error-message to be shown in an external 
 	 */
-	public void showErrorMessage(String msg, String title) {
-		final DialogBox errBox = new DialogBox(false, true);
-		VerticalPanel vPanel = new VerticalPanel();
-		errBox.setWidget(vPanel);
-		errBox.setText(title);
-		
-		vPanel.add(new Label(msg));
-		Button ok = new Button("Ok");
-		ok.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				errBox.hide();
-			}
-		});
-		vPanel.add(ok);
-		errBox.center();
+	public void showErrorMessage(String msg, String detail) {
+		resultBox.showError(msg, detail);
 	}
 	
 	public void showServerError(String msg) {
-		showErrorMessage(msg, "Server Error!");
+		showErrorMessage("Server Error!", msg);
 	}
 	
 	/**
 	 * A DialogBox which appears, if the user enters an area which doesn't exist (e.g. 'hahahahah')
 	 */
 	public void showRegionError() {
-		showErrorMessage("The region you searched for couldn't be found!", "Region not found!");
+		showErrorMessage("Region not found!", "The region you searched for couldn't be found!");
 	}
 	
 	private void requestLinkBar() {
