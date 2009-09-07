@@ -176,7 +176,6 @@ public class GeoManager implements IGeoManager {
 						showServerError(result.getErrorMessage());
 					}
 				}
-				showErrorMessage("No Error", "Lorem ipsum...");
 			}
 		});		
 	}
