@@ -14,6 +14,7 @@ public class SearchResult implements Serializable {
 
 	private ArrayList<ClientGeoObject> result=null;
 	private String errMsg = null;
+	private String errDetail = null;
 	private boolean hasMore = false;
 	
 	/// time the search took in milliseconds
@@ -87,6 +88,22 @@ public class SearchResult implements Serializable {
 	 */
 	public void setErrorMessage(String msg) {
 		errMsg = msg;
+	}
+	
+	/**
+	 * get the detailed error message associated with this SearchResult
+	 * @return detailed error message (may contain HTML)
+	 */
+	public String getErrorDetail() {
+		return errDetail;
+	}
+	
+	/**
+	 * sets a detail message for the error
+	 * @param detail detail message (may contain HTML)
+	 */
+	public void setErrorDetail(String detail) {
+		errDetail = detail;
 	}
 	
 	/**
