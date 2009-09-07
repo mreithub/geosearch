@@ -182,16 +182,12 @@ public class GeoManager implements IGeoManager {
 
 	/**
 	 * Sets the rectangle where the search engine will search.
-	 * @param box  
+	 * @param box currently visible Map section
 	 */
-	public void setBoundingBox(BoundingBox box, boolean regionFound) {
+	public void setBoundingBox(BoundingBox box) {
 		curBoundingBox = box;
 		//Read out the what string again - it might has changed in the meantime.
 		searchByTags(searchBox.getWhat());
-		//if the user enters an area which doesn't exist (e.g. 'hahahahah') an InfoBox
-		//will be shown
-		if(regionFound == false && searchBox.getWhere().trim().length() != 0)
-			showRegionError();
 	}
 	
 	/**
@@ -236,17 +232,24 @@ public class GeoManager implements IGeoManager {
 	 * @param msg Short error description
 	 * @param detail detailed error-message to be shown in an external 
 	 */
+	@Override
 	public void showErrorMessage(String msg, String detail) {
 		resultBox.showError(msg, detail);
 	}
 	
+	/**
+	 * thin wrapper around showErrorMessage()
+	 * @param msg server error message
+	 */
+	@Override
 	public void showServerError(String msg) {
 		showErrorMessage("Server Error!", msg);
 	}
 	
 	/**
-	 * A DialogBox which appears, if the user enters an area which doesn't exist (e.g. 'hahahahah')
+	 * A DialogBox which appears if the user enters an area which doesn't exist (e.g. 'hahahahah')
 	 */
+	@Override
 	public void showRegionError() {
 		showErrorMessage("Region not found!", "The region you searched for couldn't be found!");
 	}

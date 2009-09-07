@@ -12,7 +12,7 @@ import at.fakeroot.sepm.shared.server.DBGeoObject;
 
 public class IGeoSaveImplTest
 {
-	private IGeoObjectManager mockManager;
+	private GeoObjectManager mockManager;
 	private IGeoSaveImpl geoSave;
 	private DBGeoObject geoObj;
 	
@@ -20,7 +20,7 @@ public class IGeoSaveImplTest
 	public void setUp()
 	{
 		//Create the Mock object.
-		mockManager = createStrictMock(IGeoObjectManager.class);
+		mockManager = createStrictMock(GeoObjectManager.class);
 		geoSave = new IGeoSaveImpl(mockManager);
 		
 		//Create the geo object to test with.

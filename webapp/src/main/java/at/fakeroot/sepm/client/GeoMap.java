@@ -111,6 +111,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		{
 			public void onSuccess(JsArray<Placemark> locations)
 			{
+				// TODO: if loc.length() > 1 show a selection window
 				if (locations.length() > 0)
 				{
 					blockEventHandler = true;
@@ -135,14 +136,19 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 					blockEventHandler = false;
 				}
 				
-				//Perform the search query now *after* the geo-coding has finished.
-				geoManager.setBoundingBox(getBoundingBox(), locations.length() > 0);
+				if (locations.length()>0) {
+					//Perform the search query now *after* the geo-coding has finished.
+					geoManager.setBoundingBox(getBoundingBox());
+				}
+				else {
+					geoManager.showRegionError();
+				}
 			}
 			
 			public void onFailure(int statusCode)
 			{
 				//Perform the search query now *after* the geo-coding has finished.
-				geoManager.setBoundingBox(getBoundingBox(), false);
+				geoManager.showErrorMessage("Region request error", "Couldn't request the search region! Code "+statusCode);
 			}
 		});
 	}
@@ -199,7 +205,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	{
 		if (blockEventHandler)
 			return;
-		geoManager.setBoundingBox(getBoundingBox(), true);
+		geoManager.setBoundingBox(getBoundingBox());
 		//Clear the "Where" string within the SearchBox since we changed the currently displayed map region.
 		geoManager.clearWhereString();
 	}
