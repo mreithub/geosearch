@@ -26,7 +26,9 @@ public class ResultInfoBox extends Composite
 	Label numText = new Label();
 	Label zoomText = new Label("Zoom in for further results.");
 	String errDetail = null;
-	InlineLabel durationText; 
+	InlineLabel durationText;
+	TagCloud tagCloud;
+
 
 	private class LoadingTimer extends Timer {
 		@Override
@@ -43,8 +45,9 @@ public class ResultInfoBox extends Composite
 	/**
 	 * Constructor. Sets the Layout of the Box
 	 */
-	public ResultInfoBox()
+	public ResultInfoBox(IGeoManager gm)
 	{
+		tagCloud = new TagCloud(gm);
 		FlowPanel fPanel = new FlowPanel();
 		fPanel.getElement().setId("resultInfoBox");
 		
@@ -97,6 +100,7 @@ public class ResultInfoBox extends Composite
 		fPanel.add(errText);
 		fPanel.add(numText);
 		fPanel.add(zoomText);
+		fPanel.add(tagCloud);
 		initWidget(fPanel);
 	}
 	
@@ -125,13 +129,16 @@ public class ResultInfoBox extends Composite
 			//No results
 			if(results == 0) numText.setText("No results found.");
 			//1 result
-			else if(results == 1) numText.setText("1 result");
-			else if (hasMore) {
-				numText.setText("more than " + results + " results");
-				zoomText.setVisible(true);
-			}
 			else {
+				if (results == 1) numText.setText("1 result");
+				else if (hasMore) {
+					numText.setText("more than " + results + " results");
+					zoomText.setVisible(true);
+				}
+				else {
 					numText.setText(results + " results");
+				}
+				tagCloud.refresh(result.getResults().iterator());
 			}
 		}
 

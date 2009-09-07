@@ -18,7 +18,6 @@ import com.google.gwt.maps.client.control.ControlAnchor;
 import com.google.gwt.maps.client.control.ControlPosition;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -35,7 +34,6 @@ public class GeoManager implements IGeoManager {
 	private final int yOffset=5;
 	private SearchBox searchBox;
 	private ResultInfoBox resultBox;
-	private TagCloud tagCloud;
 	private GeoMap geoMap;
 	private HTML bottomPanel;
 	private int activeSearches = 0;
@@ -46,8 +44,7 @@ public class GeoManager implements IGeoManager {
 	public GeoManager() {
 		geoMap=new GeoMap(this);
 		searchBox=new SearchBox(this);
-		tagCloud = new TagCloud(this);
-		resultBox = new ResultInfoBox();
+		resultBox = new ResultInfoBox(this);
 		bottomPanel = new HTML();
 	}
 	
@@ -67,13 +64,11 @@ public class GeoManager implements IGeoManager {
 		geoMap.addControl(searchCtl);
 		
 		// ResultInfoBox + TagCloud; 
-		FlowPanel fp = new FlowPanel();
-		fp.add(resultBox);
-		fp.add(tagCloud);
-		fp.setStyleName("gwt-PopupPanel"); // style it like a PopupPanel
-		fp.setWidth("240px");
+		//FlowPanel fp = new FlowPanel();
+		resultBox.setWidth("240px");
+		resultBox.setStyleName("gwt-PopupPanel"); // style it like a PopupPanel
 		
-		MapControl infoCtl = new MapControl(fp, xOffset, yOffset+70, false, false);
+		MapControl infoCtl = new MapControl(resultBox, xOffset, yOffset+70, false, false);
 		geoMap.addControl(infoCtl);
 		
 		// bottom Panel
@@ -170,7 +165,6 @@ public class GeoManager implements IGeoManager {
 				// only the last search will be shown
 				if (activeSearches == 0) {
 					geoMap.setPins(result.getResults());
-					tagCloud.refresh(result.getResults().iterator());
 					resultBox.refresh(result);
 					if (result.hasError()) {
 						showServerError(result.getErrorMessage());
