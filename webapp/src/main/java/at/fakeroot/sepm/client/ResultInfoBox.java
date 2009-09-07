@@ -94,6 +94,7 @@ public class ResultInfoBox extends Composite
 		});
 		
 		zoomText.setVisible(false);
+		tagCloud.setVisible(false);
 		
 		fPanel.add(durationText);
 		fPanel.add(title);
@@ -139,6 +140,7 @@ public class ResultInfoBox extends Composite
 					numText.setText(results + " results");
 				}
 				tagCloud.refresh(result.getResults().iterator());
+				tagCloud.setVisible(true);
 			}
 		}
 
@@ -150,6 +152,7 @@ public class ResultInfoBox extends Composite
 		hideError();
 		zoomText.setVisible(false);
 		durationText.setVisible(false);
+		tagCloud.setVisible(false);
 		numText.setText("Loading");
 		loadingTimer.scheduleRepeating(500);
 	}
@@ -164,7 +167,7 @@ public class ResultInfoBox extends Composite
 	public void showError(String msg, String detail) {
 		zoomText.setVisible(false);
 		numText.setVisible(false);
-
+		tagCloud.setVisible(false);
 		
 		errText.setText(msg);
 		errDetail = detail;
