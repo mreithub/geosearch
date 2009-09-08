@@ -43,8 +43,8 @@ public class GeoObjectManagerTest{
 
 		assertEquals("Karlskirche", outObj.getTitle());
 		assertEquals("http://de.wikipedia.org/wiki/Wiener_Karlskirche", outObj.getLink());
-		assertEquals(48.198247, outObj.getXPos(), delta);
-		assertEquals(16.371422, outObj.getYPos(), delta);
+		assertEquals(16.371422, outObj.getXPos(), delta);
+		assertEquals(48.198247, outObj.getYPos(), delta);
 		_compareProperties(new Property[]{new Property("description", "Beschreibung Karlskirche")}, outObj.getProperties());
 		_compareTags(new String[]{"karlskirche", "kirche", "karlsplatz", "sehenswürdigkeit"}, outObj.getTags());
 	}
@@ -179,6 +179,7 @@ public class GeoObjectManagerTest{
 		assertEquals(expected.getYPos(), actual.getYPos(), delta);
 		_compareProperties(expected.getProperties(), actual.getProperties());
 		_compareTags(expected.getTags(), actual.getTags());
+		assertEquals(expected.getValidUntil(), actual.getValidUntil());
 	}
 
 	
@@ -228,7 +229,7 @@ public class GeoObjectManagerTest{
 		tags= new String[]{"nacht", "see", "baum"};
 		prop = new Property[]{new Property("owner", "lacitot")};
 		svcId = ServiceManager.getInstance().select("example.com").getSvcId();
-		inObj = new DBGeoObject("Night", 21.440957, 48.427236, svcId, "test_panoramio", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
+		inObj = new DBGeoObject("Night", 48.427236, 21.440957, svcId, "test_panoramio", "http://www.panoramio.com/photo/1706188", java.sql.Timestamp.valueOf("2009-10-10 09:01:10"),prop, tags) ;
 	}
 	
 	@After
