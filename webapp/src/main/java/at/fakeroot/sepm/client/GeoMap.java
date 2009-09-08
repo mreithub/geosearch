@@ -25,17 +25,17 @@ import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GeoMap extends Composite implements MapMoveEndHandler
 {
-	private class LocationSelector extends PopupPanel implements ClickHandler {
+	private class LocationSelector extends DialogBox implements ClickHandler {
 		private JsArray<Placemark> locations;
 		
 		public LocationSelector(JsArray<Placemark> locations) {
-			super();
+			super(false, true);
 			VerticalPanel panel = new VerticalPanel();
 			this.locations = locations;
 			for (int i = 0; i < locations.length(); i++) {
@@ -44,6 +44,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 				btn.setTabIndex(i);
 				btn.addClickHandler(this);
 				btn.setWidth("100%");
+				btn.setStyleName("locationBtn");
 				panel.add(btn);
 			}
 			Button cancelBtn = new Button("Cancel");
@@ -54,8 +55,9 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 				}
 			});
 			panel.add(cancelBtn);
-			add(panel);
 
+			setWidget(panel);
+			setText("Please choose");
 		}
 
 		@Override
@@ -199,7 +201,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	}
 	
 	private void showLocationSelector(JsArray<Placemark> locations) {
-		PopupPanel popup = new LocationSelector(locations);
+		LocationSelector popup = new LocationSelector(locations);
 		popup.center();
 	}
 	
