@@ -13,8 +13,8 @@ import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.Control;
 import com.google.gwt.maps.client.control.ControlAnchor;
 import com.google.gwt.maps.client.control.ControlPosition;
+import com.google.gwt.maps.client.control.HierarchicalMapTypeControl;
 import com.google.gwt.maps.client.control.LargeMapControl3D;
-import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.event.MapMoveEndHandler;
 import com.google.gwt.maps.client.geocode.GeoAddressAccuracy;
 import com.google.gwt.maps.client.geocode.Geocoder;
@@ -57,7 +57,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		geoMap.addMapType(MapType.getNormalMap());
 		geoMap.addMapType(MapType.getSatelliteMap());
 		geoMap.addMapType(MapType.getPhysicalMap());
-		geoMap.addControl(new MapTypeControl());
+		geoMap.addControl(new HierarchicalMapTypeControl());
 		
 		//Set map behaviour.
 		geoMap.setDoubleClickZoom(true);
