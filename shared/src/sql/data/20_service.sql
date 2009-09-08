@@ -20,7 +20,7 @@ INSERT INTO service
 (name, title, homepage, description, stype_id, bubbleHTML, thumbnail) VALUES
 ('panoramio.com', 'Panoramio', 'http://www.panoramio.com/', 'Online-Foto-Service',
 (SELECT stype_id FROM serviceType WHERE name='picture'),
-'<img src="%photo_url%"/><br/>User: %owner%', 'images/service/panoramio.png');
+'<img height="%height%" width="%width%" src="%photo_url%"/><br/>User: %owner%', 'images/service/panoramio.png');
 
 -- Locr
 INSERT INTO service

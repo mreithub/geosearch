@@ -72,9 +72,11 @@ public class PanoramioCrawler extends ACrawler {
 			System.err.println("photoArray: "+photoArray.length());
 			DBGeoObject[] saveDBArray = new DBGeoObject[photoArray.length()];
 			for(int i=0; i<photoArray.length(); i++){
-				Property[] tmpProp = new Property[2];
+				Property[] tmpProp = new Property[4];
 				tmpProp[0]= new Property("owner", photoArray.getJSONObject(i).getString("owner_name"));
 				tmpProp[1]= new Property("photo_url", photoArray.getJSONObject(i).getString("photo_file_url"));
+				tmpProp[2] = new Property("height", photoArray.getJSONObject(i).getString("height"));
+				tmpProp[3] = new Property("width", photoArray.getJSONObject(i).getString("width"));
 				
 				ArrayList<String> tags=new ArrayList<String>();
 				parseStringIntoTags( photoArray.getJSONObject(i).getString("photo_title"), tags, true);
