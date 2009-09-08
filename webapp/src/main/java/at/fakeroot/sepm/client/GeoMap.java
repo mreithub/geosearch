@@ -8,6 +8,8 @@ import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
 
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.Control;
@@ -21,11 +23,49 @@ import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LocationCallback;
 import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GeoMap extends Composite implements MapMoveEndHandler
 {
+	private class LocationSelector extends PopupPanel implements ClickHandler {
+		private JsArray<Placemark> locations;
+		
+		public LocationSelector(JsArray<Placemark> locations) {
+			super();
+			VerticalPanel panel = new VerticalPanel();
+			this.locations = locations;
+			for (int i = 0; i < locations.length(); i++) {
+				Placemark p = locations.get(i);
+				Button btn = new Button(p.getAddress());
+				btn.setTabIndex(i);
+				btn.addClickHandler(this);
+				btn.setWidth("100%");
+				panel.add(btn);
+			}
+			Button cancelBtn = new Button("Cancel");
+			cancelBtn.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					hide();
+				}
+			});
+			panel.add(cancelBtn);
+			add(panel);
+
+		}
+
+		@Override
+		public void onClick(ClickEvent event) {
+			Button src = (Button) event.getSource();
+			setMapPosition(locations.get(src.getTabIndex()));
+			hide();
+		}
+	}
+	
 	private IGeoManager geoManager;
 	private MapWidget geoMap;
 	private Geocoder geoCoder;
@@ -111,35 +151,10 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 		{
 			public void onSuccess(JsArray<Placemark> locations)
 			{
-				// TODO: if loc.length() > 1 show a selection window
-				if (locations.length() > 0)
-				{
-					blockEventHandler = true;
-					geoMap.setCenter(locations.get(0).getPoint());
-					int resultType = locations.get(0).getAccuracy();
-					if (resultType == GeoAddressAccuracy.COUNTRY)
-						geoMap.setZoomLevel(6);
-					else if (resultType == GeoAddressAccuracy.REGION)
-						geoMap.setZoomLevel(8);
-					else if (resultType == GeoAddressAccuracy.SUB_REGION)
-						geoMap.setZoomLevel(9);
-					else if (resultType == GeoAddressAccuracy.TOWN)
-						geoMap.setZoomLevel(11);
-					else if (resultType == GeoAddressAccuracy.POSTAL_CODE)
-						geoMap.setZoomLevel(12);
-					else if (resultType == GeoAddressAccuracy.STREET)
-						geoMap.setZoomLevel(13);
-					else if (resultType == GeoAddressAccuracy.INTERSECTION)
-						geoMap.setZoomLevel(15);
-					else if (resultType == GeoAddressAccuracy.ADDRESS)
-						geoMap.setZoomLevel(16);
-					blockEventHandler = false;
+				if (locations.length() > 1) {
+					showLocationSelector(locations);
 				}
-				
-				if (locations.length()>0) {
-					//Perform the search query now *after* the geo-coding has finished.
-					geoManager.setBoundingBox(getBoundingBox());
-				}
+				else if (locations.length() == 1) setMapPosition(locations.get(0));
 				else {
 					geoManager.showRegionError();
 				}
@@ -154,6 +169,41 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	}
 	
 	/**
+	 * set the visible map area
+	 * @param p Placemark to center the map at
+	 */
+	public void setMapPosition(Placemark p) {
+		blockEventHandler = true;
+		geoMap.setCenter(p.getPoint());
+		int resultType = p.getAccuracy();
+		if (resultType == GeoAddressAccuracy.COUNTRY)
+			geoMap.setZoomLevel(6);
+		else if (resultType == GeoAddressAccuracy.REGION)
+			geoMap.setZoomLevel(8);
+		else if (resultType == GeoAddressAccuracy.SUB_REGION)
+			geoMap.setZoomLevel(9);
+		else if (resultType == GeoAddressAccuracy.TOWN)
+			geoMap.setZoomLevel(11);
+		else if (resultType == GeoAddressAccuracy.POSTAL_CODE)
+			geoMap.setZoomLevel(12);
+		else if (resultType == GeoAddressAccuracy.STREET)
+			geoMap.setZoomLevel(13);
+		else if (resultType == GeoAddressAccuracy.INTERSECTION)
+			geoMap.setZoomLevel(15);
+		else if (resultType == GeoAddressAccuracy.ADDRESS)
+			geoMap.setZoomLevel(16);
+		blockEventHandler = false;
+		
+		// inform GeoManager that the visible area has changed
+		geoManager.setBoundingBox(getBoundingBox());
+	}
+	
+	private void showLocationSelector(JsArray<Placemark> locations) {
+		PopupPanel popup = new LocationSelector(locations);
+		popup.center();
+	}
+	
+	/**
 	 * Add a pin to the map.
 	 * @param obj The ClientGeoObject which should be added.
 	 */
@@ -165,7 +215,7 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	}
 	
 	/**
-	 * Add mutliple pins to the map.
+	 * Add multiple pins to the map.
 	 * @param objList The list of ClientGeoObjects which should be added.
 	 */
 	public void addPins(List<ClientGeoObject> objList)
