@@ -122,7 +122,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	 */
 	private static ScrollPanel setSize()
 	{
-		scroll.setSize("350px", "120px");
+		scroll.setSize("350px", "150px");
 		return scroll;
 	}
 	
