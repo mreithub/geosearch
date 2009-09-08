@@ -414,7 +414,7 @@ public class GeoObjectManager implements IGeoObjectManager
 			if (valid_until != null) {
 				pstmt = dbWrite.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (currval('geoobject_obj_id_seq'),?)");
 				pstmt.setTimestamp(1, valid_until);
-				pstmt.close();
+				pstmt.executeUpdate();
 			}
 			dbWrite.commit();
 		}
@@ -483,7 +483,7 @@ public class GeoObjectManager implements IGeoObjectManager
 				pstmt = dbWrite.prepareStatement("INSERT INTO expiringObject (obj_id, valid_until) VALUES (?,?)");
 				pstmt.setLong(1, obj.getId());
 				pstmt.setTimestamp(2, valid_until);
-				pstmt.close();
+				pstmt.execute();
 			}
 			dbWrite.commit();
 		}
