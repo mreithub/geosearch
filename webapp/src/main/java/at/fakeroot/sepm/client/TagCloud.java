@@ -180,28 +180,31 @@ public class TagCloud extends Composite implements ClickHandler {
 			i = tagStat.get(tag);
 			if (i < min) min = i;
 			if (i > max && i < objectCount) max = i;
-		}
-		
-		it = c.iterator();
-		
+		}		
+
 		int fontsize = 100;
+		it = c.iterator();
 		while (it.hasNext()) {
 			tag = it.next();
-			a = new Anchor(tag);
-			a.setTitle(tag);
-			a.setHref("javascript:void()");
-
-			Element e = a.getElement();
-			if (e != null) s = e.getStyle();
-			else s = null;
-			// calculation source: German Wikipedia
-			if (max > min) fontsize = (int) (70+Math.ceil(120*(tagStat.get(tag)-min))/(max-min));
-
-			if (s != null) s.setProperty("fontSize", fontsize+"%");
-
-			a.addClickHandler(this);
-			tagPanel.add(a);
-			tagPanel.add(new InlineLabel(" ")); 
+			int freq = tagStat.get(tag);
+			
+			if (freq < objectCount) {
+				a = new Anchor(tag);
+				a.setTitle(tag);
+				a.setHref("javascript:void()");
+	
+				Element e = a.getElement();
+				if (e != null) s = e.getStyle();
+				else s = null;
+				// calculation source: German Wikipedia
+				if (max > min) fontsize = (int) (70+Math.ceil(120*(freq-min))/(max-min));
+	
+				if (s != null) s.setProperty("fontSize", fontsize+"%");
+	
+				a.addClickHandler(this);
+				tagPanel.add(a);
+				tagPanel.add(new InlineLabel(" "));
+			}
 		}
 	}
 	
