@@ -68,9 +68,6 @@ public class ResultInfoBox extends Composite
 					ScrollPanel sPanel = new ScrollPanel();
 					
 					// set the ScrollPanel's size
-					int h = (RootPanel.get().getOffsetHeight()*80)/100;
-					int w = (RootPanel.get().getOffsetWidth()*90)/100;
-					sPanel.setSize(w+"px", h+"px");
 					sPanel.add(vPanel);
 
 					errBox.setWidget(sPanel);
@@ -87,8 +84,14 @@ public class ResultInfoBox extends Composite
 					});
 					vPanel.add(ok);
 
-			//		sPanel.getElement().getStyle().setProperty("overflow", "auto");
+					int h = (RootPanel.get().getOffsetHeight()*80)/100;
+					int w = (RootPanel.get().getOffsetWidth()*90)/100;
+
 					errBox.center();
+
+					h = Math.min(sPanel.getOffsetHeight(), h);
+					w = Math.min(sPanel.getOffsetWidth(), w);
+					sPanel.setSize(w+"px", h+"px");
 				}
 			}
 		});

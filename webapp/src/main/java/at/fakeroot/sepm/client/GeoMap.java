@@ -22,6 +22,7 @@ import com.google.gwt.maps.client.geocode.GeoAddressAccuracy;
 import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LocationCallback;
 import com.google.gwt.maps.client.geocode.Placemark;
+import com.google.gwt.maps.client.geocode.StatusCodes;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -164,8 +165,15 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 			
 			public void onFailure(int statusCode)
 			{
-				//Perform the search query now *after* the geo-coding has finished.
-				geoManager.showErrorMessage("Region request error", "Couldn't request the search region! Code "+statusCode);
+				String msg = null;
+				if (statusCode == StatusCodes.UNAVAILABLE_ADDRESS
+						|| statusCode == StatusCodes.UNKNOWN_ADDRESS) { 
+					geoManager.showRegionError();
+				}
+				else {
+					msg = "Couldn't request the search region! Code "+statusCode+": "+StatusCodes.getName(statusCode);
+					geoManager.showErrorMessage("Region request error", msg);
+				}
 			}
 		});
 	}
