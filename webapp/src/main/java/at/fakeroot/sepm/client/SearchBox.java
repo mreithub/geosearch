@@ -28,6 +28,7 @@ public class SearchBox extends Composite{
 	private TextBox where=new TextBox();
 	private TextBox what=new TextBox();
 	private Button searchButton = new Button("Search");
+	private boolean whatActive = false, whereActive = false;
 
 	private final String whereStyle = "searchWhere";
 	private final String whatStyle = "searchWhat";
@@ -47,7 +48,8 @@ public class SearchBox extends Composite{
 		where.setStyleName(emptyWhereStyle);
 		where.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
-				where.setStyleName(whereStyle);	
+				where.setStyleName(whereStyle);
+				whereActive = true;
 			}
 		});
 		where.addBlurHandler(new BlurHandler(){
@@ -55,6 +57,7 @@ public class SearchBox extends Composite{
 				if(where.getText().trim().length() == 0){
 					where.setStyleName(emptyWhereStyle);
 				}
+				whereActive = false;
 			}
 		});
 		where.addKeyPressHandler(new KeyPressHandler(){
@@ -71,6 +74,7 @@ public class SearchBox extends Composite{
 		what.addFocusHandler(new FocusHandler(){
 			public void onFocus(FocusEvent fe) {
 				what.setStyleName(whatStyle);
+				whatActive = true;
 			}
 		});
 		what.addBlurHandler(new BlurHandler(){
@@ -78,6 +82,7 @@ public class SearchBox extends Composite{
 				if(what.getText().trim().length() == 0){
 					what.setStyleName(emptyWhatStyle);
 				}
+				whatActive = false;
 			}
 		});		
 		what.addKeyPressHandler(new KeyPressHandler(){
@@ -110,7 +115,14 @@ public class SearchBox extends Composite{
 	 */
 	private void performSearch()
 	{
-		geoManager.searchByLocationAndTags(getWhere());
+		if (getWhere().length() > 0) {
+			// if there's something in the where-box, search for the location first
+			geoManager.searchByLocationAndTags(getWhere());
+		}
+		else {
+			// else just search for tags
+			geoManager.searchByTags(getWhat());
+		}
 	}
 
 	/**
@@ -135,7 +147,7 @@ public class SearchBox extends Composite{
 	 * @param location 
 	 * */
 	public void setWhere(String location) {
-		if (location.trim().isEmpty())
+		if (location.trim().isEmpty() && !whereActive)
 			where.setStyleName(emptyWhereStyle);
 		else
 			where.setStyleName(whereStyle);
@@ -148,7 +160,7 @@ public class SearchBox extends Composite{
 	 * @param tagString 
 	 * */	
 	public void setWhat(String tagString){
-		if (tagString.trim().isEmpty())
+		if (tagString.trim().isEmpty() && !whatActive)
 			what.setStyleName(emptyWhatStyle);
 		else
 			what.setStyleName(whatStyle);
