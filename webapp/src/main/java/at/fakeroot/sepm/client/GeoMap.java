@@ -6,6 +6,7 @@ import java.util.List;
 
 import at.fakeroot.sepm.shared.client.serialize.BoundingBox;
 import at.fakeroot.sepm.shared.client.serialize.ClientGeoObject;
+import at.fakeroot.sepm.shared.client.serialize.ObjectDetails;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -288,11 +289,16 @@ public class GeoMap extends Composite implements MapMoveEndHandler
 	 * @param pin The pin which has been clicked.
 	 * @return The created detail view.
 	 */
-	public DetailView createDetailView(ClientGeoObject obj)
+	public void createDetailView(ClientGeoObject obj)
 	{
 		DetailView detailView=new DetailView(obj, geoManager);
 		geoMap.getInfoWindow().open(obj.getPoint(), detailView);
-		return detailView;
+	}
+	
+	public void createDetailView(ClientGeoObject obj, ObjectDetails details) {
+		DetailView detailView = new DetailView(obj, geoManager);
+		detailView.setDetail(details);
+		geoMap.getInfoWindow().open(obj.getPoint(), detailView);
 	}
 	
 	public void addControl(Control control) {

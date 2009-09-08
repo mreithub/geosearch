@@ -84,6 +84,10 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 		
 		sourceAnchor.setHref(link);
 		sourceAnchor.setVisible(true);
+		
+		int h = myVePa.getOffsetHeight();
+		h = Math.min(300, h+20);
+		scroll.setSize("350px", h+"px");
 	}
 	
 	public void setDetail(ObjectDetails details) {
@@ -118,7 +122,7 @@ public class DetailView extends InfoWindowContent implements ClickHandler{
 	 */
 	private static ScrollPanel setSize()
 	{
-		scroll.setSize("350px", "300px");
+		scroll.setSize("350px", "120px");
 		return scroll;
 	}
 	

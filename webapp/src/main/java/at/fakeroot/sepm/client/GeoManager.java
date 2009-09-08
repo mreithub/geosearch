@@ -199,15 +199,16 @@ public class GeoManager implements IGeoManager {
 	public void showDetailView(ClientGeoObject geoObject) {
 		System.out.println("showDetailView");
 		
-		final DetailView waitingDeVi = geoMap.createDetailView(geoObject);
+		geoMap.createDetailView(geoObject);
+		final ClientGeoObject obj = geoObject; 
 		
 		objectSearch.getDetailHTML(geoObject.getId(), new AsyncCallback<ObjectDetails>(){
 			public void onFailure(Throwable arg0) {
 				showErrorMessage("Couldn't get Details", arg0.getMessage());	
 			}
 
-			public void onSuccess(ObjectDetails result) {
-				waitingDeVi.setDetail(result);
+			public void onSuccess(ObjectDetails details) {
+				geoMap.createDetailView(obj, details);
 			}
 			
 		});
