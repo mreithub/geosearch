@@ -22,6 +22,12 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
 			<scope>compile</scope>
@@ -50,7 +56,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>1.1-SNAPSHOT</version>
+				<version>1.2</version>
 				<configuration>
 					<runTarget>at.fakeroot.sepm.geoSearch/index.html</runTarget>
 					<hostedWebapp>${basedir}/target/war</hostedWebapp>

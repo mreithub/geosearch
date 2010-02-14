@@ -32,9 +32,15 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
+			<artifactId>gwt-servlet</artifactId>
 			<version>${gwt.version}</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -90,11 +96,14 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>1.1</version>
-				<configuration>
-					<runTarget>/index.html</runTarget>
-					<hostedWebapp>${basedir}/target/geoSearch</hostedWebapp>
-				</configuration>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<!-- gwt:* goals to be executed during build -->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
