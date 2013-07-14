@@ -39,5 +39,5 @@ You can look at the end result at [geosearch.fakeroot.at][1].
 If you have any questions about this project, contact me either via [github][2] or at manuel (a) reithuber. net.  
 Btw.: We were five fourth-semester students at Vienna's University of Technology and we aced that course :)
 
-1: http://geosearch.fakeroot.at/
-2: https://github.com/mreithub/
+[1]: http://geosearch.fakeroot.at/
+[2]: https://github.com/mreithub/
